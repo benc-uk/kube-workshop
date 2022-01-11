@@ -14,7 +14,9 @@ az acr create --name $ACR_NAME --resource-group $RES_GROUP \
 --admin-enabled true
 ```
 
-## 📥 Import images
+> 📝 NOTE: When you pick a name for the resource with $ACR_NAME, this has to be **globally unique**, and not contain no underscores, dots or hyphens.
+
+## 📥 Import Images
 
 For the sake of speed and maintaining the focus on Kubernetes we will import pre-built images from another registry (GitHub Container Registry), rather than build them from source.
 

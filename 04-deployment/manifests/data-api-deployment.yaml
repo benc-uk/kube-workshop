@@ -1,0 +1,33 @@
+kind: Deployment
+apiVersion: apps/v1
+
+metadata:
+  name: data-api
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-api
+  template:
+    metadata:
+      labels:
+        app: data-api
+    spec:
+      containers:
+        - name: data-api-container
+
+          image: ${ACR_NAME}.azurecr.io/smilr/data-api
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 4000
+
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+
+          env:
+            - name: MONGO_CONNSTR
+              value: mongodb://${MONGODB_POD_IP}

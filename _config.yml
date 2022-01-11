@@ -1,6 +1,7 @@
 title: "Kubernetes Workshop"
 description: "Technical workshop to get hands on with Kubernetes"
 remote_theme: benc-uk/theme-msdark
+hide_github: true
 buttons:
   - b0:
     text: Main Guide
