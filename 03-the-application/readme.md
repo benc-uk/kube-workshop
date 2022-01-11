@@ -4,7 +4,7 @@ The application is called 'Smilr' and provides users with a way to vote and prov
 
 [Smilr main repo](https://github.com/benc-uk/smilr)
 
-The application consists of some lightweight microservices / single page application. It follows the classic pattern for running single page apps:
+The application consists of some lightweight microservices / single page application, it is written in Node.js + Express and Vue.js. THe design follows the classic pattern for running single page apps:
 
 - A frontend service serving static content + configuration API.
 - A "backend" data API service for the frontend to consume.
