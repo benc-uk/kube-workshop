@@ -1,1 +1,6 @@
-theme: jekyll-theme-minimal
+title: "Kubernetes Workshop"
+remote_theme: benc-uk/theme-msdark
+buttons:
+  - b0:
+    text: Main Guide
+    href: https://code.benco.io/kube-workshop

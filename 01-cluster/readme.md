@@ -1,8 +1,8 @@
-# 🚀 Deploy Kubernetes
+# 🚦 Deploy Kubernetes
 
 Deploying AKS and Kubernetes can be extremely complex, however for the purposes of this workshop, a default and basic cluster can be deployed very quickly.
 
-## 🧩 AKS Cluster Deployment
+## 🚀 AKS Cluster Deployment
 
 The following commands can be used to quickly deploy the cluster
 
@@ -11,10 +11,10 @@ The following commands can be used to quickly deploy the cluster
 az group create --name $RES_GROUP --location $REGION
 
 # Create cluster
-az aks create --resource-group $RES_GROUP \ 
---name $AKS_NAME \ 
---location $REGION \ 
---node-count 2 --node-vm-size Standard_B2ms \ 
+az aks create --resource-group $RES_GROUP \
+--name $AKS_NAME \
+--location $REGION \
+--node-count 2 --node-vm-size Standard_B2ms \
 --kubernetes-version 1.22.4 \
 --verbose
 ```

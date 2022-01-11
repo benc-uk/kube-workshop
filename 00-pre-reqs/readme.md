@@ -31,12 +31,13 @@ The rest of this workshop assumes you have access to Azure, and have the Azure C
 
 Although not essential it's advised to create a `vars.sh` file holding all the parameters that will be common across many of the commands that will be run. This way you have a single point of reference for them and they can be easily reset in the event of a session timing out or terminal closed
 
-Sample `vars.sh` file is shown below, feel free to use any values you wish for the resource group, region cluster name etc. To use the file simply source it with `source vars.sh`, do this before moving to the next stage.
-
+Sample `vars.sh` file is shown below, feel free to use any values you wish for the resource group, region cluster name etc. To use the file simply source it with `source vars.sh`, do this before moving to the next stage. 
 
 ```bash
 RES_GROUP="kube-workshop"
 REGION="westeurope"
-AKS_NAME="akscluster"
-ACR_NAME="bencwsacr"
+AKS_NAME="__change_me__"
+ACR_NAME="__change_me__"
 ```
+
+> Note. The ACR name must be globally unique and not contain dashes or dots
