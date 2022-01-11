@@ -34,9 +34,11 @@ az acr import --name $ACR_NAME --resource-group $RES_GROUP \
 --image smilr/data-api:latest
 ```
 
+If you wish to check and see imported images, you can go over to the ACR resource in the Azure portal, and into the 'Repositories' section.
+
 ## 🔌 Connect AKS to ACR
 
-There are a number of ways to enable Kubernetes to pull images from a private registry, however AKS provides a simple way to configure this through the Azure CLI.
+Kuberenetes requires a way to authenticate and access images stored in private registries. There are a number of ways to enable Kubernetes to pull images from a private registry, however AKS provides a simple way to configure this through the Azure CLI.
 
 ```bash
 az aks update --name $AKS_NAME --resource-group $RES_GROUP \

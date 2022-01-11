@@ -1,4 +1,5 @@
 title: "Kubernetes Workshop"
+description: "Technical workshop to get hands on with Kubernetes"
 remote_theme: benc-uk/theme-msdark
 buttons:
   - b0:

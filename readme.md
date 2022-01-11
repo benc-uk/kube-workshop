@@ -12,4 +12,5 @@ Index
 
 - [Workshop Pre Requisites](00-pre-reqs/readme.md) - Covering the pre set up and tools that will be needed.
 - [Deploying The Cluster](01-cluster/readme.md) - Deploying AKS, setting up kubectl and accessing the cluster
-- [Container Registry](02-container-registry/readme.md) - Deploying the registrying and importing or building images
+- [Container Registry](02-container-registry/readme.md) - Deploying the registry and importing images
+- [Overview Of The Application](03-the-application/readme.md) - Details of the application to be deployed
