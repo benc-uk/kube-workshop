@@ -13,11 +13,11 @@ We'll apply configurations to Kubernetes using kubectl and YAML manifest files. 
 If you want to take this workshop slowly and research how to do this in order to build the required YAML yourself, you can use [the Kubernetes docs](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and the following hints:
 
 - `Deployment` should be used with a single replica.
-- The image to be run is `mongo:latest`.
+- The image to be run is `mongo:latest`. Note: This is not really part of our app, it's the the public MongoDB image hosted on Dockerhub.
 - The port **27017** should be exposed from the container.
 - Do not worry about persistence or using a `Service` at this point.
 
-Alternatively you can use the YAML below, don't worry this isn't cheating, in the real world nobody writes Kubernetes manifests from scratch 🙂
+Alternatively you can use the YAML below, don't worry this isn't cheating, in the real world everyone is too busy to write Kubernetes manifests from scratch 😉
 
 <details markdown="1">
 <summary>Click here for the MongoDB deployment YAML</summary>
@@ -72,6 +72,63 @@ If successful you will see `deployment.apps/mongodb created`, this will have cre
 
 Get used to these commands you will use them a LOT when working with Kubernetes.
 
+For the next part we'll need the IP address of the pod, you can get this by running `kubectl get pod -o wide` or the command below
+
 ```bash
 kubectl describe pod --selector app=mongodb | grep ^IP:
+```
+
+## 🗃️ Deploying The Data API
+
+Next we'll deploy the first custom part of our app, the data API. Once again you can try building the deployment yourself or use the provided YAML
+
+- The image needs to be `${ACR_NAME}.azurecr.io/smilr/data-api` where `${ACR_NAME}` should be replaced in the YAML with your real value.
+- The port exposed from the container should be **4000**
+- An environmental variable called `MONGO_CONNSTR` should be passed to the container, with the connection string to connect to the MongoDB, which will be `mongodb://${MONGODB_POD_IP}` where `${MONGODB_POD_IP}` should be replaced in the YAML with the value you just got
+
+<details markdown="1">
+<summary>Click here for the MongoDB deployment YAML</summary>
+
+```yaml
+kind: Deployment
+apiVersion: apps/v1
+
+metadata:
+  name: data-api
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-api
+  template:
+    metadata:
+      labels:
+        app: data-api
+    spec:
+      containers:
+        - name: data-api-container
+
+          image: ${ACR_NAME}.azurecr.io/smilr/data-api
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 4000
+
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+
+          env:
+            - name: MONGO_CONNSTR
+              value: mongodb://${MONGODB_POD_IP}
+```
+
+</details>
+
+Paste this into a file `data-api-deployment.yaml` and make the changes described above, **you can not use this YAML as is**, and then run:
+
+```bash
+kubectl apply -f data-api.deployment.yaml
 ```
