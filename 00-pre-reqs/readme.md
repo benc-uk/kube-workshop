@@ -40,4 +40,6 @@ AKS_NAME="__change_me__"
 ACR_NAME="__change_me__"
 ```
 
+It's worth creating a project folder locally (or even a git repo) at this pount, in order to work from if you haven't done so already. We'll be creating & editing files later
+
 > Note. The ACR name must be globally unique and not contain dashes or dots
