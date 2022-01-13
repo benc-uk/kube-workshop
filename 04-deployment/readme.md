@@ -1,4 +1,4 @@
-# 📦 Deploying The App - Part 1
+# 🚀 Deploying The App - Part 1
 
 We'll deploy the app piece by piece, and at first we'll deploy & configure things in a very sub-optimal way. This is in order to explore the Kubernetes concepts and show their purpose. Then we'll iterate and improve towards the final architecture.
 
@@ -72,7 +72,7 @@ If successful you will see `deployment.apps/mongodb created`, this will have cre
 
 Get used to these commands you will use them a LOT when working with Kubernetes.
 
-For the next part we'll need the IP address of the pod, you can get this by running `kubectl get pod -o wide` or the command below
+For the next part we'll need the IP address of the pod that was just deployed, you can get this by running `kubectl get pod -o wide` or the command below
 
 ```bash
 kubectl describe pod --selector app=mongodb | grep ^IP:
@@ -80,7 +80,7 @@ kubectl describe pod --selector app=mongodb | grep ^IP:
 
 ## 🗃️ Deploying The Data API
 
-Next we'll deploy the first custom part of our app, the data API. Once again you can try building the deployment yourself or use the provided YAML
+Next we'll deploy the first custom part of our app, the data API, and we'll deploy it from an image hosted in our private registry. Once again you can try building the deployment yourself or use the provided YAML
 
 - The image needs to be `${ACR_NAME}.azurecr.io/smilr/data-api` where `${ACR_NAME}` should be replaced in the YAML with your real value.
 - The port exposed from the container should be **4000**
@@ -127,8 +127,24 @@ spec:
 
 </details>
 
-Paste this into a file `data-api-deployment.yaml` and make the changes described above, **you can not use this YAML as is**, and then run:
+Paste this into a file `data-api-deployment.yaml` and make the changes described above, **remember you can not use this YAML as is**, and then run:
 
 ```bash
 kubectl apply -f data-api.deployment.yaml
 ```
+
+Check the status as before with `kubectl` and it's worth checking the logs with `kubectl logs {podname}` to see the output from the app as it starts up. 
+
+## ⏩ Accessing the Data API (The quick & dirty way)
+
+Now it would be nice to access and call this API, to check it's working. But the IP address of the pod is private and only accessible from within the cluster. In the next section we'll fix that, but for now there's a short-cut we can use. 
+
+Kubernetes provides a way to "tunnel" network traffic into the cluster through the control plane, this is done with the `kubectl port-forward` command
+
+By running:
+
+```
+kubectl port-forward {podname} 4000:4000
+```
+
+And then accessing the following URL http://localhost:4000/api/info we should see a JSON response with some status and debug information from the API. Clearly this isn't a way to expose your apps long term, but can be extremely useful when debugging and triaging issues.

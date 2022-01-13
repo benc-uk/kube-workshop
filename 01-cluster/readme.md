@@ -1,4 +1,4 @@
-# 🚦 Deploy Kubernetes
+# 🚦 Deploying Kubernetes
 
 Deploying AKS and Kubernetes can be extremely complex, however for the purposes of this workshop, a default and basic cluster can be deployed very quickly.
 
@@ -36,7 +36,7 @@ To enable kubectl (and other tools) to access the cluster:
 az aks get-credentials --name $AKS_NAME --resource-group $RES_GROUP
 ```
 
-Now you can run some simple `kubectl` commands
+Now you can run some simple `kubectl` commands to validate the health and status of your cluster:
 
 ```bash
 # Get all nodes in the cluster

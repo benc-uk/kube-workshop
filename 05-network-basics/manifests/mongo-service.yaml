@@ -1,12 +1,16 @@
 kind: Service
 apiVersion: v1
+
 metadata:
-  name: app-db
+  name: database
+
 spec:
   type: ClusterIP
+
+  selector:
+    app: mongodb
+
   ports:
     - protocol: TCP
       port: 27017
       targetPort: 27017
-  selector:
-    app: mongodb

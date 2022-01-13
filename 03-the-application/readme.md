@@ -1,4 +1,4 @@
-# ❇️ The Application
+# ❇️ Overview Of The Application
 
 The application is called 'Smilr' and provides users with a way to vote and provide feedback on events and other sessions (e.g. hacks, meetups) they have attended. In addition administrators have way to configure events and view the feeback that has been provided.
 
