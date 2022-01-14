@@ -1,7 +1,9 @@
-title: "⚒️☸️ Kubernetes Workshop"
+title: "Kubernetes Workshop"
 description: "Technical workshop to get hands on with Kubernetes"
 remote_theme: benc-uk/theme-msdark
 hide_github: true
+hide_tagline: true
+favicon: https://kubernetes.io/images/favicon.png
 buttons:
   - b0:
     text: Main Guide

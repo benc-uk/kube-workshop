@@ -26,9 +26,9 @@ This creates a cluster with the following characteristics:
 - No addons enabled, e.g. monitoring, AAD integration, auto-scaling, GitOps etc
 
 The `az aks create` command has [MANY options](https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az-aks-create) for example, you many wish to skip the use of SSH keys with `--no-ssh-key` as they won't be needed.  
-Additionally you may wish to change the size or number of nodes, this clearly has cost implications.
+Additionally you may wish to change the size or number of nodes, however this clearly has cost implications.
 
-## 🔌 Connect to the cluster
+## 🔌 Connect to the Cluster
 
 To enable kubectl (and other tools) to access the cluster:
 

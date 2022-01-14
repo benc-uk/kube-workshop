@@ -12,10 +12,10 @@ We'll apply configurations to Kubernetes using kubectl and YAML manifest files. 
 
 If you want to take this workshop slowly and research how to do this in order to build the required YAML yourself, you can use [the Kubernetes docs](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and the following hints:
 
-- `Deployment` should be used with a single replica.
+- *Deployment* should be used with a single replica.
 - The image to be run is `mongo:latest`. Note: This is not really part of our app, it's the the public MongoDB image hosted on Dockerhub.
 - The port **27017** should be exposed from the container.
-- Do not worry about persistence or using a `Service` at this point.
+- Do not worry about persistence or using a *Service* at this point.
 
 Alternatively you can use the YAML below, don't worry this isn't cheating, in the real world everyone is too busy to write Kubernetes manifests from scratch 😉
 
@@ -62,7 +62,7 @@ Paste this into a file `mongo-deployment.yaml` and then run:
 kubectl apply -f mongo.deployment.yaml
 ```
   
-If successful you will see `deployment.apps/mongodb created`, this will have created one `Deployment` and one `Pod`. You can check the status of your cluster with a few commands:
+If successful you will see `deployment.apps/mongodb created`, this will have created one *Deployment* and one <abbr title="The smallest and simplest Kubernetes object. A Pod represents a set of running containers on your cluster">*Pod*</abbr>. You can check the status of your cluster with a few commands:
 
 - `kubectl get deployment` - List the deployments, you should see 1/1 in ready status.
 - `kubectl get pod` - List the pods, you should see one prefixed `mongodb-` with a status of *Running*
@@ -80,7 +80,7 @@ kubectl describe pod --selector app=mongodb | grep ^IP:
 
 ## 🗃️ Deploying The Data API
 
-Next we'll deploy the first custom part of our app, the data API, and we'll deploy it from an image hosted in our private registry. Once again you can try building the deployment yourself or use the provided YAML
+Next we'll deploy the first custom part of our app, the data API, and we'll deploy it from an image hosted in our private registry. Once again you can try building the *Deployment* yourself or use the provided YAML
 
 - The image needs to be `${ACR_NAME}.azurecr.io/smilr/data-api` where `${ACR_NAME}` should be replaced in the YAML with your real value.
 - The port exposed from the container should be **4000**
@@ -137,7 +137,9 @@ Check the status as before with `kubectl` and it's worth checking the logs with 
 
 ## ⏩ Accessing the Data API (The quick & dirty way)
 
-Now it would be nice to access and call this API, to check it's working. But the IP address of the pod is private and only accessible from within the cluster. In the next section we'll fix that, but for now there's a short-cut we can use. 
+Now it would be nice to access and call this API, to check it's working. But the IP address of the <abbr title="The smallest and simplest Kubernetes object. A Pod represents a set of running containers on your cluster">*Pod*</abbr> is private and only accessible from within the cluster. In the next section we'll fix that, but for now there's a short-cut we can use. 
+
+
 
 Kubernetes provides a way to "tunnel" network traffic into the cluster through the control plane, this is done with the `kubectl port-forward` command
 
