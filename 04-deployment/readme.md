@@ -139,8 +139,6 @@ Check the status as before with `kubectl` and it's worth checking the logs with 
 
 Now it would be nice to access and call this API, to check it's working. But the IP address of the <abbr title="The smallest and simplest Kubernetes object. A Pod represents a set of running containers on your cluster">*Pod*</abbr> is private and only accessible from within the cluster. In the next section we'll fix that, but for now there's a short-cut we can use. 
 
-
-
 Kubernetes provides a way to "tunnel" network traffic into the cluster through the control plane, this is done with the `kubectl port-forward` command
 
 By running:
@@ -150,3 +148,9 @@ kubectl port-forward {podname} 4000:4000
 ```
 
 And then accessing the following URL http://localhost:4000/api/info we should see a JSON response with some status and debug information from the API. Clearly this isn't a way to expose your apps long term, but can be extremely useful when debugging and triaging issues.
+
+## 🖼️ Cluster & Architecture Diagram
+
+The resources deployed into the cluster & in Azure at this stage can be visualized as follows:
+
+![architecture diagram](./diagram.png)
