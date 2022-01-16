@@ -55,6 +55,8 @@ kubectl get svc
 kubesctl describe svc {service-name}
 ```
 
+> 📝 NOTE: The service called 'kubernetes' exists in every namespace and is placed there automatically, you can ignore it.
+
 ## ➡️ Connect the API to MongoDB Service
 
 Now we have a Service in our cluster for MongoDB we can access the database using DNS rather than pod IP and if the pod(s) die or restart or move; this name remains constant. DNS with Kubernetes is a complex topic we won't get into here, the main takeway for now is:
@@ -104,7 +106,7 @@ Using `kubectl get svc` check the status and wait for the external IP to be assi
 
 Clearly this is better than what we had before, but in production you would never expose traffic directly into your pods like this, so we can improve this further but for now it will suffice
 
-## Cluster & Architecture Diagram
+## 🖼️ Cluster & Architecture Diagram
 
 The resources deployed into the cluster & in Azure at this stage can be visualized as follows:
 
