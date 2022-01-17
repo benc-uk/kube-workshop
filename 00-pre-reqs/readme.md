@@ -23,7 +23,10 @@ curl -s https://raw.githubusercontent.com/benc-uk/tools-install/master/azure-cli
 curl -s https://raw.githubusercontent.com/benc-uk/tools-install/master/helm.sh | bash
 ```
 
-If you are stuck you can use the Azure Cloud Shell https://shell.azure.com/bash which has all of these tools except VS Code.
+If you are stuck, there are some other options to explore:
+
+- Use the Azure Cloud Shell https://shell.azure.com/bash which has all of these tools except VS Code.
+- Go to the repo for this workshop on GitHub https://github.com/benc-uk/kube-workshop/codespaces and create a new Codespace.
 
 The rest of this workshop assumes you have access to Azure, and have the Azure CLI working & signed into the tenant & subscription you will be using.
 

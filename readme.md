@@ -16,3 +16,4 @@ Sections:
 - [❇️ Overview Of The Application](03-the-application/readme.md) - Details of the application to be deployed.
 - [🚀 Deploying The App - Part 1](04-deployment/readme.md) - Laying down the first two components and introduction to Deployments and Pods.
 - [🌐 Basic Networking](05-network-basics/readme.md) - Introducing Services to provide network access.
+- [💻 Adding The Frontend](06-frontend/readme.md) - Deploying the frontend to the app and wiring it up.

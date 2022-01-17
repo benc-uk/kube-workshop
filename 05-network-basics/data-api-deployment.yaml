@@ -25,4 +25,4 @@ spec:
 
           env:
             - name: MONGO_CONNSTR
-              value: mongodb://admin:supersecret@{MONGODB_POD_IP}
+              value: mongodb://admin:supersecret@database

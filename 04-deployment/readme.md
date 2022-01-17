@@ -16,6 +16,7 @@ If you want to take this workshop slowly and research how to do this in order to
 - The image to be run is `mongo:latest`. Note: This is not really part of our app, it's the the public MongoDB image hosted on Dockerhub.
 - The port **27017** should be exposed from the container.
 - Do not worry about persistence or using a *Service* at this point.
+- Pass `MONGO_INITDB_ROOT_USERNAME` and `MONGO_INITDB_ROOT_PASSWORD` environmental vars to the container setting the username to "admin" and password to "supersecret". 
 
 Alternatively you can use the YAML below, don't worry this isn't cheating, in the real world everyone is too busy to write Kubernetes manifests from scratch 😉
 
@@ -48,10 +49,11 @@ spec:
           ports:
             - containerPort: 27017
 
-          resources:
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: admin
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: supersecret
 ```
 
 </details>
@@ -82,12 +84,12 @@ kubectl describe pod --selector app=mongodb | grep ^IP:
 
 Next we'll deploy the first custom part of our app, the data API, and we'll deploy it from an image hosted in our private registry. Once again you can try building the *Deployment* yourself or use the provided YAML
 
-- The image needs to be `${ACR_NAME}.azurecr.io/smilr/data-api` where `${ACR_NAME}` should be replaced in the YAML with your real value.
+- The image needs to be `{ACR_NAME}.azurecr.io/smilr/data-api` where `{ACR_NAME}` should be replaced in the YAML with your real value.
 - Set the number of replicas to **2**.
 - The port exposed from the container should be **4000**
-- An environmental variable called `MONGO_CONNSTR` should be passed to the container, with the connection string to connect to the MongoDB, which will be `mongodb://${MONGODB_POD_IP}` where `${MONGODB_POD_IP}` should be replaced in the YAML with the value you just got
+- An environmental variable called `MONGO_CONNSTR` should be passed to the container, with the connection string to connect to the MongoDB, which will be `mongodb://admin:supersecret@${MONGODB_POD_IP}` where `{MONGODB_POD_IP}` should be replaced in the YAML with the value you just got
 - Label the pods with `app: data-api`
-- 
+  
 <details markdown="1">
 <summary>Click here for the MongoDB deployment YAML</summary>
 
@@ -111,23 +113,20 @@ spec:
       containers:
         - name: data-api-container
 
-          image: ${ACR_NAME}.azurecr.io/smilr/data-api
+          image: {ACR_NAME}.azurecr.io/smilr/data-api
           imagePullPolicy: Always
 
           ports:
             - containerPort: 4000
 
-          resources:
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
-
           env:
             - name: MONGO_CONNSTR
-              value: mongodb://${MONGODB_POD_IP}
+              value: mongodb://admin:supersecret@{MONGODB_POD_IP}
 ```
 
 </details>
+
+**💥 Notice:** We have the password in plain text within the connection string! This clearly is a very bad practice, we will fix this at a later stage when we introduce Kubernetes *Secrets*
 
 Paste this into a file `data-api-deployment.yaml` and make the changes described above, **remember you can not use this YAML as is**, and then run:
 
@@ -137,7 +136,7 @@ kubectl apply -f data-api.deployment.yaml
 
 Check the status as before with `kubectl` and it's worth checking the logs with `kubectl logs {podname}` to see the output from the app as it starts up. 
 
-This time we've set the number of replicas to two, if you run `kubectl get pods -o wide` you will see which node(s) the Pods have been scheduled (assigned) to. You should see each Pod has been scheduled to difference nodes, but this is not guaranteed. Pod scheduling and placement is a fairly complex topic, for now we can move on.
+This time we've set the number of replicas to two, if you run `kubectl get pods -o wide` you will see which node(s) the Pods have been scheduled (assigned) to. You should see each Pod has been scheduled to different nodes, but this is not guaranteed. Pod scheduling and placement is a fairly complex topic, for now we can move on.
 
 ## ⏩ Accessing the Data API (The quick & dirty way)
 

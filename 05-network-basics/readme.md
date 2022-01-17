@@ -8,7 +8,7 @@ Kubernetes solves this with *Services*, which act as a network abstraction over 
 
 Now to put a *Service* in front of the MongoDB pods, if you want to create the service YAML yourself, you can [refer to the Kubernetes docs](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service)
 
-- The type of `Service` should be `ClusterIP` which means it's internal to the cluster only
+- The type of *Service* should be `ClusterIP` which means it's internal to the cluster only
 - The service port should be **27017**
 - The target port should be **27017**
 - Selector decides what pods are behind the service, in this case use the label `app` and the value `mongodb`
@@ -64,7 +64,7 @@ Now we have a Service in our cluster for MongoDB we can access the database usin
 - Every *Service* in the cluster can be resolved over DNS
 - Within a *Namespace*, the *Service* name will resolve as is, [but other scenarios also are supported](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/).
 
-Edit the the `data-api-deployment.yaml` file you created previously and change the value of the `MONGO_CONNSTR` environmental variable. Replace the IP address with name of the service, e.g. `mongodb://database`
+Edit the the `data-api-deployment.yaml` file you created previously and change the value of the `MONGO_CONNSTR` environmental variable. Replace the IP address with name of the service, e.g. the connection sting should look like `mongodb://admin:supersecret@database`
 
 You can update the active deployment with these changes by re-running `kubectl apply -f data-api-deployment.yaml`, Kuberenetes will perform a rolling update, if you are quick and run `kubectl get pods` you might see it taking place, i.e. a new pod starting & the old one terminating. Again you can check the status and the logs using `kubectl`
 
