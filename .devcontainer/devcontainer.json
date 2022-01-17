@@ -1,0 +1,21 @@
+{
+  "image": "ubuntu:latest",
+
+  "features": {
+    "kubectl-helm-minikube": {
+      "version": "latest",
+      "helm": "latest",
+      "minikube": "none"
+    },
+    "common": {
+      "username": "vscode",
+      "uid": "1000",
+      "gid": "1000",
+      "installZsh": true,
+      "installOhMyZsh": true
+    },
+    "azure-cli": "latest"
+  },
+
+  "remoteUser": "vscode"
+}

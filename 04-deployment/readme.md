@@ -83,9 +83,11 @@ kubectl describe pod --selector app=mongodb | grep ^IP:
 Next we'll deploy the first custom part of our app, the data API, and we'll deploy it from an image hosted in our private registry. Once again you can try building the *Deployment* yourself or use the provided YAML
 
 - The image needs to be `${ACR_NAME}.azurecr.io/smilr/data-api` where `${ACR_NAME}` should be replaced in the YAML with your real value.
+- Set the number of replicas to **2**.
 - The port exposed from the container should be **4000**
 - An environmental variable called `MONGO_CONNSTR` should be passed to the container, with the connection string to connect to the MongoDB, which will be `mongodb://${MONGODB_POD_IP}` where `${MONGODB_POD_IP}` should be replaced in the YAML with the value you just got
-
+- Label the pods with `app: data-api`
+- 
 <details markdown="1">
 <summary>Click here for the MongoDB deployment YAML</summary>
 
@@ -97,7 +99,7 @@ metadata:
   name: data-api
 
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: data-api
@@ -135,13 +137,15 @@ kubectl apply -f data-api.deployment.yaml
 
 Check the status as before with `kubectl` and it's worth checking the logs with `kubectl logs {podname}` to see the output from the app as it starts up. 
 
+This time we've set the number of replicas to two, if you run `kubectl get pods -o wide` you will see which node(s) the Pods have been scheduled (assigned) to. You should see each Pod has been scheduled to difference nodes, but this is not guaranteed. Pod scheduling and placement is a fairly complex topic, for now we can move on.
+
 ## ⏩ Accessing the Data API (The quick & dirty way)
 
-Now it would be nice to access and call this API, to check it's working. But the IP address of the <abbr title="The smallest and simplest Kubernetes object. A Pod represents a set of running containers on your cluster">*Pod*</abbr> is private and only accessible from within the cluster. In the next section we'll fix that, but for now there's a short-cut we can use. 
+Now it would be nice to access and call this API, to check it's working. But the IP address of the *Pods* are private and only accessible from within the cluster. In the next section we'll fix that, but for now there's a short-cut we can use. 
 
 Kubernetes provides a way to "tunnel" network traffic into the cluster through the control plane, this is done with the `kubectl port-forward` command
 
-By running:
+Pick the name of either one of the two data-api pods, and run:
 
 ```
 kubectl port-forward {podname} 4000:4000
