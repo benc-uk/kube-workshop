@@ -1,4 +1,4 @@
-# 🚀 Deploying The App - Part 1
+# 🚀 Deploying The Backend
 
 We'll deploy the app piece by piece, and at first we'll deploy & configure things in a very sub-optimal way. This is in order to explore the Kubernetes concepts and show their purpose. Then we'll iterate and improve towards the final architecture.
 
