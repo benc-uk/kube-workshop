@@ -83,7 +83,7 @@ As before, the there are changes that are required to the supplied YAML, replaci
 
 Once the external IP for the frontend is assigned (check with `kubectl get svc`), go to that IP in your browser and the app should load. 
 
-<image src="./screenshot.png" style="width:800px">
+<image src="./screenshot.png" style="width:800px" />
 
 If you want to play around, you can go to the admin page, add an event. And try out the feedback and reports. Or simply be happy the app is functional and move on.
 
