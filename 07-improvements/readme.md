@@ -108,7 +108,7 @@ kubectl create secret generic mongo-creds \
       key: connection-string      
 ```
 
-> 📝 NOTE: *Secrets* are encrypted at rest by AKS however anyone with the relevant access to the cluster will be able to read the secrets (they are simply in base-64) using kubectl or the Kubernetes API. If you want further encryption and isolation a number of options are available including Mozilla SOPS, Hashicorp Vault and Azure KeyVault.
+> 📝 NOTE: *Secrets* are encrypted at rest by AKS however anyone with the relevant access to the cluster will be able to read the *Secrets* (they are simply in base-64) using kubectl or the Kubernetes API. If you want further encryption and isolation a number of options are available including Mozilla SOPS, Hashicorp Vault and Azure KeyVault.
 
 ## 🔍 Reference Manifests
 
@@ -116,4 +116,5 @@ If you get stuck and want working manifests you can refer to, they are available
 
 - [data-api-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/data-api-deployment.yaml)
 - [frontend-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/frontend-deployment.yaml)
-- [mongo-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/mongo-deployment.yaml)
+- [mongo-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/mongo-deployment.yaml) 
+  - Bonus: This manifest shows to add a readiness probe using a command, rather than HTTP, use it if you wish, but it's optional.

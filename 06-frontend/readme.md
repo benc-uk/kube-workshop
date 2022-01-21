@@ -79,6 +79,14 @@ spec:
 
 As before, the there are changes that are required to the supplied YAML, replacing anything inside `{ }` with a corresponding real value. Save the two files `frontend-deployment.yaml` and `frontend-service.yaml`
 
+## 💡 Accessing and Using the App
+
+Once the external IP for the frontend is assigned (check with `kubectl get svc`), go to that IP in your browser and the app should load. 
+
+<image src="./screenshot.png" style="width:800px">
+
+If you want to play around, you can go to the admin page, add an event. And try out the feedback and reports. Or simply be happy the app is functional and move on.
+
 ## 🖼️ Cluster & Architecture Diagram
 
 The resources deployed into the cluster & in Azure at this stage can be visualized as follows:
