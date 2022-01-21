@@ -4,7 +4,7 @@ This is a hands-on, technical workshop intended to get comfortable working with 
 
 This workshop is very much designed for software engineers & developers with little or zero Kubernetes experience, but wish to get hands on and learn how to deploy and manage applications. It is not focused on the management, network configuration & day-2 operations of Kubernetes so some aspect may not be relevant to dedicated platform/infrastructure engineers.
 
-The application will be one that has already been designed, written and built, so no application code will need to be written. 
+The application used will be one that has already been written and built, so no application code will need to be written. 
 
 The workshop will use Azure Kubernetes Service (AKS) and assumes a relative degree of comfort in using Azure.
 
@@ -18,3 +18,5 @@ Sections:
 - [🌐 Basic Networking](05-network-basics/readme.md) - Introducing Services to provide network access.
 - [💻 Adding The Frontend](06-frontend/readme.md) - Deploying the frontend to the app and wiring it up.
 - [✨ Improving The Deployment](07-improvements/readme.md) - Adding resource limits, probes and secrets
+- [✨ Ingress & Helm](08-improvements/readme.md) - Adding resource limits, probes and secrets
+- [✨ Advanced & Stretch](07-improvements/readme.md) - Adding resource limits, probes and secrets
