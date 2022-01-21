@@ -79,3 +79,10 @@ spec:
 
 As before, the there are changes that are required to the supplied YAML, replacing anything inside `{ }` with a corresponding real value. Save the two files `frontend-deployment.yaml` and `frontend-service.yaml`
 
+## 🖼️ Cluster & Architecture Diagram
+
+The resources deployed into the cluster & in Azure at this stage can be visualized as follows:
+
+![architecture diagram](./diagram.png)
+
+Notice we have **two public IPs**, the `LoadBalancer` service type is not an instruction to Azure to deploy an entire Azure Load Balancer, instead it's used to create a new public IP and assign it to the single Azure Load Balancer (created by AKS) that sits in front of the cluster. We'll refine this later when we look at ingress

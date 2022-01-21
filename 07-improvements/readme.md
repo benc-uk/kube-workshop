@@ -72,7 +72,7 @@ readinessProbe:
 
 Add these sections to your deployment YAML files, at the same level in the YAML as the resources block. Reapply to the cluster with `kubectl` as before, and check the status and that the pods start up.
 
-If you run `kubectl get pods` immediately after the apply, you should see that the pods status will be "Running", but will show "0/1" in the ready column, until the probe runs for the first time.
+If you run `kubectl get pods` immediately after the apply, you should see that the pods status will be "Running", but will show "0/1" in the ready column, until the probe runs & passes for the first time.
 
 ## 🔐 Secrets
 
@@ -110,4 +110,10 @@ kubectl create secret generic mongo-creds \
 
 > 📝 NOTE: *Secrets* are encrypted at rest by AKS however anyone with the relevant access to the cluster will be able to read the secrets (they are simply in base-64) using kubectl or the Kubernetes API. If you want further encryption and isolation a number of options are available including Mozilla SOPS, Hashicorp Vault and Azure KeyVault.
 
-## Reference Manifests
+## 🔍 Reference Manifests
+
+If you get stuck and want working manifests you can refer to, they are available here:
+
+- [data-api-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/data-api-deployment.yaml)
+- [frontend-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/frontend-deployment.yaml)
+- [mongo-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/mongo-deployment.yaml)
