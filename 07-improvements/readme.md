@@ -1,13 +1,13 @@
 # ✨ Improving The Deployment
 
-We've cut more than a few corners so far in order to simplify things and introduce concepts one at a time, now is a good time to make some simple improvements. 
+We've cut more than a few corners so far in order to simplify things and introduce concepts one at a time, now is a good time to make some simple improvements. We'll also pick up the pace a little with a slightly less hand holding.
 
 ## 🌡️ Resource Requests & Limits
 
 We have not given Kubernetes any information on the resources (CPU & memory) our applications require, but we can do this two ways:
 
-- **Resource requests**: Used by the Kubernetes scheduler to help assign *Pods* to a node with sufficient resources. This is only used when starting & scheduling pods, and not enforced after they start.
-- **Resource limits**: *Pods* will be prevented from using more resources than their assigned limits. These limits are enforced and can result in a *Pod* being terminated. It's highly recommended to set limits to prevent one workload from monopolizing cluster resources and starving other workloads.
+- **Resource requests**: Used by the Kubernetes scheduler to help assign _Pods_ to a node with sufficient resources. This is only used when starting & scheduling pods, and not enforced after they start.
+- **Resource limits**: _Pods_ will be prevented from using more resources than their assigned limits. These limits are enforced and can result in a _Pod_ being terminated. It's highly recommended to set limits to prevent one workload from monopolizing cluster resources and starving other workloads.
 
 It's worth reading the [Kubernetes documentation on this topic](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/), especially on the units & specifiers used for memory and CPU.
 
@@ -43,8 +43,8 @@ Add these sections to your deployment YAML files, and reapply to the cluster wit
 
 Probes are Kubernetes' way of checking the health of your workloads. There are two main types of probe:
 
-- **Liveness probe**: Checks if the *Pod* is alive, *Pods* that fail this probe will be terminated and restarted.
-- **Readiness probe**: Checks if the *Pod* is ready to accept traffic, *Services* only sends traffic to *Pods* in a ready state.
+- **Liveness probe**: Checks if the _Pod_ is alive, _Pods_ that fail this probe will be terminated and restarted.
+- **Readiness probe**: Checks if the _Pod_ is ready to accept traffic, _Services_ only sends traffic to _Pods_ in a ready state.
 
 You can [read more about probes at the kubernetes documentation.](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/). Also [this blog post has some excellent advice around probes](https://srcco.de/posts/kubernetes-liveness-probes-are-dangerous.html), and covers some of the pitfalls of using them, particularly liveness probes.
 
@@ -76,9 +76,9 @@ If you run `kubectl get pods` immediately after the apply, you should see that t
 
 ## 🔐 Secrets
 
-Remember how we had the MongoDB password visible in plain text in two of our deployment YAML manifests? Now is the time to address that, we can create a Kubernetes *Secret*, which is a configuration resource which can be used to store sensitive information.
+Remember how we had the MongoDB password visible in plain text in two of our deployment YAML manifests? Now is the time to address that, we can create a Kubernetes _Secret_, which is a configuration resource which can be used to store sensitive information.
 
-*Secrets* can be created using a YAML file just like every resource in Kubernetes, but instead we'll used the `kubectl create` command to imperatively create the resource from the command line, as follows:
+_Secrets_ can be created using a YAML file just like every resource in Kubernetes, but instead we'll used the `kubectl create` command to imperatively create the resource from the command line, as follows:
 
 ```bash
 kubectl create secret generic mongo-creds \
@@ -86,9 +86,9 @@ kubectl create secret generic mongo-creds \
 --from-literal connection-string=mongodb://admin:supersecret@database
 ```
 
-*Secrets* can contain multiple keys, here we add two keys one for the password called `admin-password`, and one for the connection string called `connection-string`, both reside in the new *Secret* called `mongo-creds`
+_Secrets_ can contain multiple keys, here we add two keys one for the password called `admin-password`, and one for the connection string called `connection-string`, both reside in the new _Secret_ called `mongo-creds`
 
-*Secrets* can use used a number of ways, but the easiest way is to consume them, is as environmental variables passed into your containers. Update the deployment YAML for your data API, and MongoDB, replace the references to `MONGO_INITDB_ROOT_PASSWORD` and `MONGO_CONNSTR` as shown below:
+_Secrets_ can use used a number of ways, but the easiest way is to consume them, is as environmental variables passed into your containers. Update the deployment YAML for your data API, and MongoDB, replace the references to `MONGO_INITDB_ROOT_PASSWORD` and `MONGO_CONNSTR` as shown below:
 
 ```yaml
 # Place this in MongoDB deployment, replacing existing reference to MONGO_INITDB_ROOT_PASSWORD
@@ -96,7 +96,7 @@ kubectl create secret generic mongo-creds \
   valueFrom:
     secretKeyRef:
       name: mongo-creds
-      key: admin-password      
+      key: admin-password
 ```
 
 ```yaml
@@ -105,10 +105,10 @@ kubectl create secret generic mongo-creds \
   valueFrom:
     secretKeyRef:
       name: mongo-creds
-      key: connection-string      
+      key: connection-string
 ```
 
-> 📝 NOTE: *Secrets* are encrypted at rest by AKS however anyone with the relevant access to the cluster will be able to read the *Secrets* (they are simply in base-64) using kubectl or the Kubernetes API. If you want further encryption and isolation a number of options are available including Mozilla SOPS, Hashicorp Vault and Azure KeyVault.
+> 📝 NOTE: _Secrets_ are encrypted at rest by AKS however anyone with the relevant access to the cluster will be able to read the _Secrets_ (they are simply base-64 encoded) using kubectl or the Kubernetes API. If you want further encryption and isolation a number of options are available including Mozilla SOPS, Hashicorp Vault and Azure KeyVault.
 
 ## 🔍 Reference Manifests
 
@@ -116,5 +116,5 @@ If you get stuck and want working manifests you can refer to, they are available
 
 - [data-api-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/data-api-deployment.yaml)
 - [frontend-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/frontend-deployment.yaml)
-- [mongo-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/mongo-deployment.yaml) 
-  - Bonus: This manifest shows to add a readiness probe using a command, rather than HTTP, use it if you wish, but it's optional.
+- [mongo-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/mongo-deployment.yaml)
+  - Bonus: This manifest shows to add a readiness probe using a command, rather than HTTP, add it if you wish, but it's optional.
