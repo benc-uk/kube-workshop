@@ -94,7 +94,7 @@ To resolve the data persistence issues, we need do three things:
 
 The relationships between these in AKS and Azure, can be explained with a diagram
 
-![](https://docs.microsoft.com/en-us/azure/aks/media/concepts-storage/persistent-volume-claims.png)
+![](https://docs.microsoft.com/azure/aks/media/concepts-storage/persistent-volume-claims.png)
 
 _PersistentVolumes_, _PersistentVolumeClaims_ & _StorageClasses_ etc are a deep and complex topic in Kubernetes, if you want begin reading about them there's [masses of information in the docs](https://kubernetes.io/docs/concepts/storage/persistent-volumes/). However it is suggested for now simply take the YAML below:
 
@@ -239,12 +239,14 @@ Kubernetes Features:
 - [ConfigMaps](https://kubernetes.io/docs/concepts/configuration/configmap/)
 - [Debugging Pods with shell access and exec](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)
 - Assigning Pods to Nodes with [selectors](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/) and [taints](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
+- [Cluster Autoscaler in AKS](https://docs.microsoft.com/azure/aks/cluster-autoscaler)
 
 Other Projects:
 
 - Enabling TLS with certificates from Let's Encrypt using [Cert Manager](https://cert-manager.io/docs/)
 - Observability
   - With [Prometheus](https://artifacthub.io/packages/helm/prometheus-community/prometheus) & [Grafana](https://artifacthub.io/packages/helm/grafana/grafana)
-  - Using [AKS monitoring add-on](https://docs.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-overview)
+  - Using [AKS monitoring add-on](https://docs.microsoft.com/azure/azure-monitor/containers/container-insights-overview)
 - Using [Dapr](https://dapr.io/) for building portable and reliable microservices
-- Adding a service mesh such as [Linkerd](https://linkerd.io/) or [Open Service Mesh](https://docs.microsoft.com/en-us/azure/aks/open-service-mesh-about)
+- Adding a service mesh such as [Linkerd](https://linkerd.io/) or [Open Service Mesh](https://docs.microsoft.com/azure/aks/open-service-mesh-about)
+- Setting up the [Application Gateway Ingress Controller (AGIC)](https://docs.microsoft.com/azure/application-gateway/ingress-controller-overview)

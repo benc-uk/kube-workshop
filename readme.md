@@ -18,5 +18,7 @@ Sections / modules:
 - [🌐 Basic Networking](05-network-basics/readme.md) - Introducing Services to provide network access.
 - [💻 Adding The Frontend](06-frontend/readme.md) - Deploying the frontend to the app and wiring it up.
 - [✨ Improving The Deployment](07-improvements/readme.md) - Adding resource limits, probes and secrets.
-- [🌎 Ingress & Helm](08-helm-ingress/readme.md) - Finalizing the application using ingress.
-- [🤯 Stretch & Bonus Topics](09-extra-advanced/readme.md) - Bonus advanced topics, stretch goals and other exercises.
+- [🌎 Helm & Ingress](08-helm-ingress/readme.md) - Finalizing the application using ingress.
+- [🤯 Optional Advanced Topics](09-extra-advanced/readme.md) - Bonus section, with some optional concepts and other exercises.
+
+If you get stuck, the [GitHub repo for this workshop](https://github.com/benc-uk/kube-workshop) contains example and working files for most of the sections

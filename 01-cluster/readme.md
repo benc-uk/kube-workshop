@@ -22,7 +22,7 @@ az aks create --resource-group $RES_GROUP \
 This should take around 5 minutes to complete, and creates a new AKS cluster with the following characteristics:
 
 - Two small B-Series _Nodes_ in a single node pool. _Nodes_ are what your workloads will be running on.
-- Basic 'Kubenet' networking (Azure CNI is not required for this workshop). [See docs if you wish to learn more](https://docs.microsoft.com/en-us/azure/aks/operator-best-practices-network)
+- Basic 'Kubenet' networking (Azure CNI is not required for this workshop). [See docs if you wish to learn more](https://docs.microsoft.com/azure/aks/operator-best-practices-network)
 - Local cluster admin account, with RBAC enabled, this means we don't need to worry about setting up users or assigning roles etc.
 - AKS provide a wide range of 'turn key' addons, e.g. monitoring, AAD integration, auto-scaling, GitOps etc, however we'll not require for any of these enabled.
 
