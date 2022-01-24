@@ -6,5 +6,5 @@ hide_tagline: true
 favicon: https://kubernetes.io/images/favicon.png
 buttons:
   - b0:
-    text: Guide Top Level
+    text: Workshop Index
     href: https://code.benco.io/kube-workshop
