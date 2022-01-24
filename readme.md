@@ -2,11 +2,11 @@
 
 This is a hands-on, technical workshop intended to get comfortable working with Kubernetes and deploying & configuring applications. It should hopefully take roughly 5~6 hours. This workshop is intended partial as a companion to this [Kubernetes Technical Primer](https://github.com/benc-uk/kube-primer) which can be read or used to get an initial grounding on the concepts.
 
-This workshop is very much designed for software engineers & developers with little or zero Kubernetes experience, but wish to get hands on and learn how to deploy and manage applications. It is not focused on the management, network configuration & day-2 operations of Kubernetes so some aspect may not be relevant to dedicated platform/infrastructure engineers.
+This workshop is very much designed for software engineers & developers with little or zero Kubernetes experience, but wish to get hands on and learn how to deploy and manage applications. It is not focused on the adminstration, network configuration & day-2 operations of Kubernetes itself, so some aspects may not be relevant to dedicated platform/infrastructure engineers.
 
 The application used will be one that has already been written and built, so no application code will need to be written.
 
-The workshop will use Azure Kubernetes Service (AKS) and assumes a relative degree of comfort in using Azure sections 2 and 3.
+The workshop will use Azure Kubernetes Service (AKS) and assumes a relative degree of comfort in using Azure for sections 2 and 3.
 
 Sections / modules:
 

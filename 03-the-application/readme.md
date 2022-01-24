@@ -1,5 +1,7 @@
 # ❇️ Overview Of The Application
 
+This section simply serves as an introduction to the application, there are no tasks to be carried out.
+
 The application is called 'Smilr' and provides users with a way to vote and provide feedback on events and other sessions (e.g. hacks, meetups) they have attended. In addition administrators have way to configure events and view the feeback that has been provided.
 
 [Smilr main repo](https://github.com/benc-uk/smilr)

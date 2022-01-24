@@ -8,7 +8,7 @@ From here we will be creating and editing files, so it's worth creating a projec
 
 ## 🍃 Deploying MongoDB
 
-We'll apply configurations to Kubernetes using kubectl and YAML manifest files. These files will describe the objects we want to create, modify and delete in the cluster.
+We'll apply configurations to Kubernetes using `kubectl` and YAML manifest files. These files will describe the objects we want to create, modify and delete in the cluster.
 
 If you want to take this workshop slowly and research how to do this in order to build the required YAML yourself, you can use [the Kubernetes docs](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and the following hints:
 
