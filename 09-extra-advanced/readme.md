@@ -1,15 +1,15 @@
 # 🤯 Optional Advanced Topics
 
-This final section touches on some slightly more advanced and optional concepts we've skipped over. They aren't required to get a basic app up & running, but might come up in practice.
+This final section touches on some slightly more advanced and optional concepts we've skipped over. They aren't required to get a basic app up & running, but generally come up in practice and real world use of Kubernetes.
 
-Feel free to do a much or as little here as you wish, or skip over this if you don't have time.
+Feel free to do as much or as little of this section as you wish.
 
 ## 📈 Scaling
 
-Scaling is a very common topic and is always required in some form to meet business demand, handle peak load and maintain application performance. There's fundamentally two approaches: manually scaling and using dynamic auto-scaling. Along side that there is both:
+Scaling is a very common topic and is always required in some form to meet business demand, handle peak load and maintain application performance. There's fundamentally two approaches: manually scaling and using dynamic auto-scaling. Along side that there are two dimensions to consider:
 
 - **Horizonal scaling**: This is scaling the number of application _Pods_, within the limits of the resources available in the cluster.
-- **Vertical or cluster scaling**: This is scaling the number of _Nodes_ in the cluster, and therefore the total resources available. We won't be looking at this.
+- **Vertical or cluster scaling**: This is scaling the number of _Nodes_ in the cluster, and therefore the total resources available. We won't be looking at this here, but a link is [provided below](#-extra-reading--exercises) if you want to know more.
 
 Scaling stateless applications manually can be as simple as running the command to update the number of replicas in a _Deployment_, for example:
 
@@ -220,7 +220,7 @@ Save it as `my-values.yaml`, then run a command to tell Helm to fetch any depend
 helm dependency update ./smilr
 ```
 
-Finally you are ready to deploy the Smilr app using Helm, the release name can be anything you wish, and you should point to the local directory where the chart has been downloaded and extracted:
+Finally we are ready to deploy the Smilr app using Helm, the release name can be anything you wish, and you should point to the local directory where the chart has been downloaded and extracted:
 
 ```
 helm install myapp ./smilr --values my-values.yaml

@@ -48,7 +48,7 @@ An [ingress controller](https://kubernetes.io/docs/concepts/services-networking/
 
 - The controller is simply an instance of a HTTP reverse proxy running in one or mode _Pods_ with a _Service_ in front of it.
 - It implements the [Kubernetes controller pattern](https://kubernetes.io/docs/concepts/architecture/controller/#controller-pattern) scanning for _Ingress_ resources to be created in the cluster, when it finds one, it reconfigures itself based on the rules and configuration within that _Ingress_, in order to route traffic.
-- There are [MANY ingress controllers available](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/#additional-controllers) but we will use a very common and simple one, the NGNIX ingress controller maintained by the Kubernetes project
+- There are [MANY ingress controllers available](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/#additional-controllers) but we will use a very common and simple one, the [NGINX ingress controller](https://kubernetes.github.io/ingress-nginx/) maintained by the Kubernetes project
 
 Helm greatly simplifies setting this up, down to a single command. Run the following:
 
@@ -58,11 +58,11 @@ helm install my-ingress ingress-nginx/ingress-nginx \
   --set controller.replicaCount=2
 ```
 
-- The release name is `my-ingress` which can be anything you wish, it's typically used by charts to name or prefix the created resources such as _Pods_
+- The release name is `my-ingress` which can be anything you wish, it's typically used by charts to name or prefix the created resources such as _Pods_.
 - The second parameter is a reference to the chart, in the form of `repo-name/chart-name`, if we wanted to use a local chart we'd simply reference the path to the chart directory.
-- The `--set` part is where we can pass in values to the release, in this case we increase the replicas to two, purely as.
+- The `--set` part is where we can pass in values to the release, in this case we increase the replicas to two, purely as an example.
 
-Check the status of both the pods and services with `kubectl get svc,pods --namespace ingress`, check the pods are running and the service has an external public IP.
+Check the status of both the pods and services with `kubectl get svc,pods --namespace ingress`, ensure the pods are running and the service has an external public IP.
 
 You can also use the `helm` command, here's some simple and common commands:
 
@@ -74,7 +74,7 @@ You can also use the `helm` command, here's some simple and common commands:
 
 ## 🔀 Reconfiguring The App With Ingress
 
-Now we can modify the app we've deployed to route through the new ingress, but a few simple changes are required first. As the ingress controller will be routing all requests, the services in front of the deployments can be switched back to internal
+Now we can modify the app we've deployed to route through the new ingress, but a few simple changes are required first. As the ingress controller will be routing all requests, the services in front of the deployments can be switched back to internal.
 
 - Edit both the data API & frontend **service** YAML manifests, change the service type to `ClusterIP` then reapply with `kubectl apply`
 - Edit the frontend **deployment** YAML manifest, change the `API_ENDPOINT` environmental variable to use the same origin URI `/api` no need for a scheme or host.
@@ -140,3 +140,5 @@ Go to this IP in your browser, if you check the "About" screen and click the "Mo
 We've reached the final state of the application deployment. The resources deployed into the cluster & in Azure at this stage can be visualized as follows:
 
 ![architecture diagram](./diagram.png)
+
+This is a slightly simplified version, and the Deployment objects are not shown.
