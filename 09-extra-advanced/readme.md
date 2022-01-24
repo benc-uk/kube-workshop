@@ -220,7 +220,7 @@ Save it as `my-values.yaml`, then run a command to tell Helm to fetch any depend
 helm dependency update ./smilr
 ```
 
-Finally you are ready to deploy the Smilr app, the release name can be anything you wish, and you should point to the local directory where the chart has been downloaded and extracted:
+Finally you are ready to deploy the Smilr app using Helm, the release name can be anything you wish, and you should point to the local directory where the chart has been downloaded and extracted:
 
 ```
 helm install myapp ./smilr --values my-values.yaml
@@ -234,12 +234,11 @@ This final section is simply a list of potential topics and configurations you m
 
 Kubernetes Features:
 
-- https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
-- https://kubernetes.io/docs/concepts/workloads/controllers/job/
-- https://kubernetes.io/docs/concepts/configuration/configmap/
-- https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/
-- https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
-- https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
+- [Init containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
+- [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/)
+- [ConfigMaps](https://kubernetes.io/docs/concepts/configuration/configmap/)
+- [Debugging Pods with shell access and exec](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)
+- Assigning Pods to Nodes with [selectors](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/) and [taints](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
 
 Other Projects:
 
