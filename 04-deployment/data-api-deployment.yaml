@@ -17,7 +17,7 @@ spec:
       containers:
         - name: data-api-container
 
-          image: {ACR_NAME}.azurecr.io/smilr/data-api
+          image: {ACR_NAME}.azurecr.io/smilr/data-api:stable
           imagePullPolicy: Always
 
           ports:

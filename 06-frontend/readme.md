@@ -1,17 +1,17 @@
 # 💻 Adding The Frontend
 
-We've ignored the frontend until this point, with the API and backend in place we are finally ready to deploy it. We need to use a *Deployment* and *Service* just as before. We can pick up the pace a little and setup everything we need in one go.
+We've ignored the frontend until this point, with the API and backend in place we are finally ready to deploy it. We need to use a _Deployment_ and _Service_ just as before. We can pick up the pace a little and setup everything we need in one go.
 
 For the Deployment:
 
-- The image needs to be `{ACR_NAME}.azurecr.io/smilr/frontend`.
+- The image needs to be `{ACR_NAME}.azurecr.io/smilr/frontend:stable`.
 - The port exposed from the container should be **3000**
 - An environmental variable called `API_ENDPOINT` should be passed to the container, this needs to be a URL and should point to the external IP of the API from the previous part, as follows `http://{API_EXTERNAL_IP}/api`
 - Label the pods with `app: frontend`
 
 For the Service:
 
-- The type of *Service* should be `LoadBalancer` same as the data API.
+- The type of _Service_ should be `LoadBalancer` same as the data API.
 - The service port should be **80**
 - The target port should be **3000**
 - Use the label `app` and the value `frontend` for the selector
@@ -41,7 +41,7 @@ spec:
       containers:
         - name: frontend-container
 
-          image: {ACR_NAME}.azurecr.io/smilr/frontend
+          image: {ACR_NAME}.azurecr.io/smilr/frontend:stable
           imagePullPolicy: Always
 
           ports:
@@ -53,7 +53,6 @@ spec:
 ```
 
 </details>
-
 
 <details markdown="1">
 <summary>Click here for the frontend service YAML</summary>
@@ -81,7 +80,7 @@ As before, the there are changes that are required to the supplied YAML, replaci
 
 ## 💡 Accessing and Using the App
 
-Once the external IP for the frontend is assigned (check with `kubectl get svc`), go to that IP in your browser and the app should load. 
+Once the external IP for the frontend is assigned (check with `kubectl get svc`), go to that IP in your browser and the app should load.
 
 <image src="./screenshot.png" style="width:800px" />
 

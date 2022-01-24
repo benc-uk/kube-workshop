@@ -27,13 +27,13 @@ To do so we use the `az acr import` command:
 ```bash
 # Import application frontend container image
 az acr import --name $ACR_NAME --resource-group $RES_GROUP \
---source ghcr.io/benc-uk/smilr/frontend:latest \
---image smilr/frontend:latest
+--source ghcr.io/benc-uk/smilr/frontend:stable:stable \
+--image smilr/frontend:stable:stable
 
 # Import application data API container image
 az acr import --name $ACR_NAME --resource-group $RES_GROUP \
---source ghcr.io/benc-uk/smilr/data-api:latest \
---image smilr/data-api:latest
+--source ghcr.io/benc-uk/smilr/data-api:stable:stable \
+--image smilr/data-api:stable:stable
 ```
 
 If you wish to check and see imported images, you can go over to the ACR resource in the Azure portal, and into the 'Repositories' section.
@@ -47,4 +47,4 @@ az aks update --name $AKS_NAME --resource-group $RES_GROUP \
 --attach-acr $ACR_NAME
 ```
 
-Essentially this command is just assigning the "ACR Pull" role in Azure IAM to the managed identity used by AKS, on the ACR resource. 
+Essentially this command is just assigning the "ACR Pull" role in Azure IAM to the managed identity used by AKS, on the ACR resource.

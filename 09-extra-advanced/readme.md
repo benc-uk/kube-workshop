@@ -1,4 +1,8 @@
-# Stuff
+# 🤯 Optional Advanced Topics
+
+This final section touches on some slightly more advanced and optional concepts we've skipped over. They aren't required to get a basic app up & running, but might come up in practice.
+
+Feel free to do a much or as little here as you wish, or skip over this if you don't have time.
 
 ## 📈 Scaling
 
@@ -168,6 +172,80 @@ spec:
 Save as `mongo-statefulset.yaml` remove the old deployment with `kubectl delete deployment mongodb` and apply the new `mongo-statefulset.yaml` file. Some comments:
 
 - When you run `kubectl get pods` you will see the pod name ends `-0` rather than the random hash.
-- Running `kubectl get pv,pvc` you will see the new _PersistentVolume_ and _PersistentVolumeClaim_ that have been created. The _Pod_ might take a little while to start while the volume is "bound" to the _Pod_
+- Running `kubectl get pv,pvc` you will see the new _PersistentVolume_ and _PersistentVolumeClaim_ that have been created. The _Pod_ might take a little while to start while the volume is created, and is "bound" to the _Pod_
 
 If you repeat the experiment above, you should see that the data is maintained after you delete the `mongodb-0` pod and it restarts.
+
+## 💥 Installing The App with Helm
+
+The Smilr app we have been working with, comes with a Helm chart, which you can take a look at here: https://github.com/benc-uk/smilr/tree/master/kubernetes/helm/smilr
+
+With this we can deploy the entire app, all the deployments, pods, services, ingress etc with a single command, naturally if we were to have done this from the beginning there wouldn't have been much scope for learning!
+
+However as this is the final section, now might be a good time to try it. Due to some limitations (mainly the lack of public DNS), only one deployment of the app can function at any given time. So you will need to remove what have currently deployed, by running:
+
+```
+kubectl delete deploy,sts,svc,ingress --all
+```
+
+Fetch the chart and download it locally, this is because the chart isn't published in a Helm repo:
+
+```bash
+curl -sL https://github.com/benc-uk/smilr/releases/download/2.9.8/smilr-chart.tar.gz | tar -zx
+```
+
+Create a values file for your release:
+
+```yaml
+registryPrefix: {ACR_NAME}.azurecr.io/
+
+ingress:
+  className: nginx
+
+dataApi:
+  imageTag: stable
+  replicas: 2
+
+frontend:
+  imageTag: stable
+  replicas: 1
+
+mongodb:
+  enabled: true
+```
+
+Save it as `my-values.yaml`, then run a command to tell Helm to fetch any dependencies. In this case the Smilr chart uses the [Bitnami MongoDB chart](https://github.com/bitnami/charts/tree/master/bitnami/mongodb). To fetch/update this simply run:
+
+```bash
+helm dependency update ./smilr
+```
+
+Finally you are ready to deploy the Smilr app, the release name can be anything you wish, and you should point to the local directory where the chart has been downloaded and extracted:
+
+```
+helm install myapp ./smilr --values my-values.yaml
+```
+
+Validate the deployment as before with `helm` and `kubectl` and check you can access the app in the browser
+
+## 📚 Extra Reading & Exercises
+
+This final section is simply a list of potential topics and configurations you may want to look at next:
+
+Kubernetes Features:
+
+- https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+- https://kubernetes.io/docs/concepts/workloads/controllers/job/
+- https://kubernetes.io/docs/concepts/configuration/configmap/
+- https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/
+- https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
+- https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
+
+Other Projects:
+
+- Enabling TLS with certificates from Let's Encrypt using [Cert Manager](https://cert-manager.io/docs/)
+- Observability
+  - With [Prometheus](https://artifacthub.io/packages/helm/prometheus-community/prometheus) & [Grafana](https://artifacthub.io/packages/helm/grafana/grafana)
+  - Using [AKS monitoring add-on](https://docs.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-overview)
+- Using [Dapr](https://dapr.io/) for building portable and reliable microservices
+- Adding a service mesh such as [Linkerd](https://linkerd.io/) or [Open Service Mesh](https://docs.microsoft.com/en-us/azure/aks/open-service-mesh-about)
