@@ -82,9 +82,7 @@ As before, the there are changes that are required to the supplied YAML, replaci
 
 Once the external IP for the frontend is assigned (check with `kubectl get svc`), go to that IP in your browser and the app should load.
 
-<image src="./screenshot.png" style="width:800px" />
-
-If you want to play around, you can go to the admin page, add an event. And try out the feedback and reports. Or simply be happy the app is functional and move on.
+If you want to spend a few minutes using the app, you can go to the "Admin" page, add a new event, the details don't matter but make the date range to include the current date. And try out the feedback view and reports. Or simply be happy the app is functional and move on.
 
 ## 🖼️ Cluster & Architecture Diagram
 
@@ -92,4 +90,4 @@ The resources deployed into the cluster & in Azure at this stage can be visualiz
 
 ![architecture diagram](./diagram.png)
 
-Notice we have **two public IPs**, the `LoadBalancer` service type is not an instruction to Azure to deploy an entire Azure Load Balancer, instead it's used to create a new public IP and assign it to the single Azure Load Balancer (created by AKS) that sits in front of the cluster. We'll refine this later when we look at ingress
+Notice we have **two public IPs**, the `LoadBalancer` service type is not an instruction to Azure to deploy an entire Azure Load Balancer, instead it's used to create a new public IP and assign it to the single Azure Load Balancer (created by AKS) that sits in front of the cluster. We'll refine this later when we look at setting up an ingress.
