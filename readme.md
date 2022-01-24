@@ -17,6 +17,6 @@ Sections / modules:
 - [🚀 Deploying The Backend](04-deployment/readme.md) - Laying down the first two components and introduction to Deployments and Pods.
 - [🌐 Basic Networking](05-network-basics/readme.md) - Introducing Services to provide network access.
 - [💻 Adding The Frontend](06-frontend/readme.md) - Deploying the frontend to the app and wiring it up.
-- [✨ Improving The Deployment](07-improvements/readme.md) - Adding resource limits, probes and secrets
-- [🌎 Ingress & Helm](08-helm-ingress/readme.md) - Adding resource limits, probes and secrets
-- [🤯 Stretch & Bonus Topics](xx-blah/readme.md) - Adding resource limits, probes and secrets
+- [✨ Improving The Deployment](07-improvements/readme.md) - Adding resource limits, probes and secrets.
+- [🌎 Ingress & Helm](08-helm-ingress/readme.md) - Finalizing the application using ingress.
+- [🤯 Stretch & Bonus Topics](09-extra-advanced/readme.md) - Bonus advanced topics, stretch goals and other exercises.

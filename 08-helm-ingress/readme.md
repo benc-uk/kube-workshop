@@ -62,7 +62,15 @@ helm install my-ingress ingress-nginx/ingress-nginx \
 - The second parameter is a reference to the chart, in the form of `repo-name/chart-name`, if we wanted to use a local chart we'd simply reference the path to the chart directory.
 - The `--set` part is where we can pass in values to the release, in this case we increase the replicas to two, purely as.
 
-Check the status of both the pods and services with `kubectl get svc,pods --namespace ingress`, check the pods are running and the service has an external public IP, make a note of this IP we'll be using it later.
+Check the status of both the pods and services with `kubectl get svc,pods --namespace ingress`, check the pods are running and the service has an external public IP.
+
+You can also use the `helm` command, here's some simple and common commands:
+
+- `helm ls` or `helm ls -A` - List releases or list releases in all namespaces.
+- `helm upgrade {release-name} {chart}` - Upgrade/update a release to apply changes. Add `--install` to perform an install if the release doesn't exist.
+- `--dry-run` - Add this switch to install or upgrade commands to get a view of the resources and YAML that would be created, without applying them to the cluster.
+- `helm get values {release-name}` - Get the values that were used to deploy a release.
+- `helm delete {release-name}` - Remove the release and all the resources.
 
 ## 🔀 Reconfiguring The App With Ingress
 
@@ -88,25 +96,47 @@ metadata:
     name: my-app
 
 spec:
+  # Important we leave this blank, as we don't have DNS configured
+  # Blank means these rules will match ALL HTTP requests hitting the controller IP
+  host:
+  # This is important and required since Kubernetes 1.22
   ingressClassName: nginx
   rules:
     - http:
         paths:
+          # Routing for the frontend
           - pathType: Prefix
             path: "/"
             backend:
               service:
                 name: frontend
                 port:
-                  number: 3000
+                  number: 80
 
+          # Routing for the API
           - pathType: Prefix
             path: "/api"
             backend:
               service:
                 name: data-api
                 port:
-                  number: 4000
+                  number: 80
 ```
 
 </details>
+
+Save this as `ingress.yaml` and apply the same as before with `kubectl`, validate the status with
+
+```bash
+kubectl get ingress
+```
+
+It may take it a minute for it to be assigned an address, note the address will be the same as the external IP of the ingress-controller (`kubectl get svc -n ingress | grep LoadBalancer`)
+
+Go to this IP in your browser, if you check the "About" screen and click the "More Details" link it should take you to the API, which should be served from the same IP as the frontend.
+
+## 🖼️ Cluster & Architecture Diagram
+
+We've reached the final state of the application deployment. The resources deployed into the cluster & in Azure at this stage can be visualized as follows:
+
+![architecture diagram](./diagram.png)
