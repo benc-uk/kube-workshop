@@ -6,15 +6,15 @@ For this section we'll touch on two slightly more advanced topics, the key ones 
 
 So far we've worked in a single _Namespace_ called `default`, but Kubernetes allows you create additional _Namespaces_ in order to logically group and separate your resources.
 
-> 📝 NOTE: Namespaces do not provide network isolation or a way to segregate apps in a multi-tenanted fashion, the underlying resources (Nodes) remain shared. There are ways to achieve these outcomes but it's far beyond the scope of this workshop.
+> 📝 NOTE: Namespaces do not provide a network boundary or isolation of workloads, and the underlying resources (Nodes) remain shared. There are ways to achieve these outcomes, but is well beyond the scope of this workshop.
 
-Create a new namespace for the ingress we will be deploying:
+Create a new namespace called `ingress`:
 
 ```bash
 kubectl create namespace ingress
 ```
 
-Namespaces are simple idea but they can trip you up, you will have to add `--namespace` or `-n` to any `kubectl` commands you want to use against a particular namespace. The following alias can be helpful to change to a particular namespace as the default for all `kubectl` commands, meaning you don't need to add `-n` thing of it a little like the `cd` command, e.g. `kubens ingress` or `kubens default`
+Namespaces are simple idea but they can trip you up, you will have to add `--namespace` or `-n` to any `kubectl` commands you want to use against a particular namespace. The following alias can be helpful to set a namespace as the default for all `kubectl` commands, meaning you don't need to add `-n`, think of it like a Kubernetes equivalent of the `cd` command.
 
 ```bash
 # Note the space at the end
@@ -23,7 +23,7 @@ alias kubens='kubectl config set-context --current --namespace '
 
 ## ⛑️ Introduction to Helm
 
-[Helm is an external project](https://helm.sh/) which can be used to greatly simplify deploying applications to Kubernetes, either applications you have written and developed, or external 3rd party software & tools. Much like a package manager (apt, rpm, snap) works on Linux
+[Helm is an CNCF project](https://helm.sh/) which can be used to greatly simplify deploying applications to Kubernetes, either applications written and developed in house, or external 3rd party software & tools.
 
 - Helm simplifies deployment into Kubernetes using _charts_, when a chart is deployed it is refereed to as a _release_.
 - A _chart_ consists of one or more Kubernetes YAML templates + supporting files.
@@ -58,13 +58,13 @@ helm install my-ingress ingress-nginx/ingress-nginx \
   --set controller.replicaCount=2
 ```
 
-- The release name is `my-ingress` which can be anything you wish, it's typically used by charts to name or prefix the created resources such as _Pods_.
+- The release name is `my-ingress` which can be anything you wish, it's often used by chart templates to prefix the names of created resources.
 - The second parameter is a reference to the chart, in the form of `repo-name/chart-name`, if we wanted to use a local chart we'd simply reference the path to the chart directory.
 - The `--set` part is where we can pass in values to the release, in this case we increase the replicas to two, purely as an example.
 
 Check the status of both the pods and services with `kubectl get svc,pods --namespace ingress`, ensure the pods are running and the service has an external public IP.
 
-You can also use the `helm` command, here's some simple and common commands:
+You can also use the `helm` CLI to query the status, here's some simple and common commands:
 
 - `helm ls` or `helm ls -A` - List releases or list releases in all namespaces.
 - `helm upgrade {release-name} {chart}` - Upgrade/update a release to apply changes. Add `--install` to perform an install if the release doesn't exist.
@@ -131,9 +131,9 @@ Save this as `ingress.yaml` and apply the same as before with `kubectl`, validat
 kubectl get ingress
 ```
 
-It may take it a minute for it to be assigned an address, note the address will be the same as the external IP of the ingress-controller (`kubectl get svc -n ingress | grep LoadBalancer`)
+It may take it a minute for it to be assigned an address, note the address will be the same as the external IP of the ingress-controller (you can check this with `kubectl get svc -n ingress | grep LoadBalancer`)
 
-Go to this IP in your browser, if you check the "About" screen and click the "More Details" link it should take you to the API, which should be served from the same IP as the frontend.
+Visit this IP in your browser, if you check the "About" screen and click the "More Details" link it should take you to the API, which should now be served from the same IP as the frontend.
 
 ## 🖼️ Cluster & Architecture Diagram
 
@@ -141,6 +141,6 @@ We've reached the final state of the application deployment. The resources deplo
 
 ![architecture diagram](./diagram.png)
 
-This is a slightly simplified version, and the Deployment objects are not shown.
+This is a slightly simplified version from previously, and the _Deployment_ objects are not shown.
 
 ### [Return to Main Index](../readme.md)
