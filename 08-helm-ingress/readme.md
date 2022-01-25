@@ -1,12 +1,12 @@
 # 🌎 Helm & Ingress
 
-For this section we'll touch on some more advanced topics, the key ones being the use of Helm and introducing an ingress controller to our cluster. The ingress will let us further refine the networking our app deployment
+For this section we'll touch on two slightly more advanced topics, the key ones being the use of Helm and introducing an ingress controller to our cluster. The ingress will let us further refine & improve the networking aspects of the app we've deployed.
 
 ## 🗃️ Namespaces
 
-So far we've worked in a single _Namespace_ called `default` but Kubernetes allows you create additional _Namespaces_ in order to logically group and separate your resources.
+So far we've worked in a single _Namespace_ called `default`, but Kubernetes allows you create additional _Namespaces_ in order to logically group and separate your resources.
 
-> 📝 NOTE: Namespaces do not provide network isolation or a way to segregate apps in a multi-tenanted fashion, the underlying resources (Nodes) remain shared. There are ways to achieve these aspects but it's far beyond the scope of this workshop.
+> 📝 NOTE: Namespaces do not provide network isolation or a way to segregate apps in a multi-tenanted fashion, the underlying resources (Nodes) remain shared. There are ways to achieve these outcomes but it's far beyond the scope of this workshop.
 
 Create a new namespace for the ingress we will be deploying:
 
@@ -142,3 +142,5 @@ We've reached the final state of the application deployment. The resources deplo
 ![architecture diagram](./diagram.png)
 
 This is a slightly simplified version, and the Deployment objects are not shown.
+
+### [Return to Main Index](../readme.md)

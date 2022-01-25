@@ -1,4 +1,4 @@
-# Kubernetes Workshop
+# Kubernetes Developer Workshop
 
 This is a hands-on, technical workshop intended to get comfortable working with Kubernetes and deploying & configuring applications. It should hopefully take roughly 5~6 hours. This workshop is intended partial as a companion to this [Kubernetes Technical Primer](https://github.com/benc-uk/kube-primer) which can be read or used to get an initial grounding on the concepts.
 

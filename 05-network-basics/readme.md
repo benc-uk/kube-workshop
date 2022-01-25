@@ -65,9 +65,9 @@ kubesctl describe svc {service-name}
 Now we have a Service in our cluster for MongoDB we can access the database using DNS rather than pod IP and if the pod(s) die or restart or move; this name remains constant. DNS with Kubernetes is a complex topic we won't get into here, the main takeway for now is:
 
 - Every _Service_ in the cluster can be resolved over DNS
-- Within a _Namespace_, the _Service_ name will resolve as is, [but other scenarios also are supported](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/).
+- Within a _Namespace_, the _Service_ name will resolve as a simple hostname, without the need for a DNS suffix [but other scenarios also are supported](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/).
 
-Edit the the `data-api-deployment.yaml` file you created previously and change the value of the `MONGO_CONNSTR` environmental variable. Replace the IP address with name of the service, e.g. the connection sting should look like `mongodb://admin:supersecret@database`
+Edit the the `data-api-deployment.yaml` file you created previously and change the value of the `MONGO_CONNSTR` environmental variable. Replace the IP address with name of the service, e.g. the connection string should look like `mongodb://admin:supersecret@database`
 
 You can update the active deployment with these changes by re-running `kubectl apply -f data-api-deployment.yaml`, Kuberenetes will perform a rolling update, if you are quick and run `kubectl get pods` you might see it taking place, i.e. a new pod starting & the old one terminating. Again you can check the status and the logs using `kubectl`
 
@@ -114,3 +114,5 @@ Clearly this is better than what we had before, but in production you would neve
 The resources deployed into the cluster & in Azure at this stage can be visualized as follows:
 
 ![architecture diagram](./diagram.png)
+
+### [Return to Main Index](../readme.md)

@@ -2,7 +2,7 @@
 
 We'll deploy the app piece by piece, and at first we'll deploy & configure things in a sub-optimal way. This is in order to explore the Kubernetes concepts and show their purpose. Then we'll iterate and improve towards the final architecture.
 
-We have three microservices we need to deploy, and due to dependencies between them we'll start with the MongoDB database then the data API and then move onto the frontend.
+We have three "microservices" we need to deploy, and due to dependencies between them we'll start with the MongoDB database then the data API and then move onto the frontend.
 
 From here we will be creating and editing files, so it's worth creating a project folder locally (or even a git repo) in order to work from if you haven't done so already.
 
@@ -149,7 +149,7 @@ Kubernetes provides a way to "tunnel" network traffic into the cluster through t
 Pick the name of either one of the two data-api _Pods_, and run:
 
 ```
-kubectl port-forward {podname} 4000:4000
+kubectl port-forward {pod_name} 4000:4000
 ```
 
 And then accessing the following URL http://localhost:4000/api/info either in your browser or with `curl` we should see a JSON response with some status and debug information from the API. Clearly this isn't a way to expose your apps long term, but can be extremely useful when debugging and triaging issues.
@@ -161,3 +161,5 @@ When done, cancel the port-forwarding with ctrl-c
 The resources deployed into the cluster & in Azure at this stage can be visualized as follows:
 
 ![architecture diagram](./diagram.png)
+
+### [Return to Main Index](../readme.md)

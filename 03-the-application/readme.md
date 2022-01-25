@@ -4,7 +4,9 @@ This section simply serves as an introduction to the application, there are no t
 
 The application is called 'Smilr' and provides users with a way to rate and provide feedback on events and other sessions (e.g. hacks, meetups) they have attended. In addition administrators have way to configure events and view the feedback that has been provided.
 
-[Smilr main repo](https://github.com/benc-uk/smilr)
+### [📃 Smilr - GitHub Repo & Project](https://github.com/benc-uk/smilr)
+
+Screenshot:
 
 <image src="./screenshot.png" style="width:800px" />
 
@@ -22,3 +24,5 @@ For this workshop the app will be deployed with the following requirements:
 - The **MongoDB datastore will not be exposed but will run inside the cluster**. Typically you would **NOT** run stateful services inside of the cluster like this, but this is done in the interests of speed and to demonstrate some principals.
 - The sentiment service is optional and **won't be deployed**
 - Authentication and API security will disabled and the app will run in "demo mode"
+
+### [Return to Main Index](../readme.md)

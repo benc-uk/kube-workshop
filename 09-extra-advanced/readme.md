@@ -250,3 +250,5 @@ Other Projects:
 - Using [Dapr](https://dapr.io/) for building portable and reliable microservices
 - Adding a service mesh such as [Linkerd](https://linkerd.io/) or [Open Service Mesh](https://docs.microsoft.com/azure/aks/open-service-mesh-about)
 - Setting up the [Application Gateway Ingress Controller (AGIC)](https://docs.microsoft.com/azure/application-gateway/ingress-controller-overview)
+
+### [Return to Main Index](../readme.md)

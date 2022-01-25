@@ -117,4 +117,6 @@ If you get stuck and want working manifests you can refer to, they are available
 - [data-api-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/data-api-deployment.yaml)
 - [frontend-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/frontend-deployment.yaml)
 - [mongo-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/mongo-deployment.yaml)
-  - Bonus: This manifest shows to add a readiness probe using a command, rather than HTTP, add it if you wish, but it's optional.
+  - Bonus: This manifest shows how to add a readiness probe using a command, rather than HTTP, use it if you wish, but it's optional.
+
+### [Return to Main Index](../readme.md)

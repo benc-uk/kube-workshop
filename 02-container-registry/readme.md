@@ -50,3 +50,5 @@ az aks update --name $AKS_NAME --resource-group $RES_GROUP \
 ```
 
 If you are curious what this command does, it essentially is just assigning the "ACR Pull" role in Azure IAM to the managed identity used by AKS, on the ACR resource.
+
+### [Return to Main Index](../readme.md)
