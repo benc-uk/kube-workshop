@@ -1,8 +1,8 @@
 # 🚀 Deploying The Backend
 
-We'll deploy the app piece by piece, and at first we'll deploy & configure things in a very sub-optimal way. This is in order to explore the Kubernetes concepts and show their purpose. Then we'll iterate and improve towards the final architecture.
+We'll deploy the app piece by piece, and at first we'll deploy & configure things in a sub-optimal way. This is in order to explore the Kubernetes concepts and show their purpose. Then we'll iterate and improve towards the final architecture.
 
-We have three microservices we need to deploy, and due to dependencies between them we'll start with the MongoDB database then the data API and then finally move onto the frontend.
+We have three microservices we need to deploy, and due to dependencies between them we'll start with the MongoDB database then the data API and then move onto the frontend.
 
 From here we will be creating and editing files, so it's worth creating a project folder locally (or even a git repo) in order to work from if you haven't done so already.
 
@@ -13,7 +13,7 @@ We'll apply configurations to Kubernetes using `kubectl` and YAML manifest files
 If you want to take this workshop slowly and research how to do this in order to build the required YAML yourself, you can use [the Kubernetes docs](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and the following hints:
 
 - _Deployment_ should be used with a single replica.
-- The image to be run is `mongo:latest`. Note: This is not really part of our app, it's the the public MongoDB image hosted on Dockerhub.
+- The image to be run is `mongo:5.0`. Note: This is not really part of our app, so we pull it from the public MongoDB image hosted on Dockerhub, not our ACR.
 - The port **27017** should be exposed from the container.
 - Do not worry about persistence or using a _Service_ at this point.
 - Pass `MONGO_INITDB_ROOT_USERNAME` and `MONGO_INITDB_ROOT_PASSWORD` environmental vars to the container setting the username to "admin" and password to "supersecret".
@@ -43,7 +43,7 @@ spec:
       containers:
         - name: mongodb-container
 
-          image: mongo:latest
+          image: mongo:5.0
           imagePullPolicy: Always
 
           ports:
@@ -82,13 +82,15 @@ kubectl describe pod --selector app=mongodb | grep ^IP:
 
 ## 🗃️ Deploying The Data API
 
-Next we'll deploy the first custom part of our app, the data API, and we'll deploy it from an image hosted in our private registry. Once again you can try building the _Deployment_ yourself or use the provided YAML
+Next we'll deploy the first custom part of our app, the data API, and we'll deploy it from an image hosted in our private registry.
 
 - The image needs to be `{ACR_NAME}.azurecr.io/smilr/data-api:stable` where `{ACR_NAME}` should be replaced in the YAML with your real value.
 - Set the number of replicas to **2**.
 - The port exposed from the container should be **4000**
 - An environmental variable called `MONGO_CONNSTR` should be passed to the container, with the connection string to connect to the MongoDB, which will be `mongodb://admin:supersecret@${MONGODB_POD_IP}` where `{MONGODB_POD_IP}` should be replaced in the YAML with the value you just got
 - Label the pods with `app: data-api`
+
+Again you can try building the _Deployment_ yourself or use the provided YAML
 
 <details markdown="1">
 <summary>Click here for the MongoDB deployment YAML</summary>
@@ -136,7 +138,7 @@ kubectl apply -f data-api.deployment.yaml
 
 Check the status as before with `kubectl` and it's worth checking the logs with `kubectl logs {podname}` to see the output from the app as it starts up.
 
-This time we've set the number of replicas to two, if you run `kubectl get pods -o wide` you will see which node(s) the Pods have been scheduled (assigned) to. You should see each Pod has been scheduled to different nodes, but this is not guaranteed. Pod scheduling and placement is a fairly complex topic, for now we can move on.
+This time we've set the number of replicas to two, if you run `kubectl get pods -o wide` you will see which _Nodes_ the _Pods_ have been scheduled (assigned) to. You should see each _Pod_ has been scheduled to different _Nodes_, but this is not guaranteed. _Pod_ scheduling and placement is a fairly complex topic, for now we can move on.
 
 ## ⏩ Accessing the Data API (The quick & dirty way)
 
@@ -144,13 +146,15 @@ Now it would be nice to access and call this API, to check it's working. But the
 
 Kubernetes provides a way to "tunnel" network traffic into the cluster through the control plane, this is done with the `kubectl port-forward` command
 
-Pick the name of either one of the two data-api pods, and run:
+Pick the name of either one of the two data-api _Pods_, and run:
 
 ```
 kubectl port-forward {podname} 4000:4000
 ```
 
-And then accessing the following URL http://localhost:4000/api/info we should see a JSON response with some status and debug information from the API. Clearly this isn't a way to expose your apps long term, but can be extremely useful when debugging and triaging issues.
+And then accessing the following URL http://localhost:4000/api/info either in your browser or with `curl` we should see a JSON response with some status and debug information from the API. Clearly this isn't a way to expose your apps long term, but can be extremely useful when debugging and triaging issues.
+
+When done, cancel the port-forwarding with ctrl-c
 
 ## 🖼️ Cluster & Architecture Diagram
 

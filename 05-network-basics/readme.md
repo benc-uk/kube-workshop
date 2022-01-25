@@ -25,6 +25,7 @@ kind: Service
 apiVersion: v1
 
 metadata:
+  # We purposefully pick a different name for the service from the deployment
   name: database
 
 spec:

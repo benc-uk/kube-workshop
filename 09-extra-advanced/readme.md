@@ -122,7 +122,7 @@ spec:
       containers:
         - name: mongodb-container
 
-          image: mongo:latest
+          image: mongo:5.0
           imagePullPolicy: Always
 
           ports:
