@@ -14,5 +14,5 @@ images:
     newTag: 1.21-alpine
 
 # Apply patches to override and set other values
-patchesStrategicMerge:
+patches:
   - ./override.yaml

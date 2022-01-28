@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: mongodb-container
-
+          image: replaceme
           imagePullPolicy: Always
 
           ports:
@@ -38,15 +38,6 @@ spec:
                 - mongo
                 - --eval
                 - db.adminCommand('ping')
-
-          env:
-            - name: MONGO_INITDB_ROOT_USERNAME
-              value: admin
-            - name: MONGO_INITDB_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mongo-creds
-                  key: admin-password
 
           volumeMounts:
             - name: mongo-data

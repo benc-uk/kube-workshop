@@ -5,8 +5,8 @@ resources:
   - ../../base/frontend
 images:
   - name: data-api
-    newName: bencwsacr.azurecr.io/smilr/data-api
+    newName: {EDIT_THIS_ACR_NAME}.azurecr.io/smilr/data-api
     newTag: stable
   - name: frontend
-    newName: bencwsacr.azurecr.io/smilr/frontend
+    newName: {EDIT_THIS_ACR_NAME}.azurecr.io/smilr/frontend
     newTag: stable

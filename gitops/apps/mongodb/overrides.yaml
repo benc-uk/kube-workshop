@@ -9,4 +9,11 @@ spec:
     spec:
       containers:
         - name: mongodb-container
-          image: mongo:4.4.12-focal
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: admin
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-creds
+                  key: admin-password

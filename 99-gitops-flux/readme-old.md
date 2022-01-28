@@ -164,30 +164,38 @@ As GitOps is a "pull" vs "push" approach, it also allows you to lock down your K
 
 > NOTE: GitOps is a methodology and an approach, it is not the name of a product
 
-### 💽 Install Flux into AKS
+### 💽 Install Flux CLI
 
-[Flux is available as an AKS Extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2) which is intended to simplify installing Flux into your cluster & configuring it. As of Jan 2022 it requires some extensions to the Azure CLI
-
-Add the CLI extensions with:
+[Flux is available as an AKS Extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2) which is intended to simplify installing Flux into your cluster. However it requires
 
 ```bash
-az extension add -n k8s-configuration
-az extension add -n k8s-extension
+# My installer script
+curl -s https://raw.githubusercontent.com/benc-uk/tools-install/master/flux.sh | bash
+
+# Or official one (needs sudo)
+curl -s https://fluxcd.io/install.sh | sudo bash
 ```
 
-It also requires some [preview providers to be enabled on your Azure subscription](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2#for-azure-kubernetes-service-clusters). Follow out these steps before proceeding, which can take some time!
+### 🥾 Bootstrap Flux Into Cluster
 
-Now to set up Flux, run the following command, replacing the `{YOUR_GITHUB_USER}` part with your GitHub username:
+[Generate a GitHub personal access token](https://github.com/settings/tokens) (PAT) that can create repositories by checking all permissions under "repo", copy the token and set it into an environmental variable called `GITHUB_TOKEN`
 
 ```bash
-az k8s-configuration flux create \
---resource-group ${RES_GROUP} --cluster-name ${AKS_NAME} \
---name flux --namespace flux-system --cluster-type managedClusters --scope cluster \
---url https://github.com/{YOUR_GITHUB_USER}/kube-workshop --branch main --interval 1m \
---kustomization name=apps path=gitops/apps prune=true sync_interval=1m
+export GITHUB_TOKEN={NEW_TOKEN_VALUE}
 ```
 
-This one command is doing a LOT of things, it's adding an extension to AKS, deploying Flux to the cluster (with all the Pods and CRDs) and it's adding the _GitRepo_ to be scanned and checked. It will take a few minutes to complete
+Now fork this repo [github.com/benc-uk/kube-workshop](https://github.com/benc-uk/kube-workshop) to your own GitHub personal account.
+
+Run the Flux bootstrap which should point to your fork by setting the owner parameter to your GitHub username:
+
+```bash
+flux bootstrap github \
+  --owner=__CHANGE_ME__ \
+  --repository=kube-workshop \
+  --path=gitops/apps \
+  --branch=main \
+  --personal
+```
 
 Check the status of Flux with the following commands:
 
@@ -200,8 +208,6 @@ kubectl get pod -n flux-system
 ```
 
 You should also see a new namespace called "hello-world", check with `kubectl get ns` this has been created by the `gitops/apps/hello-world.yaml` file in the repo and automatically applied by Flux
-
-You can also view this configuration from the Azure portal, under the "GitOps" view inside the AKS resource.
 
 ### 🚀 Deploying Resources
 
