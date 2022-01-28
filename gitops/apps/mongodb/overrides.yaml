@@ -1,0 +1,11 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: mongodb
+
+spec:
+  template:
+    spec:
+      containers:
+        - name: mongodb-container
+          image: mongo:4.4.12-focal
