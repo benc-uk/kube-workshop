@@ -7,7 +7,6 @@ metadata:
     name: smilr
 
 spec:
-  host:
   ingressClassName: nginx
   rules:
     - http:
