@@ -26,32 +26,21 @@ jobs:
           username: ${{ env.ACR_NAME }}
           password: ${{ secrets.ACR_PASSWORD }}
 
-      - name: "Set up Docker Buildx"
-        uses: docker/setup-buildx-action@v1
+      - name: "Build & Push: data API"
+        run: |
+          docker pull $ACR_NAME.azurecr.io/smilr/data-api:latest || true
+          docker buildx build . -f node/data-api/Dockerfile \
+            -t $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG \
+            -t $ACR_NAME.azurecr.io/smilr/data-api:latest
+          docker push $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG
 
-      - name: "Build & push: data API"
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./node/data-api/Dockerfile
-          push: true
-          tags: |
-            ${{ env.ACR_NAME }}.azurecr.io/smilr/data-api:${{ env.IMAGE_TAG }}
-            ${{ env.ACR_NAME }}.azurecr.io/smilr/data-api:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      - name: "Build & push: frontend"
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./node/frontend/Dockerfile
-          push: true
-          tags: |
-            ${{ env.ACR_NAME }}.azurecr.io/smilr/frontend:${{ env.IMAGE_TAG }}
-            ${{ env.ACR_NAME }}.azurecr.io/smilr/frontend:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+      - name: "Build & Push: frontend"
+        run: |
+          docker pull $ACR_NAME.azurecr.io/smilr/frontend:latest || true
+          docker buildx build . -f node/frontend/Dockerfile \
+            -t $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG \
+            -t $ACR_NAME.azurecr.io/smilr/frontend:latest
+          docker push $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG
 
   releaseJob:
     name: "Release to Kubernetes"
@@ -79,7 +68,7 @@ jobs:
 
       - name: "Release app with Helm"
         run: |
-          helm upgrade myapp ./kubernetes/helm/smilr --install --wait --timeout 180s \
+          helm upgrade myapp ./kubernetes/helm/smilr --install --wait --timeout 120s \
           --set registryPrefix=$ACR_NAME.azurecr.io/ \
           --set frontend.imageTag=$IMAGE_TAG \
           --set dataApi.imageTag=$IMAGE_TAG \
