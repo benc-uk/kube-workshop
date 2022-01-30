@@ -14,7 +14,7 @@ jobs:
     name: "Build & push images"
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout application code repo"
+      - name: "Checkout app code repo"
         uses: actions/checkout@v2
         with:
           repository: benc-uk/smilr
@@ -28,16 +28,18 @@ jobs:
 
       - name: "Build & Push: data API"
         run: |
+          export DOCKER_BUILDKIT=1
           docker pull $ACR_NAME.azurecr.io/smilr/data-api:latest || true
-          docker build . -f node/data-api/Dockerfile --cache-from $ACR_NAME.azurecr.io/smilr/data-api:latest \
+          docker build . -f node/data-api/Dockerfile \
             -t $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG \
             -t $ACR_NAME.azurecr.io/smilr/data-api:latest
           docker push $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG
 
       - name: "Build & Push: frontend"
         run: |
+          export DOCKER_BUILDKIT=1
           docker pull $ACR_NAME.azurecr.io/smilr/frontend:latest || true
-          docker build . -f node/frontend/Dockerfile --cache-from $ACR_NAME.azurecr.io/smilr/frontend:latest \
+          docker build . -f node/frontend/Dockerfile \
             -t $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG \
             -t $ACR_NAME.azurecr.io/smilr/frontend:latest
           docker push $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG
@@ -52,7 +54,7 @@ jobs:
       name: AKS-Live
       url: http://20.103.220.11/
     steps:
-      - name: "Checkout application code repo" # Needed for the Helm chart
+      - name: "Checkout app code repo" # Needed for the Helm chart
         uses: actions/checkout@v2
         with:
           repository: benc-uk/smilr
