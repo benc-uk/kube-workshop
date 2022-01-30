@@ -29,13 +29,17 @@ jobs:
       - name: "Build & Push: data API"
         run: |
           docker pull $ACR_NAME.azurecr.io/smilr/data-api:latest || true
-          docker build . -f node/data-api/Dockerfile -t $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG -t $ACR_NAME.azurecr.io/smilr/data-api:latest
+          docker build . -f node/data-api/Dockerfile --cache-from $ACR_NAME.azurecr.io/smilr/frontend:latest \
+            -t $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG \
+            -t $ACR_NAME.azurecr.io/smilr/data-api:latest
           docker push $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG
 
       - name: "Build & Push: frontend"
         run: |
           docker pull $ACR_NAME.azurecr.io/smilr/frontend:latest || true
-          docker build . -f node/frontend/Dockerfile -t $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG -t $ACR_NAME.azurecr.io/smilr/frontend:latest
+          docker build . -f node/frontend/Dockerfile --cache-from $ACR_NAME.azurecr.io/smilr/frontend:latest \
+            -t $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG \
+            -t $ACR_NAME.azurecr.io/smilr/frontend:latest
           docker push $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG
 
   releaseJob:
@@ -44,6 +48,8 @@ jobs:
     # Only release from main
     if: ${{ github.ref == 'refs/heads/main' }}
     needs: buildJob
+    environment:
+      name: AKS-Live
     steps:
       - name: "Checkout application code repo" # Needed for the Helm chart
         uses: actions/checkout@v2
