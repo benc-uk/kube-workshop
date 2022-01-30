@@ -35,7 +35,7 @@ jobs:
       - name: "Build & Push: frontend"
         run: |
           docker pull $ACR_NAME.azurecr.io/smilr/frontend:latest || true
-          docker build . -f node/data-api/Dockerfile -t $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG -t $ACR_NAME.azurecr.io/smilr/frontend:latest
+          docker build . -f node/frontend/Dockerfile -t $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG -t $ACR_NAME.azurecr.io/smilr/frontend:latest
           docker push $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG
 
   releaseJob:
@@ -62,7 +62,7 @@ jobs:
       - name: "Release app with Helm"
         run: |
           helm upgrade myapp ./kubernetes/helm/smilr --install --wait --timeout 60s \
-          --set registryPrefix=$ACR_NAME.azurecr.io \
+          --set registryPrefix=$ACR_NAME.azurecr.io/ \
           --set frontend.imageTag=$IMAGE_TAG \
           --set dataApi.imageTag=$IMAGE_TAG \
           --set mongodb.enabled=true
