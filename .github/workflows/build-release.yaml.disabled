@@ -28,7 +28,6 @@ jobs:
 
       - name: "Build & Push: data API"
         run: |
-          docker pull $ACR_NAME.azurecr.io/smilr/data-api:latest || true
           docker buildx build . -f node/data-api/Dockerfile \
             -t $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG \
             -t $ACR_NAME.azurecr.io/smilr/data-api:latest
@@ -36,7 +35,6 @@ jobs:
 
       - name: "Build & Push: frontend"
         run: |
-          docker pull $ACR_NAME.azurecr.io/smilr/frontend:latest || true
           docker buildx build . -f node/frontend/Dockerfile \
             -t $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG \
             -t $ACR_NAME.azurecr.io/smilr/frontend:latest

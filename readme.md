@@ -19,6 +19,36 @@ Sections / modules:
 - [💻 Adding The Frontend](06-frontend/readme.md) - Deploying the frontend to the app and wiring it up.
 - [✨ Improving The Deployment](07-improvements/readme.md) - Adding resource limits, probes and secrets.
 - [🌎 Helm & Ingress](08-helm-ingress/readme.md) - Finalizing the application using ingress.
-- [🤯 Optional Advanced Topics](09-extra-advanced/readme.md) - Bonus section, with some optional concepts and other exercises.
 
 If you get stuck, the [GitHub repo for this workshop](https://github.com/benc-uk/kube-workshop) contains example and working files for most of the sections
+
+## Optional Sections
+
+These can be considered bonus sections, it is not expected that all these sections would be
+
+- [🤯 Scaling, Stateful Workloads & Helm](09-extra-advanced/readme.md) - Scaling (manual & auto), stateful workloads and persitent volumes, plus more Helm.
+- [🐙 Kustomize & GitOps](10-gitops-flux/readme.md) - Introduction to Kustomize and GitOps with Flux
+- [🏃 CI/CD with GitHub Actions](11-cicd-actions/readme.md) - TBA
+
+## 📚 Extra Reading & Teach Yourself Exercises
+
+A brief list of potential topics and Kubernetes features you may want to look at next:
+
+Kubernetes Features:
+
+- [Init containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
+- [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/)
+- [ConfigMaps](https://kubernetes.io/docs/concepts/configuration/configmap/)
+- [Debugging Pods with shell access and exec](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)
+- Assigning Pods to Nodes with [selectors](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/) and [taints](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
+- [Cluster Autoscaler in AKS](https://docs.microsoft.com/azure/aks/cluster-autoscaler)
+
+Other Projects:
+
+- Enabling TLS with certificates from Let's Encrypt using [Cert Manager](https://cert-manager.io/docs/)
+- Observability
+  - With [Prometheus](https://artifacthub.io/packages/helm/prometheus-community/prometheus) & [Grafana](https://artifacthub.io/packages/helm/grafana/grafana)
+  - Using [AKS monitoring add-on](https://docs.microsoft.com/azure/azure-monitor/containers/container-insights-overview)
+- Using [Dapr](https://dapr.io/) for building portable and reliable microservices
+- Adding a service mesh such as [Linkerd](https://linkerd.io/) or [Open Service Mesh](https://docs.microsoft.com/azure/aks/open-service-mesh-about)
+- Setting up the [Application Gateway Ingress Controller (AGIC)](https://docs.microsoft.com/azure/application-gateway/ingress-controller-overview)

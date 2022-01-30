@@ -1,4 +1,4 @@
-# 🤯 Optional Advanced Topics
+# 🤯 Scaling, Stateful Workloads & Helm
 
 This final section touches on some slightly more advanced and optional concepts we've skipped over. They aren't required to get a basic app up & running, but generally come up in practice and real world use of Kubernetes.
 
@@ -67,7 +67,7 @@ chmod +x hey_linux_amd64
 
 After about 1~2 mins you should see new data-api pods being created. Once the `hey` command completes and the load stops, it will probably be around ~5 mins before the pods scale back down to their original number
 
-## Improving The MongoDB Backend
+## 🛢️ Improving The MongoDB Backend
 
 There's two very major problems with our backend database:
 
@@ -227,28 +227,5 @@ helm install myapp ./smilr --values my-values.yaml
 ```
 
 Validate the deployment as before with `helm` and `kubectl` and check you can access the app in the browser
-
-## 📚 Extra Reading & Exercises
-
-This final section is simply a list of potential topics and configurations you may want to look at next:
-
-Kubernetes Features:
-
-- [Init containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
-- [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/)
-- [ConfigMaps](https://kubernetes.io/docs/concepts/configuration/configmap/)
-- [Debugging Pods with shell access and exec](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)
-- Assigning Pods to Nodes with [selectors](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/) and [taints](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
-- [Cluster Autoscaler in AKS](https://docs.microsoft.com/azure/aks/cluster-autoscaler)
-
-Other Projects:
-
-- Enabling TLS with certificates from Let's Encrypt using [Cert Manager](https://cert-manager.io/docs/)
-- Observability
-  - With [Prometheus](https://artifacthub.io/packages/helm/prometheus-community/prometheus) & [Grafana](https://artifacthub.io/packages/helm/grafana/grafana)
-  - Using [AKS monitoring add-on](https://docs.microsoft.com/azure/azure-monitor/containers/container-insights-overview)
-- Using [Dapr](https://dapr.io/) for building portable and reliable microservices
-- Adding a service mesh such as [Linkerd](https://linkerd.io/) or [Open Service Mesh](https://docs.microsoft.com/azure/aks/open-service-mesh-about)
-- Setting up the [Application Gateway Ingress Controller (AGIC)](https://docs.microsoft.com/azure/application-gateway/ingress-controller-overview)
 
 ### [Return to Main Index](../readme.md)
