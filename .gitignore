@@ -1,2 +1,5 @@
 vars.sh
 my*.yaml
+my*.sh
+junk/**
+ignored/**

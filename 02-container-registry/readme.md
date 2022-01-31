@@ -40,9 +40,9 @@ If you wish to check and see imported images, you can go over to the ACR resourc
 
 > 📝 NOTE: we are not using the tag `latest` which is a common mistake when working with Kubernetes and containers in general.
 
-## 🔌 Connect AKS to ACR
+## 🔌 Connect AKS to ACR - as Azure Subscription Owner
 
-Kuberenetes requires a way to authenticate and access images stored in private registries. There are a number of ways to enable Kubernetes to pull images from a private registry, however AKS provides a simple way to configure this through the Azure CLI.
+Kuberenetes requires a way to authenticate and access images stored in private registries. There are a number of ways to enable Kubernetes to pull images from a private registry, however AKS provides a simple way to configure this through the Azure CLI. The downside is this requires you to have 'Owner' permission within the subscription, in order to assign the role.
 
 ```bash
 az aks update --name $AKS_NAME --resource-group $RES_GROUP \
@@ -50,5 +50,27 @@ az aks update --name $AKS_NAME --resource-group $RES_GROUP \
 ```
 
 If you are curious what this command does, it essentially is just assigning the "ACR Pull" role in Azure IAM to the managed identity used by AKS, on the ACR resource.
+
+If you see the following error `Could not create a role assignment for ACR. Are you an Owner on this subscription?`, you will need to proceed to the alternative approach below
+
+## 🔌 Connect AKS to ACR - Alternative
+
+If you do not have Azure Owner permissions, you will need to fall back to an alternative approach. This involves two things:
+
+- Adding an _Secret_ to the cluster containing the credentials to pull images from the ACR.
+- Including a reference to this _Secret_ in every _Deployment_ you create or update the _ServiceAccount_ used by the _Pods_ to reference this _Secret_.
+
+Run these commands to create the _Secret_ with the ACR credentials, and patch the default _ServiceAccount_:
+
+```bash
+kubectl create secret docker-registry acr-creds \
+  --docker-server=$ACR_NAME.azurecr.io \
+  --docker-username=$ACR_NAME \
+  --docker-password=$(az acr credential show --name $ACR_NAME --query "passwords[0].value" -o tsv)
+
+kubectl patch serviceaccount default --patch '"imagePullSecrets": [{"name": "acr-creds" }]'
+```
+
+These two commands introduce a lot of new Kubernetes concepts in one go! Don't worry about them for now, some of this such as _Secrets_ we'll go into later. If the command is successful, move on.
 
 ### [Return to Main Index](../readme.md)

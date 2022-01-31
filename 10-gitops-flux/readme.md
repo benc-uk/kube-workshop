@@ -177,7 +177,12 @@ az extension add -n k8s-extension
 
 It also requires some [preview providers to be enabled on your Azure subscription](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2#for-azure-kubernetes-service-clusters). Follow out these steps before proceeding, which can take some time!
 
-Now to set up Flux, run the following command, replacing the `{YOUR_GITHUB_USER}` part with your GitHub username:
+Before we configure anything GitOps needs a git repo to work against. We'll use a fork of this repo, to set this up:
+
+- Got to the repo for this workshop [https://github.com/benc-uk/](https://github.com/benc-uk/)
+- Fork the repo to your own personal GitHub account, by clicking the 'Fork' button near the top right.
+
+Now to set up Flux, run the following command, replacing the `{YOUR_GITHUB_USER}` part with your GitHub username you used for the fork:
 
 ```bash
 az k8s-configuration flux create \
@@ -187,7 +192,7 @@ az k8s-configuration flux create \
  --kustomization name=apps path=gitops/apps prune=true sync_interval=1m
 ```
 
-This one command is doing a LOT of things, it's adding an extension to AKS, deploying Flux to the cluster (with all the Pods and CRDs) and it's adding the _GitRepo_ to be scanned and checked. It will take a few minutes to complete.
+This one command is doing a LOT of things, it's adding an extension to AKS, deploying Flux to the cluster (with all the Pods and CRDs) and it's adding the _GitRepo_ to be scanned and checked. It will take a few minutes to complete, be patient!
 
 Check the status of Flux with the following commands:
 

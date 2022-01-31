@@ -17,8 +17,8 @@ Sections / modules:
 - [🚀 Deploying The Backend](04-deployment/readme.md) - Laying down the first two components and introduction to Deployments and Pods.
 - [🌐 Basic Networking](05-network-basics/readme.md) - Introducing Services to provide network access.
 - [💻 Adding The Frontend](06-frontend/readme.md) - Deploying the frontend to the app and wiring it up.
-- [✨ Improving The Deployment](07-improvements/readme.md) - Adding resource limits, probes and secrets.
-- [🌎 Helm & Ingress](08-helm-ingress/readme.md) - Finalizing the application using ingress.
+- [✨ Improving The Deployment](07-improvements/readme.md) - Recomended practices; resource limits, probes and secrets.
+- [🌎 Helm & Ingress](08-helm-ingress/readme.md) - Finalizing the application architecture using ingress.
 
 If you get stuck, the [GitHub repo for this workshop](https://github.com/benc-uk/kube-workshop) contains example and working files for most of the sections
 
@@ -30,11 +30,11 @@ These can be considered bonus sections, and are entirely optional. It is not exp
 - [🏃 CI/CD with GitHub Actions](11-cicd-actions/readme.md) - Using GitHub Actions for CI/CD with Kubernetes and carrying out automated releases with Helm.
 - [🧩 Kustomize & GitOps](10-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps through GitOps with Flux
 
-## 📚 Extra Reading & Teach Yourself Exercises
+## 📖 Extra Reading & Teach Yourself Exercises
 
-A brief list of potential topics and Kubernetes features you may want to look at next:
+A very brief list of potential topics and Kubernetes features you may want to look at after finishing:
 
-Kubernetes Features:
+#### Kubernetes Features:
 
 - [Init containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
 - [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/)
@@ -43,7 +43,7 @@ Kubernetes Features:
 - Assigning Pods to Nodes with [selectors](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/) and [taints](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
 - [Cluster Autoscaler in AKS](https://docs.microsoft.com/azure/aks/cluster-autoscaler)
 
-Other Projects:
+#### Other Projects:
 
 - Enabling TLS with certificates from Let's Encrypt using [Cert Manager](https://cert-manager.io/docs/)
 - Observability
