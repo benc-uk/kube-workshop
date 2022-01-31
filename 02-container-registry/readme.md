@@ -71,6 +71,8 @@ kubectl create secret docker-registry acr-creds \
 kubectl patch serviceaccount default --patch '"imagePullSecrets": [{"name": "acr-creds" }]'
 ```
 
+> 💥 IMPORTANT! Do NOT follow this approach of patching the default _ServiceAccount_ in production or a cluster running real workloads, treat this as a simplifying workaround.
+
 These two commands introduce a lot of new Kubernetes concepts in one go! Don't worry about them for now, some of this such as _Secrets_ we'll go into later. If the command is successful, move on.
 
 ### [Return to Main Index](../readme.md)

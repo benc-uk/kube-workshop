@@ -46,9 +46,12 @@ helm repo update
 
 An [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) provides a reliable and secure way to route HTTP and HTTPS traffic into your cluster and expose your applications from a single point of ingress; hence the name.
 
+![Ingress controller diagram showing routing of traffice to backend services](./kuberntes-ingress.png)
+
 - The controller is simply an instance of a HTTP reverse proxy running in one or mode _Pods_ with a _Service_ in front of it.
 - It implements the [Kubernetes controller pattern](https://kubernetes.io/docs/concepts/architecture/controller/#controller-pattern) scanning for _Ingress_ resources to be created in the cluster, when it finds one, it reconfigures itself based on the rules and configuration within that _Ingress_, in order to route traffic.
 - There are [MANY ingress controllers available](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/#additional-controllers) but we will use a very common and simple one, the [NGINX ingress controller](https://kubernetes.github.io/ingress-nginx/) maintained by the Kubernetes project
+- Often TLS is terminated by the ingress controller, and sometimes other tasks such as JWT validation for authentication can be done at this level. For the sake of this workshop no TLS & HTTPS will be used due to the dependencies it requires (such as DNS, cert management etc)
 
 Helm greatly simplifies setting this up, down to a single command. Run the following:
 
@@ -74,14 +77,14 @@ You can also use the `helm` CLI to query the status, here's some simple and comm
 
 ## 🔀 Reconfiguring The App With Ingress
 
-Now we can modify the app we've deployed to route through the new ingress, but a few simple changes are required first. As the ingress controller will be routing all requests, the services in front of the deployments can be switched back to internal.
+Now we can modify the app we've deployed to route through the new ingress, but a few simple changes are required first. As the ingress controller will be routing all requests, the services in front of the deployments should be switched back to internal i.e. `ClusterIP`.
 
 - Edit both the data API & frontend **service** YAML manifests, change the service type to `ClusterIP` then reapply with `kubectl apply`
 - Edit the frontend **deployment** YAML manifest, change the `API_ENDPOINT` environmental variable to use the same origin URI `/api` no need for a scheme or host.
 
 Apply these three changes with `kubectl` and now the app will be temporarily unavailable.
 
-The next thing is to configure the ingress by [creating an _Ingress_ resource](https://kubernetes.io/docs/concepts/services-networking/ingress/). This can be a fairly complex resource to set-up, but it boils down to a set of HTTP path mappings and which backend service should serve them, here is the completed manifest file:
+The next thing is to configure the ingress by [creating an _Ingress_ resource](https://kubernetes.io/docs/concepts/services-networking/ingress/). This can be a fairly complex resource to set-up, but it boils down to a set of HTTP path mappings (routes) and which backend service should serve them, here is the completed manifest file:
 
 <details markdown="1">
 <summary>Click here for the Ingress YAML</summary>
