@@ -3,7 +3,6 @@ apiVersion: apps/v1
 
 metadata:
   name: mongodb
-  namespace: default
 
 spec:
   serviceName: mongodb
