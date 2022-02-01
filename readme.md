@@ -1,6 +1,6 @@
 # Kubernetes Developer Workshop
 
-This is a hands-on, technical workshop intended to get comfortable working with Kubernetes and deploying & configuring applications. It should hopefully take roughly 5~6 hours. This workshop is intended partialy as a companion to this [Kubernetes Technical Primer](https://github.com/benc-uk/kube-primer) which can be read through, referenced or used to get an initial grounding on the concepts.
+This is a hands-on, technical workshop intended / hack to get comfortable working with Kubernetes and deploying & configuring applications. It should hopefully take roughly 5~6 hours. This workshop is intended partially as a companion to this [Kubernetes Technical Primer](https://github.com/benc-uk/kube-primer) which can be read through, referenced or used to get an initial grounding on the concepts.
 
 This workshop is very much designed for software engineers & developers with little or zero Kubernetes experience, but wish to get hands on and learn how to deploy and manage applications. It is not focused on the adminstration, network configuration & day-2 operations of Kubernetes itself, so some aspects may not be relevant to dedicated platform/infrastructure engineers.
 
@@ -45,6 +45,7 @@ A very brief list of potential topics and Kubernetes features you may want to lo
 
 #### Other Projects:
 
+- Enable the [Kubernetes dashboard](https://github.com/kubernetes/dashboard)
 - Enabling TLS with certificates from Let's Encrypt using [Cert Manager](https://cert-manager.io/docs/)
 - Observability
   - With [Prometheus](https://artifacthub.io/packages/helm/prometheus-community/prometheus) & [Grafana](https://artifacthub.io/packages/helm/grafana/grafana)
