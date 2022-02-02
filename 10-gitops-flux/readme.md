@@ -16,7 +16,7 @@ To demonstrate Kustomize in practice, we can carry out a simple exercise, create
 
 Place the the following two files into it
 
-<details>
+<details markdown="1">
 <summary>Contents of base/deployment.yaml</summary>
 
 ```yaml
@@ -46,7 +46,7 @@ spec:
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>Contents of base/kustomization.yaml</summary>
 
 ```yaml

@@ -10,18 +10,67 @@ As this is a completely hands on workshop, you will need several things before y
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
 - [helm](https://helm.sh/docs/intro/install/)
 
-Some scripts for quick one-line installs are provided below, by default the helm & kubectl scripts install binaries into `~/.local/bin` so if this isn't in your PATH you can copy or move the binary elsewhere, or simply run `export PATH="$PATH:$HOME/.local/bin"`
+### Install Azure CLI
+
+To set-up the Azure CLI on your system
+
+On Ubuntu/Debian Linux, requires sudo:
 
 ```bash
-# Install kubectl
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+```
+
+On MacOS, use homebrew:
+
+```bash
+brew update && brew install azure-cli
+```
+
+If the commands above don't work, please refer to: [https://aka.ms/azure-cli](https://aka.ms/azure-cli)
+
+### Install Helm & Kubectl
+
+<details markdown="1">
+<summary>Install Helm & Kubectl - Linux (Ubuntu/Debian)</summary>
+
+Two ways are provided for each tool, one without needing sudo, the other requires sudo, take your pick but don't run both!
+
+By default the 'no sudo' commands for helm & kubectl install binaries into `~/.local/bin` so if this isn't in your PATH you can copy or move the binary elsewhere, or simply run `export PATH="$PATH:$HOME/.local/bin"`
+
+```bash
+# Install kubectl - no sudo
 curl -s https://raw.githubusercontent.com/benc-uk/tools-install/master/kubectl.sh | bash
 
-# Install Azure CLI
-curl -s https://raw.githubusercontent.com/benc-uk/tools-install/master/azure-cli.sh | bash
+# Install kubectl - with sudo
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/bin/kubectl
 
-# Install helm
+# Install helm - no sudo
 curl -s https://raw.githubusercontent.com/benc-uk/tools-install/master/helm.sh | bash
+
+# Install helm - with sudo
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 ```
+
+</details>
+
+<details markdown="1">
+<summary>Install Helm & Kubectl - MacOS</summary>
+
+```bash
+# Install kubectl - with sudo
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+# Install Helm
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+```
+
+</details>
+
+### After Install - Login to Azure
 
 Getting set up locally is the highly recommended path to take, if you are stuck there are some other options to explore, but these haven't been tested:
 
