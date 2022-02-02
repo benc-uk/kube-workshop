@@ -1,5 +1,5 @@
 # Name of the workflow
-name: CI Build
+name: CI Build & Release
 
 # Triggers for running
 on:

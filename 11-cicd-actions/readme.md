@@ -14,21 +14,21 @@ We'll use a fork of this repo in order to set things up, but in principle you co
 - Fork the repo to your own personal GitHub account, by clicking the 'Fork' button near the top right.
 - Clone the repo using git to your local machine.
 
-Inside the `.github/workflows` directory, create a new file called `hello.yaml` and paste in the contents:
+Inside the `.github/workflows` directory, create a new file called `build-release.yaml` and paste in the contents:
 
 > 📝 NOTE: This is special directory path used by GitHub Actions
 
 ```yaml
 # Name of the workflow
-name: CI Build
+name: CI Build & Release
 
 # Triggers for running
 on:
-  workflow_dispatch: # This allows manually running from GitHub
+  workflow_dispatch: # This allows manually running from GitHub web UI
   push:
     branches: ["main"] # Standard CI trigger when main branch is pushed
 
-# One simple job for building app
+# One job for building the app
 jobs:
   buildJob:
     name: "Build & push images"
@@ -41,7 +41,9 @@ jobs:
           repository: benc-uk/smilr
 ```
 
-The comments in the file should hopefully explain what is happening
+The comments in the file should hopefully explain what is happening. The name and filename do not reflect the current function, but the intent of what we are building towards.
+
+Now commit the changes and push to the main branch, yes this is not a typical way of working, but adding a code review or PR process would merely distract from what we are working towards.
 
 Create GitHub secrets,
 
