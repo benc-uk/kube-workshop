@@ -53,7 +53,7 @@ You can use `kubectl` to examine the status of the _Service_ just like you can w
 kubectl get svc
 
 # Get details of a single service
-kubesctl describe svc {service-name}
+kubectl describe svc {service-name}
 ```
 
 > 📝 NOTE: The service called 'kubernetes' exists in every namespace and is placed there automatically, you can ignore it.

@@ -80,7 +80,10 @@ As before, the there are changes that are required to the supplied YAML, replaci
 
 ## 💡 Accessing and Using the App
 
-Once the external IP for the frontend is assigned (check with `kubectl get svc`), go to that IP in your browser and the app should load.
+Once the two YAMLs have been applied:
+
+- Check the external IP for the frontend is assigned with `kubectl get svc frontend`
+- Once it is there, go to that IP in your browser, e.g. http://{frontend-ip}/ - the application should load and the Smilr frontend is shown.
 
 If you want to spend a few minutes using the app, you can go to the "Admin" page, add a new event, the details don't matter but make the date range to include the current date. And try out the feedback view and reports. Or simply be happy the app is functional and move on.
 

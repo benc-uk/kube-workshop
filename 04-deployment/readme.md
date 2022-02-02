@@ -61,7 +61,7 @@ spec:
 Paste this into a file `mongo-deployment.yaml` and then run:
 
 ```bash
-kubectl apply -f mongo.deployment.yaml
+kubectl apply -f mongo-deployment.yaml
 ```
 
 If successful you will see `deployment.apps/mongodb created`, this will have created one _Deployment_ and one _Pod_. You can check the status of your cluster with a few commands:
@@ -87,7 +87,7 @@ Next we'll deploy the first custom part of our app, the data API, and we'll depl
 - The image needs to be `{ACR_NAME}.azurecr.io/smilr/data-api:stable` where `{ACR_NAME}` should be replaced in the YAML with your real value, i.e. the name of your ACR resource.
 - Set the number of replicas to **2**.
 - The port exposed from the container should be **4000**
-- An environmental variable called `MONGO_CONNSTR` should be passed to the container, with the connection string to connect to the MongoDB, which will be `mongodb://admin:supersecret@${MONGODB_POD_IP}` where `{MONGODB_POD_IP}` should be replaced in the YAML with the pod IP address you just queried.
+- An environmental variable called `MONGO_CONNSTR` should be passed to the container, with the connection string to connect to the MongoDB, which will be `mongodb://admin:supersecret@{MONGODB_POD_IP}` where `{MONGODB_POD_IP}` should be replaced in the YAML with the pod IP address you just queried.
 - Label the pods with `app: data-api`
 
 Again you can try building the _Deployment_ yourself or use the provided YAML
@@ -133,7 +133,7 @@ spec:
 Paste this into a file `data-api-deployment.yaml` and make the changes described above, **remember to make the edits, you can not use this YAML as is**, and then run:
 
 ```bash
-kubectl apply -f data-api.deployment.yaml
+kubectl apply -f data-api-deployment.yaml
 ```
 
 Check the status as before with `kubectl` and it's worth checking the logs with `kubectl logs {podname}` to see the output from the app as it starts up.

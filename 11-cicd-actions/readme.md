@@ -1,35 +1,47 @@
-# Temporary
+# 👷 CI/CD with Kubernetes
 
-👷 WORK IN PROGRESS
+This is an advanced optional section detailing how to set up a continuous integration (CI) and continuous deployment (CD) pipeline, which will deploy to Kubernetes using Helm.
+
+There are many CI/CD offerings available, we will use GitHub Actions, as it's easy to set up and most developers will already have accounts.
+
+> 📝 NOTE: This is not intended to be full guide or tutorial on GitHub Actions, you would be better off starting [here](https://docs.github.com/en/actions/learn-github-actions) or [here](https://docs.microsoft.com/en-us/learn/paths/automate-workflow-github-actions/?source=learn)
 
 ## Get Started with GitHub Actions
 
-We'll use a fork of this repo in order to set things up, but in principlal you could also start with an empty :
+We'll use a fork of this repo in order to set things up, but in principle you could also start with an new/empty repo on GitHub.
 
-- Got to the repo for this workshop [https://github.com/benc-uk/](https://github.com/benc-uk/)
+- Go to the repo for this workshop [https://github.com/benc-uk/](https://github.com/benc-uk/)
 - Fork the repo to your own personal GitHub account, by clicking the 'Fork' button near the top right.
+- Clone the repo using git to your local machine.
+
+Inside the `.github/workflows` directory, create a new file called `hello.yaml` and paste in the contents:
+
+> 📝 NOTE: This is special directory path used by GitHub Actions
 
 ```yaml
-name: Hello World
+# Name of the workflow
+name: CI Build
 
+# Triggers for running
 on:
-  # This lets us manually trigger the workflow from GitHub website
-  workflow_dispatch:
-  # This is a standard CI trigger based git push to a specific branch
+  workflow_dispatch: # This allows manually running from GitHub
   push:
-    branches: ["main"]
+    branches: ["main"] # Standard CI trigger when main branch is pushed
 
-# We can set variables
-env:
-  MESSAGE: Hello world!
-
-# This is about the simplest single job & single step workflow possible
+# One simple job for building app
 jobs:
-  hello-world:
+  buildJob:
+    name: "Build & push images"
     runs-on: ubuntu-latest
     steps:
-      - run: echo $MESSAGE
+      # Checkout code from another repo on GitHub
+      - name: "Checkout app code repo"
+        uses: actions/checkout@v2
+        with:
+          repository: benc-uk/smilr
 ```
+
+The comments in the file should hopefully explain what is happening
 
 Create GitHub secrets,
 

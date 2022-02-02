@@ -1,0 +1,20 @@
+# Name of the workflow
+name: CI Build
+
+# Triggers for running
+on:
+  workflow_dispatch: # This allows manually running from GitHub
+  push:
+    branches: ["main"] # Standard CI trigger when main branch is pushed
+
+# One simple job for building app
+jobs:
+  buildJob:
+    name: "Build & push images"
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout code from another repo on GitHub
+      - name: "Checkout app code repo"
+        uses: actions/checkout@v2
+        with:
+          repository: benc-uk/smilr
