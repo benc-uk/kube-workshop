@@ -27,7 +27,6 @@ If you get stuck, the [GitHub repo for this workshop](https://github.com/benc-uk
 These can be considered bonus sections, and are entirely optional. It is not expected that all these sections would be attempted, and they do not run in order.
 
 - [🤯 Scaling, Stateful Workloads & Helm](09-extra-advanced/readme.md) - Scaling (manual & auto), stateful workloads and persitent volumes, plus more Helm.
-- [🏃 CI/CD with GitHub Actions](11-cicd-actions/readme.md) - Using GitHub Actions for CI/CD with Kubernetes and carrying out automated releases with Helm.
 - [🧩 Kustomize & GitOps](10-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps through GitOps with Flux
 
 ## 📖 Extra Reading & Teach Yourself Exercises

@@ -41,11 +41,40 @@ jobs:
           repository: benc-uk/smilr
 ```
 
-The comments in the file should hopefully explain what is happening. The name and filename do not reflect the current function, but the intent of what we are building towards.
+The comments in the file should hopefully explain what is happening. But in summary this will The name and filename do not reflect the current function, but the intent of what we are building towards.
 
 Now commit the changes and push to the main branch, yes this is not a typical way of working, but adding a code review or PR process would merely distract from what we are doing.
 
 The best place to check the status is from the GitHub web site and in the 'Actions' within your forked repo, e.g. [https://github.com/{your-github-user}/kube-workshop/actions](https://github.com/{your-github-user}/kube-workshop/actions)
+
+```yaml
+env:
+  ACR_NAME: __CHANGE_THIS_TO_YOUR_ACR_NAME__
+  IMAGE_TAG: ${{ github.run_id }}
+```
+
+```yaml
+- name: "Authenticate to access ACR"
+  uses: docker/login-action@master
+  with:
+    registry: ${{ env.ACR_NAME }}.azurecr.io
+    username: ${{ env.ACR_NAME }}
+    password: ${{ secrets.ACR_PASSWORD }}
+
+- name: "Build & Push: data API"
+  run: |
+    docker buildx build . -f node/data-api/Dockerfile \
+      -t $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG \
+      -t $ACR_NAME.azurecr.io/smilr/data-api:latest
+    docker push $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG
+
+- name: "Build & Push: frontend"
+  run: |
+    docker buildx build . -f node/frontend/Dockerfile \
+      -t $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG \
+      -t $ACR_NAME.azurecr.io/smilr/frontend:latest
+    docker push $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG
+```
 
 ###
 
