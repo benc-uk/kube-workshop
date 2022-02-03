@@ -68,7 +68,7 @@ You will see the YAML printed to stdout, as we've not provided any changes in th
 
 To better understand what Kustomize can do, create a second directory at the same level as `base` called `overlay`
 
-<details>
+<details markdown="1">
 <summary>Contents of overlay/override.yaml</summary>
 
 ```yaml
@@ -92,7 +92,7 @@ spec:
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>Contents of overlay/kustomization.yaml</summary>
 
 ```yaml
