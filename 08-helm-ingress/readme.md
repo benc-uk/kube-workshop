@@ -82,7 +82,7 @@ Now we can modify the app we've deployed to route through the new ingress, but a
 - Edit both the data API & frontend **service** YAML manifests, change the service type to `ClusterIP` then reapply with `kubectl apply`
 - Edit the frontend **deployment** YAML manifest, change the `API_ENDPOINT` environmental variable to use the same origin URI `/api` no need for a scheme or host.
 
-Apply these three changes with `kubectl` and now the app will be temporarily unavailable.
+Apply these three changes with `kubectl` and now the app will be temporarily unavailable. Note, if you have changed namespace with `kubens` you should switch back to the **default** namespace before running the apply.
 
 The next thing is to configure the ingress by [creating an _Ingress_ resource](https://kubernetes.io/docs/concepts/services-networking/ingress/). This can be a fairly complex resource to set-up, but it boils down to a set of HTTP path mappings (routes) and which backend service should serve them, here is the completed manifest file:
 
