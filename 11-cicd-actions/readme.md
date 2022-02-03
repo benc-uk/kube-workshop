@@ -43,9 +43,16 @@ jobs:
 
 The comments in the file should hopefully explain what is happening. The name and filename do not reflect the current function, but the intent of what we are building towards.
 
-Now commit the changes and push to the main branch, yes this is not a typical way of working, but adding a code review or PR process would merely distract from what we are working towards.
+Now commit the changes and push to the main branch, yes this is not a typical way of working, but adding a code review or PR process would merely distract from what we are doing.
 
-Create GitHub secrets,
+The best place to check the status is from the GitHub web site and in the 'Actions' within your forked repo, e.g. [https://github.com/{your-github-user}/kube-workshop/actions](https://github.com/{your-github-user}/kube-workshop/actions)
+
+###
+
+Install the GitHub CLI, this will make setting up the secrets a lot more simple.
+
+- On MacOS: https://github.com/cli/cli#macos
+- On Ubuntu/WSL: `curl -s https://raw.githubusercontent.com/benc-uk/tools-install/master/kubectl.sh | bash`
 
 ```bash
 gh secret set ACR_PASSWORD --body "$(az acr credential show --name $ACR_NAME --query "passwords[0].value" -o tsv)"
