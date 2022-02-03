@@ -18,3 +18,23 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: benc-uk/smilr
+      - name: "Authenticate to access ACR"
+        uses: docker/login-action@master
+        with:
+          registry: ${{ env.ACR_NAME }}.azurecr.io
+          username: ${{ env.ACR_NAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: "Build & Push: data API"
+        run: |
+          docker buildx build . -f node/data-api/Dockerfile \
+            -t $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG \
+            -t $ACR_NAME.azurecr.io/smilr/data-api:latest
+          docker push $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG
+
+      - name: "Build & Push: frontend"
+        run: |
+          docker buildx build . -f node/frontend/Dockerfile \
+            -t $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG \
+            -t $ACR_NAME.azurecr.io/smilr/frontend:latest
+          docker push $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG
