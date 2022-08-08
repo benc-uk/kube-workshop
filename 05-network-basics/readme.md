@@ -105,7 +105,7 @@ Save your YAML into a file `data-api-service.yaml` and apply it to the cluster a
 kubectl apply -f data-api-service.yaml
 ```
 
-Using `kubectl get svc` check the status and wait for the external IP to be assigned, which might take a minute or two. Then go to the address in your browser http://{EXTERNAL_IP}/api/info/ and you should get the same JSON response as before
+Using `kubectl get svc` check the status and wait for the external IP to be assigned, which might take a minute or two. Then go to the address in your browser `http://{EXTERNAL_IP}/api/info/` and you should get the same JSON response as before
 
 Clearly this is better than what we had before, but in production you would never expose traffic directly into your pods like this, so we can improve this further but for now it will suffice
 

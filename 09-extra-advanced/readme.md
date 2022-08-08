@@ -8,8 +8,8 @@ Feel free to do as much or as little of this section as you wish.
 
 Scaling is a very common topic and is always required in some form to meet business demand, handle peak load and maintain application performance. There's fundamentally two approaches: manually scaling and using dynamic auto-scaling. Along side that there are two dimensions to consider:
 
-- **Horizonal scaling**: This is scaling the number of application _Pods_, within the limits of the resources available in the cluster.
-- **Vertical or cluster scaling**: This is scaling the number of _Nodes_ in the cluster, and therefore the total resources available. We won't be looking at this here, but a link is [provided below](#-extra-reading--exercises) if you want to know more.
+- **Horizontal scaling**: This is scaling the number of application _Pods_, within the limits of the resources available in the cluster.
+- **Vertical or cluster scaling**: This is scaling the number of _Nodes_ in the cluster, and therefore the total resources available. We won't be looking at this here, but you can [read the docs](https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler) if you want to know more.
 
 Scaling stateless applications manually can be as simple as running the command to update the number of replicas in a _Deployment_, for example:
 
@@ -94,7 +94,7 @@ To resolve the data persistence issues, we need do three things:
 
 The relationships between these in AKS and Azure, can be explained with a diagram
 
-![](https://docs.microsoft.com/azure/aks/media/concepts-storage/persistent-volume-claims.png)
+![persistent volume claims](https://docs.microsoft.com/azure/aks/media/concepts-storage/persistent-volume-claims.png)
 
 _PersistentVolumes_, _PersistentVolumeClaims_ & _StorageClasses_ etc are a deep and complex topic in Kubernetes, if you want begin reading about them there's [masses of information in the docs](https://kubernetes.io/docs/concepts/storage/persistent-volumes/). However it is suggested for now simply take the YAML below:
 
@@ -178,13 +178,13 @@ If you repeat the experiment above, you should see that the data is maintained a
 
 ## 💥 Installing The App with Helm
 
-The Smilr app we have been working with, comes with a Helm chart, which you can take a look at here: https://github.com/benc-uk/smilr/tree/master/kubernetes/helm/smilr
+The Smilr app we have been working with, comes with a Helm chart, which you can take a look at here, [Smilr Helm Chart](https://github.com/benc-uk/smilr/tree/master/kubernetes/helm/smilr)
 
 With this we can deploy the entire app, all the deployments, pods, services, ingress etc with a single command, naturally if we were to have done this from the beginning there wouldn't have been much scope for learning!
 
 However as this is the final section, now might be a good time to try it. Due to some limitations (mainly the lack of public DNS), only one deployment of the app can function at any given time. So you will need to remove what have currently deployed, by running:
 
-```
+```bash
 kubectl delete deploy,sts,svc,ingress --all
 ```
 
@@ -222,7 +222,7 @@ helm dependency update ./smilr
 
 Finally we are ready to deploy the Smilr app using Helm, the release name can be anything you wish, and you should point to the local directory where the chart has been downloaded and extracted:
 
-```
+```bash
 helm install myapp ./smilr --values my-values.yaml
 ```
 

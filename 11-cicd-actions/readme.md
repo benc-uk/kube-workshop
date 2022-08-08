@@ -51,7 +51,7 @@ The best place to check the status is from the GitHub web site and in the 'Actio
 
 Install the GitHub CLI, this will make setting up the secrets required in the next part much more simple. All commands below assume you are running them from within the path of the cloned repo on your local machine.
 
-- On MacOS: https://github.com/cli/cli#macos
+- On MacOS: [https://github.com/cli/cli#macos](https://github.com/cli/cli#macos)
 - On Ubuntu/WSL: `curl -s https://raw.githubusercontent.com/benc-uk/tools-install/master/kubectl.sh | bash`
 
 Now login using the GitHub CLI, follow the authentication steps when prompted:
@@ -70,7 +70,7 @@ gh secret set ACR_PASSWORD --body "$(az acr credential show --name $ACR_NAME --q
 
 The workflow, doesn't really do much, so let's update the workflow YAML to carry out a build and push of the application container images. We can do this using the code we've checked out in the previous workflow step.
 
-Add this as the YAML top level, e.g just under the `on:` section, change the `__YOUR_ACR_NAME__` part to the name of the ACR you deployed previously (do not include the azurecr.io part)
+Add this as the YAML top level, e.g just under the `on:` section, change the `__YOUR_ACR_NAME__` string to the name of the ACR you deployed previously (do not include the azurecr.io part)
 
 ```yaml
 env:
@@ -78,7 +78,7 @@ env:
   IMAGE_TAG: ${{ github.run_id }}
 ```
 
-Add this section under the "Checkout app code repo" step in the job, it will require indenting to the correct level.
+Add this section under the "Checkout app code repo" step in the job, it will require indenting to the correct level:
 
 ```yaml
 - name: "Authenticate to access ACR"
@@ -105,14 +105,10 @@ Add this section under the "Checkout app code repo" step in the job, it will req
 
 Save the file, commit and push to main just as before. Then check the status from the GitHub UI and 'Actions' page of your forked repo.
 
----
+The workflow now does three important things:
 
-# BAHAHAHHAHAHA
+- Authenticate to "login" to the ACR
+- Build the **smilr/data-api** image and tag as `latest` and also the GitHub run ID, which is unique to every run of the workflow. Then push these images to the ACR.
+- Do exactly the same for the **smilr/frontend** image
 
-```bash
-gh secret set CLUSTER_KUBECONFIG --body "$(az aks get-credentials -g $RES_GROUP -n $AKS_NAME --file -)"
-```
-
-```bash
-az acr repository show-tags --name $ACR_NAME --repository smilr/data-api
-```
+The "Build & push images" job and the workflow should take around 2~3 minutes to complete.

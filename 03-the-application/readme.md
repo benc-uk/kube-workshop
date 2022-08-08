@@ -4,7 +4,7 @@ This section simply serves as an introduction to the application, there are no t
 
 The application is called 'Smilr' and provides users with a way to rate and provide feedback on events and other sessions (e.g. hacks, meetups) they have attended. In addition administrators have way to configure events and view the feedback that has been provided.
 
-### [📃 Smilr - GitHub Repo & Project](https://github.com/benc-uk/smilr)
+## [📃 Smilr - GitHub Repo & Project](https://github.com/benc-uk/smilr)
 
 Screenshot:
 

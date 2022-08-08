@@ -10,7 +10,7 @@ As this is a completely hands on workshop, you will need several things before y
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
 - [helm](https://helm.sh/docs/intro/install/)
 
-### Install Azure CLI
+## Install Azure CLI
 
 To set-up the Azure CLI on your system
 
@@ -28,7 +28,7 @@ brew update && brew install azure-cli
 
 If the commands above don't work, please refer to: [https://aka.ms/azure-cli](https://aka.ms/azure-cli)
 
-### Install Helm & Kubectl
+## Install Helm & Kubectl
 
 <details markdown="1">
 <summary>Install Helm & Kubectl - Linux (Ubuntu/Debian)</summary>
@@ -70,7 +70,7 @@ curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
 </details>
 
-### After Install - Login to Azure
+## After Install - Login to Azure
 
 Getting set up locally is the highly recommended path to take, if you are stuck there are some other options to explore, but these haven't been tested:
 

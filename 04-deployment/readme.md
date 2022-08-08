@@ -148,11 +148,11 @@ Kubernetes provides a way to "tunnel" network traffic into the cluster through t
 
 Pick the name of either one of the two data-api _Pods_, and run:
 
-```
+```bash
 kubectl port-forward {pod_name} 4000:4000
 ```
 
-And then accessing the following URL http://localhost:4000/api/info either in your browser or with `curl` we should see a JSON response with some status and debug information from the API. Clearly this isn't a good way to expose your apps long term, but can be extremely useful when debugging and triaging issues.
+And then accessing the following URL [http://localhost:4000/api/info](http://localhost:4000/api/info) either in your browser or with `curl` we should see a JSON response with some status and debug information from the API. Clearly this isn't a good way to expose your apps long term, but can be extremely useful when debugging and triaging issues.
 
 When done, cancel the port-forwarding with ctrl-c
 
