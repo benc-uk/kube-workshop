@@ -6,7 +6,7 @@ This workshop is very much designed for software engineers & developers with lit
 
 The application used will be one that has already been written and built, so no application code will need to be written.
 
-The workshop will use Azure Kubernetes Service (AKS) and assumes a relative degree of comfort in using Azure for sections 2 and 3.
+The workshop will use Azure Kubernetes Service (AKS) and assumes a relative degree of comfort in using Azure for sections 2 and 3. However all of the Kubernetes concepts & APIs explored and used are not specific to AKS or Azure.
 
 Sections / modules:
 
@@ -22,7 +22,7 @@ Sections / modules:
 
 If you get stuck, the [GitHub repo for this workshop](https://github.com/benc-uk/kube-workshop) contains example and working files for most of the sections
 
-## Optional Sections
+## 🍵 Optional Sections
 
 These can be considered bonus sections, and are entirely optional. It is not expected that all these sections would be attempted, and they do not run in order.
 

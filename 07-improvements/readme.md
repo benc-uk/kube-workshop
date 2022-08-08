@@ -43,8 +43,8 @@ Add these sections to your deployment YAML files, and reapply to the cluster wit
 
 Probes are Kubernetes' way of checking the health of your workloads. There are two main types of probe:
 
-- **Liveness probe**: Checks if the _Pod_ is alive, _Pods_ that fail this probe will be terminated and restarted.
-- **Readiness probe**: Checks if the _Pod_ is ready to accept traffic, _Services_ only sends traffic to _Pods_ in a ready state.
+- **Liveness probe**: Checks if the _Pod_ is alive, _Pods_ that fail this probe will be **_terminated and restarted_**
+- **Readiness probe**: Checks if the _Pod_ is ready to **_accept traffic_**, _Services_ only sends traffic to _Pods_ which are in a ready state.
 
 You can [read more about probes at the kubernetes documentation.](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/). Also [this blog post has some excellent advice around probes](https://srcco.de/posts/kubernetes-liveness-probes-are-dangerous.html), and covers some of the pitfalls of using them, particularly liveness probes.
 
@@ -76,7 +76,7 @@ If you run `kubectl get pods` immediately after the apply, you should see that t
 
 ## 🔐 Secrets
 
-Remember how we had the MongoDB password visible in plain text in two of our deployment YAML manifests? Now is the time to address that, we can create a Kubernetes _Secret_, which is a configuration resource which can be used to store sensitive information.
+Remember how we had the MongoDB password visible in plain text in two of our deployment YAML manifests? Blergh! 🤢 Now is the time to address that, we can create a Kubernetes _Secret_, which is a configuration resource which can be used to store sensitive information.
 
 _Secrets_ can be created using a YAML file just like every resource in Kubernetes, but instead we'll used the `kubectl create` command to imperatively create the resource from the command line, as follows:
 
@@ -117,6 +117,6 @@ If you get stuck and want working manifests you can refer to, they are available
 - [data-api-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/data-api-deployment.yaml)
 - [frontend-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/frontend-deployment.yaml)
 - [mongo-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/mongo-deployment.yaml)
-  - Bonus: This manifest shows how to add a readiness probe using a command, rather than HTTP, use it if you wish, but it's optional.
+  - Bonus: This manifest shows how to add a probe using an executed command, rather than HTTP, use it if you wish, but it's optional.
 
 ### [Return to Main Index](../readme.md)

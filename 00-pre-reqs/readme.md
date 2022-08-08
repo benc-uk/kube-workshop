@@ -2,15 +2,15 @@
 
 As this is a completely hands on workshop, you will need several things before you can start:
 
-- bash or a bash compatible shell (e.g. zsh), please do not attempt to use PowerShell or cmd.
 - Access to an Azure Subscription where you can create resources.
+- bash or a bash compatible shell (e.g. zsh), please do not attempt to use PowerShell or cmd.
 - A good editor, and [VS Code](https://code.visualstudio.com/) is strongly recommended
   - [Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools) also highly recommended
 - [Azure CLI](https://aka.ms/azure-cli)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
 - [helm](https://helm.sh/docs/intro/install/)
 
-## Install Azure CLI
+## 🌩️ Install Azure CLI
 
 To set-up the Azure CLI on your system
 
@@ -28,7 +28,7 @@ brew update && brew install azure-cli
 
 If the commands above don't work, please refer to: [https://aka.ms/azure-cli](https://aka.ms/azure-cli)
 
-## Install Helm & Kubectl
+## ⛑️ Install Helm & Kubectl
 
 <details markdown="1">
 <summary>Install Helm & Kubectl - Linux (Ubuntu/Debian)</summary>
@@ -70,18 +70,20 @@ curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
 </details>
 
-## After Install - Login to Azure
-
-Getting set up locally is the highly recommended path to take, if you are stuck there are some other options to explore, but these haven't been tested:
-
-- Use the [Azure Cloud Shell](https://shell.azure.com/bash) which has all of these tools except VS Code, but a simple web code editor is available.
-- Go to the [repo for this workshop on GitHub](https://github.com/benc-uk/kube-workshop/codespaces) and start a new Codespace from it, you should get a terminal you can use and have all the tools available. Only available if you have access to GitHub Codespaces.
+## 🔐 After Install - Login to Azure
 
 The rest of this workshop assumes you have access to an Azure subscription, and have the Azure CLI working & signed into the tenant & subscription you will be using. Some Azure CLI commands to help you:
 
 - `az login` or `az login --tenant {TENANT_ID}` - Login to the Azure CLI, use the `--tenant` switch if you have multiple accounts.
 - `az account set --subscription {SUBSCRIPTION_ID}` - Set the subscription the Azure CLI will use.
 - `az account show -o table` - Show the subscription the CLI is configured to use.
+
+## 😢 Stuck?
+
+Getting all the tools set up locally is the highly recommended path to take, if you are stuck there are some other options to explore, but these haven't been tested:
+
+- Use the [Azure Cloud Shell](https://shell.azure.com/bash) which has all of these tools except VS Code, but a simple web code editor is available.
+- Go to the [repo for this workshop on GitHub](https://github.com/benc-uk/kube-workshop/codespaces) and start a new Codespace from it, you should get a terminal you can use and have all the tools available. Only available if you have access to GitHub Codespaces.
 
 ## 💲 Variables File
 

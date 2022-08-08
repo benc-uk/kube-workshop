@@ -46,7 +46,7 @@ helm repo update
 
 An [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) provides a reliable and secure way to route HTTP and HTTPS traffic into your cluster and expose your applications from a single point of ingress; hence the name.
 
-![Ingress controller diagram showing routing of traffice to backend services](./kuberntes-ingress.png)
+![Ingress controller diagram showing routing of traffic to backend services](./kuberntes-ingress.png)
 
 - The controller is simply an instance of a HTTP reverse proxy running in one or mode _Pods_ with a _Service_ in front of it.
 - It implements the [Kubernetes controller pattern](https://kubernetes.io/docs/concepts/architecture/controller/#controller-pattern) scanning for _Ingress_ resources to be created in the cluster, when it finds one, it reconfigures itself based on the rules and configuration within that _Ingress_, in order to route traffic.
