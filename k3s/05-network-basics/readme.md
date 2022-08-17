@@ -115,4 +115,4 @@ The resources deployed into the cluster & in Azure at this stage can be visualiz
 
 ![architecture diagram](./diagram.png)
 
-### [Return to Main Index](../readme.md)
+### [Return to Main Index](../../readme.md)

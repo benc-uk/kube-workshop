@@ -95,4 +95,4 @@ The resources deployed into the cluster & in Azure at this stage can be visualiz
 
 Notice we have **two public IPs**, the `LoadBalancer` service type is not an instruction to Azure to deploy an entire Azure Load Balancer, instead it's used to create a new public IP and assign it to the single Azure Load Balancer (created by AKS) that sits in front of the cluster. We'll refine this later when we look at setting up an ingress.
 
-### [Return to Main Index](../readme.md)
+### [Return to Main Index](../../readme.md)
