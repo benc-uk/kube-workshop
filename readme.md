@@ -6,7 +6,11 @@ This workshop is very much designed for software engineers & developers with lit
 
 The application used will be one that has already been written and built, so no application code will need to be written.
 
-The workshop will use Azure Kubernetes Service (AKS) and assumes a relative degree of comfort in using Azure for sections 2 and 3. However all of the Kubernetes concepts & APIs explored and used are not specific to AKS or Azure.
+The workshop can be done using either:
+
+**Azure Kubernetes Service (AKS)**:
+
+> This section assumes a relative degree of comfort in using Azure for sections 2 and 3.
 
 Sections / modules:
 
@@ -19,6 +23,22 @@ Sections / modules:
 - [💻 Adding The Frontend](06-frontend/readme.md) - Deploying the frontend to the app and wiring it up.
 - [✨ Improving The Deployment](07-improvements/readme.md) - Recommended practices; resource limits, probes and secrets.
 - [🌎 Helm & Ingress](08-helm-ingress/readme.md) - Finalizing the application architecture using ingress.
+
+**K3s with VMs**:
+
+Sections / modules:
+
+- [⚒️ Workshop Pre Requisites](k3s/00-pre-reqs/readme.md) - Covering the pre set up and tools that will be needed.
+- [🚦 Deploying Kubernetes](k3s/01-cluster/readme.md) - Deploying AKS, setting up kubectl and accessing the cluster.
+- [📦 Container Registry & Images](k3s/02-container-registry/readme.md) - Deploying the registry and importing images.
+- [❇️ Overview Of The Application](k3s/03-the-application/readme.md) - Details of the application to be deployed.
+- [🚀 Deploying The Backend](k3s/04-deployment/readme.md) - Laying down the first two components and introduction to Deployments and Pods.
+- [🌐 Basic Networking](k3s/05-network-basics/readme.md) - Introducing Services to provide network access.
+- [💻 Adding The Frontend](k3s/06-frontend/readme.md) - Deploying the frontend to the app and wiring it up.
+- [✨ Improving The Deployment](k3s/07-improvements/readme.md) - Recommended practices; resource limits, probes and secrets.
+- [🌎 Helm & Ingress](k3s/08-helm-ingress/readme.md) - Finalizing the application architecture using ingress.
+
+All of the Kubernetes concepts & APIs explored and used are not specific to AKS, K3S or Azure.
 
 If you get stuck, the [GitHub repo for this workshop](https://github.com/benc-uk/kube-workshop) contains example and working files for most of the sections
 
