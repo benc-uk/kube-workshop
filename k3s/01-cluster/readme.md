@@ -4,6 +4,8 @@ Deploying a Kubernetes can be extremely complex, with many networking, compute a
 
 ## 🚀 Virtual Machine Cluster Deployment
 
+aka baremetal
+
 1. Create the VM
 
     ```bash

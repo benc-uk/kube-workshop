@@ -21,6 +21,13 @@ Namespaces are simple idea but they can trip you up, you will have to add `--nam
 alias kubens='kubectl config set-context --current --namespace '
 ```
 
+and to add to your `.bashrc`
+
+```bash
+# Note the space at the end
+echo "alias kubens='kubectl config set-context --current --namespace '" >> ~/.bashrc 
+```
+
 ## ⛑️ Introduction to Helm
 
 [Helm is an CNCF project](https://helm.sh/) which can be used to greatly simplify deploying applications to Kubernetes, either applications written and developed in house, or external 3rd party software & tools.
@@ -79,12 +86,12 @@ You can also use the `helm` CLI to query the status, here's some simple and comm
 
 Now we can modify the app we've deployed to route through the new ingress, but a few simple changes are required first. As the ingress controller will be routing all requests, the services in front of the deployments should be switched back to internal i.e. `ClusterIP`.
 
-- Edit both the data API & frontend **service** YAML manifests, change the service type to `ClusterIP` then reapply with `kubectl apply`
+- Edit both the data API & frontend **service** YAML manifests, change the service type to `ClusterIP`  and remove `nodePort` field then reapply with `kubectl apply`
 - Edit the frontend **deployment** YAML manifest, change the `API_ENDPOINT` environmental variable to use the same origin URI `/api` no need for a scheme or host.
 
 Apply these three changes with `kubectl` and now the app will be temporarily unavailable. Note, if you have changed namespace with `kubens` you should switch back to the **default** namespace before running the apply.
 
-The next thing is to configure the ingress by [creating an _Ingress_ resource](https://kubernetes.io/docs/concepts/services-networking/ingress/). This can be a fairly complex resource to set-up, but it boils down to a set of HTTP path mappings (routes) and which backend service should serve them, here is the completed manifest file:
+The next thing is to configure the ingress by [creating an _Ingress_ resource](https://kubernetes.io/docs/concepts/services-networking/ingress/). This can be a fairly complex resource to set-up, but it boils down to a set of HTTP path mappings (routes) and which backend service should serve them, here is the completed manifest file of `ingress.yaml`:
 
 <details markdown="1">
 <summary>Click here for the Ingress YAML</summary>
@@ -128,7 +135,7 @@ spec:
 
 </details>
 
-Save this as `ingress.yaml` and apply the same as before with `kubectl`, validate the status with
+Apply the same as before with `kubectl`, validate the status with:
 
 ```bash
 kubectl get ingress
