@@ -8,12 +8,6 @@ So far we've worked in a single _Namespace_ called `default`, but Kubernetes all
 
 > 📝 NOTE: Namespaces do not provide a network boundary or isolation of workloads, and the underlying resources (Nodes) remain shared. There are ways to achieve these outcomes, but is well beyond the scope of this workshop.
 
-Create a new namespace called `ingress`:
-
-```bash
-kubectl create namespace ingress
-```
-
 Namespaces are simple idea but they can trip you up, you will have to add `--namespace` or `-n` to any `kubectl` commands you want to use against a particular namespace. The following alias can be helpful to set a namespace as the default for all `kubectl` commands, meaning you don't need to add `-n`, think of it like a Kubernetes equivalent of the `cd` command.
 
 ```bash
@@ -28,28 +22,14 @@ and to add to your `.bashrc`
 echo "alias kubens='kubectl config set-context --current --namespace '" >> ~/.bashrc 
 ```
 
-## ⛑️ Introduction to Helm
-
-[Helm is an CNCF project](https://helm.sh/) which can be used to greatly simplify deploying applications to Kubernetes, either applications written and developed in house, or external 3rd party software & tools.
-
-- Helm simplifies deployment into Kubernetes using _charts_, when a chart is deployed it is refereed to as a _release_.
-- A _chart_ consists of one or more Kubernetes YAML templates + supporting files.
-- Helm charts support dynamic parameters called _values_. Charts expose a set of default _values_ through their `values.yaml` file, and these _values_ can be set and over-ridden at _release_ time.
-- The use of _values_ is critical for automated deployments and CI/CD.
-- Charts can referenced through the local filesystem, or in a remote repository called a _chart repository_. The can also be kept in a container registry but that is an advanced and experimental topic.
-- To use Helm, the Helm CLI tool `helm` is required.
-
-Well add the Helm chart repository for the ingress we will be deploying, this is done with the `helm repo` command. This is a public repo & chart of the extremely popular NGINX ingress controller (more on that below)
-
-> 📝 NOTE: The repo name `ingress-nginx` can be any name you wish to pick, but the URL has to be pointing to the correct place.
-
-```bash
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-
-helm repo update
-```
-
 ## 🚀 Deploying The Ingress Controller
+
+https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal-clusters
+
+```sh
+
+curl https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/baremetal/deploy.yaml -o moo.yaml
+```
 
 An [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) provides a reliable and secure way to route HTTP and HTTPS traffic into your cluster and expose your applications from a single point of ingress; hence the name.
 

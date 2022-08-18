@@ -51,7 +51,7 @@ spec:
 
           env:
             - name: API_ENDPOINT
-              value: http://{API_EXTERNAL_IP}/api
+              value: http://{VM_IP:NODE_PORT}/api
 ```
 
 </details>

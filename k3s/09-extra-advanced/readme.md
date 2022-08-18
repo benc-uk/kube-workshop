@@ -176,6 +176,19 @@ Save as `mongo-statefulset.yaml` remove the old deployment with `kubectl delete 
 
 If you repeat the experiment above, you should see that the data is maintained after you delete the `mongodb-0` pod and it restarts.
 
+## ⛑️ Introduction to Helm
+
+[Helm is an CNCF project](https://helm.sh/) which can be used to greatly simplify deploying applications to Kubernetes, either applications written and developed in house, or external 3rd party software & tools.
+
+- Helm simplifies deployment into Kubernetes using _charts_, when a chart is deployed it is refereed to as a _release_.
+- A _chart_ consists of one or more Kubernetes YAML templates + supporting files.
+- Helm charts support dynamic parameters called _values_. Charts expose a set of default _values_ through their `values.yaml` file, and these _values_ can be set and over-ridden at _release_ time.
+- The use of _values_ is critical for automated deployments and CI/CD.
+- Charts can referenced through the local filesystem, or in a remote repository called a _chart repository_. The can also be kept in a container registry but that is an advanced and experimental topic.
+- To use Helm, the Helm CLI tool `helm` is required.
+
+Well add the Helm chart repository for the ingress we will be deploying, this is done with the `helm repo` command. This is a public repo & chart of the extremely popular NGINX ingress controller (more on that below)
+
 ## 💥 Installing The App with Helm
 
 The Smilr app we have been working with, comes with a Helm chart, which you can take a look at here, [Smilr Helm Chart](https://github.com/benc-uk/smilr/tree/master/kubernetes/helm/smilr)
