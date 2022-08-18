@@ -18,6 +18,8 @@ For the Service:
 
 You might like to try creating the service before deploying the pods to see what happens. The YAML you can use for both, is provided below:
 
+`frontend-deployment.yaml`:
+
 <details markdown="1">
 <summary>Click here for the frontend deployment YAML</summary>
 
@@ -54,6 +56,8 @@ spec:
 
 </details>
 
+`frontend-service.yaml`:
+
 <details markdown="1">
 <summary>Click here for the frontend service YAML</summary>
 
@@ -65,25 +69,26 @@ metadata:
   name: frontend
 
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: frontend
   ports:
     - protocol: TCP
       port: 80
       targetPort: 3000
+      nodePort: 30037
 ```
 
 </details>
 
-As before, the there are changes that are required to the supplied YAML, replacing anything inside `{ }` with a corresponding real value. Save the two files `frontend-deployment.yaml` and `frontend-service.yaml`
+As before, the there are changes that are required to the supplied YAML, replacing anything inside `{ }` with a corresponding real value.
 
 ## 💡 Accessing and Using the App
 
 Once the two YAMLs have been applied:
 
 - Check the external IP for the frontend is assigned with `kubectl get svc frontend`
-- Once it is there, go to that IP in your browser, e.g. `http://{frontend-ip}/` - the application should load and the Smilr frontend is shown.
+- Once it is there, go to that IP in your browser, e.g. `http://{vm_ip}/30037/` - the application should load and the Smilr frontend is shown.
 
 If you want to spend a few minutes using the app, you can go to the "Admin" page, add a new event, the details don't matter but make the date range to include the current date. And try out the feedback view and reports. Or simply be happy the app is functional and move on.
 
@@ -92,6 +97,8 @@ If you want to spend a few minutes using the app, you can go to the "Admin" page
 The resources deployed into the cluster & in Azure at this stage can be visualized as follows:
 
 ![architecture diagram](./diagram.png)
+
+> This part needs to be changed to refer to a single nodeport
 
 Notice we have **two public IPs**, the `LoadBalancer` service type is not an instruction to Azure to deploy an entire Azure Load Balancer, instead it's used to create a new public IP and assign it to the single Azure Load Balancer (created by AKS) that sits in front of the cluster. We'll refine this later when we look at setting up an ingress.
 

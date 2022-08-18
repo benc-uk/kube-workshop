@@ -59,13 +59,17 @@ Deploying a Kubernetes can be extremely complex, with many networking, compute a
     echo "source <(kubectl completion bash)" >> ~/.bashrc 
     echo "alias k=kubectl" >> ~/.bashrc 
     echo "complete -o default -F __start_kubectl k" >> ~/.bashrc 
+    echo "export PATH=$PATH:/home/azureuser/.local/bin" >> ~/.bashrc 
+    sudo chown azureuser /etc/rancher/k3s/k3s.yaml
     ```
 
     > Note: For these changes to take affect in your current terminal, you must load bashrc with `. ~/.bashrc`
 
 ## Connect to the VM from VSCode
 
-To make creating files easier on the machine it's recommended to use VSCode Remote extension with SSH to connect to the VM: [Developing on Remote Machines using SSH and Visual Studio Code](https://code.visualstudio.com/docs/remote/ssh)
+To make creating files easier on the machine it's recommended to use [VS Code](https://code.visualstudio.com/) Remote extension with SSH to connect to the VM: [Developing on Remote Machines using SSH and Visual Studio Code](https://code.visualstudio.com/docs/remote/ssh)
+
+It's also highly recommended to get the [Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
 
 ## ⏯️ Appendix - Stopping & Starting the VM
 

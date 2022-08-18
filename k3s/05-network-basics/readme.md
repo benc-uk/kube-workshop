@@ -15,7 +15,7 @@ Now to put a _Service_ in front of the MongoDB pods, if you want to create the s
 
 > 📝 NOTE: Labels are optional metadata that can be added to any object in Kubernetes, they are simply key-value pairs. The label "app" is commonly used, but has **no special meaning**, and isn't used by Kubernetes in any way
 
-A YAML manifest for the service is given below:
+Save your YAML into a file `mongo-service.yaml` or use the below YAML manifest for the service:
 
 <details markdown="1">
 <summary>Click here for the MongoDB service YAML</summary>
@@ -40,7 +40,7 @@ spec:
 
 </details>
 
-Save your YAML into a file `mongo-service.yaml` and apply it to the cluster as before, with
+Apply it to the cluster as before, with
 
 ```bash
 kubectl apply -f mongo-service.yaml
@@ -77,6 +77,10 @@ We can create a different type of _Service_ in front of the data API, in order t
 
 We can also change the port at the _Service_ level, so the port exposed by the _Service_ doesn't need to match the one that the container is listening on. In this case we'll re-map the port to **80**
 
+Save your YAML into a file `data-api-service.yaml` from above or below
+
+<https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0>
+
 <details markdown="1">
 <summary>Click here for the data API service YAML</summary>
 
@@ -88,22 +92,25 @@ metadata:
   name: data-api
 
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: data-api
   ports:
     - protocol: TCP
       port: 80
       targetPort: 4000
+      nodePort: 30036
 ```
 
 </details>
 
-Save your YAML into a file `data-api-service.yaml` and apply it to the cluster as before, with
+Apply it to the cluster as before, with:
 
 ```bash
 kubectl apply -f data-api-service.yaml
 ```
+
+Make sure to expose port `30036` on your VM too
 
 Using `kubectl get svc` check the status and wait for the external IP to be assigned, which might take a minute or two. Then go to the address in your browser `http://{EXTERNAL_IP}/api/info/` and you should get the same JSON response as before
 
