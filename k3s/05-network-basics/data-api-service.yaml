@@ -5,10 +5,11 @@ metadata:
   name: data-api
 
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: data-api
   ports:
     - protocol: TCP
       port: 80
       targetPort: 4000
+      nodePort: 30036

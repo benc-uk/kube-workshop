@@ -24,15 +24,15 @@ Sections / modules:
 - [✨ Improving The Deployment](07-improvements/readme.md) - Recommended practices; resource limits, probes and secrets.
 - [🌎 Helm & Ingress](08-helm-ingress/readme.md) - Finalizing the application architecture using ingress.
 
-**K3s with VMs**:
+**Bare metal K3S cluster simulation on a VM**:
 
 Sections / modules:
 
 - [⚒️ Workshop Pre Requisites](k3s/00-pre-reqs/readme.md) - Covering the pre set up and tools that will be needed.
-- [🚦 Deploying Kubernetes](k3s/01-cluster/readme.md) - Deploying AKS, setting up kubectl and accessing the cluster.
+- [🚦 Deploying Kubernetes](k3s/01-cluster/readme.md) - Deploying the VM, setting up kubectl and accessing the cluster.
 - [📦 Container Registry & Images](k3s/02-container-registry/readme.md) - Deploying the registry and importing images.
-- [❇️ Overview Of The Application](k3s/03-the-application/readme.md) - Details of the application to be deployed.
-- [🚀 Deploying The Backend](k3s/04-deployment/readme.md) - Laying down the first two components and introduction to Deployments and Pods.
+- [❇️ Overview Of The Application](03-the-application/readme.md) - Details of the application to be deployed.
+- [🚀 Deploying The Backend](04-deployment/readme.md) - Laying down the first two components and introduction to Deployments and Pods.
 - [🌐 Basic Networking](k3s/05-network-basics/readme.md) - Introducing Services to provide network access.
 - [💻 Adding The Frontend](k3s/06-frontend/readme.md) - Deploying the frontend to the app and wiring it up.
 - [✨ Improving The Deployment](k3s/07-improvements/readme.md) - Recommended practices; resource limits, probes and secrets.

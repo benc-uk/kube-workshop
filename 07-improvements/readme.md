@@ -114,9 +114,9 @@ _Secrets_ can use used a number of ways, but the easiest way is to consume them,
 
 If you get stuck and want working manifests you can refer to, they are available here:
 
-- [data-api-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/data-api-deployment.yaml)
-- [frontend-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/frontend-deployment.yaml)
-- [mongo-deployment.yaml](https://raw.githubusercontent.com/benc-uk/kube-workshop/main/07-improvements/mongo-deployment.yaml)
+- [data-api-deployment.yaml](data-api-deployment.yaml)
+- [frontend-deployment.yaml](frontend-deployment.yaml)
+- [mongo-deployment.yaml](mongo-deployment.yaml)
   - Bonus: This manifest shows how to add a probe using an executed command, rather than HTTP, use it if you wish, but it's optional.
 
 ### [Return to Main Index](../readme.md)

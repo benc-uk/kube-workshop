@@ -25,4 +25,4 @@ spec:
 
           env:
             - name: API_ENDPOINT
-              value: http://{API_EXTERNAL_IP}/api
+              value: http://{VM_IP}:30036/api

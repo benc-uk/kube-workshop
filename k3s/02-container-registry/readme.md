@@ -42,16 +42,29 @@ If you wish to check and see imported images, you can go over to the ACR resourc
 
 ## 🔌 Connect K3s to ACR
 
+Kuberenetes requires a way to authenticate and access images stored in private registries. There are a number of ways to enable Kubernetes to pull images from a private registry, however K3S provides a simple way to configure this through the `registries.yaml`. The downside is this requires you to manually add the file to your device/VM.
+
+On your VM create the `registries.yaml` with the following content:
+
+> 📝 NOTE: The password is retrieved with Azure CLI, if you don't have Azure CLI on the VM, you can just retrieve your ACR password from the portal and replace that section your ACR password
+
 ```sh
-cat <<EOT >> /etc/rancher/k3s/registries.yaml
+# Copy the ACR name from the .env file created earlier or from Azure
+ACR_NAME=<your_acr_value>
+cat <<EOT > /etc/rancher/k3s/registries.yaml
 configs:
   "$ACR_NAME.azurecr.io":
     auth:
       username: $ACR_NAME
       password: $(az acr credential show --name $ACR_NAME --query "passwords[0].value" -o tsv)
 EOT
-sudo systemctl restart k3s;
+# Verify the file was created with the right values
+cat /etc/rancher/k3s/registries.yaml
 
+# Restart K3s for the change to take effect
+sudo systemctl restart k3s;
 ```
+
+> To read more about how `registries.yaml` works, you can checkout: [Rancher Docs: Private Registry Configuration](https://rancher.com/docs/k3s/latest/en/installation/private-registry/)
 
 ### [Return to Main Index](../../readme.md)
