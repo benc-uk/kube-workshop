@@ -6,9 +6,11 @@ This workshop is very much designed for software engineers & developers with lit
 
 The application used will be one that has already been written and built, so no application code will need to be written.
 
-The workshop can be done using either:
+There are two approaches you can take with this workshop below
 
-**Azure Kubernetes Service (AKS)**:
+If you get stuck, the [GitHub repo for this workshop](https://github.com/benc-uk/kube-workshop) contains example and working files for most of the sections
+
+## Azure Kubernetes Service (AKS)
 
 > This section assumes a relative degree of comfort in using Azure for sections 2 and 3.
 
@@ -24,7 +26,14 @@ Sections / modules:
 - [✨ Improving The Deployment](07-improvements/readme.md) - Recommended practices; resource limits, probes and secrets.
 - [🌎 Helm & Ingress](08-helm-ingress/readme.md) - Finalizing the application architecture using ingress.
 
-**Bare metal K3S cluster simulation on a VM**:
+## 🍵 AKS Optional Sections
+
+These can be considered bonus sections, and are entirely optional. It is not expected that all these sections would be attempted, and they do not run in order.
+
+- [🤯 Scaling, Stateful Workloads & Helm](09-extra-advanced/readme.md) - Scaling (manual & auto), stateful workloads and persitent volumes, plus more Helm.
+- [🧩 Kustomize & GitOps](10-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps through GitOps with Flux
+
+## Bare metal K3S cluster simulation on a VM
 
 Sections / modules:
 
@@ -36,18 +45,16 @@ Sections / modules:
 - [🌐 Basic Networking](k3s/05-network-basics/readme.md) - Introducing Services to provide network access.
 - [💻 Adding The Frontend](k3s/06-frontend/readme.md) - Deploying the frontend to the app and wiring it up.
 - [✨ Improving The Deployment](k3s/07-improvements/readme.md) - Recommended practices; resource limits, probes and secrets.
-- [🌎 Helm & Ingress](k3s/08-helm-ingress/readme.md) - Finalizing the application architecture using ingress.
+- [🌎 Ingress](k3s/08-helm-ingress/readme.md) - Finalizing the application architecture using ingress.
 
 All of the Kubernetes concepts & APIs explored and used are not specific to AKS, K3S or Azure.
 
-If you get stuck, the [GitHub repo for this workshop](https://github.com/benc-uk/kube-workshop) contains example and working files for most of the sections
-
-## 🍵 Optional Sections
+## 🍵 K3s Optional Sections
 
 These can be considered bonus sections, and are entirely optional. It is not expected that all these sections would be attempted, and they do not run in order.
 
-- [🤯 Scaling, Stateful Workloads & Helm](09-extra-advanced/readme.md) - Scaling (manual & auto), stateful workloads and persitent volumes, plus more Helm.
-- [🧩 Kustomize & GitOps](10-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps through GitOps with Flux
+- [🤯 Scaling, Stateful Workloads & Helm](k3s/09-extra-advanced/readme.md) - Scaling (manual & auto), stateful workloads and persitent volumes, plus more Helm.
+- [🧩 Kustomize & GitOps](k3s/10-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps through GitOps with Flux
 
 ## 📖 Extra Reading & Teach Yourself Exercises
 

@@ -64,7 +64,7 @@ Now run kustomize via kubectl, giving it the path to the base directory as follo
 kubectl kustomize ./base
 ```
 
-You will see the YAML printed to stdout, as we've not provided any changes in the `kustomization.yaml` all we get is a 1:1 version of the `deployment.yaml` file. This isn't very useful!
+You will see the YAML printed to stdout, as we've not provided any changes in the `kustomization.yaml` all we get is a 1:1 version of the `deployment.yaml` file. This isn't very useful! 😬
 
 To better understand what Kustomize can do, create a second directory at the same level as `base` called `overlay`
 
