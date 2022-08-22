@@ -11,6 +11,8 @@ Scaling is a very common topic and is always required in some form to meet busin
 - **Horizontal scaling**: This is scaling the number of application _Pods_, within the limits of the resources available in the cluster.
 - **Vertical or cluster scaling**: This is scaling the number of _Nodes_ in the cluster, and therefore the total resources available. We won't be looking at this here, but you can [read the docs](https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler) if you want to know more.
 
+Since the k3s cluster is only running a single node, you'll only be able to take advantage of **horizontal scaling**.
+
 Scaling stateless applications manually can be as simple as running the command to update the number of replicas in a _Deployment_, for example:
 
 ```bash
@@ -62,7 +64,7 @@ Now generate some fake load by hitting the `/api/info` endpoint with lots of req
 ```bash
 wget wget https://hey-release.s3.us-east-2.amazonaws.com/hey_linux_amd64
 chmod +x hey_linux_amd64
-./hey_linux_amd64 -z 180s -c 20 http://{INGRESS_IP}/api/info
+./hey_linux_amd64 -z 180s -c 20 http://{VM_IP}:30036/api/info
 ```
 
 After about 1~2 mins you should see new data-api pods being created. Once the `hey` command completes and the load stops, it will probably be around ~5 mins before the pods scale back down to their original number
@@ -90,13 +92,13 @@ To resolve the data persistence issues, we need do three things:
 
 - Change the MongoDB _Deployment_ to a _StatefulSet_ with a single replica.
 - Add a `volumeMount` to the container mapped to the `/data/db` filesystem, which is where the mongodb process stores it's data.
-- Add a `volumeClaimTemplate` to dynamically create a _PersistentVolume_ and a _PersistentVolumeClaim_ for this _StatefulSet_. Use the "default" _StorageClass_ and request a 500M volume which is dedicated with the "ReadWriteOnce" access mode.
+- Add a `volumeClaimTemplate` to dynamically create a _PersistentVolume_ and a _PersistentVolumeClaim_ for this _StatefulSet_. Use the "local-path" `StorageClass` and request a 500M volume which is dedicated with the "ReadWriteOnce" access mode.
 
-The relationships between these in AKS and Azure, can be explained with a diagram
+The relationships between these can be explained with this diagram:
 
-![persistent volume claims](https://docs.microsoft.com/azure/aks/media/concepts-storage/persistent-volume-claims.png)
+![persistent volume claims](statefulset-local-storage.png)
 
-_PersistentVolumes_, _PersistentVolumeClaims_ & _StorageClasses_ etc are a deep and complex topic in Kubernetes, if you want begin reading about them there's [masses of information in the docs](https://kubernetes.io/docs/concepts/storage/persistent-volumes/). However it is suggested for now simply take the YAML below:
+_PersistentVolumes_, _PersistentVolumeClaims_ & _StorageClasses_ etc are a deep and complex topic in Kubernetes, if you want begin reading about them there's [masses of information in the docs](https://kubernetes.io/docs/concepts/storage/persistent-volumes/). However it is suggested for now simply take the YAML below and save it as `mongo-statefulset.yaml`:
 
 <details markdown="1">
 <summary>Completed MongoDB <i>StatefulSet</i> YAML manifest</summary>
@@ -161,7 +163,7 @@ spec:
         name: mongo-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: default
+        storageClassName: local-path
         resources:
           requests:
             storage: 500M
@@ -169,7 +171,7 @@ spec:
 
 </details>
 
-Save as `mongo-statefulset.yaml` remove the old deployment with `kubectl delete deployment mongodb` and apply the new `mongo-statefulset.yaml` file. Some comments:
+Remove the old deployment with `kubectl delete deployment mongodb` and apply the new `mongo-statefulset.yaml` file. Some comments:
 
 - When you run `kubectl get pods` you will see the pod name ends `-0` rather than the random hash.
 - Running `kubectl get pv,pvc` you will see the new _PersistentVolume_ and _PersistentVolumeClaim_ that have been created. The _Pod_ might take a little while to start while the volume is created, and is "bound" to the _Pod_
@@ -191,14 +193,16 @@ Well add the Helm chart repository for the ingress we will be deploying, this is
 
 ## 💥 Installing The App with Helm
 
-The Smilr app we have been working with, comes with a Helm chart, which you can take a look at here, [Smilr Helm Chart](https://github.com/benc-uk/smilr/tree/master/kubernetes/helm/smilr)
+The Smilr app we have been working with, comes with a Helm chart, which you can take a look at here, [Smilr Helm Chart](https://github.com/benc-uk/smilr/tree/master/kubernetes/helm/smilr). 
+
+> ⚠️ WARNING: This helm chart will deploy the solution with load-balancers, not nodePorts, so it will never be exposed outside of the K3s cluster.
 
 With this we can deploy the entire app, all the deployments, pods, services, ingress etc with a single command, naturally if we were to have done this from the beginning there wouldn't have been much scope for learning!
 
 However as this is the final section, now might be a good time to try it. Due to some limitations (mainly the lack of public DNS), only one deployment of the app can function at any given time. So you will need to remove what have currently deployed, by running:
 
 ```bash
-kubectl delete deploy,sts,svc,ingress --all
+kubectl delete deploy,sts,svc,ingress-nginx --all
 ```
 
 Fetch the chart and download it locally, this is because the chart isn't published in a Helm repo:

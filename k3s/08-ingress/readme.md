@@ -1,6 +1,6 @@
-# 🌎 Helm & Ingress
+# 🌎 Ingress
 
-For this section we'll touch on two slightly more advanced topics, the key ones being the use of Helm and introducing an ingress controller to our cluster. The ingress will let us further refine & improve the networking aspects of the app we've deployed.
+For this section we'll touch on a slightly more advanced topic: introducing an ingress controller to our cluster. The ingress will let us further refine & improve the networking aspects of the app we've deployed.
 
 ## 🗃️ Namespaces
 
@@ -22,14 +22,16 @@ and to add to your `.bashrc`
 echo "alias kubens='kubectl config set-context --current --namespace '" >> ~/.bashrc 
 ```
 
+## 🔀 Reconfiguring The App With Ingress
+
+Now we can modify the app we've deployed to route through the new ingress, but a few simple changes are required first. As the ingress controller will be routing all requests, the services in front of the deployments should be switched back to internal i.e. `ClusterIP`.
+
+- Edit both the data API & frontend **service** YAML manifests, change the service type to `ClusterIP`  and remove `nodePort` field then reapply with `kubectl apply`
+- Edit the frontend **deployment** YAML manifest, change the `API_ENDPOINT` environmental variable to use the same origin URI `/api` no need for a scheme or host.
+
+Apply these three changes with `kubectl` and now the app will be temporarily unavailable. Note, if you have changed namespace with `kubens` you should switch back to the **default** namespace before running the apply.
+
 ## 🚀 Deploying The Ingress Controller
-
-https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal-clusters
-
-```sh
-
-curl https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/baremetal/deploy.yaml -o moo.yaml
-```
 
 An [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) provides a reliable and secure way to route HTTP and HTTPS traffic into your cluster and expose your applications from a single point of ingress; hence the name.
 
@@ -40,36 +42,52 @@ An [ingress controller](https://kubernetes.io/docs/concepts/services-networking/
 - There are [MANY ingress controllers available](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/#additional-controllers) but we will use a very common and simple one, the [NGINX ingress controller](https://kubernetes.github.io/ingress-nginx/) maintained by the Kubernetes project
 - Often TLS is terminated by the ingress controller, and sometimes other tasks such as JWT validation for authentication can be done at this level. For the sake of this workshop no TLS & HTTPS will be used due to the dependencies it requires (such as DNS, cert management etc)
 
-Helm greatly simplifies setting this up, down to a single command. Run the following:
+For our bare metal cluster, we'll need to use a [bare-metal ingress controller](https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal-clusters), which also uses NodePort services, instead of type load balancer.
 
-```bash
-helm install my-ingress ingress-nginx/ingress-nginx \
-  --namespace ingress \
-  --set controller.replicaCount=2
+To greatly simplify this, we'll be getting the yaml from the above url:
+
+```sh
+curl https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/baremetal/deploy.yaml -o ingress-controller.yaml
 ```
 
-- The release name is `my-ingress` which can be anything you wish, it's often used by chart templates to prefix the names of created resources.
-- The second parameter is a reference to the chart, in the form of `repo-name/chart-name`, if we wanted to use a local chart we'd simply reference the path to the chart directory.
-- The `--set` part is where we can pass in values to the release, in this case we increase the replicas to two, purely as an example.
+And now we just need to modify the above yaml to use a specific `nodePort` instead of a randomly assigned one. In the `ingress-controller.yaml` find the `NodePort` service and in the `appProtocol:http` add `nodePort` with port `30036`.
 
-Check the status of both the pods and services with `kubectl get svc,pods --namespace ingress`, ensure the pods are running and the service has an external public IP.
+Here's a snippet from `ingress-controller.yaml` with the new `nodePort`:
 
-You can also use the `helm` CLI to query the status, here's some simple and common commands:
+```yaml
+...
+spec:
+  ports:
+  - appProtocol: http
+    name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+    nodePort: 30036 # This is the newly added line
+  - appProtocol: https
+    name: https
+    port: 443
+    protocol: TCP
+    targetPort: https
+  selector:
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/instance: ingress-nginx
+    app.kubernetes.io/name: ingress-nginx
+  type: NodePort
+...
+```
 
-- `helm ls` or `helm ls -A` - List releases or list releases in all namespaces.
-- `helm upgrade {release-name} {chart}` - Upgrade/update a release to apply changes. Add `--install` to perform an install if the release doesn't exist.
-- `--dry-run` - Add this switch to install or upgrade commands to get a view of the resources and YAML that would be created, without applying them to the cluster.
-- `helm get values {release-name}` - Get the values that were used to deploy a release.
-- `helm delete {release-name}` - Remove the release and all the resources.
+Apply the `ingress-controller.yaml` as usual with:
 
-## 🔀 Reconfiguring The App With Ingress
+```sh
+kubectl apply -f ingress-controller.yaml
+```
 
-Now we can modify the app we've deployed to route through the new ingress, but a few simple changes are required first. As the ingress controller will be routing all requests, the services in front of the deployments should be switched back to internal i.e. `ClusterIP`.
+From the output of the apply, you may notice that our controller has been created in a new namespace: `namespace/ingress-nginx created`.
 
-- Edit both the data API & frontend **service** YAML manifests, change the service type to `ClusterIP`  and remove `nodePort` field then reapply with `kubectl apply`
-- Edit the frontend **deployment** YAML manifest, change the `API_ENDPOINT` environmental variable to use the same origin URI `/api` no need for a scheme or host.
+Check the status of both the pods and services with `kubectl get svc,pods --namespace ingress-nginx`, ensure the pods are running and the `ingress-nginx-controller` service has port `80:30036/TCP` assigned to it in the output.
 
-Apply these three changes with `kubectl` and now the app will be temporarily unavailable. Note, if you have changed namespace with `kubens` you should switch back to the **default** namespace before running the apply.
+## 🔀 Configuring Ingress
 
 The next thing is to configure the ingress by [creating an _Ingress_ resource](https://kubernetes.io/docs/concepts/services-networking/ingress/). This can be a fairly complex resource to set-up, but it boils down to a set of HTTP path mappings (routes) and which backend service should serve them, here is the completed manifest file of `ingress.yaml`:
 
@@ -121,9 +139,9 @@ Apply the same as before with `kubectl`, validate the status with:
 kubectl get ingress
 ```
 
-It may take it a minute for it to be assigned an address, note the address will be the same as the external IP of the ingress-controller (you can check this with `kubectl get svc -n ingress | grep LoadBalancer`)
+Now both applications should be running on: `http://{VM_IP}:30036`
 
-Visit this IP in your browser, if you check the "About" screen and click the "More Details" link it should take you to the API, which should now be served from the same IP as the frontend.
+Visit the above url in your browser, if you check the "About" screen and click the "More Details" link it should take you to the API, which should now be served from the same IP as the frontend.
 
 ## 🖼️ Cluster & Architecture Diagram
 
