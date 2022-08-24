@@ -93,7 +93,7 @@ Next we'll deploy the first custom part of our app, the data API, and we'll depl
 Again you can try building the _Deployment_ yourself or use the provided YAML to create a `data-api-deployment.yaml` file
 
 <details markdown="1">
-<summary>Click here for the MongoDB deployment YAML</summary>
+<summary>Click here for the DataAPI deployment YAML</summary>
 
 ```yaml
 kind: Deployment
