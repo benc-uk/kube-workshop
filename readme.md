@@ -45,7 +45,7 @@ Sections / modules:
 - [🌐 Basic Networking](k3s/05-network-basics/readme.md) - Introducing Services to provide network access.
 - [💻 Adding The Frontend](k3s/06-frontend/readme.md) - Deploying the frontend to the app and wiring it up.
 - [✨ Improving The Deployment](k3s/07-improvements/readme.md) - Recommended practices; resource limits, probes and secrets.
-- [🌎 Ingress](k3s/08-helm-ingress/readme.md) - Finalizing the application architecture using ingress.
+- [🌎 Ingress](k3s/08-ingress/readme.md) - Finalizing the application architecture using ingress.
 
 All of the Kubernetes concepts & APIs explored and used are not specific to AKS, K3S or Azure.
 
