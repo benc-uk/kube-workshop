@@ -6,7 +6,7 @@ As this is a completely hands on workshop, you will need a few things before you
 
 - Access to an Azure Subscription where you can create resources.
 - A good editor that you can SSH from, and [VS Code](https://code.visualstudio.com/) is strongly recommended
-  - [Visual Studio Code Remote Development](https://code.visualstudio.com/docs/remote/remote-overview)
+  - [Visual Studio Code Remote Development extension](https://code.visualstudio.com/docs/remote/remote-overview)
   - [Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools) also highly recommended
 - [Azure CLI](https://aka.ms/azure-cli)
 

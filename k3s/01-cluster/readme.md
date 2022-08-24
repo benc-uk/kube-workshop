@@ -61,7 +61,7 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 > Note: Login into Azure CLI if you've installed it
 
-Then let's set up the VM user profile for K8s to make it easier to run all the commands
+Then let's set up the VM user profile for K3s to make it easier to run all the commands
 
 ```sh
 echo "export KUBECONFIG=/etc/rancher/k3s/k3s.yaml" >> ~/.bashrc 
