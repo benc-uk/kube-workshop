@@ -164,18 +164,13 @@ As GitOps is a "pull" vs "push" approach, it also allows you to lock down your K
 
 > 📝 NOTE: GitOps is a methodology and an approach, it is not the name of a product
 
-### 💽 Install Flux into AKS
+### 💽 Install Flux into K3s VM
 
 [Flux is available as an AKS Extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2) which is intended to simplify installing Flux into your cluster & configuring it. As of Jan 2022 it requires some extensions to the Azure CLI
 
-Add the CLI extensions with:
-
-```bash
-az extension add -n k8s-configuration
-az extension add -n k8s-extension
+```sh
+ curl -s https://fluxcd.io/install.sh | sudo bash
 ```
-
-It also requires some [preview providers to be enabled on your Azure subscription](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2#for-azure-kubernetes-service-clusters). Follow out these steps before proceeding, which can take some time!
 
 Before we configure anything GitOps needs a git repo to work against. We'll use a fork of this repo, to set this up:
 
@@ -190,6 +185,17 @@ az k8s-configuration flux create \
  --name flux --namespace flux-system --cluster-type managedClusters --scope cluster \
  --url https://github.com/{YOUR_GITHUB_USER}/kube-workshop --branch main --interval 1m \
  --kustomization name=apps path=gitops/apps prune=true sync_interval=1m
+
+flux create source git kubeworkshop \
+    --url="https://github.com/{YOUR_GITHUB_USER}/kube-workshop" \
+    --branch=main \
+    --interval=1m 
+
+flux create kustomization apps \
+    --path="gitops/apps" \
+    --source=kubeworkshop \
+    --prune=true \
+    --interval=1m
 ```
 
 This one command is doing a LOT of things, it's adding an extension to AKS, deploying Flux to the cluster (with all the Pods and CRDs) and it's adding the _GitRepo_ to be scanned and checked. It will take a few minutes to complete, be patient!
