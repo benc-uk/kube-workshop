@@ -170,6 +170,8 @@ As GitOps is a "pull" vs "push" approach, it also allows you to lock down your K
 
 ```sh
  curl -s https://fluxcd.io/install.sh | sudo bash
+ # Flux auto complete
+ echo "command -v flux >/dev/null && . <(flux completion bash)" >> ~/.bashrc
 ```
 
 Before we configure anything GitOps needs a git repo to work against. We'll use a fork of this repo, to set this up:
@@ -180,11 +182,7 @@ Before we configure anything GitOps needs a git repo to work against. We'll use 
 Now to set up Flux, run the following command, replacing the `{YOUR_GITHUB_USER}` part with your GitHub username you used for the fork:
 
 ```bash
-az k8s-configuration flux create \
- --resource-group ${RES_GROUP} --cluster-name ${AKS_NAME} \
- --name flux --namespace flux-system --cluster-type managedClusters --scope cluster \
- --url https://github.com/{YOUR_GITHUB_USER}/kube-workshop --branch main --interval 1m \
- --kustomization name=apps path=gitops/apps prune=true sync_interval=1m
+flux install
 
 flux create source git kubeworkshop \
     --url="https://github.com/{YOUR_GITHUB_USER}/kube-workshop" \
@@ -205,10 +203,21 @@ Check the status of Flux with the following commands:
 ```bash
 kubectl get kustomizations -A
 
+flux get kustomization
+
 kubectl get gitrepo -A
 
 kubectl get pod -n flux-system
 ```
+
+Good for troubleshooting:
+
+```sh
+flux logs
+kubectl get events -n flux-system
+```
+
+[Troubleshooting cheatsheet | Flux](https://fluxcd.io/docs/cheatsheets/troubleshooting/#getting-basic-information)
 
 You should also see a new namespace called "hello-world", check with `kubectl get ns` this has been created by the `gitops/apps/hello-world.yaml` file in the repo and automatically applied by Flux.
 
