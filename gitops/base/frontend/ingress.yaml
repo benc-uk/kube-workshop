@@ -2,19 +2,19 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 
 metadata:
-  name: smilr
+  name: my-app
   labels:
-    name: smilr
+    name: my-app
 
 spec:
   # Important we leave this blank, as we don't have DNS configured
   # Blank means these rules will match ALL HTTP requests hitting the controller IP
-  host:
   # This is important and required since Kubernetes 1.22
   ingressClassName: nginx
   rules:
     - http:
         paths:
+          # Routing for the frontend
           - pathType: Prefix
             path: "/"
             backend:
@@ -23,6 +23,7 @@ spec:
                 port:
                   number: 80
 
+          # Routing for the API
           - pathType: Prefix
             path: "/api"
             backend:
