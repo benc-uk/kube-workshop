@@ -2,9 +2,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 
 metadata:
-  name: smilr
+  name: my-app
   labels:
-    name: smilr
+    name: my-app
 
 spec:
   # Important we leave this blank, as we don't have DNS configured
