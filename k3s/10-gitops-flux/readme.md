@@ -258,6 +258,17 @@ The base directory provides us a library of Kustomization based resources we can
 
 ⚠️ **STOP!** Before we proceed, ensure the `mongo-creds` _Secret_ from the previous sections is still in the default namespace. If you have deleted it, [hop back to section 7 and quickly create it again. It's just a single command](../07-improvements/readme.md). Creating _Secrets_ using the GitOps approach is problematic, as they need to be committed into a code repo. Flux supports solutions to this, such as using [SOPS](https://fluxcd.io/docs/guides/mozilla-sops/) and [Sealed Secrets](https://fluxcd.io/docs/guides/sealed-secrets/) but for an intro such as this, they require too much extra setup, so we will skip over them.
 
+
+update `storageClassName` to `local-path`
+
+```sh
+        storageClassName: default
+```
+
+More info: https://kubectl.docs.kubernetes.io/references/kustomize/kustomization/patches/#patch-using-path-json6902
+
+https://fluxcd.io/flux/components/kustomize/kustomization/#variable-substitution
+
 First let's deploy MongoDB using Flux:
 
 - Copy the `monogodb/` directory from "disabled" to "apps".
