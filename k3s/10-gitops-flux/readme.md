@@ -176,7 +176,7 @@ As GitOps is a "pull" vs "push" approach, it also allows you to lock down your K
 
 Before we configure anything GitOps needs a git repo to work against. We'll use a fork of this repo, to set this up:
 
-- Got to the repo for this workshop [https://github.com/benc-uk/](https://github.com/benc-uk/)
+- Got to the repo for this workshop <https://github.com/EliiseS/kube-workshop>
 - Fork the repo to your own personal GitHub account, by clicking the 'Fork' button near the top right.
 
 Now to set up Flux, run the following command, replacing the `{YOUR_GITHUB_USER}` part with your GitHub username you used for the fork:
