@@ -8,7 +8,6 @@ metadata:
 
 spec:
   ingressClassName: nginx
-  host:
   rules:
     - http:
         paths:

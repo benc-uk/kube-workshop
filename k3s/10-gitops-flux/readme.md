@@ -288,6 +288,6 @@ Next deploy the Smilr app:
 - Check for any errors with `kubectl get kustomizations -A`
 - Check the default namespace for the new resources using `kubectl get deploy,pods,ingress -n default`
 
-If you encounter problems or want to force the reconciliation you can use the `flux` CLI, e.g. `flux reconcile source git flux-system`
+If you encounter problems or want to force the reconciliation you can use the `flux` CLI, e.g. `flux reconcile source git kubeworkshop`
 
 If we wanted to deploy this app across multiple environments or multiple times, we could create sub-directories under `apps/`, each containing different Kustomizations and modifying the deployment to suit that environment.
