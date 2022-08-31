@@ -150,6 +150,8 @@ You will now see the overrides and modifications from the overlay applied to the
 
 This could be applied to the cluster with the following command `kubectl -k ./overlay apply`, however there is no need to do this.
 
+An interesting feature of kustomize you may want to check out is [variable substitution](https://fluxcd.io/flux/components/kustomize/kustomization/#variable-substitution)
+
 ## GitOps & Flux
 
 GitOps is a methodology where you declaratively describe the entire desired state of your system using git. This includes the apps, config, dashboards, monitoring and everything else. This means you can use git branches and PR processes to enforce control of releases and provide traceability and transparency.
@@ -166,12 +168,14 @@ As GitOps is a "pull" vs "push" approach, it also allows you to lock down your K
 
 ### 💽 Install Flux into K3s VM
 
-[Flux is available as an AKS Extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2) which is intended to simplify installing Flux into your cluster & configuring it. As of Jan 2022 it requires some extensions to the Azure CLI
+You can install the [Flux](https://fluxcd.io/flux/installation/) CLI with:
 
 ```sh
  curl -s https://fluxcd.io/install.sh | sudo bash
- # Flux auto complete
+ # Flux auto complete to .bashrc
  echo "command -v flux >/dev/null && . <(flux completion bash)" >> ~/.bashrc
+. ~/.bashrc
+
 ```
 
 Before we configure anything GitOps needs a git repo to work against. We'll use a fork of this repo, to set this up:
@@ -179,9 +183,10 @@ Before we configure anything GitOps needs a git repo to work against. We'll use 
 - Got to the repo for this workshop <https://github.com/EliiseS/kube-workshop>
 - Fork the repo to your own personal GitHub account, by clicking the 'Fork' button near the top right.
 
-Now to set up Flux, run the following command, replacing the `{YOUR_GITHUB_USER}` part with your GitHub username you used for the fork:
+Now to install and set up Flux in your cluster, run the following command, replacing the `{YOUR_GITHUB_USER}` part with your GitHub username you used for the fork:
 
 ```bash
+# Install flux in the cluster, create flux pods, ect.
 flux install
 
 flux create source git kubeworkshop \
@@ -195,8 +200,6 @@ flux create kustomization apps \
     --prune=true \
     --interval=1m
 ```
-
-This one command is doing a LOT of things, it's adding an extension to AKS, deploying Flux to the cluster (with all the Pods and CRDs) and it's adding the _GitRepo_ to be scanned and checked. It will take a few minutes to complete, be patient!
 
 Check the status of Flux with the following commands:
 
@@ -217,11 +220,11 @@ flux logs
 kubectl get events -n flux-system
 ```
 
-[Troubleshooting cheatsheet | Flux](https://fluxcd.io/docs/cheatsheets/troubleshooting/#getting-basic-information)
+> More tips and tricks: [Troubleshooting cheatsheet | Flux](https://fluxcd.io/docs/cheatsheets/troubleshooting/#getting-basic-information)
 
 You should also see a new namespace called "hello-world", check with `kubectl get ns` this has been created by the `gitops/apps/hello-world.yaml` file in the repo and automatically applied by Flux.
 
-You can also view this configuration from the Azure portal, under the "GitOps" view under the AKS cluster resource.
+In addition, your cluster now has flux components installed, such as pods, which you can view with `kubectl get pods -n flux-system`.
 
 ### 🚀 Deploying Resources
 
@@ -246,7 +249,7 @@ gitops
   │   └── mongodb
   │       ├── kustomization.yaml
   │       └── mongo-statefulset.yaml
-  └── disabled
+  └── disabled-k3s
       ├── mongodb
       │   ├── kustomization.yaml
       │   └── overrides.yaml
@@ -257,17 +260,6 @@ gitops
 The base directory provides us a library of Kustomization based resources we can use, but as it's outside of the `gitops/apps` path they will not be picked up by Flux.
 
 ⚠️ **STOP!** Before we proceed, ensure the `mongo-creds` _Secret_ from the previous sections is still in the default namespace. If you have deleted it, [hop back to section 7 and quickly create it again. It's just a single command](../07-improvements/readme.md). Creating _Secrets_ using the GitOps approach is problematic, as they need to be committed into a code repo. Flux supports solutions to this, such as using [SOPS](https://fluxcd.io/docs/guides/mozilla-sops/) and [Sealed Secrets](https://fluxcd.io/docs/guides/sealed-secrets/) but for an intro such as this, they require too much extra setup, so we will skip over them.
-
-
-update `storageClassName` to `local-path`
-
-```sh
-        storageClassName: default
-```
-
-More info: https://kubectl.docs.kubernetes.io/references/kustomize/kustomization/patches/#patch-using-path-json6902
-
-https://fluxcd.io/flux/components/kustomize/kustomization/#variable-substitution
 
 First let's deploy MongoDB using Flux:
 
@@ -288,6 +280,10 @@ Next deploy the Smilr app:
 - Check for any errors with `kubectl get kustomizations -A`
 - Check the default namespace for the new resources using `kubectl get deploy,pods,ingress -n default`
 
+In the `smilr` folder we're using [kustomize patching](https://kubectl.docs.kubernetes.io/references/kustomize/kustomization/patches/#patch-using-path-json6902) to modify the deployments to work on our k3s clusters.
+
 If you encounter problems or want to force the reconciliation you can use the `flux` CLI, e.g. `flux reconcile source git kubeworkshop`
 
 If we wanted to deploy this app across multiple environments or multiple times, we could create sub-directories under `apps/`, each containing different Kustomizations and modifying the deployment to suit that environment.
+
+🧪 **Experiment**: Try deleting one of the deployments and watch it be brought back to life with `flux` reconcile. You can speed up the recreation with `flux reconcile source git kubeworkshop`
