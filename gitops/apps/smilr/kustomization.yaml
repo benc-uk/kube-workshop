@@ -10,3 +10,13 @@ images:
   - name: frontend
     newName: basfkubewsacr.azurecr.io/smilr/frontend
     newTag: stable
+
+patches:
+  - patch: |-
+      kind: Deployment
+      apiVersion: apps/v1
+
+      metadata:
+        name: data-api
+      spec:
+        replicas: 4
