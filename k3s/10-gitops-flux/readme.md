@@ -220,7 +220,7 @@ flux logs
 kubectl get events -n flux-system
 ```
 
-> More tips and tricks: [Troubleshooting cheatsheet | Flux](https://fluxcd.io/docs/cheatsheets/troubleshooting/#getting-basic-information)
+> More tips and tricks: [Flux Troubleshooting cheatsheet](https://fluxcd.io/docs/cheatsheets/troubleshooting/#getting-basic-information)
 
 You should also see a new namespace called "hello-world", check with `kubectl get ns` this has been created by the `gitops/apps/hello-world.yaml` file in the repo and automatically applied by Flux.
 
@@ -263,7 +263,7 @@ The base directory provides us a library of Kustomization based resources we can
 
 First let's deploy MongoDB using Flux:
 
-- Copy the `monogodb/` directory from "disabled" to "apps".
+- Copy the `monogodb/` directory from "disabled-k3s" to "apps".
   - Note the `kustomization.yaml` in here is pointing at the base directory `../../base/mongodb` and overlaying it.
 - Git commit these changes to the main branch and push up to GitHub.
 - Wait for ~1 minute for Flux to rescan the git repo.
@@ -272,7 +272,7 @@ First let's deploy MongoDB using Flux:
 
 Next deploy the Smilr app:
 
-- Copy the `smilr/` directory from "disabled" to "apps".
+- Copy the `smilr/` directory from "disabled-k3s" to "apps".
   - Note the `kustomization.yaml` in here is pointing at **several** base directories, for the app data-api and frontend.
 - Edit the ACR name in the `gitops/apps/smilr/kustomization.yaml` file.
 - Git commit these changes to the main branch and push up to GitHub.
@@ -286,4 +286,4 @@ If you encounter problems or want to force the reconciliation you can use the `f
 
 If we wanted to deploy this app across multiple environments or multiple times, we could create sub-directories under `apps/`, each containing different Kustomizations and modifying the deployment to suit that environment.
 
-🧪 **Experiment**: Try deleting one of the deployments and watch it be brought back to life with `flux` reconcile. You can speed up the recreation with `flux reconcile source git kubeworkshop`
+🧪 **Experiment**: Try deleting one of the deployments and watch it be brought back to life with `flux` reconcile. You can speed up the recreation with `flux reconcile kustomization apps`
