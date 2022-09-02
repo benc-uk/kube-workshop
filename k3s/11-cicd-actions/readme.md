@@ -112,3 +112,6 @@ The workflow now does three important things:
 - Do exactly the same for the **smilr/frontend** image
 
 The "Build & push images" job and the workflow should take around 2~3 minutes to complete.
+
+### [Return to Main Index](../../readme.md)
+

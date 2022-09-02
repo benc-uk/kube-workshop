@@ -287,3 +287,6 @@ If you encounter problems or want to force the reconciliation you can use the `f
 If we wanted to deploy this app across multiple environments or multiple times, we could create sub-directories under `apps/`, each containing different Kustomizations and modifying the deployment to suit that environment.
 
 🧪 **Experiment**: Try deleting one of the deployments and watch it be brought back to life with `flux` reconcile. You can speed up the recreation with `flux reconcile kustomization apps`
+
+
+### [Return to Main Index](../../readme.md)

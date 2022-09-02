@@ -74,7 +74,7 @@ Then let's set up the VM user profile for K3s to make it easier to run all the c
 ```sh
 echo "source <(kubectl completion bash)" >> ~/.bashrc 
 echo "alias k=kubectl" >> ~/.bashrc 
-echo "complete -o default -F __start_kubectl k" >> ~/.bashrc 
+echo "complete -o default -F __start_kubectl k" >> ~/.bashrc
 echo "export PATH=$PATH:/home/azureuser/.local/bin" >> ~/.bashrc 
 ```
 
