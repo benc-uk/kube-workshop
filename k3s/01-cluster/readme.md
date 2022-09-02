@@ -61,16 +61,21 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 > Note: Login into Azure CLI if you've installed it
 
-Then let's set up the VM user profile for K3s to make it easier to run all the commands
+Let's connect your kubectl with k3s and allow your user permissions to access the cluster
 
 ```sh
 echo "export KUBECONFIG=/etc/rancher/k3s/k3s.yaml" >> ~/.bashrc 
+sudo chown azureuser /etc/rancher/k3s/k3s.yaml
+sudo chown azureuser /etc/rancher/k3s
+```
+
+Then let's set up the VM user profile for K3s to make it easier to run all the commands
+
+```sh
 echo "source <(kubectl completion bash)" >> ~/.bashrc 
 echo "alias k=kubectl" >> ~/.bashrc 
 echo "complete -o default -F __start_kubectl k" >> ~/.bashrc 
 echo "export PATH=$PATH:/home/azureuser/.local/bin" >> ~/.bashrc 
-sudo chown azureuser /etc/rancher/k3s/k3s.yaml
-sudo chown azureuser /etc/rancher/k3s
 ```
 
 Double check that everything in installed and working correctly with:
