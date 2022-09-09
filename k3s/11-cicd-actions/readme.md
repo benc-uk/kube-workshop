@@ -10,7 +10,7 @@ There are many CI/CD solutions available, we will use GitHub Actions, as it's ea
 
 We'll use a fork of this repo in order to set things up, but in principle you could also start with an new/empty repo on GitHub.
 
-- Go to the repo for this workshop [https://github.com/benc-uk/kube-workshop](https://github.com/benc-uk/kube-workshop)
+- Go to the repo for this workshop <https://github.com/benc-uk/kube-workshop>
 - Fork the repo to your own personal GitHub account, by clicking the 'Fork' button near the top right.
 - Clone the forked repo from GitHub using git to your local machine.
 
