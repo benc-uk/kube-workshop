@@ -1,6 +1,6 @@
 # ⚒️ Workshop Pre Requisites
 
-In this workshop you'll be simulating a bare metal cluster on a VM. You'll also be using the VM to interact with the cluster, as opposed to your local machine. You'll be using your local machine to create the Azure resources however.
+In this workshop you'll be creating a stand alone, single node K3s cluster on a VM. This VM will be in essence a simulation of what it's like to setup and run a K3S cluster on your own physical device. You'll also be interacting the cluster directly on the VM, as opposed to your local machine. You'll be using your local machine to create the Azure resources however.
 
 As this is a completely hands on workshop, you will need a few things before you can start:
 

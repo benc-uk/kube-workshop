@@ -1,6 +1,6 @@
 # 🚦 Deploying Kubernetes
 
-Deploying a Kubernetes can be extremely complex, with many networking, compute and other aspects to consider. However for the purposes of this workshop, a default and basic bare metal cluster can be deployed very quickly.
+Deploying a Kubernetes can be extremely complex, with many networking, compute and other aspects to consider. However for the purposes of this workshop, a default and basic K3s cluster can be deployed very quickly.
 
 ## 🚀 Virtual Machine Deployment
 
@@ -27,13 +27,13 @@ az network nsg rule create --resource-group $RES_GROUP --nsg-name ${VM_NAME}NSG 
 
 Save the VMs public IP and SSH key files for use in the next steps
 
-## Connect to the VM from VSCode
+## 🌐Connect to the VM from VSCode
 
 To make creating files easier on the machine it's recommended to use [VS Code](https://code.visualstudio.com/) Remote extension with SSH to connect to the VM: [Developing on Remote Machines using SSH and Visual Studio Code](https://code.visualstudio.com/docs/remote/ssh)
 
 It's also highly recommended to get the [Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
 
-## 🤘 Set up bare metal K3s cluster
+## 🤘 Set up K3s cluster
 
 Run all of these commands inside of your VM
 

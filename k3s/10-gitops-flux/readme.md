@@ -180,7 +180,7 @@ You can install the [Flux](https://fluxcd.io/flux/installation/) CLI with:
 
 Before we configure anything GitOps needs a git repo to work against. We'll use a fork of this repo, to set this up:
 
-- Got to the repo for this workshop <https://github.com/EliiseS/kube-workshop>
+- Got to the repo for this workshop <https://github.com/benc-uk/kube-workshop>
 - Fork the repo to your own personal GitHub account, by clicking the 'Fork' button near the top right.
 
 Now to install and set up Flux in your cluster, run the following command, replacing the `{YOUR_GITHUB_USER}` part with your GitHub username you used for the fork:
@@ -287,6 +287,5 @@ If you encounter problems or want to force the reconciliation you can use the `f
 If we wanted to deploy this app across multiple environments or multiple times, we could create sub-directories under `apps/`, each containing different Kustomizations and modifying the deployment to suit that environment.
 
 🧪 **Experiment**: Try deleting one of the deployments and watch it be brought back to life with `flux` reconcile. You can speed up the recreation with `flux reconcile kustomization apps`
-
 
 ### [Return to Main Index](../../readme.md)

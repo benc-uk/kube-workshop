@@ -26,14 +26,14 @@ Sections / modules:
 - [✨ Improving The Deployment](07-improvements/readme.md) - Recommended practices; resource limits, probes and secrets.
 - [🌎 Helm & Ingress](08-helm-ingress/readme.md) - Finalizing the application architecture using ingress.
 
-## 🍵 AKS Optional Sections
+### 🍵 AKS Optional Sections
 
 These can be considered bonus sections, and are entirely optional. It is not expected that all these sections would be attempted, and they do not run in order.
 
 - [🤯 Scaling, Stateful Workloads & Helm](09-extra-advanced/readme.md) - Scaling (manual & auto), stateful workloads and persitent volumes, plus more Helm.
 - [🧩 Kustomize & GitOps](10-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps through GitOps with Flux
 
-## Bare metal K3S cluster simulation on a VM
+## Single node K3S cluster on a VM
 
 Sections / modules:
 
@@ -56,7 +56,7 @@ These can be considered bonus sections, and are entirely optional. It is not exp
 - [🤯 Scaling, Stateful Workloads & Helm](k3s/09-extra-advanced/readme.md) - Scaling (manual & auto), stateful workloads and persitent volumes, plus more Helm.
 - [🧩 Kustomize & GitOps](k3s/10-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps through GitOps with Flux
 
-## 📖 Extra Reading & Teach Yourself Exercises
+### 📖 Extra Reading & Teach Yourself Exercises
 
 A very brief list of potential topics and Kubernetes features you may want to look at after finishing:
 
