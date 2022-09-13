@@ -1,11 +1,10 @@
-kind: StatefulSet
+kind: Deployment
 apiVersion: apps/v1
 
 metadata:
   name: mongodb
 
 spec:
-  serviceName: mongodb
   replicas: 1
   selector:
     matchLabels:
@@ -17,7 +16,8 @@ spec:
     spec:
       containers:
         - name: mongodb-container
-          image: notarealimage
+
+          image: mongo:5.0
           imagePullPolicy: Always
 
           ports:
@@ -38,16 +38,11 @@ spec:
                 - --eval
                 - db.adminCommand('ping')
 
-          volumeMounts:
-            - name: mongo-data
-              mountPath: /data/db
-
-  volumeClaimTemplates:
-    - metadata:
-        name: mongo-data
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        storageClassName: default
-        resources:
-          requests:
-            storage: 500M
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: admin
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-creds
+                  key: admin-password

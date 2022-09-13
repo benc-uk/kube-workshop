@@ -51,7 +51,8 @@ You can [read more about probes at the kubernetes documentation.](https://kubern
 For this workshop we'll only set up a readiness probe, which is the most common type:
 
 ```yaml
-# Probe to add to the data API, note this container exposes a specific health endpoint
+# Probe to add to the data API deployment in the same level as above
+# Note: this container exposes a specific health endpoint 
 readinessProbe:
   httpGet:
     port: 4000
@@ -61,7 +62,7 @@ readinessProbe:
 ```
 
 ```yaml
-# Probe to add to the frontend
+# Probe to add to the frontend deployment
 readinessProbe:
   httpGet:
     path: /
@@ -119,4 +120,4 @@ If you get stuck and want working manifests you can refer to, they are available
 - [mongo-deployment.yaml](mongo-deployment.yaml)
   - Bonus: This manifest shows how to add a probe using an executed command, rather than HTTP, use it if you wish, but it's optional.
 
-### [Return to Main Index](../readme.md)
+### [Return to Main Index](../../readme.md)

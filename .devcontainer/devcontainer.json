@@ -1,6 +1,5 @@
 {
   "image": "ubuntu:latest",
-
   "features": {
     "kubectl-helm-minikube": {
       "version": "latest",
@@ -16,6 +15,10 @@
     },
     "azure-cli": "latest"
   },
-
-  "remoteUser": "vscode"
+  "remoteUser": "vscode",
+  "extensions": [
+    "yzhang.markdown-all-in-one",
+    "DavidAnson.vscode-markdownlint",
+    "streetsidesoftware.code-spell-checker"
+  ]
 }

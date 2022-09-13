@@ -18,7 +18,7 @@ If you want to take this workshop slowly and treat it as more of a hack, you can
 - Do not worry about persistence or using a _Service_ at this point.
 - Pass `MONGO_INITDB_ROOT_USERNAME` and `MONGO_INITDB_ROOT_PASSWORD` environmental vars to the container setting the username to "admin" and password to "supersecret".
 
-Alternatively you can use the YAML below, don't worry this isn't cheating, in the real world everyone is too busy to write Kubernetes manifests from scratch 😉
+Alternatively you can use the YAML below to paste into `mongo-deployment.yaml`, don't worry this isn't cheating, in the real world everyone is too busy to write Kubernetes manifests from scratch 😉
 
 <details markdown="1">
 <summary>Click here for the MongoDB deployment YAML</summary>
@@ -58,7 +58,7 @@ spec:
 
 </details>
 
-Paste this into a file `mongo-deployment.yaml` and then run:
+Then apply the manifest with:
 
 ```bash
 kubectl apply -f mongo-deployment.yaml
@@ -90,10 +90,10 @@ Next we'll deploy the first custom part of our app, the data API, and we'll depl
 - An environmental variable called `MONGO_CONNSTR` should be passed to the container, with the connection string to connect to the MongoDB, which will be `mongodb://admin:supersecret@{MONGODB_POD_IP}` where `{MONGODB_POD_IP}` should be replaced in the YAML with the pod IP address you just queried.
 - Label the pods with `app: data-api`
 
-Again you can try building the _Deployment_ yourself or use the provided YAML
+Again you can try building the _Deployment_ yourself or use the provided YAML to create a `data-api-deployment.yaml` file
 
 <details markdown="1">
-<summary>Click here for the MongoDB deployment YAML</summary>
+<summary>Click here for the DataAPI deployment YAML</summary>
 
 ```yaml
 kind: Deployment
@@ -130,7 +130,7 @@ spec:
 
 **💥 Notice:** We have the password in plain text within the connection string! This clearly is a very bad practice, we will fix this at a later stage when we introduce Kubernetes _Secrets_
 
-Paste this into a file `data-api-deployment.yaml` and make the changes described above, **remember to make the edits, you can not use this YAML as is**, and then run:
+Make the changes described above, **remember to make the edits, you can not use this YAML as is**, and then run:
 
 ```bash
 kubectl apply -f data-api-deployment.yaml
@@ -146,13 +146,19 @@ Now it would be nice to access and call this API, to check it's working. But the
 
 Kubernetes provides a way to "tunnel" network traffic into the cluster through the control plane, this is done with the `kubectl port-forward` command
 
-Pick the name of either one of the two data-api _Pods_, and run:
+Pick the name of either one of the two `data-api` _Pods_, and run:
 
 ```bash
 kubectl port-forward {pod_name} 4000:4000
 ```
 
-And then accessing the following URL [http://localhost:4000/api/info](http://localhost:4000/api/info) either in your browser or with `curl` we should see a JSON response with some status and debug information from the API. Clearly this isn't a good way to expose your apps long term, but can be extremely useful when debugging and triaging issues.
+And then accessing the following URL [http://localhost:4000/api/info](http://localhost:4000/api/info) either in your browser or with `curl` we should see a JSON response with some status and debug information from the API.
+
+```sh
+curl http://localhost:4000/api/info | json_pp 
+```
+
+Clearly this isn't a good way to expose your apps long term, but can be extremely useful when debugging and triaging issues.
 
 When done, cancel the port-forwarding with ctrl-c
 

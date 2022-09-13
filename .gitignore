@@ -3,3 +3,5 @@ my*.yaml
 my*.sh
 junk/**
 ignore*/**
+.env
+.ssh
