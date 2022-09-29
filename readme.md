@@ -2,15 +2,19 @@
 
 This is a hands-on, technical workshop intended / hack to get comfortable working with Kubernetes and deploying & configuring applications. It should take roughly 6~8 hours to complete the main set of sections, but this is very approximate. This workshop is intended partially as a companion to this [Kubernetes Technical Primer](https://github.com/benc-uk/kube-primer) which can be read through, referenced or used to get an initial grounding on the concepts.
 
+>📝 NOTE: if you've never used kubernetes before, it is recommended to read the `Introduction To Kubernetes` section in [Kubernetes Technical Primer PDF](https://github.com/benc-uk/kube-primer/blob/master/Tech%20Primer%20-%20Kubernetes%20(Jan%202022).pdf)
+
 This workshop is very much designed for software engineers & developers with little or zero Kubernetes experience, but wish to get hands on and learn how to deploy and manage applications. It is not focused on the administration, network configuration & day-2 operations of Kubernetes itself, so some aspects may not be relevant to dedicated platform/infrastructure engineers.
 
 The application used will be one that has already been written and built, so no application code will need to be written.
 
-There are two approaches you can take with this workshop below
-
 If you get stuck, the [GitHub repo for this workshop](https://github.com/benc-uk/kube-workshop) contains example and working files for most of the sections
 
-## Azure Kubernetes Service (AKS)
+To start with the workshop, first you need to choose which path you'd like to follow from the next sections.
+
+## Path: Azure Kubernetes Service (AKS)
+
+In this path you'll be using AKS to learn how to use Kubernetes as a managed service in Azure.
 
 > This section assumes a relative degree of comfort in using Azure for sections 2 and 3.
 
@@ -33,7 +37,9 @@ These can be considered bonus sections, and are entirely optional. It is not exp
 - [🤯 Scaling, Stateful Workloads & Helm](09-extra-advanced/readme.md) - Scaling (manual & auto), stateful workloads and persitent volumes, plus more Helm.
 - [🧩 Kustomize & GitOps](10-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps through GitOps with Flux
 
-## Single node K3S cluster on a VM
+## Path: Single node K3S cluster on a VM
+
+In this path you'll learn to use Kubernetes as if you were running it on a on-premises machine, including configuring the computer with the required set up manually.
 
 Sections / modules:
 
@@ -55,6 +61,7 @@ These can be considered bonus sections, and are entirely optional. It is not exp
 
 - [🤯 Scaling, Stateful Workloads & Helm](k3s/09-extra-advanced/readme.md) - Scaling (manual & auto), stateful workloads and persitent volumes, plus more Helm.
 - [🧩 Kustomize & GitOps](k3s/10-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps through GitOps with Flux
+- External Secrets Operator
 
 ### 📖 Extra Reading & Teach Yourself Exercises
 
