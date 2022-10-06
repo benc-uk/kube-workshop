@@ -89,7 +89,7 @@ As before, the there are changes that are required to the supplied YAML, replaci
 Once the two YAMLs have been applied:
 
 - Check the service is up and running with `kubectl get svc frontend`
-- Once it is there, go to the VM IP in your browser, e.g. `http://{VM_IP}/30037/` - the application should load and the Smilr frontend is shown.
+- Once it is there, go to the VM IP in your browser, e.g. `http://{VM_IP}:30037/` - the application should load and the Smilr frontend is shown.
 
 If you want to spend a few minutes using the app, you can go to the "Admin" page, add a new event, the details don't matter but make the date range to include the current date. And try out the feedback view and reports. Or simply be happy the app is functional and move on.
 
