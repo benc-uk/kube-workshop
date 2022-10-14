@@ -61,7 +61,6 @@ These can be considered bonus sections, and are entirely optional. It is not exp
 
 - [🤯 Scaling, Stateful Workloads & Helm](k3s/09-extra-advanced/readme.md) - Scaling (manual & auto), stateful workloads and persitent volumes, plus more Helm.
 - [🧩 Kustomize & GitOps](k3s/10-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps through GitOps with Flux
-- External Secrets Operator
 
 ### 📖 Extra Reading & Teach Yourself Exercises
 
