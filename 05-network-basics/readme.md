@@ -14,10 +14,10 @@ Now to put a _Service_ in front of the MongoDB pods, if you want to create the s
 you can [refer to the Kubernetes docs](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service).
 
 - The type of _Service_ should be `ClusterIP` which means it's internal to the cluster only
-- The service port should be **27017**
-- The target port should be **27017**
+- The service port should be **27017**.
+- The target port should be **27017**.
 - Selector decides what pods are behind the service, in this case use the label `app` and the value
-  `mongodb`
+  `mongodb`.
 
 > 📝 NOTE: Labels are optional metadata that can be added to any object in Kubernetes, they are simply
 > key-value pairs. The label "app" is commonly used, but has **no special meaning**, and isn't used
