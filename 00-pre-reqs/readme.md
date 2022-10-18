@@ -100,7 +100,7 @@ be common across many of the commands that will be run. This way you have a sing
 for them and they can be easily reset in the event of a session timing out or terminal closing.
 
 Sample `vars.sh` file is shown below, feel free to use any values you wish for the resource group,
-region cluster name etc. To use the file simply source it through bash with `source vars.sh`, do this
+region, cluster name, etc. To use the file simply source it through bash with `source vars.sh`, do this
 before moving to the next stage.
 
 > Note: The ACR name must be globally unique and cannot contain hyphens, dots, or underscores.

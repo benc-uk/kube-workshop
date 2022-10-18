@@ -25,11 +25,11 @@ This should take around 5 minutes to complete, and creates a new AKS cluster wit
 characteristics:
 
 - Two small B-Series _Nodes_ in a single node pool. _Nodes_ are what your workloads will be running on.
-- Basic 'Kubenet' networking, which creates an Azure network and subnet etc for us. [See docs if you wish to learn more about this topic.](https://docs.microsoft.com/azure/aks/operator-best-practices-network)
+- Basic 'Kubenet' networking, which creates an Azure network, subnet, etc. for us. [See docs if you wish to learn more about this topic.](https://docs.microsoft.com/azure/aks/operator-best-practices-network)
 - Local cluster admin account, with RBAC enabled, this means we don't need to worry about setting up
   users or assigning roles etc.
 - AKS provide a wide range of 'turn key' addons, e.g. monitoring, AAD integration, auto-scaling, GitOps
-  etc, however we'll not require for any of these enabled.
+  etc., however we'll not require for any of these enabled.
 
 The `az aks create` command has [MANY options](https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az-aks-create)
 however you shouldn't need to change or add any options, with some small exceptions:

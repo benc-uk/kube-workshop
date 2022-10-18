@@ -123,7 +123,7 @@ running the apply.
 
 The next thing is to configure the ingress by [creating an _Ingress_ resource](https://kubernetes.io/docs/concepts/services-networking/ingress/).
 This can be a fairly complex resource to set-up, but it boils down to a set of HTTP path mappings
-(routes) and which backend service should serve them, here is the completed manifest file:
+(routes) and which backend service should serve them. Here is the completed manifest file:
 
 <details markdown="1">
 <summary>Click here for the Ingress YAML</summary>

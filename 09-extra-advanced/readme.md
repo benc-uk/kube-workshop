@@ -129,8 +129,8 @@ The relationships between these in AKS and Azure, can be explained with a diagra
 
 ![persistent volume claims](https://docs.microsoft.com/azure/aks/media/concepts-storage/persistent-volume-claims.png)
 
-_PersistentVolumes_, _PersistentVolumeClaims_ & _StorageClasses_ etc are a deep and complex topic in
-Kubernetes, if you want begin reading about them there are masses of information in
+_PersistentVolumes_, _PersistentVolumeClaims_, _StorageClasses_, etc. are a deep and complex topics
+in Kubernetes, if you want begin reading about them there are masses of information in
 [the docs](https://kubernetes.io/docs/concepts/storage/persistent-volumes/). However it is suggested
 for now simply take the YAML below:
 
@@ -221,8 +221,8 @@ If you repeat the experiment above, you should see that the data is maintained a
 The Smilr app we have been working with, comes with a Helm chart, which you can take a look at here,
 [Smilr Helm Chart](https://github.com/benc-uk/smilr/tree/master/kubernetes/helm/smilr).
 
-With this we can deploy the entire app, all the deployments, pods, services, ingress etc with a single
-command, naturally if we were to have done this from the beginning there wouldn't have been much scope
+With this we can deploy the entire app, all the deployments, pods, services, ingress, etc. with a single
+command. Naturally if we were to have done this from the beginning there wouldn't have been much scope
 for learning!
 
 However as this is the final section, now might be a good time to try it. Due to some limitations

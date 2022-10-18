@@ -2,7 +2,7 @@
 
 We've cut more than a few corners so far in order to simplify things and introduce concepts one at a
 time, now is a good time to make some simple improvements. We'll also pick up the pace a little with
-a slightly less hand holding.
+slightly less hand holding.
 
 ## 🌡️ Resource Requests & Limits
 
@@ -20,7 +20,7 @@ It's worth reading the [Kubernetes documentation on this topic](https://kubernet
 especially on the units & specifiers used for memory and CPU.
 
 You can specify resources of these within the pod template inside the Deployment YAML. The `resources`
-section needs to go at the same level as `image`, `ports` etc in the spec.
+section needs to go at the same level as `image`, `ports`, etc. in the spec.
 
 ```yaml
 # Resources to set on frontend & data API deployment
