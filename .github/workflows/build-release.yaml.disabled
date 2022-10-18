@@ -6,7 +6,7 @@ on:
     branches: ["main"]
 
 env:
-  ACR_NAME: bencwsacr
+  ACR_NAME: __YOUR_ACR_NAME__
   IMAGE_TAG: ${{ github.run_id }}
 
 jobs:

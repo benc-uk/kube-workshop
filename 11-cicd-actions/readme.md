@@ -2,9 +2,9 @@
 
 This is an optional section detailing how to set up a continuous integration (CI) and continuous deployment (CD) pipeline, which will deploy to Kubernetes using Helm.
 
-There are many CI/CD solutions available, we will use GitHub Actions, as it's easy to set up and most developers will already have GitHub accounts. It assumes familiarity y with git and basic GitHub useage ushc as forking & cloning.
+There are many CI/CD solutions available, we will use GitHub Actions, as it's easy to set up and most developers will already have GitHub accounts. It assumes familiarity with git and basic GitHub usage such as forking & cloning.
 
-> 📝 NOTE: This is not intended to be full guide or tutorial on GitHub Actions, you would be better off starting [here](https://docs.github.com/en/actions/learn-github-actions) or [here](https://docs.microsoft.com/en-us/learn/paths/automate-workflow-github-actions/?source=learn)
+> 📝 NOTE: This is not intended to be full guide or tutorial on GitHub Actions, you would be better off starting [here](https://docs.github.com/en/actions/learn-github-actions) or [here](https://docs.microsoft.com/en-us/learn/paths/automate-workflow-github-actions/?source=learn).
 
 ## 🔰 Get Started with GitHub Actions
 
@@ -52,7 +52,7 @@ The best place to check the status is from the GitHub web site and in the 'Actio
 Install the GitHub CLI, this will make setting up the secrets required in the next part much more simple. All commands below assume you are running them from within the path of the cloned repo on your local machine.
 
 - On MacOS: [https://github.com/cli/cli#macos](https://github.com/cli/cli#macos)
-- On Ubuntu/WSL: `curl -s https://raw.githubusercontent.com/benc-uk/tools-install/master/kubectl.sh | bash`
+- On Ubuntu/WSL: `curl -s https://raw.githubusercontent.com/benc-uk/tools-install/master/gh.sh | bash`
 
 Now login using the GitHub CLI, follow the authentication steps when prompted:
 
@@ -60,7 +60,9 @@ Now login using the GitHub CLI, follow the authentication steps when prompted:
 gh auth login
 ```
 
-Once the CLI is set up it, we can use it to create a [secret](https://docs.github.com/en/actions/security-guides/encrypted-secrets) within your repo, called `ACR_PASSWORD`. We'll reference this secret in the next section. This combines the Azure CLI and GitHub CLI into one neat way to get the credentials:
+Once the CLI is set up it, we can use it to create a [secret](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
+within your repo, called `ACR_PASSWORD`. We'll reference this secret in the next section. This combines
+the Azure CLI and GitHub CLI into one neat way to get the credentials:
 
 ```bash
 gh secret set ACR_PASSWORD --body "$(az acr credential show --name $ACR_NAME --query "passwords[0].value" -o tsv)"
@@ -68,9 +70,12 @@ gh secret set ACR_PASSWORD --body "$(az acr credential show --name $ACR_NAME --q
 
 ## 📦 Add CI Steps For Image Building
 
-The workflow, doesn't really do much, so let's update the workflow YAML to carry out a build and push of the application container images. We can do this using the code we've checked out in the previous workflow step.
+The workflow, doesn't really do much, so let's update the workflow YAML to carry out a build and
+push of the application container images. We can do this using the code we've checked out in the previous
+workflow step.
 
-Add this as the YAML top level, e.g just under the `on:` section, change the `__YOUR_ACR_NAME__` string to the name of the ACR you deployed previously (do not include the azurecr.io part)
+Add this as the YAML top level, e.g just under the `on:` section, change the `__YOUR_ACR_NAME__`
+string to the name of the ACR you deployed previously (do not include the azurecr.io part).
 
 ```yaml
 env:
@@ -78,7 +83,8 @@ env:
   IMAGE_TAG: ${{ github.run_id }}
 ```
 
-Add this section under the "Checkout app code repo" step in the job, it will require indenting to the correct level:
+Add this section under the "Checkout app code repo" step in the job, it will require indenting to the
+correct level:
 
 ```yaml
 - name: "Authenticate to access ACR"
@@ -103,12 +109,16 @@ Add this section under the "Checkout app code repo" step in the job, it will req
     docker push $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG
 ```
 
-Save the file, commit and push to main just as before. Then check the status from the GitHub UI and 'Actions' page of your forked repo.
+Save the file, commit and push to main just as before. Then check the status from the GitHub UI and
+'Actions' page of your forked repo.
 
 The workflow now does three important things:
 
-- Authenticate to "login" to the ACR
-- Build the **smilr/data-api** image and tag as `latest` and also the GitHub run ID, which is unique to every run of the workflow. Then push these images to the ACR.
-- Do exactly the same for the **smilr/frontend** image
+- Authenticate to "login" to the ACR.
+- Build the **smilr/data-api** image and tag as `latest` and also the GitHub run ID, which is unique
+  to every run of the workflow. Then push these images to the ACR.
+- Do exactly the same for the **smilr/frontend** image.
 
 The "Build & push images" job and the workflow should take around 2~3 minutes to complete.
+
+### [Return to Main Index](../readme.md)
