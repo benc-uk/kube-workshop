@@ -298,4 +298,7 @@ helm install myapp ./smilr --values my-values.yaml
 Validate the deployment as before with `helm` and `kubectl` and check you can access the app in the
 browser.
 
-### [Return to Main Index](../../readme.md)
+## Navigation
+
+[Return to Main Index](../../readme.md)
+[Previous Section](../09-extra-advanced/readme.md) | [Next Section](../10-gitops-flux/readme.md)

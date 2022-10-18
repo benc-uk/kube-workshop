@@ -23,7 +23,7 @@ an new/empty repo on GitHub.
 Inside the `.github/workflows` directory, create a new file called `build-release.yaml` and paste in
 the contents:
 
-> 📝 NOTE: This is special directory path used by GitHub Actions
+> 📝 NOTE: This is special directory path used by GitHub Actions!
 
 ```yaml
 # Name of the workflow
@@ -135,4 +135,7 @@ The workflow now does three important things:
 
 The "Build & push images" job and the workflow should take around 2~3 minutes to complete.
 
-### [Return to Main Index](../readme.md)
+## Navigation
+
+[Return to Main Index](../readme.md)
+[Previous Section](../10-gitops-flux/readme.md)

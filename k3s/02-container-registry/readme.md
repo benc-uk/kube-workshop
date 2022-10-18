@@ -79,4 +79,7 @@ sudo systemctl restart k3s;
 
 > To read more about how `registries.yaml` works, you can checkout [Rancher Docs: Private Registry Configuration](https://rancher.com/docs/k3s/latest/en/installation/private-registry/).
 
-### [Return to Main Index](../../readme.md)
+## Navigation
+
+[Return to Main Index](../../readme.md)
+[Previous Section](../01-cluster/readme.md) | [Next Section](../03-container-registry/)

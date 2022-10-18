@@ -115,4 +115,7 @@ ACR_NAME="__change_me__"
 It's worth creating a project folder locally (or even a git repo) at this point, in order to keep your
 work in, you haven't done so already. We'll be creating & editing files later.
 
-### [Return to Main Index](../readme.md)
+## Navigation
+
+[Return to Main Index](../readme.md)
+[Next Section](../01-cluster/readme.md)

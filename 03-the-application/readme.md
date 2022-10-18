@@ -29,4 +29,7 @@ For this workshop the app will be deployed with the following requirements:
 - The sentiment service is optional and **won't be deployed**.
 - Authentication and API security will disabled and the app will run in "demo mode."
 
-### [Return to Main Index](../readme.md)
+## Navigation
+
+[Return to Main Index](../readme.md)
+[Previous Section](../02-container-registry/readme.md) | [Next Section](../04-deployment/readme.md)

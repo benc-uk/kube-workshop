@@ -91,4 +91,7 @@ kubectl patch serviceaccount default --patch '"imagePullSecrets": [{"name": "acr
 These two commands introduce a lot of new Kubernetes concepts in one go! Don't worry about them for
 now, some of this such as _Secrets_ we'll go into later. If the command is successful, move on.
 
-### [Return to Main Index](../readme.md)
+## Navigation
+
+[Return to Main Index](../readme.md)
+[Previous Section](../01-cluster/readme.md) | [Next Section](../03-the-application/readme.md)

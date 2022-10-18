@@ -189,4 +189,7 @@ We've reached the final state of the application deployment. The resources deplo
 
 This is a slightly simplified version from previously, and the _Deployment_ objects are not shown.
 
-### [Return to Main Index](../readme.md)
+## Navigation
+
+[Return to Main Index](../readme.md)
+[Previous Section](../07-improvements/readme.md) | [Next Section](../09-extra-advanced/readme.md)

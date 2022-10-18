@@ -330,4 +330,7 @@ to suit that environment.
 🧪 **Experiment**: Try deleting one of the deployments and watch it be brought back to life with
 `flux` reconcile. You can speed up the recreation with `flux reconcile kustomization apps`.
 
-### [Return to Main Index](../../readme.md)
+## Navigation
+
+[Return to Main Index](../../readme.md)
+[Previous Section](../09-extra-advanced/readme.md) | [Next Section](../11-cicd-actions/readme.md)

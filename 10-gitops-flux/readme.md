@@ -312,4 +312,7 @@ If we wanted to deploy this app across multiple environments or multiple times, 
 sub-directories under `apps/`, each containing different Kustomizations and modifying the deployment
 to suit that environment.
 
-### [Return to Main Index](../readme.md)
+## Navigation
+
+[Return to Main Index](../readme.md)
+[Previous Section](../09-extra-advanced/readme.md) | [Next Section](../11-cicd-actions/readme.md)

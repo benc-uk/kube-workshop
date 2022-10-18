@@ -79,4 +79,7 @@ az aks start --resource-group $RES_GROUP --name $AKS_NAME
 > 📝 NOTE: Start and stop operations do take several minutes to complete, so typically you would
 > perform them only at the start or end of the day.
 
-### [Return to Main Index](../readme.md)
+## Navigation
+
+[Return to Main Index](../readme.md)
+[Previous Section](../00-pre-reqs/readme.md) | [Next Section](../02-container-registry/readme.md)

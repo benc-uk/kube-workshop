@@ -110,4 +110,7 @@ The resources deployed into the cluster & in Azure at this stage can be visualiz
 
 Here we can see our two `NodePort` services, each exposed on different ports of the external VM IP.
 
-### [Return to Main Index](../../readme.md)
+## Navigation
+
+[Return to Main Index](../../readme.md)
+[Previous Section](../05-network-basics/readme.md) | [Next Section](../07-improvements/readme.md)

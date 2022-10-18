@@ -108,4 +108,7 @@ deploy an entire Azure Load Balancer, instead it's used to create a new public I
 the single Azure Load Balancer (created by AKS) that sits in front of the cluster. We'll refine this
 later when we look at setting up an ingress.
 
-### [Return to Main Index](../readme.md)
+## Navigation
+
+[Return to Main Index](../readme.md)
+[Previous Section](../05-network-basics/readme.md) | [Next Section](../07-improvements/readme.md)
