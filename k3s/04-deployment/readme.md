@@ -6,4 +6,4 @@ directory.
 ## Navigation
 
 [Return to Main Index 🏠](../../readme.md)
-[Previous Section ⏪](../03-the-application/readme.md) | [Next Section ⏩](../05-network-basics/readme.md)
+[Previous Section ⏪](../03-the-application/readme.md) ‖ [Next Section ⏩](../05-network-basics/readme.md)

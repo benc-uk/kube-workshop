@@ -119,5 +119,5 @@ work in, you haven't done so already. We'll be creating & editing files later.
 
 ## Navigation
 
-[Return to Main Index 🏠](../readme.md) |
+[Return to Main Index 🏠](../readme.md) ‖
 [Next Section ⏩](../01-cluster/readme.md)

@@ -6,4 +6,4 @@ directory.
 ## Navigation
 
 [Return to Main Index 🏠](../../readme.md)
-[Previous Section ⏪](../02-container-registry/readme.md) | [Next Section ⏩](../04-deployment/readme.md)
+[Previous Section ⏪](../02-container-registry/readme.md) ‖ [Next Section ⏩](../04-deployment/readme.md)

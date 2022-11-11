@@ -93,5 +93,5 @@ now, some of this such as _Secrets_ we'll go into later. If the command is succe
 
 ## Navigation
 
-[Return to Main Index 🏠](../readme.md) |
-[Previous Section ⏪](../01-cluster/readme.md) | [Next Section ⏩](../03-the-application/readme.md)
+[Return to Main Index 🏠](../readme.md) ‖
+[Previous Section ⏪](../01-cluster/readme.md) ‖ [Next Section ⏩](../03-the-application/readme.md)

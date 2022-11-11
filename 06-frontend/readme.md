@@ -110,5 +110,5 @@ later when we look at setting up an ingress.
 
 ## Navigation
 
-[Return to Main Index 🏠](../readme.md) |
-[Previous Section ⏪](../05-network-basics/readme.md) | [Next Section ⏩](../07-improvements/readme.md)
+[Return to Main Index 🏠](../readme.md) ‖
+[Previous Section ⏪](../05-network-basics/readme.md) ‖ [Next Section ⏩](../07-improvements/readme.md)
