@@ -46,9 +46,9 @@ jobs:
     # Only release from main
     if: ${{ github.ref == 'refs/heads/main' }}
     needs: buildJob
-    environment:
-      name: AKS-Live
-      url: http://20.103.220.11/
+    # environment:
+    #   name: AKS-Live
+    #   url: http://20.103.220.11/
     steps:
       - name: "Checkout app code repo" # Needed for the Helm chart
         uses: actions/checkout@v2
@@ -60,6 +60,9 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.CLUSTER_KUBECONFIG }}
+
+      - name: "Sanity check Kubernetes"
+        run: kubectl get pod --all-namespaces
 
       - name: "Update chart dependencies"
         run: helm dependency update ./kubernetes/helm/smilr

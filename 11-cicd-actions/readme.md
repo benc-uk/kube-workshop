@@ -61,6 +61,10 @@ The best place to check the status is from the GitHub web site and in the 'Actio
 forked repo, e.g. `https://github.com/{your-github-user}/kube-workshop/actions` you should be able
 to look at the workflow run, the status, plus output & other details.
 
+> 📝 NOTE: It's unusual for the code you are building to be a in separate repo from the workflow(s),
+> in most cases they will be in the same code base, however it doesn't really make any difference to
+> the approach we will take.
+
 ## ⌨️ Set Up GitHub CLI
 
 Install the GitHub CLI, this will make setting up the secrets required in the next part much more simple.
@@ -136,6 +140,18 @@ The workflow now does three important things:
 - Do exactly the same for the **smilr/frontend** image.
 
 The "Build & push images" job and the workflow should take around 2~3 minutes to complete.
+
+## Connect To Kubernetes
+
+Words.
+
+```bash
+gh secret set CLUSTER_KUBECONFIG --body "$(az aks get-credentials -g aks -n sandbox --file -)"
+```
+
+## Deploy using Helm
+
+More words.
 
 ## Navigation
 
