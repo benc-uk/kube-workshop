@@ -1,6 +1,8 @@
 # 🚦 Deploying Kubernetes
 
-Deploying a Kubernetes can be extremely complex, with many networking, compute and other aspects to consider. However for the purposes of this workshop, a default and basic K3s cluster can be deployed very quickly.
+Deploying a Kubernetes can be extremely complex, with many networking, compute and other aspects to
+consider. However for the purposes of this workshop, a default and basic K3s cluster can be deployed
+very quickly.
 
 ## 🚀 Virtual Machine Deployment
 
@@ -21,7 +23,7 @@ az vm create \
     --generate-ssh-keys
 
 # Open two additional ports on the VM, that'll be used later
-az network nsg rule create --resource-group $RES_GROUP --nsg-name ${VM_NAME}NSG  --name AllowNodePorts --protocol tcp --priority 1001 --destination-port-ranges 30036 30037  
+az network nsg rule create --resource-group $RES_GROUP --nsg-name ${VM_NAME}NSG  --name AllowNodePorts --protocol tcp --priority 1001 --destination-port-ranges 30036 30037
 
 ```
 
@@ -29,13 +31,15 @@ Save the VMs public IP and SSH key files for use in the next steps
 
 ## 🌐Connect to the VM from VSCode
 
-To make creating files easier on the machine it's recommended to use [VS Code](https://code.visualstudio.com/) Remote extension with SSH to connect to the VM: [Developing on Remote Machines using SSH and Visual Studio Code](https://code.visualstudio.com/docs/remote/ssh)
+To make creating files easier on the machine it's recommended to use [VS Code](https://code.visualstudio.com/)
+Remote extension with SSH to connect to the VM. See the documentation [here](https://code.visualstudio.com/docs/remote/ssh)
+for more on developing on Remote Machines using SSH and Visual Studio Code.
 
-It's also highly recommended to get the [Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
+It's also highly recommended to get the [Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools).
 
 ## 🤘 Set up K3s cluster
 
-Run all of these commands inside of your VM
+Run all of these commands inside of your VM.
 
 First, let's install the K3S cluster and tools in the VM:
 
@@ -59,23 +63,23 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 ```
 
-> 📝 NOTE: Login into Azure CLI if you've installed it
+> 📝 NOTE: Login into the Azure CLI if you've installed it.
 
-Let's connect your kubectl with k3s and allow your user permissions to access the cluster
+Let's connect your kubectl with k3s and allow your user permissions to access the cluster.
 
 ```sh
-echo "export KUBECONFIG=/etc/rancher/k3s/k3s.yaml" >> ~/.bashrc 
+echo "export KUBECONFIG=/etc/rancher/k3s/k3s.yaml" >> ~/.bashrc
 sudo chown azureuser /etc/rancher/k3s/k3s.yaml
 sudo chown azureuser /etc/rancher/k3s
 ```
 
-Then let's set up the VM user profile for K3s to make it easier to run all the commands
+Then let's set up the VM user profile for K3s to make it easier to run all the commands:
 
 ```sh
-echo "source <(kubectl completion bash)" >> ~/.bashrc 
-echo "alias k=kubectl" >> ~/.bashrc 
+echo "source <(kubectl completion bash)" >> ~/.bashrc
+echo "alias k=kubectl" >> ~/.bashrc
 echo "complete -o default -F __start_kubectl k" >> ~/.bashrc
-echo "export PATH=$PATH:/home/azureuser/.local/bin" >> ~/.bashrc 
+echo "export PATH=$PATH:/home/azureuser/.local/bin" >> ~/.bashrc
 ```
 
 Double check that everything in installed and working correctly with:
@@ -100,6 +104,10 @@ az vm stop --resource-group $RES_GROUP --name $AKS_NAME
 az vm start --resource-group $RES_GROUP --name $AKS_NAME
 ```
 
-> 📝 NOTE: Start and stop operations do take several minutes to complete, so typically you would perform them only at the start or end of the day.
+> 📝 NOTE: Start and stop operations do take several minutes to complete, so typically you would perform
+> them only at the start or end of the day.
 
-### [Return to Main Index](../../readme.md)
+## Navigation
+
+[Return to Main Index](../../readme.md)
+[Previous Section](../00-pre-reqs/readme.md) | [Next Section](../01-cluster/readme.md)

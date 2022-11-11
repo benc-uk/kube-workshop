@@ -1,6 +1,8 @@
 # 🚦 Deploying Kubernetes
 
-Deploying AKS and Kubernetes can be extremely complex, with many networking, compute and other aspects to consider. However for the purposes of this workshop, a default and basic cluster can be deployed very quickly.
+Deploying AKS and Kubernetes can be extremely complex, with many networking, compute and other aspects
+to consider. However for the purposes of this workshop, a default and basic cluster can be deployed
+very quickly.
 
 ## 🚀 AKS Cluster Deployment
 
@@ -19,17 +21,22 @@ az aks create --resource-group $RES_GROUP \
   --verbose
 ```
 
-This should take around 5 minutes to complete, and creates a new AKS cluster with the following characteristics:
+This should take around 5 minutes to complete, and creates a new AKS cluster with the following
+characteristics:
 
 - Two small B-Series _Nodes_ in a single node pool. _Nodes_ are what your workloads will be running on.
-- Basic 'Kubenet' networking, which creates an Azure network and subnet etc for us. [See docs if you wish to learn more about this topic](https://docs.microsoft.com/azure/aks/operator-best-practices-network)
-- Local cluster admin account, with RBAC enabled, this means we don't need to worry about setting up users or assigning roles etc.
-- AKS provide a wide range of 'turn key' addons, e.g. monitoring, AAD integration, auto-scaling, GitOps etc, however we'll not require for any of these enabled.
+- Basic 'Kubenet' networking, which creates an Azure network, subnet, etc. for us. [See docs if you wish to learn more about this topic.](https://docs.microsoft.com/azure/aks/operator-best-practices-network)
+- Local cluster admin account, with RBAC enabled, this means we don't need to worry about setting up
+  users or assigning roles etc.
+- AKS provide a wide range of 'turn key' addons, e.g. monitoring, AAD integration, auto-scaling, GitOps
+  etc., however we'll not require for any of these enabled.
 
-The `az aks create` command has [MANY options](https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az-aks-create) however you shouldn't need to change or add any options, with some small exceptions:
+The `az aks create` command has [MANY options](https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az-aks-create)
+however you shouldn't need to change or add any options, with some small exceptions:
 
 - You many wish to skip the use of SSH keys with `--no-ssh-key` as they won't be needed.
-- Additionally you may wish to change the size or number of nodes, however this clearly has cost implications.
+- Additionally you may wish to change the size or number of nodes, however this clearly has cost
+  implications.
 
 ## 🔌 Connect to the Cluster
 
@@ -39,7 +46,8 @@ To enable `kubectl` (and other tools) to access the cluster, run the following:
 az aks get-credentials --name $AKS_NAME --resource-group $RES_GROUP
 ```
 
-This will create Kubernetes config file in your home directory `~/.kube/config` which is the default location, used by `kubectl`.
+This will create Kubernetes config file in your home directory `~/.kube/config` which is the default
+location, used by `kubectl`.
 
 Now you can run some simple `kubectl` commands to validate the health and status of your cluster:
 
@@ -51,11 +59,14 @@ kubectl get nodes
 kubectl get pods --all-namespaces
 ```
 
-Don't be alarmed by all the pods you see running in the 'kube-system' namespace. These are deployed by default by AKS and perform management & system tasks we don't need to worry about. You can still consider your cluster "empty" at this stage.
+Don't be alarmed by all the pods you see running in the 'kube-system' namespace. These are deployed
+by default by AKS and perform management & system tasks we don't need to worry about. You can still
+consider your cluster "empty" at this stage.
 
 ## ⏯️ Appendix - Stopping & Starting the Cluster
 
-If you are concerned about the costs for running the cluster you can stop and start it at any time. This essentially stops the node VMs in Azure, meaning the costs for the cluster are greatly reduced.
+If you are concerned about the costs for running the cluster you can stop and start it at any time.
+This essentially stops the node VMs in Azure, meaning the costs for the cluster are greatly reduced.
 
 ```bash
 # Stop the cluster
@@ -65,6 +76,10 @@ az aks stop --resource-group $RES_GROUP --name $AKS_NAME
 az aks start --resource-group $RES_GROUP --name $AKS_NAME
 ```
 
-> 📝 NOTE: Start and stop operations do take several minutes to complete, so typically you would perform them only at the start or end of the day.
+> 📝 NOTE: Start and stop operations do take several minutes to complete, so typically you would
+> perform them only at the start or end of the day.
 
-### [Return to Main Index](../readme.md)
+## Navigation
+
+[Return to Main Index](../readme.md)
+[Previous Section](../00-pre-reqs/readme.md) | [Next Section](../02-container-registry/readme.md)

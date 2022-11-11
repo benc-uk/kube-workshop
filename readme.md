@@ -1,18 +1,29 @@
 # Kubernetes Developer Workshop
 
-This is a hands-on, technical workshop intended / hack to get comfortable working with Kubernetes and deploying & configuring applications. It should take roughly 6~8 hours to complete the main set of sections, but this is very approximate. This workshop is intended partially as a companion to this [Kubernetes Technical Primer](https://github.com/benc-uk/kube-primer) which can be read through, referenced or used to get an initial grounding on the concepts.
+This is a hands-on, technical workshop intended / hack to get comfortable working with Kubernetes, and
+deploying and configuring applications. It should take roughly 6~8 hours to complete the main set of
+sections, but this is very approximate. This workshop is intended partially as a companion to this
+[Kubernetes Technical Primer](https://github.com/benc-uk/kube-primer) which can be read through,
+referenced or used to get an initial grounding on the concepts.
 
->📝 NOTE: if you've never used kubernetes before, it is recommended to read the `Introduction To Kubernetes` section in [Kubernetes Technical Primer PDF](https://github.com/benc-uk/kube-primer/blob/master/Tech%20Primer%20-%20Kubernetes%20(Jan%202022).pdf)
+This workshop is very much designed for software engineers & developers with little or zero Kubernetes
+experience, but wish to get hands on and learn how to deploy and manage applications. It is not
+focused on the administration, network configuration & day-2 operations of Kubernetes itself, so some
+aspects may not be relevant to dedicated platform/infrastructure engineers.
 
-This workshop is very much designed for software engineers & developers with little or zero Kubernetes experience, but wish to get hands on and learn how to deploy and manage applications. It is not focused on the administration, network configuration & day-2 operations of Kubernetes itself, so some aspects may not be relevant to dedicated platform/infrastructure engineers.
+> 📝 NOTE: if you've never used kubernetes before, it is recommended to read the `Introduction To Kubernetes` section in [Kubernetes Technical Primer PDF](https://github.com/benc-uk/kube-primer/blob/master/Tech%20Primer%20-%20Kubernetes%20(Jan%202022).pdf)
 
-The application used will be one that has already been written and built, so no application code will need to be written.
+The application used will be one that has already been written and built, so no application code will
+need to be written.
 
-If you get stuck, the [GitHub repo for this workshop](https://github.com/benc-uk/kube-workshop) contains example and working files for most of the sections
+There are two approaches or paths you can take with this workshop, described below.
 
-To start with the workshop, first you need to choose which path you'd like to follow from the next sections.
+If you get stuck, the [GitHub repo for this workshop](https://github.com/benc-uk/kube-workshop)
+contains example and working files for most of the sections.
 
-## Path: Azure Kubernetes Service (AKS)
+To start with the workshop, first you need to choose which path you'd like to follow from the next two sections.
+
+## Path 1: Azure Kubernetes Service (AKS)
 
 In this path you'll be using AKS to learn how to use Kubernetes as a managed service in Azure.
 
@@ -20,37 +31,56 @@ In this path you'll be using AKS to learn how to use Kubernetes as a managed ser
 
 Sections / modules:
 
-- [⚒️ Workshop Pre Requisites](00-pre-reqs/readme.md) - Covering the pre set up and tools that will be needed.
-- [🚦 Deploying Kubernetes](01-cluster/readme.md) - Deploying AKS, setting up kubectl and accessing the cluster.
-- [📦 Container Registry & Images](02-container-registry/readme.md) - Deploying the registry and importing images.
-- [❇️ Overview Of The Application](03-the-application/readme.md) - Details of the application to be deployed.
-- [🚀 Deploying The Backend](04-deployment/readme.md) - Laying down the first two components and introduction to Deployments and Pods.
+- [⚒️ Workshop Pre Requisites](00-pre-reqs/readme.md) - Covering the pre set up and tools that will be
+  needed.
+- [🚦 Deploying Kubernetes](01-cluster/readme.md) - Deploying AKS, setting up kubectl and accessing
+  the cluster.
+- [📦 Container Registry & Images](02-container-registry/readme.md) - Deploying the registry and importing
+  images.
+- [❇️ Overview Of The Application](03-the-application/readme.md) - Details of the application to be
+  deployed.
+- [🚀 Deploying The Backend](04-deployment/readme.md) - Laying down the first two components and
+  introduction to Deployments and Pods.
 - [🌐 Basic Networking](05-network-basics/readme.md) - Introducing Services to provide network access.
-- [💻 Adding The Frontend](06-frontend/readme.md) - Deploying the frontend to the app and wiring it up.
-- [✨ Improving The Deployment](07-improvements/readme.md) - Recommended practices; resource limits, probes and secrets.
+- [💻 Adding The Frontend](06-frontend/readme.md) - Deploying the frontend to the app and wiring it
+  up.
+- [✨ Improving The Deployment](07-improvements/readme.md) - Recommended practices; resource limits,
+  probes and secrets.
 - [🌎 Helm & Ingress](08-helm-ingress/readme.md) - Finalizing the application architecture using ingress.
 
 ### 🍵 AKS Optional Sections
 
 These can be considered bonus sections, and are entirely optional. It is not expected that all these sections would be attempted, and they do not run in order.
 
-- [🤯 Scaling, Stateful Workloads & Helm](09-extra-advanced/readme.md) - Scaling (manual & auto), stateful workloads and persitent volumes, plus more Helm.
-- [🧩 Kustomize & GitOps](10-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps through GitOps with Flux
+- [🤯 Scaling, Stateful Workloads & Helm](09-extra-advanced/readme.md) - Scaling (manual & auto),
+  stateful workloads and persitent volumes, plus more Helm.
+- [🧩 Kustomize & GitOps](10-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps
+  through GitOps with Flux.
+- [👷 CI/CD with Kubernetes](11-cicd-actions/readme.md) - How to manage CI/CD pipelines using Github
+  Actions.
 
-## Path: Single node K3S cluster on a VM
+## Path 2: Single node K3S cluster on a VM
 
 In this path you'll learn to use Kubernetes as if you were running it on a on-premises machine, including configuring the computer with the required set up manually.
 
 Sections / modules:
 
-- [⚒️ Workshop Pre Requisites](k3s/00-pre-reqs/readme.md) - Covering the pre set up and tools that will be needed.
-- [🚦 Deploying Kubernetes](k3s/01-cluster/readme.md) - Deploying the VM, setting up kubectl and accessing the cluster.
-- [📦 Container Registry & Images](k3s/02-container-registry/readme.md) - Deploying the registry and importing images.
-- [❇️ Overview Of The Application](03-the-application/readme.md) - Details of the application to be deployed.
-- [🚀 Deploying The Backend](04-deployment/readme.md) - Laying down the first two components and introduction to Deployments and Pods.
-- [🌐 Basic Networking](k3s/05-network-basics/readme.md) - Introducing Services to provide network access.
-- [💻 Adding The Frontend](k3s/06-frontend/readme.md) - Deploying the frontend to the app and wiring it up.
-- [✨ Improving The Deployment](k3s/07-improvements/readme.md) - Recommended practices; resource limits, probes and secrets.
+- [⚒️ Workshop Pre Requisites](k3s/00-pre-reqs/readme.md) - Covering the pre set up and tools that
+  will be needed.
+- [🚦 Deploying Kubernetes](k3s/01-cluster/readme.md) - Deploying the VM, setting up kubectl and accessing
+  the cluster.
+- [📦 Container Registry & Images](k3s/02-container-registry/readme.md) - Deploying the registry and
+  importing images.
+- [❇️ Overview Of The Application](03-the-application/readme.md) - Details of the application to be
+  deployed.
+- [🚀 Deploying The Backend](04-deployment/readme.md) - Laying down the first two components and
+  introduction to Deployments and Pods.
+- [🌐 Basic Networking](k3s/05-network-basics/readme.md) - Introducing Services to provide network
+  access.
+- [💻 Adding The Frontend](k3s/06-frontend/readme.md) - Deploying the frontend to the app and wiring
+  it up.
+- [✨ Improving The Deployment](k3s/07-improvements/readme.md) - Recommended practices; resource
+  limits, probes and secrets.
 - [🌎 Ingress](k3s/08-ingress/readme.md) - Finalizing the application architecture using ingress.
 
 All of the Kubernetes concepts & APIs explored and used are not specific to AKS, K3S or Azure.
@@ -59,8 +89,12 @@ All of the Kubernetes concepts & APIs explored and used are not specific to AKS,
 
 These can be considered bonus sections, and are entirely optional. It is not expected that all these sections would be attempted, and they do not run in order.
 
-- [🤯 Scaling, Stateful Workloads & Helm](k3s/09-extra-advanced/readme.md) - Scaling (manual & auto), stateful workloads and persitent volumes, plus more Helm.
-- [🧩 Kustomize & GitOps](k3s/10-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps through GitOps with Flux
+- [🤯 Scaling, Stateful Workloads & Helm](k3s/09-extra-advanced/readme.md) - Scaling (manual & auto),
+  stateful workloads and persitent volumes, plus more Helm.
+- [🧩 Kustomize & GitOps](k3s/10-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps
+  through GitOps with Flux.
+- [👷 CI/CD with Kubernetes](/k3s/11-cicd-actions/readme.md) - How to manage CI/CD pipelines using Github
+  Actions.
 
 ### 📖 Extra Reading & Teach Yourself Exercises
 
