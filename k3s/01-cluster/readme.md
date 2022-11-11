@@ -109,5 +109,5 @@ az vm start --resource-group $RES_GROUP --name $AKS_NAME
 
 ## Navigation
 
-[Return to Main Index](../../readme.md)
-[Previous Section](../00-pre-reqs/readme.md) | [Next Section](../01-cluster/readme.md)
+[Return to Main Index 🏠](../../readme.md)
+[Previous Section ⏪](../00-pre-reqs/readme.md) | [Next Section ⏩](../01-cluster/readme.md)

@@ -31,5 +31,5 @@ For this workshop the app will be deployed with the following requirements:
 
 ## Navigation
 
-[Return to Main Index](../readme.md)
-[Previous Section](../02-container-registry/readme.md) | [Next Section](../04-deployment/readme.md)
+[Return to Main Index 🏠](../readme.md) |
+[Previous Section ⏪](../02-container-registry/readme.md) | [Next Section ⏩](../04-deployment/readme.md)

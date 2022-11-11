@@ -314,5 +314,5 @@ to suit that environment.
 
 ## Navigation
 
-[Return to Main Index](../readme.md)
-[Previous Section](../09-extra-advanced/readme.md) | [Next Section](../11-cicd-actions/readme.md)
+[Return to Main Index 🏠](../readme.md) |
+[Previous Section ⏪](../09-extra-advanced/readme.md) | [Next Section ⏩](../11-cicd-actions/readme.md)

@@ -47,19 +47,22 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs: buildJob
     environment:
-      name: AKS-Live
-      url: http://20.103.220.11/
+      name: workshop-environment
+      url: http://__PUBLIC_IP_OF_CLUSTER__/
     steps:
-      - name: "Checkout app code repo" # Needed for the Helm chart
-        uses: actions/checkout@v2
-        with:
-          repository: benc-uk/smilr
-
       - name: "Configure kubeconfig"
         uses: azure/k8s-set-context@v2
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.CLUSTER_KUBECONFIG }}
+
+      - name: "Sanity check Kubernetes"
+        run: kubectl get nodes
+        
+      - name: "Checkout app code repo" # Needed for the Helm chart
+        uses: actions/checkout@v2
+        with:
+          repository: benc-uk/smilr
 
       - name: "Update chart dependencies"
         run: helm dependency update ./kubernetes/helm/smilr

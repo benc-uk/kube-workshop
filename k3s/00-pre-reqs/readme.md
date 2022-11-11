@@ -63,5 +63,5 @@ ACR_NAME="__change_me__"
 
 ## Navigation
 
-[Return to Main Index](../../readme.md)
-[Next Section](../01-cluster/readme.md)
+[Return to Main Index 🏠](../../readme.md)
+[Next Section ⏩](../01-cluster/readme.md)

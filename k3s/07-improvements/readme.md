@@ -147,5 +147,5 @@ If you get stuck and want working manifests you can refer to, they are available
 
 ## Navigation
 
-[Return to Main Index](../../readme.md)
-[Previous Section](../06-frontend/readme.md) | [Next Section](../08-ingress/readme.md)
+[Return to Main Index 🏠](../../readme.md)
+[Previous Section ⏪](../06-frontend/readme.md) | [Next Section ⏩](../08-ingress/readme.md)
