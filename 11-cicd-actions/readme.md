@@ -11,6 +11,8 @@ such as forking & cloning.
 > off starting [here](https://docs.github.com/en/actions/learn-github-actions) or
 > [here](https://docs.microsoft.com/en-us/learn/paths/automate-workflow-github-actions/?source=learn).
 
+🔥 THIS CONTENT IS NOT FINISHED 🔥
+
 ## 🔰 Get Started with GitHub Actions
 
 We'll use a fork of this repo in order to set things up, but in principle you could also start with

@@ -7,4 +7,4 @@ favicon: https://kubernetes.io/images/favicon.png
 buttons:
   - b0:
     text: Workshop Index
-    href: /kube-workshop
+    href: /
