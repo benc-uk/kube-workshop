@@ -279,5 +279,5 @@ browser.
 
 ## Navigation
 
-[Return to Main Index](../readme.md)
-[Previous Section](../08-helm-ingress/readme.md) | [Next Section](../10-gitops-flux/readme.md)
+[Return to Main Index 🏠](../readme.md) |
+[Previous Section ⏪](../08-helm-ingress/readme.md) | [Next Section ⏩](../10-gitops-flux/readme.md)

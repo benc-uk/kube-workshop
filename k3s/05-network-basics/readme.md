@@ -159,5 +159,5 @@ The resources deployed into the cluster & in Azure at this stage can be visualiz
 
 ## Navigation
 
-[Return to Main Index](../../readme.md)
-[Previous Section](../04-deployment/readme.md) | [Next Section](../06-frontend/readme.md)
+[Return to Main Index 🏠](../../readme.md)
+[Previous Section ⏪](../04-deployment/readme.md) | [Next Section ⏩](../06-frontend/readme.md)

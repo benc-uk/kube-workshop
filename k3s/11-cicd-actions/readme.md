@@ -134,5 +134,5 @@ The "Build & push images" job and the workflow should take around 2~3 minutes to
 
 ## Navigation
 
-[Return to Main Index](../../readme.md)
-[Previous Section](../10-gitops-flux/readme.md)
+[Return to Main Index 🏠](../../readme.md)
+[Previous Section ⏪](../10-gitops-flux/readme.md)

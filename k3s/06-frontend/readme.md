@@ -112,5 +112,5 @@ Here we can see our two `NodePort` services, each exposed on different ports of 
 
 ## Navigation
 
-[Return to Main Index](../../readme.md)
-[Previous Section](../05-network-basics/readme.md) | [Next Section](../07-improvements/readme.md)
+[Return to Main Index 🏠](../../readme.md)
+[Previous Section ⏪](../05-network-basics/readme.md) | [Next Section ⏩](../07-improvements/readme.md)

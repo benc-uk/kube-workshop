@@ -105,26 +105,26 @@ Add this section under the "Checkout app code repo" step in the job, it will req
 correct level:
 
 ```yaml
-      - name: "Authenticate to access ACR"
-        uses: docker/login-action@master
-        with:
-          registry: ${{ env.ACR_NAME }}.azurecr.io
-          username: ${{ env.ACR_NAME }}
-          password: ${{ secrets.ACR_PASSWORD }}
+- name: "Authenticate to access ACR"
+  uses: docker/login-action@master
+  with:
+    registry: ${{ env.ACR_NAME }}.azurecr.io
+    username: ${{ env.ACR_NAME }}
+    password: ${{ secrets.ACR_PASSWORD }}
 
-      - name: "Build & Push: data API"
-        run: |
-          docker buildx build . -f node/data-api/Dockerfile \
-            -t $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG \
-            -t $ACR_NAME.azurecr.io/smilr/data-api:latest
-          docker push $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG
+- name: "Build & Push: data API"
+  run: |
+    docker buildx build . -f node/data-api/Dockerfile \
+      -t $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG \
+      -t $ACR_NAME.azurecr.io/smilr/data-api:latest
+    docker push $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG
 
-      - name: "Build & Push: frontend"
-        run: |
-          docker buildx build . -f node/frontend/Dockerfile \
-            -t $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG \
-            -t $ACR_NAME.azurecr.io/smilr/frontend:latest
-          docker push $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG
+- name: "Build & Push: frontend"
+  run: |
+    docker buildx build . -f node/frontend/Dockerfile \
+      -t $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG \
+      -t $ACR_NAME.azurecr.io/smilr/frontend:latest
+    docker push $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG
 ```
 
 Save the file, commit and push to main just as before. Then check the status from the GitHub UI and
@@ -159,21 +159,21 @@ Next add a second job called `releaseJob` to the workflow YAML, beware the inden
 this should under the `jobs:` key
 
 ```yaml
-  releaseJob:
-    name: "Release to Kubernetes"
-    runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' }}
-    needs: buildJob
+releaseJob:
+  name: "Release to Kubernetes"
+  runs-on: ubuntu-latest
+  if: ${{ github.ref == 'refs/heads/main' }}
+  needs: buildJob
 
-    steps:
-      - name: "Configure kubeconfig"
-        uses: azure/k8s-set-context@v2
-        with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.CLUSTER_KUBECONFIG }}
+  steps:
+    - name: "Configure kubeconfig"
+      uses: azure/k8s-set-context@v2
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.CLUSTER_KUBECONFIG }}
 
-      - name: "Sanity check Kubernetes"
-        run: kubectl get nodes
+    - name: "Sanity check Kubernetes"
+      run: kubectl get nodes
 ```
 
 This is doing a bunch of things so lets step through it:
@@ -200,13 +200,13 @@ and then run `helm` to release the chart.
 Add the following two steps to the releaseJob (beware indentation again!)
 
 ```yaml
-      - name: "Checkout app code repo" # Needed for the Helm chart
-        uses: actions/checkout@v2
-        with:
-          repository: benc-uk/smilr
+- name: "Checkout app code repo" # Needed for the Helm chart
+  uses: actions/checkout@v2
+  with:
+    repository: benc-uk/smilr
 
-      - name: "Update chart dependencies"
-        run: helm dependency update ./kubernetes/helm/smilr
+- name: "Update chart dependencies"
+  run: helm dependency update ./kubernetes/helm/smilr
 ```
 
 You can save, commit and push at this point to run the workflow and check everything is OK, or push
@@ -215,13 +215,13 @@ onto the next step.
 Add one final step to the releaseJob, which runs the `helm` command to create or update a release.
 
 ```yaml
-      - name: "Release app with Helm"
-        run: |
-          helm upgrade myapp ./kubernetes/helm/smilr --install --wait --timeout 120s \
-          --set registryPrefix=$ACR_NAME.azurecr.io/ \
-          --set frontend.imageTag=$IMAGE_TAG \
-          --set dataApi.imageTag=$IMAGE_TAG \
-          --set mongodb.enabled=true
+- name: "Release app with Helm"
+  run: |
+    helm upgrade myapp ./kubernetes/helm/smilr --install --wait --timeout 120s \
+    --set registryPrefix=$ACR_NAME.azurecr.io/ \
+    --set frontend.imageTag=$IMAGE_TAG \
+    --set dataApi.imageTag=$IMAGE_TAG \
+    --set mongodb.enabled=true
 ```
 
 This command is doing an awful lot, so let's break it down:
@@ -258,9 +258,9 @@ targeting that environment, and even give users a link to access it
 We can add an environment simply by adding the follow bit of YAML under the releaseJob job:
 
 ```yaml
-    environment:
-      name: workshop-environment
-      url: http://__PUBLIC_IP_OF_CLUSTER__/
+environment:
+  name: workshop-environment
+  url: http://__PUBLIC_IP_OF_CLUSTER__/
 ```
 
 Tip. The `environment` part needs to line up with the `needs` and `if` parts in the job YAML.
@@ -271,5 +271,5 @@ cluster which you were referencing earlier, if you've forgotten it try running
 
 ## Navigation
 
-[Return to Main Index 🏠](../readme.md) |
+[Return to Main Index 🏠](../readme.md) | |
 [Previous Section ⏪](../10-gitops-flux/readme.md)
