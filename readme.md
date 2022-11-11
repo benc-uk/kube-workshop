@@ -11,15 +11,21 @@ experience, but wish to get hands on and learn how to deploy and manage applicat
 focused on the administration, network configuration & day-2 operations of Kubernetes itself, so some
 aspects may not be relevant to dedicated platform/infrastructure engineers.
 
+> 📝 NOTE: if you've never used kubernetes before, it is recommended to read the `Introduction To Kubernetes` section in [Kubernetes Technical Primer PDF](https://github.com/benc-uk/kube-primer/blob/master/Tech%20Primer%20-%20Kubernetes%20(Jan%202022).pdf)
+
 The application used will be one that has already been written and built, so no application code will
 need to be written.
 
-There are two approaches you can take with this workshop below.
+There are two approaches or paths you can take with this workshop, described below.
 
 If you get stuck, the [GitHub repo for this workshop](https://github.com/benc-uk/kube-workshop)
 contains example and working files for most of the sections.
 
-## Azure Kubernetes Service (AKS)
+To start with the workshop, first you need to choose which path you'd like to follow from the next two sections.
+
+## Path 1: Azure Kubernetes Service (AKS)
+
+In this path you'll be using AKS to learn how to use Kubernetes as a managed service in Azure.
 
 > This section assumes a relative degree of comfort in using Azure for sections 2 and 3.
 
@@ -53,7 +59,9 @@ These can be considered bonus sections, and are entirely optional. It is not exp
 - [👷 CI/CD with Kubernetes](11-cicd-actions/readme.md) - How to manage CI/CD pipelines using Github
   Actions.
 
-## Single node K3S cluster on a VM
+## Path 2: Single node K3S cluster on a VM
+
+In this path you'll learn to use Kubernetes as if you were running it on a on-premises machine, including configuring the computer with the required set up manually.
 
 Sections / modules:
 

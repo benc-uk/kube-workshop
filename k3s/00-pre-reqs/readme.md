@@ -52,7 +52,7 @@ Sample `vars.sh` file is shown below, feel free to use any values you wish for t
 region cluster name etc. To use the file simply source it through bash with `source vars.sh`, do this
 before moving to the next stage.
 
-> Note: The ACR name must be globally unique, must not contain dashes, dots, or underscores.
+> 📝 NOTE: The ACR name must be globally unique and not contain dashes, dots, or underscores.
 
 ```bash
 RES_GROUP="kube-workshop"
