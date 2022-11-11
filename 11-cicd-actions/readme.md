@@ -59,7 +59,7 @@ adding a code review or PR process would merely distract from what we are doing.
 
 The best place to check the status is from the GitHub web site and in the 'Actions' within your
 forked repo, e.g. `https://github.com/{your-github-user}/kube-workshop/actions` you should be able
-to look at the workflow run, the status plus output & other details.
+to look at the workflow run, the status, plus output & other details.
 
 ## ⌨️ Set Up GitHub CLI
 
@@ -86,9 +86,9 @@ gh secret set ACR_PASSWORD --body "$(az acr credential show --name $ACR_NAME --q
 
 ## 📦 Add CI Steps For Image Building
 
-The workflow, doesn't really do much, so let's update the workflow YAML to carry out a build and
-push of the application container images. We can do this using the code we've checked out in the previous
-workflow step.
+The workflow, doesn't really do much, the applicaiton gets built and images created but they go nowhere.
+So let's update the workflow YAML to carry out a build and push of the application container images.
+We can do this using the code we've checked out in the previous workflow step.
 
 Add this as the YAML top level, e.g just under the `on:` section, change the `__YOUR_ACR_NAME__`
 string to the name of the ACR you deployed previously (do not include the azurecr.io part).
@@ -139,5 +139,5 @@ The "Build & push images" job and the workflow should take around 2~3 minutes to
 
 ## Navigation
 
-[Return to Main Index](../readme.md)
-[Previous Section](../10-gitops-flux/readme.md)
+[Return to Main Index 🏠](../readme.md) |
+[Previous Section ⏪](../10-gitops-flux/readme.md)
