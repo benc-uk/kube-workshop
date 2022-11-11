@@ -59,7 +59,7 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 ```
 
-> Note: Login into Azure CLI if you've installed it
+> 📝 NOTE: Login into Azure CLI if you've installed it
 
 Let's connect your kubectl with k3s and allow your user permissions to access the cluster
 
