@@ -82,7 +82,7 @@ The rest of this workshop assumes you have access to an Azure subscription, and 
 
 Getting all the tools set up locally is the highly recommended path to take, if you are stuck there are some other options to explore, but these haven't been tested:
 
-- Use the [Azure Cloud Shell](https://shell.azure.com/bash) which has all of these tools except VS Code, but a simple web code editor is available.
+- Use the [Azure Cloud Shell](https://shell.azure.com/bash) which has all of these tools except VS Code, a simple web code editor is available. However if you download the [VS Code server](https://aka.ms/install-vscode-server/setup.sh), then run that from inside Cloud Shell you can get access to the full web based version of VS Code
 - Go to the [repo for this workshop on GitHub](https://github.com/benc-uk/kube-workshop/codespaces) and start a new Codespace from it, you should get a terminal you can use and have all the tools available. Only available if you have access to GitHub Codespaces.
 
 ## 💲 Variables File
