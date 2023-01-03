@@ -15,7 +15,7 @@ az aks create --resource-group $RES_GROUP \
   --name $AKS_NAME \
   --location $REGION \
   --node-count 2 --node-vm-size Standard_B2ms \
-  --kubernetes-version 1.22.4 \
+  --kubernetes-version 1.24.6 \
   --verbose
 ```
 
