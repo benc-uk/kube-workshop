@@ -10,7 +10,13 @@ As this is a completely hands on workshop, you will need several things before y
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
 - [helm](https://helm.sh/docs/intro/install/)
 
-## 🌩️ Install Azure CLI
+## Install dependencies
+
+The above listed tools are already set up in `.devcontainer` folder located in the git repository of this workshop: <https://github.com/benc-uk/kube-workshop>. If you've never used Dev Containers, check out [developing inside a Container using Visual Studio Code Remote Development](https://code.visualstudio.com/docs/devcontainers/containers).
+
+Alteratively you can can install the dependencies yourself by following the steps below.
+
+### 🌩️ Install Azure CLI
 
 To set-up the Azure CLI on your system
 
@@ -28,7 +34,7 @@ brew update && brew install azure-cli
 
 If the commands above don't work, please refer to: [https://aka.ms/azure-cli](https://aka.ms/azure-cli)
 
-## ⛑️ Install Helm & Kubectl
+### ⛑️ Install Helm & Kubectl
 
 <details markdown="1">
 <summary>Install Helm & Kubectl - Linux (Ubuntu/Debian)</summary>
