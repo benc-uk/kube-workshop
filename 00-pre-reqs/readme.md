@@ -5,14 +5,15 @@ As this is a completely hands on workshop, you will need several things before y
 - Access to an Azure Subscription where you can create resources.
 - bash or a bash compatible shell (e.g. zsh), please do not attempt to use PowerShell or cmd.
 - A good editor, and [VS Code](https://code.visualstudio.com/) is strongly recommended
-  - [Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools) also highly recommended
+  - [Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools) also highly recommended.
 - [Azure CLI](https://aka.ms/azure-cli)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
 - [helm](https://helm.sh/docs/intro/install/)
 
 ## Install dependencies
 
-The above listed tools are already set up in `.devcontainer` folder located in the git repository of this workshop: <https://github.com/benc-uk/kube-workshop>. If you've never used Dev Containers, check out [developing inside a Container using Visual Studio Code Remote Development](https://code.visualstudio.com/docs/devcontainers/containers).
+The above listed tools are already set up in `.devcontainer` folder located in the git repository of this workshop: <https://github.com/benc-uk/kube-workshop>.
+If you've never used Dev Containers, check out [developing inside a Container using Visual Studio Code Remote Development](https://code.visualstudio.com/docs/devcontainers/containers).
 
 ### Install dependencies manually
 
@@ -20,7 +21,7 @@ Alteratively you can can install the dependencies yourself by following the step
 
 #### 🌩️ Install Azure CLI
 
-To set-up the Azure CLI on your system
+To set-up the Azure CLI on your system, install it in one of the below ways.
 
 On Ubuntu/Debian Linux, requires sudo:
 
@@ -108,26 +109,36 @@ az
 
 ## 🔐 Login to Azure
 
-The rest of this workshop assumes you have access to an Azure subscription, and have the Azure CLI working & signed into the tenant & subscription you will be using. Some Azure CLI commands to help you:
+The rest of this workshop assumes you have access to an Azure subscription, and have the Azure CLI
+working & signed into the tenant & subscription you will be using. Some Azure CLI commands to help you:
 
-- `az login` or `az login --tenant {TENANT_ID}` - Login to the Azure CLI, use the `--tenant` switch if you have multiple accounts.
+- `az login` or `az login --tenant {TENANT_ID}` - Login to the Azure CLI, use the `--tenant` switch
+  if you have multiple accounts.
 - `az account set --subscription {SUBSCRIPTION_ID}` - Set the subscription the Azure CLI will use.
 - `az account show -o table` - Show the subscription the CLI is configured to use.
 
 ## 😢 Stuck?
 
-Getting all the tools set up locally is the highly recommended path to take, if you are stuck there are some other options to explore, but these haven't been tested:
+Getting all the tools set up locally is the highly recommended path to take, if you are stuck there
+are some other options to explore, but these haven't been tested:
 
-- Use the [Azure Cloud Shell](https://shell.azure.com/bash) which has all of these tools except VS Code, but a simple web code editor is available.
-- Go to the [repo for this workshop on GitHub](https://github.com/benc-uk/kube-workshop/codespaces) and start a new Codespace from it, you should get a terminal you can use and have all the tools available. Only available if you have access to GitHub Codespaces.
+- Use the [Azure Cloud Shell](https://shell.azure.com/bash) which has all of these tools except VS Code,
+  a simple web code editor is available. However if you download the
+  [VS Code server](https://aka.ms/install-vscode-server/setup.sh), then run that from inside Cloud Shell
+  you can get access to the full web based version of VS Code.
+- Go to the [repo for this workshop on GitHub](https://github.com/benc-uk/kube-workshop/codespaces)
+  and start a new Codespace from it, you should get a terminal you can use and have all the tools available.
+  Only available if you have access to GitHub Codespaces.
 
 ## 💲 Variables File
 
-Although not essential, it's advised to create a `vars.sh` file holding all the parameters that will be common across many of the commands that will be run. This way you have a single point of reference for them and they can be easily reset in the event of a session timing out or terminal closing.
+Although not essential, it's advised to create a `vars.sh` file holding all the parameters that will
+be common across many of the commands that will be run. This way you have a single point of reference
+for them and they can be easily reset in the event of a session timing out or terminal closing.
 
 Sample `vars.sh` file is shown below, feel free to use any values you wish for the resource group, region cluster name etc. 
 
-> Note. The ACR name must be globally unique and not contain dashes or dots
+> Note: The ACR name must be globally unique and cannot contain hyphens, dots, or underscores.
 
 ```bash
 RES_GROUP="kube-workshop"
@@ -144,4 +155,6 @@ source vars.sh
 
 It's worth creating a project folder locally (or even a git repo) at this point, in order to keep your work in, you haven't done so already. We'll be creating & editing files later
 
-### [Return to Main Index](../readme.md)
+## Navigation
+
+[Return to Main Index 🏠](../readme.md) ‖ [Next Section ⏩](../01-cluster/readme.md)
