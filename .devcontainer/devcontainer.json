@@ -13,7 +13,11 @@
       "installZsh": true,
       "installOhMyZsh": true
     },
-    "azure-cli": "latest"
+    "azure-cli": "latest",
+    "ghcr.io/eliises/devcontainer-features/bash-profile": {
+      "command": "source <(kubectl completion bash); alias k=kubectl; complete -o default -F __start_kubectl k; alias kubens='kubectl config set-context --current --namespace ';",
+      "file": "/etc/bash.bashrc"
+    }
   },
   "remoteUser": "vscode",
   "extensions": [
