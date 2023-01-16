@@ -43,8 +43,7 @@ To enable `kubectl` (and other tools) to access the cluster, run the following:
 az aks get-credentials --name $AKS_NAME --resource-group $RES_GROUP
 ```
 
-This will create Kubernetes config file in your home directory `~/.kube/config` which is the default
-location, used by `kubectl`.
+This will create Kubernetes config file in your home directory `~/.kube/config` which is the default location, used by `kubectl`.
 
 Now you can run some simple `kubectl` commands to validate the health and status of your cluster:
 
@@ -56,9 +55,8 @@ kubectl get nodes
 kubectl get pods --all-namespaces
 ```
 
-Don't be alarmed by all the pods you see running in the 'kube-system' namespace. These are deployed
-by default by AKS and perform management & system tasks we don't need to worry about. You can still
-consider your cluster "empty" at this stage.
+Don't be alarmed by all the pods you see running in the 'kube-system' namespace. These are deployed by default by AKS and perform management & system tasks we don't need to worry about.
+You can still consider your cluster "empty" at this stage.
 
 ## ⏯️ Appendix - Stopping & Starting the Cluster
 

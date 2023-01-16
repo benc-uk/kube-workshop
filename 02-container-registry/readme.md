@@ -17,8 +17,8 @@ az acr create --name $ACR_NAME --resource-group $RES_GROUP \
 --admin-enabled true
 ```
 
-> 📝 NOTE: When you pick a name for the resource with $ACR_NAME, this has to be **globally unique**,
-> and not contain any underscores, dots or hyphens. Name must also be in lowercase.
+> 📝 NOTE: When you pick a name for the resource with $ACR_NAME, this has to be **globally unique**, and not contain any underscores, dots or hyphens.
+> Name must also be in lowercase.
 
 ## 📥 Importing Images
 

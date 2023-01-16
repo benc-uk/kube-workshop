@@ -1,8 +1,7 @@
 # 🚦 Deploying Kubernetes
 
-Deploying a Kubernetes can be extremely complex, with many networking, compute and other aspects to
-consider. However for the purposes of this workshop, a default and basic K3s cluster can be deployed
-very quickly.
+Deploying a Kubernetes can be extremely complex, with many networking, compute and other aspects to consider.
+However for the purposes of this workshop, a default and basic K3s cluster can be deployed very quickly.
 
 ## 🚀 Virtual Machine Deployment
 
@@ -31,9 +30,8 @@ Save the VMs public IP and SSH key files for use in the next steps
 
 ## 🌐Connect to the VM from VSCode
 
-To make creating files easier on the machine it's recommended to use [VS Code](https://code.visualstudio.com/)
-Remote extension with SSH to connect to the VM. See the documentation [here](https://code.visualstudio.com/docs/remote/ssh)
-for more on developing on Remote Machines using SSH and Visual Studio Code.
+To make creating files easier on the machine it's recommended to use [VS Code](https://code.visualstudio.com/) Remote extension with SSH to connect to the VM.
+See the documentation [here](https://code.visualstudio.com/docs/remote/ssh) for more on developing on Remote Machines using SSH and Visual Studio Code.
 
 It's also highly recommended to get the [Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools).
 
