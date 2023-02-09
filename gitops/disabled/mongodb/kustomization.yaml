@@ -5,7 +5,7 @@ resources:
   - ../../base/mongodb
 
 images:
-  - name: replaceme
+  - name: notarealimage
     newName: mongo:5.0
 
 patches:
