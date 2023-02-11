@@ -17,9 +17,14 @@ az aks create --resource-group $RES_GROUP \
   --name $AKS_NAME \
   --location $REGION \
   --node-count 2 --node-vm-size Standard_B2ms \
-  --kubernetes-version 1.22.4 \
+  --kubernetes-version 1.25.5 \
   --verbose
 ```
+In case you get an error when creating cluster, `Version x.xx.x is not supported in this region.`, run the following to get the supported kubernetes version
+```
+az aks get-versions --location $REGION -o table
+```
+And re-run the create cluster command with supported version number. 
 
 This should take around 5 minutes to complete, and creates a new AKS cluster with the following
 characteristics:
