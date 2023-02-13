@@ -153,9 +153,12 @@ Apply the same as before with `kubectl`, validate the status with:
 kubectl get ingress
 ```
 
-It may take it a minute for it to be assigned an address, note the address will be the same as the
-external IP of the ingress-controller (you can check this with
-`kubectl get svc -n ingress | grep LoadBalancer`).
+It may take it a minute for it to be assigned an address, note the address will be the same as the external IP of the ingress-controller.
+You can check this with:
+
+```sh
+kubectl get svc -n ingress | grep LoadBalancer
+```
 
 Visit this IP in your browser, if you check the "About" screen and click the "More Details" link it
 should take you to the API, which should now be served from the same IP as the frontend.

@@ -53,8 +53,7 @@ There are a number of ways to enable Kubernetes to pull images from a private re
 The downside is this requires you to have 'Owner' permission within the subscription, in order to assign the role.
 
 ```bash
-az aks update --name $AKS_NAME --resource-group $RES_GROUP \
---attach-acr $ACR_NAME
+az aks update --name $AKS_NAME --resource-group $RES_GROUP --attach-acr $ACR_NAME
 ```
 
 If you are curious what this command does, it essentially is just assigning the "ACR Pull" role in Azure IAM to the managed identity used by AKS, on the ACR resource.
