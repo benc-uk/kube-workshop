@@ -138,10 +138,6 @@ metadata:
     name: my-app
 
 spec:
-  # Important we leave this blank, as we don't have DNS configured
-  # Blank means these rules will match ALL HTTP requests hitting the controller IP
-  host:
-  # This is important and required since Kubernetes 1.22
   ingressClassName: nginx
   rules:
     - http:
