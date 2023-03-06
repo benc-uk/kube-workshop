@@ -26,6 +26,12 @@ On MacOS, use homebrew:
 brew update && brew install azure-cli
 ```
 
+On Windows, open Powershell as administrator and run:
+
+```bash
+$ProgressPreference = 'SilentlyContinue'; Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLI.msi; Start-Process msiexec.exe -Wait -ArgumentList '/I AzureCLI.msi /quiet'; Remove-Item .\AzureCLI.msi
+```
+
 If the commands above don't work, please refer to: [https://aka.ms/azure-cli](https://aka.ms/azure-cli)
 
 ## ⛑️ Install Helm & Kubectl
@@ -69,6 +75,14 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 # Install Helm
 curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 ```
+
+</details>
+
+<details markdown="1">
+<summary>Install Helm & Kubectl - Windows</summary>
+
+To install Kubectl in Windows follow one of the two approached given [here](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#install-kubectl-on-windows).
+For Helm, follow the approach given [here](https://helm.sh/docs/intro/install/).
 
 </details>
 

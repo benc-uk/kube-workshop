@@ -112,7 +112,7 @@ _Secrets_ can contain multiple keys, here we add two keys one for the password c
 and one for the connection string called `connection-string`, both reside in the new _Secret_ called
 `mongo-creds`.
 
-_Secrets_ can use used a number of ways, but the easiest way is to consume them, is as environmental
+_Secrets_ can be used a number of ways, but the easiest way to consume them, is as environmental
 variables passed into your containers. Update the deployment YAML for your data API, and MongoDB,
 replace the references to `MONGO_INITDB_ROOT_PASSWORD` and `MONGO_CONNSTR` as shown below:
 
