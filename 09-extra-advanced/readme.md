@@ -236,7 +236,7 @@ kubectl delete deploy,sts,svc,ingress --all
 Fetch the chart and download it locally, this is because the chart isn't published in a Helm repo:
 
 ```bash
-curl -sL https://github.com/benc-uk/smilr/releases/download/2.9.8/smilr-chart.tar.gz | tar -zx
+curl -sL https://github.com/benc-uk/smilr/releases/download/2.9.8a/smilr-chart.tar.gz | tar -zx
 ```
 
 Create a values file for your release:
