@@ -1,17 +1,16 @@
 # ⚒️ Workshop Pre Requisites
 
-In this workshop you'll be creating a stand alone, single node K3s cluster on a VM. This VM will be
-in essence a simulation of what it's like to setup and run a K3S cluster on your own physical device.
-You'll also be interacting the cluster directly on the VM, as opposed to your local machine. You'll
-be using your local machine to create the Azure resources however.
+In this workshop you'll be creating a stand alone, single node K3s cluster on a VM.
+This VM will be in essence a simulation of what it's like to setup and run a K3S cluster on your own physical device.
+You'll also be interacting the cluster directly on the VM, as opposed to your local machine.
+You'll be using your local machine to create the Azure resources however.
 
 As this is a completely hands on workshop, you will need a few things before you can start:
 
 - Access to an Azure Subscription where you can create resources.
 - A good editor that you can SSH from, and [VS Code](https://code.visualstudio.com/) is strongly recommended
   - [Visual Studio Code Remote Development extension](https://code.visualstudio.com/docs/remote/remote-overview)
-  - [Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
-    also highly recommended
+  - [Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools) also highly recommended
 - [Azure CLI](https://aka.ms/azure-cli)
 
 ## 🌩️ Install Azure CLI
@@ -34,8 +33,8 @@ If the commands above don't work, please refer to: [https://aka.ms/azure-cli](ht
 
 ## 🔐 After Install - Login to Azure
 
-The rest of this workshop assumes you have access to an Azure subscription, and have the Azure CLI
-working & signed into the tenant & subscription you will be using. Some Azure CLI commands to help you:
+The rest of this workshop assumes you have access to an Azure subscription, and have the Azure CLI working & signed into the tenant & subscription you will be using.
+Some Azure CLI commands to help you:
 
 - `az login` or `az login --tenant {TENANT_ID}` - Login to the Azure CLI, use the `--tenant` switch
   if you have multiple accounts.

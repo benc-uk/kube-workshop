@@ -6,18 +6,14 @@ This is an advanced optional section going into two topics; Kustomize and also G
 
 Kustomize is a tool for customizing Kubernetes configurations.
 
-Kustomize traverses Kubernetes manifests to add, remove or update configuration options. It is available
-both as a [standalone binary](https://kubectl.docs.kubernetes.io/installation/kustomize/) and as a
-native feature of kubectl. It can be thought of as similar to Helm where it provides a means to
-template and parameterize Kubernetes manifests.
+Kustomize traverses Kubernetes manifests to add, remove or update configuration options.
+It is available both as a [standalone binary](https://kubectl.docs.kubernetes.io/installation/kustomize/) and as a native feature of kubectl. It can be thought of as similar to Helm where it provides a means to template and parameterize Kubernetes manifests.
 
 Kustomize works by looking for `kustomization.yaml` files and operating on their contents.
 
-[These slides](https://speakerdeck.com/spesnova/introduction-to-kustomize) provide a fairly good
-introduction.
+[These slides](https://speakerdeck.com/spesnova/introduction-to-kustomize) provide a fairly good introduction.
 
-To demonstrate Kustomize in practice, we can carry out a simple exercise, create a new directory
-called `base`.
+To demonstrate Kustomize in practice, we can carry out a simple exercise, create a new directory called `base`.
 
 Place the the following two files into it:
 

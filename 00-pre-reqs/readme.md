@@ -10,7 +10,16 @@ As this is a completely hands on workshop, you will need several things before y
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
 - [helm](https://helm.sh/docs/intro/install/)
 
-## 🌩️ Install Azure CLI
+## Install dependencies
+
+The above listed tools are already set up in `.devcontainer` folder located in the git repository of this workshop: <https://github.com/benc-uk/kube-workshop>.
+If you've never used Dev Containers, check out [developing inside a Container using Visual Studio Code Remote Development](https://code.visualstudio.com/docs/devcontainers/containers).
+
+### Install dependencies manually
+
+Alteratively you can can install the dependencies yourself by following the steps below.
+
+#### 🌩️ Install Azure CLI
 
 To set-up the Azure CLI on your system, install it in one of the below ways.
 
@@ -28,16 +37,14 @@ brew update && brew install azure-cli
 
 If the commands above don't work, please refer to: [https://aka.ms/azure-cli](https://aka.ms/azure-cli)
 
-## ⛑️ Install Helm & Kubectl
+#### ⛑️ Install Helm & Kubectl
 
 <details markdown="1">
 <summary>Install Helm & Kubectl - Linux (Ubuntu/Debian)</summary>
 
-Two ways are provided for each tool, one without needing sudo, the other requires sudo, take your
-pick but don't run both!
+Two ways are provided for each tool, one without needing sudo, the other requires sudo, take your pick but don't run both!
 
-By default the 'no sudo' commands for helm & kubectl install binaries into `~/.local/bin` so if this
-isn't in your PATH you can copy or move the binary elsewhere, or simply run `export PATH="$PATH:$HOME/.local/bin"`
+By default the 'no sudo' commands for helm & kubectl install binaries into `~/.local/bin` so if this isn't in your PATH you can copy or move the binary elsewhere, or simply run `export PATH="$PATH:$HOME/.local/bin"`
 
 ```bash
 # Install kubectl - no sudo
@@ -72,7 +79,35 @@ curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
 </details>
 
-## 🔐 After Install - Login to Azure
+#### ⚙️ Set up bash profile
+
+Set up the user bash profile for K8s to make it easier to run all the commands
+
+```sh
+echo "source <(kubectl completion bash)" >> ~/.bashrc 
+echo "alias k=kubectl" >> ~/.bashrc 
+echo "complete -o default -F __start_kubectl k" >> ~/.bashrc
+echo "export PATH=$PATH:/home/azureuser/.local/bin" >> ~/.bashrc 
+```
+
+To have `.bashrc` changes take affect in your current terminal, you must reload `.bashrc` with:
+
+```sh
+. ~/.bashrc
+```
+
+## ✅ Verify installation
+
+Double check that everything in installed and working correctly with:
+
+```sh
+# Try commands with tab completion 
+k get pods -A 
+helm
+az
+```
+
+## 🔐 Login to Azure
 
 The rest of this workshop assumes you have access to an Azure subscription, and have the Azure CLI
 working & signed into the tenant & subscription you will be using. Some Azure CLI commands to help you:
@@ -101,9 +136,7 @@ Although not essential, it's advised to create a `vars.sh` file holding all the 
 be common across many of the commands that will be run. This way you have a single point of reference
 for them and they can be easily reset in the event of a session timing out or terminal closing.
 
-Sample `vars.sh` file is shown below, feel free to use any values you wish for the resource group,
-region, cluster name, etc. To use the file simply source it through bash with `source vars.sh`, do this
-before moving to the next stage.
+Sample `vars.sh` file is shown below, feel free to use any values you wish for the resource group, region cluster name etc. 
 
 > Note: The ACR name must be globally unique and cannot contain hyphens, dots, or underscores.
 
@@ -114,10 +147,14 @@ AKS_NAME="__change_me__"
 ACR_NAME="__change_me__"
 ```
 
-It's worth creating a project folder locally (or even a git repo) at this point, in order to keep your
-work in, you haven't done so already. We'll be creating & editing files later.
+To use the file simply source it through bash with the below command, do this before moving to the next stage.
+
+```sh
+source vars.sh
+```
+
+It's worth creating a project folder locally (or even a git repo) at this point, in order to keep your work in, you haven't done so already. We'll be creating & editing files later
 
 ## Navigation
 
-[Return to Main Index 🏠](../readme.md) ‖
-[Next Section ⏩](../01-cluster/readme.md)
+[Return to Main Index 🏠](../readme.md) ‖ [Next Section ⏩](../01-cluster/readme.md)

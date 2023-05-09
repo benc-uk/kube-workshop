@@ -82,4 +82,4 @@ sudo systemctl restart k3s;
 ## Navigation
 
 [Return to Main Index 🏠](../../readme.md)
-[Previous Section ⏪](../01-cluster/readme.md) ‖ [Next Section ⏩](../03-container-registry/)
+[Previous Section ⏪](../01-cluster/readme.md) ‖ [Next Section ⏩](../03-the-application/readme.md)
