@@ -84,10 +84,10 @@ curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 Set up the user bash profile for K8s to make it easier to run all the commands
 
 ```sh
-echo "source <(kubectl completion bash)" >> ~/.bashrc 
-echo "alias k=kubectl" >> ~/.bashrc 
+echo "source <(kubectl completion bash)" >> ~/.bashrc
+echo "alias k=kubectl" >> ~/.bashrc
 echo "complete -o default -F __start_kubectl k" >> ~/.bashrc
-echo "export PATH=$PATH:/home/azureuser/.local/bin" >> ~/.bashrc 
+echo "export PATH=$PATH:/home/azureuser/.local/bin" >> ~/.bashrc
 ```
 
 To have `.bashrc` changes take affect in your current terminal, you must reload `.bashrc` with:
@@ -101,8 +101,8 @@ To have `.bashrc` changes take affect in your current terminal, you must reload 
 Double check that everything in installed and working correctly with:
 
 ```sh
-# Try commands with tab completion 
-k get pods -A 
+# Try commands with tab completion
+k get pods -A
 helm
 az
 ```
@@ -136,7 +136,7 @@ Although not essential, it's advised to create a `vars.sh` file holding all the 
 be common across many of the commands that will be run. This way you have a single point of reference
 for them and they can be easily reset in the event of a session timing out or terminal closing.
 
-Sample `vars.sh` file is shown below, feel free to use any values you wish for the resource group, region cluster name etc. 
+Sample `vars.sh` file is shown below, feel free to use any values you wish for the resource group, region cluster name etc.
 
 > Note: The ACR name must be globally unique and cannot contain hyphens, dots, or underscores.
 
@@ -145,7 +145,10 @@ RES_GROUP="kube-workshop"
 REGION="westeurope"
 AKS_NAME="__change_me__"
 ACR_NAME="__change_me__"
+KUBE_VERSION="1.27.1"
 ```
+
+> Note: New versions of Kubernetes are released all the time, and eventually older versions are removed from Azure. Rather than constantly update this guide the following command can be used to get the latest version: `az aks get-versions --location "westeurope" -o tsv --query "orchestrators[-1].orchestratorVersion"`
 
 To use the file simply source it through bash with the below command, do this before moving to the next stage.
 
