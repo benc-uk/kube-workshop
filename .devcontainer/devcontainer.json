@@ -20,10 +20,15 @@
     }
   },
   "remoteUser": "vscode",
-  "extensions": [
-    "yzhang.markdown-all-in-one",
-    "DavidAnson.vscode-markdownlint",
-    "streetsidesoftware.code-spell-checker",
-    "ms-kubernetes-tools.vscode-kubernetes-tools"
-  ]
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "yzhang.markdown-all-in-one",
+        "DavidAnson.vscode-markdownlint",
+        "streetsidesoftware.code-spell-checker",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
 }
