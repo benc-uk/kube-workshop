@@ -16,8 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend-container
-
-          image: {ACR_NAME}.azurecr.io/smilr/frontend:stable
+          image: "{ACR_NAME}.azurecr.io/smilr/frontend:stable"
           imagePullPolicy: Always
 
           resources:

@@ -3,6 +3,11 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[yaml]": {
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "yaml.schemas": {
     "https://json.schemastore.org/github-workflow.json": "file:///home/ben/dev/kube-workshop/.github/workflows/build.yaml"
   }
