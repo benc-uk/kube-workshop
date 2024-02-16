@@ -58,7 +58,7 @@ jobs:
 
       - name: "Sanity check Kubernetes"
         run: kubectl get nodes
-        
+
       - name: "Checkout app code repo" # Needed for the Helm chart
         uses: actions/checkout@v2
         with:
