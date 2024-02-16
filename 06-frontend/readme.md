@@ -61,7 +61,6 @@ spec:
 
 `frontend-service.yaml`:
 
-
 <details markdown="1">
 <summary>Click here for the frontend service YAML</summary>
 
