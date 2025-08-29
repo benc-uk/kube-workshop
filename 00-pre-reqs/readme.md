@@ -1,11 +1,11 @@
 # ⚒️ Workshop Pre Requisites
 
-As this is a completely hands on workshop, you will need several things before you can start:
+As this is an entirely hands on workshop, as such you will need several things before you can start:
 
 - Access to an Azure Subscription where you can create resources.
 - bash or a bash compatible shell (e.g. zsh), please do not attempt to use PowerShell or cmd.
 - A good editor, and [VS Code](https://code.visualstudio.com/) is strongly recommended
-  - [Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools) also highly recommended.
+  - [Visual Studio Code Kubernetes Tools](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools) is also highly recommended.
 - [Azure CLI](https://aka.ms/azure-cli)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
 - [helm](https://helm.sh/docs/intro/install/)
@@ -17,7 +17,7 @@ If you've never used Dev Containers, check out [developing inside a Container us
 
 ### Install dependencies manually
 
-Alteratively you can can install the dependencies yourself by following the steps below.
+Alternatively you can can install the dependencies yourself by following the steps below.
 
 #### 🌩️ Install Azure CLI
 
@@ -148,15 +148,15 @@ ACR_NAME="__change_me__"
 KUBE_VERSION="1.27.1"
 ```
 
-> Note: New versions of Kubernetes are released all the time, and eventually older versions are removed from Azure. Rather than constantly update this guide the following command can be used to get the latest version: `az aks get-versions --location "westeurope" -o tsv --query "orchestrators[-1].orchestratorVersion"`
+> Note: New versions of Kubernetes are released all the time, and eventually older versions are removed from Azure. Rather than constantly update this guide the following command can be used to get the latest version: `az aks get-versions --location "westeurope" -o json --query "values[*].version | max(@)"`
 
-To use the file simply source it through bash with the below command, do this before moving to the next stage.
+To use the vars file simply source it through bash with the below command, do this before moving to the next stage.
 
 ```sh
 source vars.sh
 ```
 
-It's worth creating a project folder locally (or even a git repo) at this point, in order to keep your work in, you haven't done so already. We'll be creating & editing files later
+It's worth creating a project folder locally (or even a git repo) at this point, in order to keep your work in, you haven't done so already. It'll be empty for now, and we'll be creating & editing files later.
 
 ## Navigation
 
