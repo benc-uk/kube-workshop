@@ -6,3 +6,4 @@ ignore*/**
 .env
 .ssh
 manifests
+.runthrough/
