@@ -1,29 +1,31 @@
 {
-  "image": "ubuntu:latest",
+  "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu",
   "features": {
-    "kubectl-helm-minikube": {
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
       "version": "latest",
       "helm": "latest",
       "minikube": "none"
     },
-    "common": {
-      "username": "vscode",
-      "uid": "1000",
-      "gid": "1000",
+    "ghcr.io/devcontainers/features/common-utils:2": {
       "installZsh": true,
-      "installOhMyZsh": true
+      "installOhMyZsh": true,
+      "configureZshAsDefaultShell": true
     },
-    "azure-cli": "latest",
+    "ghcr.io/devcontainers/features/azure-cli:1": "latest",
     "ghcr.io/eliises/devcontainer-features/bash-profile": {
       "command": "source <(kubectl completion bash); alias k=kubectl; complete -o default -F __start_kubectl k; alias kubens='kubectl config set-context --current --namespace ';",
       "file": "/etc/bash.bashrc"
     }
   },
   "remoteUser": "vscode",
-  "extensions": [
-    "yzhang.markdown-all-in-one",
-    "DavidAnson.vscode-markdownlint",
-    "streetsidesoftware.code-spell-checker",
-    "ms-kubernetes-tools.vscode-kubernetes-tools"
-  ]
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "yzhang.markdown-all-in-one",
+        "DavidAnson.vscode-markdownlint",
+        "streetsidesoftware.code-spell-checker",
+        "ms-kubernetes-tools.vscode-kubernetes-tools"
+      ]
+    }
+  }
 }
