@@ -32,19 +32,21 @@ To do so we use the `az acr import` command:
 ```bash
 # Import application frontend container image
 az acr import --name $ACR_NAME --resource-group $RES_GROUP \
---source ghcr.io/benc-uk/smilr/frontend:stable \
---image smilr/frontend:stable
+--source ghcr.io/benc-uk/nanomon-frontend:latest \
+--image nanomon/frontend:latest
 
 # Import application data API container image
 az acr import --name $ACR_NAME --resource-group $RES_GROUP \
---source ghcr.io/benc-uk/smilr/data-api:stable \
---image smilr/data-api:stable
+--source ghcr.io/benc-uk/nanomon-api:latest \
+--image nanomon/api:latest
+
+# Import application runner container image
+az acr import --name $ACR_NAME --resource-group $RES_GROUP \
+--source ghcr.io/benc-uk/nanomon-runner:latest \
+--image nanomon/runner:latest
 ```
 
 If you wish to check and see imported images, you can go over to the ACR resource in the Azure portal, and into the 'Repositories' section.
-
-> 📝 NOTE: we are not using the tag `latest` which is a common mistake when working with Kubernetes
-> and containers in general.
 
 ## 🔌 Connect AKS to ACR - as Azure Subscription Owner
 
@@ -56,13 +58,14 @@ The downside is this requires you to have 'Owner' permission within the subscrip
 az aks update --name $AKS_NAME --resource-group $RES_GROUP --attach-acr $ACR_NAME
 ```
 
-If you are curious what this command does, it essentially is just assigning the "ACR Pull" role in Azure IAM to the managed identity used by AKS, on the ACR resource.
+If you are curious what this command does, it is essentially assigning the "ACR Pull" Azure IAM role on the managed identity used by AKS, to the ACR resource. 
+If all of that sounds like gibberish, don't worry about it and move on!
 
 If you see the following error `Could not create a role assignment for ACR. Are you an Owner on this subscription?`, you will need to proceed to the alternative approach below.
 
-## 🔌 Connect AKS to ACR - Alternative
+## 🔌 Connect AKS to ACR - Alternative Workaround
 
-If you do not have Azure Owner permissions, you will need to fall back to an alternative approach.
+If you do not have 'Owner' permissions in Azure, you will need to fall back to an alternative approach.
 This involves two things:
 
 - Adding an _Secret_ to the cluster containing the credentials to pull images from the ACR.
