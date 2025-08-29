@@ -138,7 +138,7 @@ for them and they can be easily reset in the event of a session timing out or te
 
 Sample `vars.sh` file is shown below, feel free to use any values you wish for the resource group, region cluster name etc.
 
-> Note: The ACR name must be globally unique and cannot contain hyphens, dots, or underscores.
+> 📝 NOTE: The ACR name must be globally unique and cannot contain hyphens, dots, or underscores.
 
 ```bash
 RES_GROUP="kube-workshop"
@@ -148,7 +148,7 @@ ACR_NAME="__change_me__"
 KUBE_VERSION="1.27.1"
 ```
 
-> Note: New versions of Kubernetes are released all the time, and eventually older versions are removed from Azure. Rather than constantly update this guide the following command can be used to get the latest version: `az aks get-versions --location "westeurope" -o json --query "values[*].version | max(@)"`
+> 📝 NOTE: New versions of Kubernetes are released all the time, and eventually older versions are removed from Azure. Rather than constantly update this guide the following command can be used to get the latest version: `az aks get-versions --location "westeurope" -o json --query "values[*].version | max(@)"`
 
 To use the vars file simply source it through bash with the below command, do this before moving to the next stage.
 
