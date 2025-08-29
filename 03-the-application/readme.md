@@ -4,15 +4,15 @@ This section simply serves as an introduction to the application, there are no t
 
 The application is called 'NanoMon'. NanoMon is a lightweight network and HTTP monitoring system, designed to be self hosted any container based system e.g. Kubernetes or various cloud services, or run locally.
 
-> 📝 NOTE: We have no interest in the features of Nanomon or actually using it! It has been selected as representing a good example application to deploy, given it has multiple components, and is broadly indicative of many of the applications & systems you might find yourself running in Kubernetes.
+> 📝 NOTE: We have no interest in the features of Nanomon or actually using it! It has been selected as representing a good example application to deploy, given it has multiple components, and is fairly indicative of many of the applications & systems you might find yourself running in Kubernetes.
 
 ## [📃 Nanomon - GitHub Repo & Project](https://github.com/benc-uk/nanomon)
 
 The application consists of several lightweight containerized microservices and single page application, it is written in Go and React/TypeScript.
 
 - A frontend service serving static content (the frontend [SPA](https://www.codecademy.com/article/what-is-a-single-page-application-spa)) + simple configuration endpoint.
-- A "backend" data API service for the frontend to consume using REST.
-- A "backend" worker component called a runner.
+- A backend data API service for the frontend to consume using REST.
+- A backend worker component called a runner.
 - A PostgreSQL database for persisting data & state.
 
 The design adheres to a now ubiquitous pattern for running single page apps:

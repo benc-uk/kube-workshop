@@ -24,8 +24,7 @@ az acr create --name $ACR_NAME --resource-group $RES_GROUP \
 
 For the sake of speed and maintaining the focus on Kubernetes we will import pre-built images from another public registry (GitHub Container Registry), rather than build them from source.
 
-We will cover what the application does and what these containers are for in the next section, for
-now we can just import them.
+We will cover what the application does and what these containers are for in the next section, for now we can just import them.
 
 To do so we use the `az acr import` command:
 
@@ -44,6 +43,11 @@ az acr import --name $ACR_NAME --resource-group $RES_GROUP \
 az acr import --name $ACR_NAME --resource-group $RES_GROUP \
 --source ghcr.io/benc-uk/nanomon-runner:latest \
 --image nanomon/runner:latest
+
+# Import custom PostgreSQL container image
+az acr import --name $ACR_NAME --resource-group $RES_GROUP \
+--source ghcr.io/benc-uk/nanomon-postgres:latest \
+--image nanomon/postgres:latest
 ```
 
 If you wish to check and see imported images, you can go over to the ACR resource in the Azure portal, and into the 'Repositories' section.
