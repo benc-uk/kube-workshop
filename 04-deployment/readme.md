@@ -61,7 +61,6 @@ spec:
 ```
 
 </details>
-</br>
 
 Then apply the manifest with:
 
@@ -137,7 +136,6 @@ spec:
 ```
 
 </details>
-</br>
 
 **💥 Notice:** We have the password in plain text within the connection string! This clearly is a very bad practice, we will fix this at a later stage when we introduce Kubernetes _Secrets_.
 
@@ -180,9 +178,11 @@ When done, cancel & close the port-forwarding with `ctrl-c`
 
 ## 🖼️ Cluster & Architecture Diagram
 
-The resources deployed into the cluster & in Azure at this stage can be visualized as follows (note it's looking a little empty at this stage, don't worry it'll become more complex soon):
+The resources deployed into the cluster & in Azure at this stage can be visualized as follows
 
-![architecture diagram](./diagram.png)
+![architecture diagram](./diagram.drawio.png)
+
+Yes, it's looking a little empty at this stage, don't worry it'll become a lot more complex soon!
 
 ## Navigation
 

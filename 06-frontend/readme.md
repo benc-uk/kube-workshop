@@ -57,10 +57,8 @@ spec:
 ```
 
 </details>
-</br>
 
 `frontend-service.yaml`:
-
 
 <details markdown="1">
 <summary>Click here for the frontend service YAML</summary>
@@ -83,7 +81,6 @@ spec:
 ```
 
 </details>
-</br>
 
 As before, the there are changes that are required to the supplied YAML, replacing anything inside `{ }` with a corresponding real value.
 

@@ -53,9 +53,9 @@ An [ingress controller](https://kubernetes.io/docs/concepts/services-networking/
 
 ![Ingress controller diagram showing routing of traffic to backend services](./kuberntes-ingress.png)
 
-- The controller is simply an instance of a HTTP reverse proxy running in one or mode _Pods_ with a  _Service_ in front of it.
-- It implements the [Kubernetes controller pattern](https://kubernetes.io/docs/concepts/architecture/controller/#controller-pattern) 
-scanning for _Ingress_ resources to be created in the cluster, when it finds one, it reconfigures itself based on the rules and configuration within that _Ingress_, in order to route traffic.
+- The controller is simply an instance of a HTTP reverse proxy running in one or mode _Pods_ with a _Service_ in front of it.
+- It implements the [Kubernetes controller pattern](https://kubernetes.io/docs/concepts/architecture/controller/#controller-pattern)
+  scanning for _Ingress_ resources to be created in the cluster, when it finds one, it reconfigures itself based on the rules and configuration within that _Ingress_, in order to route traffic.
 - There are [MANY ingress controllers available](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/#additional-controllers) but we will use a very common and simple one, the [NGINX ingress controller](https://kubernetes.github.io/ingress-nginx/) maintained by the Kubernetes project.
 - Often TLS is terminated by the ingress controller, and sometimes other tasks such as JWT validation for authentication can be done at this level.
   For the sake of this workshop no TLS & HTTPS will be used due to the dependencies it requires (such as DNS, cert management etc).
@@ -145,7 +145,6 @@ spec:
 ```
 
 </details>
-</br>
 
 Apply the same as before with `kubectl`, validate the status with:
 
