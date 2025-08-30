@@ -25,6 +25,6 @@ spec:
 
           env:
             - name: POSTGRES_DSN
-              value: "host={POSTGRES_POD_IP} user=nanomon dbname=nanomon sslmode=disable"
+              value: "host=database user=nanomon dbname=nanomon sslmode=disable"
             - name: POSTGRES_PASSWORD
               value: "notVerySecret123!"

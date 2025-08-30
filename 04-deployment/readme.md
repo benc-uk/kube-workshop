@@ -86,7 +86,6 @@ For the next part we'll need the IP address of the pod that was just deployed, y
 kubectl describe pod --selector app=postgres | grep ^IP:
 ```
 
-
 ## 🗃️ Deploying The API
 
 Next we'll deploy the first custom part of our app, the backend API, and like the DB we'll deploy it from an image hosted in our private registry.
@@ -181,7 +180,7 @@ When done, cancel & close the port-forwarding with `ctrl-c`
 
 ## 🖼️ Cluster & Architecture Diagram
 
-The resources deployed into the cluster & in Azure at this stage can be visualized as follows:
+The resources deployed into the cluster & in Azure at this stage can be visualized as follows (note it's looking a little empty at this stage, don't worry it'll become more complex soon):
 
 ![architecture diagram](./diagram.png)
 
