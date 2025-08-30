@@ -15,7 +15,7 @@ These files will describe the objects we want to create, modify and delete in th
 If you want to take this workshop slowly and treat it as more of a hack, you can research and build the required YAML yourself, you can use [the Kubernetes docs](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and the following hints:
 
 - _Deployment_ should be used with a single replica.
-- The image to be run is `{ACR_NAME}.azurecr.io/nanomon/postgres:latest`. Where `{ACR_NAME}` should be replaced with the name of your ACR resource.
+- The image to be run is `{{ACR_NAME}}.azurecr.io/nanomon/postgres:latest`. Where `{{ACR_NAME}}` should be replaced with the name of your ACR resource.
 - The port **5432** should be exposed from the container.
 - Do not worry about persistence or using a _Service_ at this point.
 - Set `POSTGRES_DB` and `POSTGRES_USER` environmental vars to the container setting both to the value "nanomon"
@@ -48,7 +48,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: {ACR_NAME}.azurecr.io/nanomon/postgres:latest
+          image: {{ACR_NAME}}.azurecr.io/nanomon/postgres:latest
           ports:
             - containerPort: 5432
           env:
@@ -89,11 +89,11 @@ kubectl describe pod --selector app=postgres | grep ^IP:
 
 Next we'll deploy the first custom part of our app, the backend API, and like the DB we'll deploy it from an image hosted in our private registry.
 
-- The image needs to be `{ACR_NAME}.azurecr.io/nanomon/api:latest` where `{ACR_NAME}` should be
+- The image needs to be `{{ACR_NAME}}.azurecr.io/nanomon/api:latest` where `{{ACR_NAME}}` should be
   replaced in the YAML with your real value, i.e. the name of your ACR resource.
 - Set the number of replicas to **2**.
 - The port exposed from the container should be **8000**.
-- An environmental variable called `POSTGRES_DSN` should be passed to the container, with the connection string to connect to the database, which will be `host={POSTGRES_POD_IP} port=5432 user=nanomon dbname=nanomon sslmode=disable` where `{POSTGRES_POD_IP}` should be replaced in the YAML with the pod IP address you just queried.
+- An environmental variable called `POSTGRES_DSN` should be passed to the container, with the connection string to connect to the database, which will be `host={{POSTGRES_POD_IP}} port=5432 user=nanomon dbname=nanomon sslmode=disable` where `{{POSTGRES_POD_IP}}` should be replaced in the YAML with the pod IP address you just queried.
 - A second environmental variable called `POSTGRES_PASSWORD` should be passed to the container, with the value `notVerySecret123!`.
 - Label the pods with `app: nanomon-api`.
 
@@ -122,7 +122,7 @@ spec:
       containers:
         - name: api-container
 
-          image: {ACR_NAME}.azurecr.io/nanomon/api:latest
+          image: {{ACR_NAME}}.azurecr.io/nanomon/api:latest
           imagePullPolicy: Always
 
           ports:
@@ -130,7 +130,7 @@ spec:
 
           env:
             - name: POSTGRES_DSN
-              value: "host={POSTGRES_POD_IP} port=5432 user=nanomon dbname=nanomon sslmode=disable"
+              value: "host={{POSTGRES_POD_IP}} port=5432 user=nanomon dbname=nanomon sslmode=disable"
             - name: POSTGRES_PASSWORD
               value: "notVerySecret123!"
 ```
@@ -149,6 +149,9 @@ Check the status as before with `kubectl` and it's worth checking the logs with 
 
 This time we've set the number of replicas to two, if you run `kubectl get pods -o wide` you will see which _Nodes_ the _Pods_ have been scheduled (assigned) to.
 You might see each _Pod_ has been scheduled to different _Nodes_, but this is not guaranteed. _Pod_ scheduling and placement is a fairly complex topic, for now we can move on.
+
+It's also worth mention the _Pod_ names, they are prefixed with the name of the _Deployment_, followed by a hash, folowed by a random string. _Pod_ names are nearly always auto-generated like this,
+and are not something you should rely on or try to set yourself.
 
 ## ⏩ Accessing the API (The quick & dirty way)
 

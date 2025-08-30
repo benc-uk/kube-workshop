@@ -115,7 +115,7 @@ spec:
 
 </details>
 
-Apply it to the cluster as before:
+Apply it to the cluster with the now familiar `kuectl apply` command:
 
 ```bash
 kubectl apply -f api-service.yaml

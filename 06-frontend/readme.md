@@ -1,21 +1,22 @@
 # 💻 Adding The Frontend
 
-We've ignored the frontend until this point, with the API and backend in place we are finally ready to deploy it.
-We need to use a _Deployment_ and _Service_ just as before. We can pick up the pace a little and setup everything we need in one go.
+We've ignored the frontend until this point, with the API and DB in place we are finally ready to deploy it.
+We need to use a _Deployment_ and _Service_ just as before (you might be starting to see a pattern!). We can
+pick up the pace a little and setup everything we need in one go.
 
 For the Deployment:
 
-- The image needs to be `{ACR_NAME}.azurecr.io/smilr/frontend:stable`.
-- The port exposed from the container should be **3000**.
+- The image needs to be `{ACR_NAME}.azurecr.io/nanomon/frontend:latest`.
+- The port exposed from the container should be **8001**.
 - An environmental variable called `API_ENDPOINT` should be passed to the container, this needs to be a URL and should point to the external IP of the API from the previous part, as follows `http://{API_EXTERNAL_IP}/api`.
-- Label the pods with `app: frontend`.
+- Label the pods with `app: nanomon-frontend`.
 
 For the Service:
 
 - The type of _Service_ should be `LoadBalancer` same as the data API.
 - The service port should be **80**.
-- The target port should be **3000**.
-- Use the label `app` and the value `frontend` for the selector.
+- The target port should be **8001**.
+- Use the label `app` and the value `nanomon-frontend` for the selector.
 
 You might like to try creating the service before deploying the pods to see what happens.
 The YAML you can use for both, is provided below:
@@ -30,30 +31,30 @@ kind: Deployment
 apiVersion: apps/v1
 
 metadata:
-  name: frontend
+  name: nanomon-frontend
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app: nanomon-frontend
   template:
     metadata:
       labels:
-        app: frontend
+        app: nanomon-frontend
     spec:
       containers:
         - name: frontend-container
 
-          image: {ACR_NAME}.azurecr.io/smilr/frontend:stable
+          image: {{ACR_NAME}}.azurecr.io/nanomon/frontend:latest
           imagePullPolicy: Always
 
           ports:
-            - containerPort: 3000
+            - containerPort: 8001
 
           env:
             - name: API_ENDPOINT
-              value: http://{API_EXTERNAL_IP}/api
+              value: http://{{API_EXTERNAL_IP}}/api
 ```
 
 </details>
@@ -73,26 +74,25 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: frontend
+    app: nanomon-frontend
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 3000
+      targetPort: 8001
 ```
 
 </details>
 
-As before, the there are changes that are required to the supplied YAML, replacing anything inside `{ }` with a corresponding real value.
+As before, the there are changes that are required to the supplied YAML, do not try to use it as-is, instead replace anything inside `{ }` with a corresponding real value.
 
 ## 💡 Accessing and Using the App
 
 Once the two YAMLs have been applied:
 
 - Check the external IP for the frontend is assigned with `kubectl get svc frontend`.
-- Once it is there, go to that IP in your browser, e.g. `http://{frontend-ip}/` - the application should load and the Smilr frontend is shown.
+- Once it is there, go to that IP in your browser, e.g. `http://{frontend-ip}/` - the application should load and the NanoMon frontend is shown.
 
-If you want to spend a few minutes using the app, you can go to the "Admin" page, add a new event, the details don't matter but make the date range to include the current date.
-And try out the feedback view and reports. Or simply be happy the app is functional and move on.
+If you want to spend a few minutes using the app, you can click on "New" and create a new monitor, click on the "HTTP" button to create a default HTTP monitor, pointing at `http://example.net` for example. Then click "Create" and you should see the monitor appear in the main view. It will remain grey "Unknown" status until we deploy the runner in a later section. But the fact that the monitor appears shows that the frontend is able to communicate with the API and the API with the database.
 
 ## 🖼️ Cluster & Architecture Diagram
 
