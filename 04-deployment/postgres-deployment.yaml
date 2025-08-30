@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: {{ACR_NAME}}.azurecr.io/nanomon/postgres:latest
+          image: {ACR_NAME}.azurecr.io/nanomon/postgres:latest
           ports:
             - containerPort: 5432
           env:

@@ -46,7 +46,7 @@ spec:
       containers:
         - name: frontend-container
 
-          image: {{ACR_NAME}}.azurecr.io/nanomon/frontend:latest
+          image: {ACR_NAME}.azurecr.io/nanomon/frontend:latest
           imagePullPolicy: Always
 
           ports:
@@ -54,7 +54,7 @@ spec:
 
           env:
             - name: API_ENDPOINT
-              value: http://{{API_EXTERNAL_IP}}/api
+              value: http://{API_EXTERNAL_IP}/api
 ```
 
 </details>

@@ -63,7 +63,7 @@ kubectl describe svc {service-name}
 
 > 📝 NOTE: You might spot a service called 'kubernetes', which exists in the default namespace and is placed there automatically, despite sounding very important you can completely ignore it.
 
-🛑 **EXTRA NOTE**: As mentioned in part 3, there are varied opinions on running databases inside Kubernetes. As a general rule it would advised to use a cloud data service which resides outside your cluster and can be managed independently and easily. However we will continue with PostgreSQL running in the cluster in the interests of learning.
+🛑 **EXTRA NOTE**: As mentioned in part 3, there are varied opinions on running databases inside Kubernetes. As a general rule it would be advised to use a hosted cloud database service which resides outside your cluster and can be managed independently. However we will continue with PostgreSQL running in the cluster in the interests of learning.
 
 ## 📡 Connect the API to the PostgreSQL Service
 
