@@ -6,8 +6,10 @@ metadata:
 
 spec:
   type: LoadBalancer
+
   selector:
     app: nanomon-api
+
   ports:
     - protocol: TCP
       port: 80

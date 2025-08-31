@@ -90,9 +90,9 @@ As before, the there are changes that are required to the supplied YAML, do not 
 Once the two YAMLs have been applied:
 
 - Check the external IP for the frontend is assigned with `kubectl get svc frontend`.
-- Once it is there, go to that IP in your browser, e.g. `http://{frontend-ip}/` - the application should load and the NanoMon frontend is shown.
+- Once it is there, go to that IP in your browser, e.g. `http://{FRONTEND_IP}/` - the application should load and the NanoMon frontend is shown.
 
-If you want to spend a few minutes using the app, you can click on "New" and create a new monitor, click on the "HTTP" button to create a default HTTP monitor, pointing at `http://example.net` for example. Then click "Create" and you should see the monitor appear in the main view. It will remain grey "Unknown" status until we deploy the runner in a later section. But the fact that the monitor appears shows that the frontend is able to communicate with the API and the API with the database.
+If you want to spend a few minutes using the app, you can click on "New" and create a new monitor, click on the "HTTP" button to create a default HTTP monitor, pointing at http://example.net for example. Then click "Create" and you should see the monitor appear in the main view. It will remain in a grey "Unknown" status until we deploy the runner in a later section. But the fact that the monitor appears shows that the frontend is able to communicate with the API and the API with the database.
 
 ## 🖼️ Cluster & Architecture Diagram
 

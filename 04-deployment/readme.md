@@ -41,16 +41,20 @@ spec:
   selector:
     matchLabels:
       app: postgres
+
   template:
     metadata:
       labels:
         app: postgres
+
     spec:
       containers:
         - name: postgres
           image: {ACR_NAME}.azurecr.io/nanomon/postgres:latest
+
           ports:
             - containerPort: 5432
+
           env:
             - name: POSTGRES_DB
               value: "nanomon"
@@ -114,10 +118,12 @@ spec:
   selector:
     matchLabels:
       app: nanomon-api
+
   template:
     metadata:
       labels:
         app: nanomon-api
+
     spec:
       containers:
         - name: api-container

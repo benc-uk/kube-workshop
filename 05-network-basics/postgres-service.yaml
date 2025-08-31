@@ -7,8 +7,10 @@ metadata:
 
 spec:
   type: ClusterIP
+
   selector:
     app: postgres
+
   ports:
     - protocol: TCP
       port: 5432

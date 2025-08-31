@@ -9,10 +9,12 @@ spec:
   selector:
     matchLabels:
       app: nanomon-api
+      
   template:
     metadata:
       labels:
         app: nanomon-api
+
     spec:
       containers:
         - name: api-container

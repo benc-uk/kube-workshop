@@ -29,4 +29,21 @@ spec:
             - name: POSTGRES_USER
               value: "nanomon"
             - name: POSTGRES_PASSWORD
-              value: "notVerySecret123!"
+              valueFrom:
+                secretKeyRef:
+                  name: database-creds
+                  key: password
+
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 512Mi
+              
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "nanomon"]
+            initialDelaySeconds: 5
+            periodSeconds: 10
