@@ -95,6 +95,7 @@ This part is optional, but if you want to run the runner part of NanoMon, you ca
 
 - The runner image is {ACR_NAME}.azurecr.io/nanomon/runner:latest
 - The runner needs to connect to the same Postgres database as the API, so it needs the exact same environment variables set.
+- Run a single replica of the runner Pod.
 - It doesn't need any ports exposed, as it doesn't serve any HTTP traffic, as such it also doesn't need a service.
 
 Once the runner is running, you can check the logs of the runner pod to see it in action, you can visit the NanoMon frontend to create some monitors, and see their status update and change as they are executed by the runner. Have fun!
@@ -103,7 +104,9 @@ Once the runner is running, you can check the logs of the runner pod to see it i
 
 ## 🖼️ Cluster & Architecture Diagram
 
-Here's an updated architecture diagram showing the components we've built so far, and how they interact with each other.
+Here's an updated architecture diagram showing the components we've built so far, some of the details from previous sections have been omitted for clarity.
+
+![architecture diagram](./diagram.drawio.png)
 
 ## 🔍 Reference Manifests
 
