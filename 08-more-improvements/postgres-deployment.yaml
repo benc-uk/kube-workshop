@@ -16,6 +16,11 @@ spec:
         app: postgres
 
     spec:
+      volumes:
+        - name: initdb-vol
+          configMap:
+            name: nanomon-sql-init
+
       containers:
         - name: postgres
           image: postgres:17
@@ -49,10 +54,6 @@ spec:
             periodSeconds: 10
 
           volumeMounts:
-            - name: db-init-scripts
+            - name: initdb-vol
               mountPath: /docker-entrypoint-initdb.d
               readOnly: true
-      volumes:
-        - name: db-init-scripts
-          configMap:
-            name: db-init-scripts

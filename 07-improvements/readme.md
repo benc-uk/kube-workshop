@@ -13,7 +13,9 @@ We have not given Kubernetes any information on the system resources (CPU & memo
 - **Resource limits**: _Pods_ will be prevented from using more resources than their assigned limits.
   These limits are enforced and can result in a _Pod_ being terminated. It's highly recommended to set limits to prevent one workload from monopolizing cluster resources and starving other workloads.
 
-It's worth reading the [Kubernetes documentation on this topic](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/), especially on the units & specifiers used for memory and CPU.
+It's worth reading the offical docs especially on the units & specifiers used for memory and CPU, which can feel a little unintuitive at first.
+
+[📚 Kubernetes Docs: Resource Management](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
 
 You can specify resources of these within the pod template inside the _Deployment_ YAML. The `resources` section needs to go at the same level as `image`, `ports` in the spec.
 
@@ -50,8 +52,9 @@ Probes are Kubernetes' way of checking the health of your workloads. There are t
 - **Liveness probe**: Checks if the _Pod_ is alive, _Pods_ that fail this probe will be **_terminated and restarted_**
 - **Readiness probe**: Checks if the _Pod_ is ready to **_accept traffic_**, _Services_ only sends traffic to _Pods_ which are in a ready state.
 
-You can read more about probes at the [kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
-Also [this blog post](https://srcco.de/posts/kubernetes-liveness-probes-are-dangerous.html) has some excellent advice around probes, and covers some of the pitfalls of using them, particularly liveness probes.
+[📚 Kubernetes Docs: Configure Probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
+
+Also [this blog post](https://srcco.de/posts/kubernetes-liveness-probes-are-dangerous.html) despite being old, has some excellent advice around probes, and covers some of the pitfalls of using them, particularly liveness probes.
 
 For this workshop we'll only set up a readiness probe, which is the most common type:
 
@@ -84,6 +87,8 @@ If you run `kubectl get pods` immediately after the apply, you should see that t
 ## 🔐 Secrets
 
 Remember how we had the database password visible in plain text in two of our deployment YAML manifests? Blergh! 🤢 Now is the time to address that, we can create a Kubernetes _Secret_, which is a configuration resource which can be used to store sensitive information.
+
+[📚 Kubernetes Docs: Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
 
 _Secrets_ can be created using a YAML file just like every resource in Kubernetes, but instead we'll use the `kubectl create` command to imperatively create the resource from the command line, as follows:
 
