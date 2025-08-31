@@ -18,7 +18,7 @@ It's worth reading the [Kubernetes documentation on this topic](https://kubernet
 You can specify resources of these within the pod template inside the _Deployment_ YAML. The `resources` section needs to go at the same level as `image`, `ports` in the spec.
 
 ```yaml
-# Resources to set on frontend & API deployment
+# Resources to set on both frontend & API deployment
 resources:
   requests:
     cpu: 50m
@@ -41,7 +41,7 @@ resources:
 
 > 📝 NOTE: If you were using VS Code to edit your manifests and had the Kubernetes extension installed, you might have noticed scary yellow warnings in the editor until this point, the lack of resource limits was the cause of this.
 
-Add these sections to your deployment YAML files, and reapply to the cluster with `kubectl` as before and check the status and that the pods start up.
+Add these sections to your deployment YAML files, and reapply to the cluster with `kubectl` as before and check the status and that the pods start up. These values are extremely conservative, but should be sufficient for such a non-demanding application and demonstration purposes.
 
 ## 💓 Readiness & Liveness Probes
 
@@ -123,4 +123,4 @@ If you get stuck and are looking for working manifests you can refer to, they ar
 ## Navigation
 
 [Return to Main Index 🏠](../readme.md) ‖
-[Previous Section ⏪](../06-frontend/readme.md) ‖ [Next Section ⏩](../08-helm-ingress/readme.md)
+[Previous Section ⏪](../06-frontend/readme.md) ‖ [Next Section ⏩](../08-more-improvements/readme.md)
