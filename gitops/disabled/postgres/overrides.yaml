@@ -1,0 +1,29 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: postgres
+  namespace: default
+
+spec:
+  template:
+    spec:
+      volumes:
+        - name: initdb-vol
+          configMap:
+            name: nanomon-sql-init
+      containers:
+        - name: mongodb-container
+          env:
+            - name: POSTGRES_DB
+              value: "nanomon"
+            - name: POSTGRES_USER
+              value: "nanomon"
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-creds
+                  key: password
+          volumeMounts:
+            - name: initdb-vol
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true

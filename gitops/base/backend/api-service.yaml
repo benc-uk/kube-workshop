@@ -2,13 +2,13 @@ kind: Service
 apiVersion: v1
 
 metadata:
-  name: data-api
+  name: api
 
 spec:
   type: ClusterIP
   selector:
-    app: data-api
+    app: nanomon-api
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 4000
+      targetPort: 8000

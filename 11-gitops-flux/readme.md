@@ -207,14 +207,14 @@ to set this up:
 - Fork the repo to your own personal GitHub account, by clicking the 'Fork' button near the top right.
 
 Now to set up Flux, run the following command, replacing the `{YOUR_GITHUB_USER}` part with your
-GitHub username you used for the fork:
+GitHub username you used for forking the repo:
 
 ```bash
 az k8s-configuration flux create \
  --resource-group ${RES_GROUP} --cluster-name ${AKS_NAME} \
  --name flux --namespace flux-system --cluster-type managedClusters --scope cluster \
- --url https://github.com/{YOUR_GITHUB_USER}/kube-workshop --branch 2025-update --interval 1m \
- --kustomization name=apps path=gitops/hello prune=true sync_interval=1m
+ --url https://github.com/{YOUR_GITHUB_USER}/kube-workshop --branch main --interval 1m \
+ --kustomization name=apps path=gitops/apps prune=true sync_interval=1m
 ```
 
 This one command is doing a LOT of things, it's adding an extension to AKS, deploying Flux to the
@@ -231,6 +231,9 @@ kubectl get gitrepo -A
 kubectl get pod -n flux-system
 ```
 
+> 📝 NOTE: The resource types `kustomizations` and `gitrepo` are not part of the standard Kubernetes API, these are
+> CRDs (Custom Resource Definitions) added by Flux when it was installed.
+
 You should also see a new namespace called "hello-world", check with `kubectl get ns` this has been
 created by the `gitops/apps/hello-world.yaml` file in the repo and automatically applied by Flux.
 
@@ -239,41 +242,20 @@ cluster resource.
 
 ### 🚀 Deploying Resources
 
-Clone the kube-workshop repo you forked earlier and open the directory in VS Code or other editor.
+Clone the kube-workshop repo you forked earlier, to your filesystem and open the directory in VS Code or other editor.
 
 If you recall from the bootstrap command earlier we gave Flux a path within the repo to use and look
-for configurations, which was `gitops/apps` directory. The contents of the whole of the `gitops`
+for configurations, which was `gitops/hello` directory. The contents of the whole of the `gitops`
 directory is shown here.
 
 ```text
-gitops
-  ├── apps
-  │   └── hello-world.yaml
-  ├── base
-  │   ├── data-api
-  │   │   ├── deployment.yaml
-  │   │   ├── kustomization.yaml
-  │   │   └── service.yaml
-  │   ├── frontend
-  │   │   ├── deployment.yaml
-  │   │   ├── ingress.yaml
-  │   │   ├── kustomization.yaml
-  │   │   └── service.yaml
-  │   └── mongodb
-  │       ├── kustomization.yaml
-  │       └── mongo-statefulset.yaml
-  └── disabled
-      ├── mongodb
-      │   ├── kustomization.yaml
-      │   └── overrides.yaml
-      └── smilr
-          └── kustomization.yaml
+ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ UPDATE ME
 ```
 
 The base directory provides us a library of Kustomization-based resources we can use, but as it's
 outside of the `gitops/apps` path they will not be picked up by Flux.
 
-⚠️ **STOP!** Before we proceed, ensure the `mongo-creds` _Secret_ from the previous sections is still
+⚠️ **STOP!** Before we proceed, ensure the `database-creds` _Secret_ from the previous sections is still
 in the default namespace. If you have deleted it, [hop back to section 7](../07-improvements/readme.md)
 and quickly create it again. It's just a single command. Creating _Secrets_ using the GitOps approach
 is problematic, as they need to be committed into a code repo. Flux supports solutions to this, such
