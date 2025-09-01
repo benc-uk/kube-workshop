@@ -13,16 +13,6 @@ spec:
             name: nanomon-sql-init
       containers:
         - name: postgres
-          env:
-            - name: POSTGRES_DB
-              value: "nanomon"
-            - name: POSTGRES_USER
-              value: "nanomon"
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: database-creds
-                  key: password
           volumeMounts:
             - name: initdb-vol
               mountPath: /docker-entrypoint-initdb.d

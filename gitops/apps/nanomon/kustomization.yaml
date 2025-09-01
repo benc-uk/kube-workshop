@@ -15,6 +15,3 @@ images:
   - name: runner_placeholder
     newName: bencacr2025.azurecr.io/nanomon/runner
     newTag: latest
-
-patches:
-  - path: overrides.yaml

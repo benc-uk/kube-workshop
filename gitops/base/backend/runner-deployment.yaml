@@ -19,6 +19,19 @@ spec:
           image: runner_placeholder
           imagePullPolicy: Always
 
+          env:
+            - name: POSTGRES_DSN
+              value: "host=database user=nanomon dbname=nanomon sslmode=disable"
+            - name: POSTGRES_DB
+              value: "nanomon"
+            - name: POSTGRES_USER
+              value: "nanomon"
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-creds
+                  key: password
+
           resources:
             requests:
               cpu: 50m
