@@ -35,8 +35,6 @@ spec:
             - containerPort: 5432
 
           env:
-            - name: POSTGRES_DSN
-              value: "host=database user=nanomon dbname=nanomon sslmode=disable"
             - name: POSTGRES_DB
               value: "nanomon"
             - name: POSTGRES_USER
