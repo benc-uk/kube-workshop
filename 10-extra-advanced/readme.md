@@ -241,10 +241,19 @@ helm repo add nanomon 'https://raw.githubusercontent.com/benc-uk/nanomon/main/de
 helm repo update nanomon
 ```
 
-We'll accept nearly all the defaults when installing, except for enabling ingress
+Helm supports passing in values to the chart to override defaults. Charts can often expose hundreds of parameters, with complex types, so you can store your parameters in a YAML values file. To deploy NanoMon into your cluster, place the contents below into a `values.yaml` file, replacing `{ACR_NAME}` with your Azure Container Registry name:
+
+```yaml
+ingress:
+  enabled: true
+image:
+  regRepo: "{ACR_NAME}.azurecr.io"
+```
+
+Now to deploy the app with Helm, run the command below:
 
 ```bash
-helm install demo nanomon/nanomon --set ingress.enabled=true
+helm install demo nanomon/nanomon --values values.yaml
 ```
 
 Validate the deployment as before with `helm` and `kubectl` and check you can access the app in the

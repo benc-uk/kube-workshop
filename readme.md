@@ -1,33 +1,26 @@
 # Kubernetes Developer Workshop
 
-This is a hands-on, technical workshop intended / hack to get comfortable working with Kubernetes, and
-deploying and configuring applications. It should take roughly 6~8 hours to complete the main set of
-sections, but this is very approximate. This workshop is intended partially as a companion to this
-[Kubernetes Technical Primer](https://github.com/benc-uk/kube-primer) which can be read through,
-referenced or used to get an initial grounding on the concepts.
+Welcome to a technical workshop & hack intended to get you comfortable working with Kubernetes, and
+deploying applications within it. This workshop is very much aimed at software engineers & developers with little or zero Kubernetes
+experience, but wish to get hands on and learn how to deploy and manage their code in a Kubernetes.
 
-This workshop is very much designed for software engineers & developers with little or zero Kubernetes
-experience, but wish to get hands on and learn how to deploy and manage applications. It is not
-focused on the administration, network configuration & day-2 operations of Kubernetes itself, so some
-aspects may not be relevant to dedicated platform/infrastructure engineers.
+It should take roughly 6~8 hours to complete the main set of
+sections, but this is very approximate. This [Kubernetes Technical Primer](https://github.com/benc-uk/kube-primer) can act as a companion to the workshop and be read through, referenced or used to get an initial grounding on the concepts.
 
-> 📝 NOTE: if you've never used Kubernetes before, it is recommended to read the 'Introduction To Kubernetes' section in [Kubernetes Technical Primer PDF](<https://github.com/benc-uk/kube-primer/blob/master/Tech%20Primer%20-%20Kubernetes%20(Jan%202022).pdf>)
+The installation, administration, network configuration & day-2 operations of Kubernetes itself, are not covered in this workshop. This is very much a developer focused workshop, so if you want to learn about the low level & operational side of Kubernetes you might want to look elsewhere.
 
-The application used will be one that has already been written and built, so no application code will
-need to be written.
+The workshop focuses on an application that has already been written and built, so no application code will need to be written.
 
 If you get stuck, the [GitHub source repo for this workshop](https://github.com/benc-uk/kube-workshop)
-contains example code, and working files for most of the sections.
-
-To start with the workshop, first you need to choose which path you'd like to follow, either using AKS or hosting Kubernetes yourself in a VM. If you are unsure you should pick AKS.
+contains example code, and working files for all of the sections.
 
 ## Azure Kubernetes Service (AKS)
 
-In this path you'll be using AKS to learn how to work with Kubernetes running as a managed service in Azure.
+You'll be using AKS to learn how to work with Kubernetes running as a managed service in Azure.
 
 > 📝 NOTE: This section assumes a relative degree of comfort in using Azure for sections 2 and 3.
 
-Sections / modules:
+Summary of the sections:
 
 - [⚒️ Workshop Pre Requisites](00-pre-reqs/readme.md) - Covering the pre set up and tools that will be
   needed.
@@ -42,26 +35,27 @@ Sections / modules:
 - [🌐 Basic Networking](05-network-basics/readme.md) - Introducing Services to provide network access.
 - [💻 Adding The Frontend](06-frontend/readme.md) - Deploying the frontend to the app and wiring it
   up.
-- [✨ Improving The Deployment](07-improvements/readme.md) - Recommended practices; resource limits,
+- [✨ The Path to Production Readiness](07-improvements/readme.md) - Recommended practices; resource limits,
   probes and secrets.
-- [🌎 Helm & Ingress](08-helm-ingress/readme.md) - Finalizing the application architecture using ingress.
+- [🏆 The Continued Path to Production Readiness](08-more-improvements/readme.md) - More recommended practices; ConfigMaps & Volumes.
+- [🌎 Helm & Ingress](09-helm-ingress/readme.md) - Finalizing the application architecture using ingress.
 
-### 🍵 AKS Optional Sections
+### 🍵 Optional Sections
 
 These can be considered bonus sections, and are entirely optional. It is not expected that all these sections would be attempted, and they do not run in order.
 
-- [🤯 Scaling, Stateful Workloads & Helm](09-extra-advanced/readme.md) - Scaling (manual & auto),
+- [🤯 Scaling, Stateful Workloads & Helm](10-extra-advanced/readme.md) - Scaling (manual & auto),
   stateful workloads and persitent volumes, plus more Helm.
-- [🧩 Kustomize & GitOps](10-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps
+- [🧩 Kustomize & GitOps](11-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps
   through GitOps with Flux.
-- [👷 CI/CD with Kubernetes](11-cicd-actions/readme.md) - How to manage CI/CD pipelines using Github
+- [👷 CI/CD with Kubernetes](12-cicd-actions/readme.md) - How to manage CI/CD pipelines using Github
   Actions.
 
-### 🗝️ K3S Path
+### 🗝️ Archive: K3S Path
 
 If you wish to learn how to set up and run Kubernetes on a single VM, simulating an on-premises
 environment, then you can follow the K3S version of this workshop. This is no longer actively maintained
-and may be out of date, but is kept for reference purposes. Refer to the [archived K3S section](archive/k3s/readme.md) for more details.
+and will be out of date, but is kept for reference purposes. Refer to the [archived K3S section](archive/k3s/readme.md) for more details.
 
 ### 📖 Extra Reading & Teach Yourself Exercises
 
@@ -71,7 +65,6 @@ A very brief list of potential topics and Kubernetes features you may want to lo
 
 - [Init containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
 - [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/)
-- [ConfigMaps](https://kubernetes.io/docs/concepts/configuration/configmap/)
 - [Debugging Pods with shell access and exec](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)
 - Assigning Pods to Nodes with [selectors](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/) and [taints](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
 - [Cluster Autoscaler in AKS](https://docs.microsoft.com/azure/aks/cluster-autoscaler)
@@ -84,5 +77,5 @@ A very brief list of potential topics and Kubernetes features you may want to lo
   - With [Prometheus](https://artifacthub.io/packages/helm/prometheus-community/prometheus) & [Grafana](https://artifacthub.io/packages/helm/grafana/grafana)
   - Using [AKS monitoring add-on](https://docs.microsoft.com/azure/azure-monitor/containers/container-insights-overview)
 - Using [Dapr](https://dapr.io/) for building portable and reliable microservices
-- Adding a service mesh such as [Linkerd](https://linkerd.io/) or [Open Service Mesh](https://docs.microsoft.com/azure/aks/open-service-mesh-about)
-- Setting up the [Application Gateway Ingress Controller (AGIC)](https://docs.microsoft.com/azure/application-gateway/ingress-controller-overview)
+- Adding a service mesh such as [Linkerd](https://linkerd.io/) or [Istio](https://learn.microsoft.com/en-us/azure/aks/istio-about)
+- Setting up the [Application Gateway for Containers](https://learn.microsoft.com/en-gb/azure/application-gateway/for-containers/overview)

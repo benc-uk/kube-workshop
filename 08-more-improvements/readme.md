@@ -1,4 +1,4 @@
-# ✨ The Continued Path to Production Readiness
+# 🏆 The Continued Path to Production Readiness
 
 We're not done improving things yet! This section is a continuation of the previous one, where we will further enhance our deployment by adding a few more important features. Using _ConfigMaps_ and volumes, we'll continue stepping towards a more production-ready deployment.
 

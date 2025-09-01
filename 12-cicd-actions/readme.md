@@ -1,4 +1,4 @@
-# 👷 CI/CD with Kubernetes
+# 👷 DevOps & CI/CD with Kubernetes
 
 This is an optional section detailing how to set up a continuous integration (CI) and continuous
 deployment (CD) pipeline, which will deploy to Kubernetes using Helm.
@@ -86,7 +86,7 @@ Also add this step to the workflow, under the `steps:` section, it will need ind
 ```yaml
 - name: "Build images"
   run: |
-    docker compose -f build/compose.yaml build
+    docker compose -f build/compose.yaml build api frontend runner
 ```
 
 Commit and push the changes to main, then check the status of the workflow again. It should take
@@ -131,19 +131,21 @@ env:
   uses: docker/login-action@v3
   with:
     registry: ${{ env.IMAGE_REG }}
-    username: ${{ secrets.ACR_USERNAME }}
+    username: ${{ env.ACR_USERNAME }}
     password: ${{ secrets.ACR_PASSWORD }}
+- name: "Push images"
+  run: |
+    docker compose -f build/compose.yaml push api frontend runner
 ```
 
-Save the file, commit and push to main just as before. Then check the status from the GitHub UI and
-'Actions' page of your forked repo.
+Save the file, commit and push to main just as before. Then check the status as before from the GitHub
+web site. If all goes well you should see a green tick again.
 
 The workflow now does three important things:
 
-- Authenticate to "login" to the ACR.
-- Build the **smilr/data-api** image and tag as `latest` and also the GitHub run ID, which is unique
-  to every run of the workflow. Then push these images to the ACR.
-- Do exactly the same for the **smilr/frontend** image.
+- Builds the container images for the API, frontend and runner components of the app
+- Logs into the ACR using the credentials stored in a GitHub secret
+- Pushes the images to the ACR
 
 The "Build & push images" job and the workflow should take around 2~3 minutes to complete.
 
@@ -175,7 +177,7 @@ releaseJob:
 
   steps:
     - name: "Configure kubeconfig"
-      uses: azure/k8s-set-context@v2
+      uses: azure/k8s-set-context@v4
       with:
         method: kubeconfig
         kubeconfig: ${{ secrets.CLUSTER_KUBECONFIG }}
@@ -189,7 +191,7 @@ This is doing a bunch of things so lets step through it:
 - This second job has a dependency on the previous build job, obviously we don't want to run a
   release & deployment if the build has failed or hasn't finished!
 - This job will only run if the code is in the `main` branch, which means we won't run deployments
-  on pull requests, this is a common practice.
+  on pull requests, this is a common practice, but your release strategy may differ.
 - It uses the `azure/k8s-set-context` action and the `CLUSTER_KUBECONFIG` secret to
   authenticate and point to our AKS cluster.
 - We run a simple `kubectl` command to sanity check we are connected ok.
@@ -199,58 +201,45 @@ actions page.
 
 ## 🪖 Deploy using Helm
 
-Nearly there! Now we want to run `helm` in order to deploy the Smilr app into the cluster, but also
-make sure it deploys from the images we just built and pushed. There's two ways for Helm to access
-a chart, either using the local filesystem or a remote chart published to a chart repo. We'll be
-using the first approach. The Smilr git repo contains a Helm chart for us to use, we'll check it out
-and then run `helm` to release the chart.
+Nearly there! Now we want to run `helm` in order to deploy the NanoMon app into the cluster, but also
+make sure it deploys from the images we just built and pushed. As we saw in the previous sections
+on Helm, we can
 
 Add the following two steps to the releaseJob (beware indentation again!)
 
 ```yaml
-- name: "Checkout app code repo" # Needed for the Helm chart
-  uses: actions/checkout@v2
-  with:
-    repository: benc-uk/smilr
+- name: "Add Helm repo for Nanomon"
+  run: |
+    helm repo add nanomon 'https://raw.githubusercontent.com/benc-uk/nanomon/main/deploy/helm'
+    helm repo update nanomon
 
-- name: "Update chart dependencies"
-  run: helm dependency update ./kubernetes/helm/smilr
-```
-
-You can save, commit and push at this point to run the workflow and check everything is OK, or push
-onto the next step.
-
-Add one final step to the releaseJob, which runs the `helm upgrade` command to create or update a release. See the [full docs on this command](https://helm.sh/docs/helm/helm_upgrade/)
-
-```yaml
 - name: "Release app with Helm"
   run: |
-    helm upgrade myapp ./kubernetes/helm/smilr --install --wait --timeout 120s \
-    --set registryPrefix=$ACR_NAME.azurecr.io/ \
-    --set frontend.imageTag=$IMAGE_TAG \
-    --set dataApi.imageTag=$IMAGE_TAG \
-    --set mongodb.enabled=true
+    helm upgrade ci nanomon/nanomon --install --wait --timeout 120s \
+    --set image.regRepo=${{ env.IMAGE_REG }} \
+    --set image.tag=${{ env.IMAGE_TAG }} \
+    --set ingress.enabled=true
 ```
 
-This command is doing an awful lot, so let's break it down:
+The `helm upgrade` command is doing a lot, so let's break it down:
 
 - `helm upgrade` tells Helm to upgrade an existing release, as we also pass `--install` this means
-  Helm will install it first if it doesn't exist. Think of it as create+update, or an "upsert"
-  operation.
-- The release name is `myapp` but could be anything you wish, it will be used to prefix all the
+  Helm will install it first if it doesn't exist. Think of it as create and/or update.
+- The release name is `ci` but could be anything you wish, it will be used to prefix all the
   resources in Kubernetes.
-- The chart is referenced by filesystem path `./kubernetes/helm/smilr` which is why we checked out
-  the Smilr git repo before this step. The GitHub link to that directory
-  [is here of you are curious](https://github.com/benc-uk/smilr/tree/master/kubernetes/helm/smilr)
+- The chart is referenced by the repo name and chart name, in this case it's a remote chart
+  repository, but it could also be a local path.
 - The `--set` flags pass parameters into the chart for this release, which are the ACR name, plus
-  the image tags we just built. These are available as variables in our workflow `$ACR_NAME` and
-  `$IMAGE_TAG`
-- The `--wait --timeout 120s` flags tell Helm to wait 2 minutes for the Kubernetes pods to start
+  the image tag string. These are available as variables in our workflow `IMAGE_REG` and
+  `IMAGE_TAG` which we set earlier.
+- We also enable the ingress, as we want to be able to access the app externally.
+- The `--wait --timeout 120s` flags tell Helm to wait for the pods to be running before
+  considering the deployment successful, with a timeout of 120 seconds.
 
-Phew! As you can see Helm is a powerful way to deploy apps to Kubernetes, sometimes with a single
+As you can see Helm is a powerful way to deploy apps to Kubernetes, sometimes with a single
 command
 
-Once again save, commit and push, then check the status of the workflow. It's very likely you made
+Once again save, commit and push, then check the status of the workflow. It's likely you made
 a mistake, keep committing & pushing to fix and re-run the workflow until it completes and runs
 green.
 
@@ -263,21 +252,40 @@ GitHub has the concept of [environments](https://docs.github.com/en/actions/depl
 resources or a deployed application. This lets you use the GitHub UI to see the status of deployments
 targeting that environment, and even give users a link to access it
 
-We can add an environment simply by adding the follow bit of YAML under the releaseJob job:
+We can add an environment simply by adding the follow bit of YAML under the `releaseJob` job:
 
 ```yaml
 environment:
   name: workshop-environment
-  url: http://__PUBLIC_IP_OF_CLUSTER__/
+  url: http://__PUBLIC_IP_OF_INGRESS__/
 ```
 
 Tip. The `environment` part needs to line up with the `needs` and `if` parts in the job YAML.
 
 The `name` can be anything you wish and the URL needs to point to the public IP address of your
-cluster which you were referencing earlier, if you've forgotten it try running  
+ingress controller which you were referencing earlier, if you've forgotten it try running  
 `kubectl get svc -A | grep LoadBalancer | awk '{print $5}'`
+
+## 🏆 Extra Mega Bonus - Validation of the Deployment
+
+You can add a final step to the `releaseJob` to validate the deployment, by using some bash voodoo & `curl` to hit
+the public IP address of the ingress controller, and call the status endpoint of the app, in JSON that is returned check for the version to match the version we just deployed.
+
+> 📝 NOTE: This is only possible because NanoMon was written in such a way it allows for the version to be injected at build time, and that it also exposes via the API at runtime. Something to think about when writing your own systems
+
+```yaml
+- name: "Validate deployment"
+  run: |
+    sleep 10
+    while ! curl -s http://__PUBLIC_IP_OF_INGRESS__/api/status | grep "version\":\"${{ env.VERSION }}"; do sleep 5; done
+  timeout-minutes: 2
+```
+
+## 🎉 Conclusion
+
+OK that's it for this optional section, if you're not a fan of DevOps, then you probably hated that, but otherwise hopefully you found it useful! We're done with the workshop now, so feel free to go back to the main index and explore any of the other sections you may have missed.
 
 ## Navigation
 
 [Return to Main Index 🏠](../readme.md) ‖
-[Previous Section ⏪](../10-gitops-flux/readme.md)
+[Previous Section ⏪](../11-gitops-flux/readme.md)

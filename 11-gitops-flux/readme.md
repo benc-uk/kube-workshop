@@ -178,10 +178,9 @@ and then make the required updates to the state of the cluster, through a proces
 We will use the [popular project FluxCD](https://fluxcd.io/) (also just called Flux or Flux v2), however
 other projects are available such as ArgoCD and support from GitLab.
 
-As GitOps is a "pull" vs "push" approach, it also allows you to lock down your Kubernetes cluster, and
-prevent developers and admins making direct changes with kubectl.
-
-> 📝 NOTE: GitOps is a methodology and an approach, it is not the name of a product.
+As GitOps is a "pull" approach, it also allows you to lock down your Kubernetes cluster, and
+prevent developers and admins making direct changes with kubectl (a "push" approach). This
+can be a requirement for some organizations and is a key part of the GitOps methodology to have a single source of truth.
 
 ### 💽 Install Flux into AKS
 
