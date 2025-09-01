@@ -1,0 +1,41 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nanomon-api
+
+spec:
+  template:
+    spec:
+      containers:
+        - name: api-container
+          env:
+            - name: POSTGRES_DB
+              value: "nanomon"
+            - name: POSTGRES_USER
+              value: "nanomon"
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-creds
+                  key: password
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nanomon-runner
+
+spec:
+  template:
+    spec:
+      containers:
+        - name: runner-container
+          env:
+            - name: POSTGRES_DB
+              value: "nanomon"
+            - name: POSTGRES_USER
+              value: "nanomon"
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-creds
+                  key: password

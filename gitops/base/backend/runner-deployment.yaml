@@ -16,8 +16,7 @@ spec:
     spec:
       containers:
         - name: runner-container
-
-          image: nanomon/runner:latest
+          image: runner_placeholder
           imagePullPolicy: Always
 
           resources:
@@ -27,12 +26,3 @@ spec:
             limits:
               cpu: 100m
               memory: 128Mi
-
-          env:
-            - name: POSTGRES_DSN
-              value: "host=database user=nanomon dbname=nanomon sslmode=disable"
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: database-creds
-                  key: password

@@ -17,7 +17,6 @@ spec:
       containers:
         - name: frontend-container
           image: frontend_placeholder
-
           imagePullPolicy: Always
 
           ports:

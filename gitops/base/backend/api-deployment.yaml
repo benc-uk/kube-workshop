@@ -16,8 +16,7 @@ spec:
     spec:
       containers:
         - name: api-container
-
-          image: nanomon/api:latest
+          image: api_placeholder
           imagePullPolicy: Always
 
           ports:
