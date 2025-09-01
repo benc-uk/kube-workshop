@@ -245,15 +245,38 @@ cluster resource.
 Clone the kube-workshop repo you forked earlier, to your filesystem and open the directory in VS Code or other editor.
 
 If you recall from the bootstrap command earlier we gave Flux a path within the repo to use and look
-for configurations, which was `gitops/hello` directory. The contents of the whole of the `gitops`
+for configurations, which was `gitops/apps` directory. The contents of the whole of the `gitops`
 directory is shown here.
 
 ```text
-ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ UPDATE ME
+├── apps
+│   └-─ hello-world.yaml
+├── base
+│   ├── backend
+│   │   ├── api-deployment.yaml
+│   │   ├── api-service.yaml
+│   │   ├── kustomization.yaml
+│   │   └── runner-deployment.yaml
+│   ├── frontend
+│   │   ├── deployment.yaml
+│   │   ├── ingress.yaml
+│   │   ├── kustomization.yaml
+│   │   └── service.yaml
+│   └── postgres
+│       ├── kustomization.yaml
+│       ├── service.yaml
+│       └── statefulset.yaml
+└── disabled
+    ├── nanomon
+    │   └── kustomization.yaml
+    └── postgres
+        ├── kustomization.yaml
+        ├── nanomon_init.sql
+        └── overrides.yaml
 ```
 
 The base directory provides us a library of Kustomization-based resources we can use, but as it's
-outside of the `gitops/apps` path they will not be picked up by Flux.
+outside of the `gitops/apps` path they will not be picked up by Flux, until we create a Kustomization under `gitops/apps` that references them.
 
 ⚠️ **STOP!** Before we proceed, ensure the `database-creds` _Secret_ from the previous sections is still
 in the default namespace. If you have deleted it, [hop back to section 7](../07-improvements/readme.md)
@@ -274,25 +297,26 @@ First let's deploy PostgreSQL using Flux:
 - Check the default namespace for the new PostgreSQL _StatefulSet_ and _Pod_ using
   `kubectl get sts,pods -n default`.
 
-Next deploy the Smilr app:
+Next deploy the Nanomon app:
 
-- Copy the `smilr/` directory from "disabled" to "apps".
+- Copy the `nanomon/` directory from "disabled" to "apps".
   - Note the `kustomization.yaml` in here is pointing at **several** base directories, for the app
-    data-api and frontend.
-- Edit the ACR name in the `gitops/apps/smilr/kustomization.yaml` file.
+    backend and frontend.
+- Edit the ACR names in the `gitops/apps/nanomon/kustomization.yaml` file.
 - Git commit these changes to the main branch and push up to GitHub.
 - Wait for ~1 minute for Flux to rescan the git repo.
 - Check for any errors with `kubectl get kustomizations -A`.
 - Check the default namespace for the new resources using `kubectl get deploy,pods,ingress -n default`.
 
 If you encounter problems or want to force the reconciliation you can use the `flux` CLI, e.g.
-`flux reconcile source git flux-system`.
+`flux reconcile source git flux`.
 
 If we wanted to deploy this app across multiple environments or multiple times, we could create
 sub-directories under `apps/`, each containing different Kustomizations and modifying the deployment
-to suit that environment.
+to suit that environment. There's countless ways to structure this, and it very much depends on
+your requirements.
 
 ## Navigation
 
 [Return to Main Index 🏠](../readme.md) ‖
-[Previous Section ⏪](../09-extra-advanced/readme.md) ‖ [Next Section ⏩](../11-cicd-actions/readme.md)
+[Previous Section ⏪](../10-extra-advanced/readme.md) ‖ [Next Section ⏩](../12-cicd-actions/readme.md)
