@@ -176,4 +176,4 @@ This is a slightly simplified version from previously in order to fit everything
 ## Navigation
 
 [Return to Main Index 🏠](../readme.md) ‖
-[Previous Section ⏪](../07-improvements/readme.md) ‖ [Next Section ⏩](../09-extra-advanced/readme.md)
+[Previous Section ⏪](../08-more-improvements/readme.md) ‖ [Next Section ⏩](../10-extra-advanced/readme.md)

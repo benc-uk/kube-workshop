@@ -22,13 +22,13 @@ Scaling stateless applications manually can be as simple as running the command 
 of replicas in a _Deployment_, for example:
 
 ```bash
-kubectl scale deployment data-api --replicas 4
+kubectl scale deployment nanomon-api --replicas 4
 ```
 
-Naturally this can also be done by updating the `replicas` field in the _Deployment_ manifest and
+Intuitively this same result can also be done by updating the `replicas` field in the _Deployment_ manifest and
 applying it.
 
-🧪 **Experiment**: Try scaling the data API to a large number of pods e.g. 50 or 60 to see what happens?
+🧪 **Experiment**: Try scaling the API to a large number of pods e.g. 50 or 60 to see what happens?
 If some of the _Pods_ remain in a "Pending" state can you find out the reason why? What effect does
 changing the resource requests (for example increasing the memory to 600Mi) have on this?
 
@@ -42,7 +42,7 @@ To set up an _Horizontal Pod Autoscaler_ you can give it a deployment and some s
 follows:
 
 ```bash
-kubectl autoscale deployment data-api --cpu-percent=50 --min=2 --max=10
+kubectl autoscale deployment nanomon-api --cpu="50%" --min=2 --max=10
 ```
 
 <details markdown="1">
@@ -65,60 +65,52 @@ spec:
 
 </details>
 
-Run this in a separate terminal window to watch the status and number of pods:
+Run this in a separate terminal window to watch the resource usage and number of API pods:
 
 ```bash
-watch -n 3 kubectl get pods
+watch -n 5 kubectl top pods
 ```
 
-Now generate some fake load by hitting the `/api/info` endpoint with lots of requests. We use a tool
-called `hey` to do this easily and run 20 concurrent requests for 3 minutes
+Now to generate some fake load by hitting the `/api/info` endpoint with lots of requests. We can use a tool
+called `hey` to do this easily and run 20 concurrent requests for 3 minutes. This doesn't sound like much but the
+tool runs them as fast as possible, so it will result in quite a lot of requests.
 
 ```bash
 wget https://hey-release.s3.us-east-2.amazonaws.com/hey_linux_amd64
 chmod +x hey_linux_amd64
-./hey_linux_amd64 -z 180s -c 20 http://{INGRESS_IP}/api/info
+./hey_linux_amd64 -z 180s -c 20 http://{EXTERNAL_INGRESS_IP}/api/status
 ```
 
-After about 1~2 mins you should see new data-api pods being created. Once the `hey` command completes
+After about 1~2 mins you should see new API pods being created. Once the `hey` command completes
 and the load stops, it will probably be around ~5 mins before the pods scale back down to their
-original number.
+original number. The command `kubectl describe hpa` is useful and will show you the current status of the autoscaler.
 
-## 🛢️ Improving The MongoDB Backend
+## 🛢️ Improving The PostgreSQL Backend
 
 There's two very major problems with our backend database:
 
 - There's only a single instance, i.e. one Pod, introducing a serious single point of failure.
-- The data held by MongoDB is ephemeral and if the Pod was terminated for any reason, we'd lose all
+- The data held by the PostgreSQL _Pod_ is ephemeral and if the _Pod_ was terminated for any reason, we'd lose all
   application data. Not very good!
 
-🛑 **IMPORTANT NOTE**: As a rule it's a bad idea and an "anti-pattern" to run stateful services in
-Kubernetes. Managing them is complex and time consuming. It's **strongly recommended** use PaaS data
-offerings which reside outside your cluster and can be managed independently and easily. We will
-continue to keep MongoDB running in the cluster purely as a learning exercise.
-
-We can’t simply horizontally scale out the MongoDB _Deployment_ with multiple _Pod_ replicas as it
-is stateful, i.e. it holds data and state. We'd create a ["split brain" situation](https://www.45drives.com/community/articles/what-is-split-brain/)
-as requests are routed to different Pods.
+We can't simply horizontally scale out the PostgreSQL _Deployment_ with multiple _Pod_ replicas as it is stateful, i.e. it holds data and state. We'd create a "split brain" situation as requests are routed to different Pods each with their own copy of the data, and they would quickly diverge.
 
 Kubernetes does provide a [feature](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
 called _StatefulSets_ which greatly helps with the complexities of running multiple stateful services
 across in a cluster.
 
-⚠️ HOWEVER! _StatefulSets_ are not a magic wand - any stateful workload such as a database (e.g. MongoDB),
-**still needs to be made aware** it is running in multiple places and handle the data
-synchronization/replication. This can be setup for MongoDB, but is deemed too complex for this
-workshop.
+⚠️ But wait _StatefulSets_ are not a magic wand! Any stateful workload such as a database **still needs to be made aware** it is running in multiple 
+places and handle the data synchronization/replication. This can be setup for PostgreSQL, but is deemed too complex for this workshop.
 
 However we can address the issue of data persistence.
 
-🧪 **Optional Experiment**: Try using the app and adding an event using the "Admin" screens, then
-run `kubectl delete pod {mongo-pod-name}` You will see that Kubernetes immediately restarts it.
-However when the app recovers and reconnects to the DB, you will see the data you created is gone.
+🧪 **Optional Experiment**: Try using the app and adding a monitor, then
+run `kubectl delete pod {postgres-pod-name}` You will see that Kubernetes immediately restarts it.
+However when the app recovers and reconnects to the DB (which might take a few seconds), you will see the data you created is gone.
 
 To resolve the data persistence issues, we need do three things:
 
-- Change the MongoDB _Deployment_ to a _StatefulSet_ with a single replica.
+- Change the PostgreSQL _Deployment_ to a _StatefulSet_ with a single replica.
 - Add a `volumeMount` to the container mapped to the `/data/db` filesystem, which is where the
   mongodb process stores its data.
 - Add a `volumeClaimTemplate` to dynamically create a _PersistentVolume_ and a _PersistentVolumeClaim_
@@ -135,91 +127,29 @@ in Kubernetes, if you want begin reading about them there are masses of informat
 for now simply take the YAML below:
 
 <details markdown="1">
-<summary>Completed MongoDB <i>StatefulSet</i> YAML manifest</summary>
+<summary>Completed PostgreSQL <i>StatefulSet</i> YAML manifest</summary>
 
 ```yaml
-kind: StatefulSet
-apiVersion: apps/v1
 
-metadata:
-  name: mongodb
-
-spec:
-  serviceName: mongodb
-  replicas: 1 # Important we leave this as 1
-  selector:
-    matchLabels:
-      app: mongodb
-  template:
-    metadata:
-      labels:
-        app: mongodb
-    spec:
-      containers:
-        - name: mongodb-container
-
-          image: mongo:5.0
-          imagePullPolicy: Always
-
-          ports:
-            - containerPort: 27017
-
-          resources:
-            requests:
-              cpu: 100m
-              memory: 200Mi
-            limits:
-              cpu: 500m
-              memory: 300Mi
-
-          readinessProbe:
-            exec:
-              command:
-                - mongo
-                - --eval
-                - db.adminCommand('ping')
-
-          env:
-            - name: MONGO_INITDB_ROOT_USERNAME
-              value: admin
-            - name: MONGO_INITDB_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mongo-creds
-                  key: admin-password
-
-          volumeMounts:
-            - name: mongo-data
-              mountPath: /data/db
-
-  volumeClaimTemplates:
-    - metadata:
-        name: mongo-data
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        storageClassName: default
-        resources:
-          requests:
-            storage: 500M
 ```
 
 </details>
 
-Save as `mongo-statefulset.yaml` remove the old deployment with `kubectl delete deployment mongodb`
-and apply the new `mongo-statefulset.yaml` file. Some comments:
+Save as `postgres-statefulset.yaml` remove the old deployment with `kubectl delete deployment postgres`
+and apply the new `postgres-statefulset.yaml` file. Some comments:
 
-- When you run `kubectl get pods` you will see the pod name ends `-0` rather than the random hash.
+- When you run `kubectl get pods` you will see the pod name ends `-0` rather than the random hash, this is
+  because _StatefulSet_ pods are given a stable network identity.
 - Running `kubectl get pv,pvc` you will see the new _PersistentVolume_ and _PersistentVolumeClaim_
   that have been created. The _Pod_ might take a little while to start while the volume is created,
   and is "bound" to the _Pod_
 
-If you repeat the experiment above, you should see that the data is maintained after you delete the
-`mongodb-0` pod and it restarts.
+If you repeat the pod deletion experiment above, you should see that the data is maintained after you delete the `postgres-0` pod and it restarts.
 
 ## 💥 Installing The App with Helm
 
-The Smilr app we have been working with, comes with a Helm chart, which you can take a look at here,
-[Smilr Helm Chart](https://github.com/benc-uk/smilr/tree/master/kubernetes/helm/smilr).
+The NanoMon app we have been working with, comes provided with a Helm chart, which you can take a look at here,
+[NanoMon Helm Chart](https://github.com/benc-uk/nanomon/tree/master/deploy/helm/nanomon).
 
 With this we can deploy the entire app, all the deployments, pods, services, ingress, etc. with a single
 command. Naturally if we were to have done this from the beginning there wouldn't have been much scope
@@ -230,54 +160,26 @@ However as this is the final section, now might be a good time to try it. Due to
 will need to remove what have currently deployed, by running:
 
 ```bash
-kubectl delete deploy,sts,svc,ingress --all
+kubectl delete deploy,sts,svc,ingress,hpa --all
 ```
 
-Fetch the chart and download it locally, this is because the chart isn't published in a Helm repo:
+Add the Helm remote repo where the NanoMon chart is located and update your Helm repo cache:
 
 ```bash
-curl -sL https://github.com/benc-uk/smilr/releases/download/2.9.8a/smilr-chart.tar.gz | tar -zx
+helm repo add nanomon 'https://raw.githubusercontent.com/benc-uk/nanomon/main/deploy/helm'
+helm repo update nanomon
 ```
 
-Create a values file for your release:
-
-```yaml
-registryPrefix: {ACR_NAME}.azurecr.io/
-
-ingress:
-  className: nginx
-
-dataApi:
-  imageTag: stable
-  replicas: 2
-
-frontend:
-  imageTag: stable
-  replicas: 1
-
-mongodb:
-  enabled: true
-```
-
-Save it as `my-values.yaml`, then run a command to tell Helm to fetch any dependencies. In this case
-the Smilr chart uses the [Bitnami MongoDB chart](https://github.com/bitnami/charts/tree/master/bitnami/mongodb).
-To fetch/update this simply run:
+We'll accept nearly all the defaults when installing, except for enabling ingress
 
 ```bash
-helm dependency update ./smilr
-```
-
-Finally we are ready to deploy the Smilr app using Helm, the release name can be anything you wish,
-and you should point to the local directory where the chart has been downloaded and extracted:
-
-```bash
-helm install myapp ./smilr --values my-values.yaml
+helm install demo nanomon/nanomon --set ingress.enabled=true
 ```
 
 Validate the deployment as before with `helm` and `kubectl` and check you can access the app in the
-browser.
+browser using the same ingress IP address as before.
 
 ## Navigation
 
 [Return to Main Index 🏠](../readme.md) ‖
-[Previous Section ⏪](../08-helm-ingress/readme.md) ‖ [Next Section ⏩](../10-gitops-flux/readme.md)
+[Previous Section ⏪](../09-helm-ingress/readme.md) ‖ [Next Section ⏩](../11-gitops-flux/readme.md)
