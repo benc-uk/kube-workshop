@@ -263,7 +263,7 @@ as using [SOPS](https://fluxcd.io/docs/guides/mozilla-sops/) and
 [Sealed Secrets](https://fluxcd.io/docs/guides/sealed-secrets/) but for an intro such as this, they
 require too much extra setup, so we will skip over them.
 
-First let's deploy MongoDB using Flux:
+First let's deploy PostgreSQL using Flux:
 
 - Copy the `postgres/` directory from "disabled" to "apps".
   - Note the `kustomization.yaml` in here is pointing at the base directory `../../base/postgres` and
@@ -271,7 +271,7 @@ First let's deploy MongoDB using Flux:
 - Git commit these changes to the main branch and push up to GitHub.
 - Wait for ~1 minute for Flux to rescan the git repo.
 - Check for any errors with `kubectl get kustomizations -A`.
-- Check the default namespace for the new MongoDB StatefulSet and Pod using
+- Check the default namespace for the new PostgreSQL _StatefulSet_ and _Pod_ using
   `kubectl get sts,pods -n default`.
 
 Next deploy the Smilr app:

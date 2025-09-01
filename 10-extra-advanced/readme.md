@@ -111,8 +111,7 @@ However when the app recovers and reconnects to the DB (which might take a few s
 To resolve the data persistence issues, we need do three things:
 
 - Change the PostgreSQL _Deployment_ to a _StatefulSet_ with a single replica.
-- Add a `volumeMount` to the container mapped to the `/data/db` filesystem, which is where the
-  mongodb process stores its data.
+- Add a `volumeMount` to the container mapped to the `/var/lib/postgresql/data` path filesystem, which is where PostgreSQL stores its data. Note, you must not use the `subPath: data` attribute here.
 - Add a `volumeClaimTemplate` to dynamically create a _PersistentVolume_ and a _PersistentVolumeClaim_
   for this _StatefulSet_. Use the "default" _StorageClass_ and request a 500M volume which is dedicated
   with the "ReadWriteOnce" access mode.
@@ -130,7 +129,79 @@ for now simply take the YAML below:
 <summary>Completed PostgreSQL <i>StatefulSet</i> YAML manifest</summary>
 
 ```yaml
+apiVersion: apps/v1
+kind: StatefulSet
 
+metadata:
+  name: postgres
+
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-pvc
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: default
+        resources:
+          requests:
+            storage: 500M
+
+  template:
+    metadata:
+      labels:
+        app: postgres
+
+    spec:
+      volumes:
+        - name: initdb-vol
+          configMap:
+            name: nanomon-sql-init
+
+      containers:
+        - name: postgres
+          image: postgres:17
+
+          ports:
+            - containerPort: 5432
+
+          env:
+            - name: POSTGRES_DB
+              value: "nanomon"
+            - name: POSTGRES_USER
+              value: "nanomon"
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-creds
+                  key: password
+
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 512Mi
+
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "nanomon"]
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          volumeMounts:
+            - name: initdb-vol
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true
+            - name: postgres-pvc
+              mountPath: /var/lib/postgresql/data
+              subPath: data
 ```
 
 </details>

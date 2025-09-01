@@ -5,7 +5,7 @@ resources:
   - ../../base/postgres
 
 images:
-  - name: postgres_placehlolder
+  - name: placehlolder
     newName: postgres:17
 
 patches:

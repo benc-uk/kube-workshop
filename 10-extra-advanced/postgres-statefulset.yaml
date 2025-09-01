@@ -5,12 +5,12 @@ metadata:
   name: postgres
 
 spec:
-  serviceName: mongodb
+  serviceName: postgres
   replicas: 1
   selector:
     matchLabels:
       app: postgres
-      
+
   volumeClaimTemplates:
     - metadata:
         name: postgres-pvc

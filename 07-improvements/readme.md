@@ -106,8 +106,8 @@ Update the deployment YAML for **BOTH your API, and PostgreSQL deployments**, re
 - name: POSTGRES_PASSWORD
   valueFrom:
     secretKeyRef:
-      name: mongo-creds
-      key: admin-password
+      name: database-creds
+      key: password
 ```
 
 > 📝 NOTE: _Secrets_ aren't quite as secret as they sound, they are not encypted and are simply stored as base-64 encoded values. Gasp! They mainly keep any plain text values out of our manifests. Anyone with the relevant cluster priviledges will be able to read the values of _Secrets_ easily. If you want further encryption and isolation a number of options are available including Mozilla SOPS, Hashicorp Vault and Azure Key Vault.
