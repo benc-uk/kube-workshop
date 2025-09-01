@@ -17,7 +17,7 @@ spec:
       containers:
         - name: frontend-container
 
-          image: {ACR_NAME}.azurecr.io/nanomon/frontend:latest
+          image: {ACR_NAME}.azurecr.io/nanomon-frontend:latest
           imagePullPolicy: Always
 
           ports:

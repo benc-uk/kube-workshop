@@ -200,10 +200,9 @@ It also requires some [preview providers](https://docs.microsoft.com/en-us/azure
 to be enabled on your Azure subscription. Follow out these steps before proceeding, which can take
 some time!
 
-Before we configure anything GitOps needs a git repo to work against. We'll use a fork of this repo,
-to set this up:
+Before we configure anything GitOps needs a git repo to work against. We'll have to use a fork of this repo, to set this up:
 
-- Go to the repo for this workshop [https://github.com/benc-uk/](https://github.com/benc-uk/).
+- Go to the repo for this workshop [https://github.com/benc-uk/kube-workshop](https://github.com/benc-uk/kube-workshop).
 - Fork the repo to your own personal GitHub account, by clicking the 'Fork' button near the top right.
 
 Now to set up Flux, run the following command, replacing the `{YOUR_GITHUB_USER}` part with your
@@ -242,7 +241,7 @@ cluster resource.
 
 ### 🚀 Deploying Resources
 
-Clone the kube-workshop repo you forked earlier, to your filesystem and open the directory in VS Code or other editor.
+USe git to clone the kube-workshop repo you forked earlier, and open the directory in VS Code or other editor.
 
 If you recall from the bootstrap command earlier we gave Flux a path within the repo to use and look
 for configurations, which was `gitops/apps` directory. The contents of the whole of the `gitops`

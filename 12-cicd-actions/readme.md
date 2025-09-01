@@ -35,6 +35,9 @@ on:
   push:
     branches: ["main"] # Standard CI trigger when main branch is pushed
 
+env:
+  PLACEHOLDER: "This is a placeholder"
+
 # One job for building the app
 jobs:
   buildJob:
@@ -43,25 +46,51 @@ jobs:
     steps:
       # Checkout code from another repo on GitHub
       - name: "Checkout app code repo"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
         with:
-          repository: benc-uk/smilr
+          repository: benc-uk/nanomon
 ```
 
 The comments in the YAML should hopefully explain what is happening. But in summary this will run a
-short single step job that just checks out the code of the Smilr app repo. The name and filename do
+short single step job that just checks out the code of the Nanomon app repo. The name and filename do
 not reflect the current function, but the intent of what we are building towards.
 
 Now commit the changes and push to the main branch, yes this is not a typical way of working, but
-adding a code review or PR process would merely distract from what we are doing.
+adding a code review or PR process would merely distract from what we are doing, and massively slow us down.
 
 The best place to check the status is from the GitHub web site and in the 'Actions' within your
 forked repo, e.g. `https://github.com/{your-github-user}/kube-workshop/actions` you should be able
 to look at the workflow run, the status, plus output & other details.
 
 > 📝 NOTE: It's unusual for the code you are building to be a in separate repo from the workflow(s),
-> in most cases they will be in the same code base, however it doesn't really make any difference to
-> the approach we will take.
+> in most cases they will be in the same code base, however it doesn't really make any difference in this case.
+
+If that all worked, you should see a green tick and the job should have completed in under a minute.
+
+Now to build the Docker images for the app, we will use a Docker compose file that is already in the
+repo at `build/compose.yaml`. This is a multi-service compose file that will build all the images in one go.
+
+Replace the `env:` section at the top of the workflow YAML with this, changing the `{ACR_NAME}` to the name of your existing & deployed ACR.
+
+```yaml
+env:
+  IMAGE_NAME: "nanomon"
+  IMAGE_REG: "{_CHANGE_ACR_NAME_}.azurecr.io"
+  IMAGE_TAG: "${{ github.sha }}"
+  VERSION: "${{ github.sha }}"
+  BUILD_INFO: "CI Build from GitHub Actions"
+```
+
+Also add this step to the workflow, under the `steps:` section, it will need indenting to the correct level:
+
+```yaml
+- name: "Build images"
+  run: |
+    docker compose -f build/compose.yaml build
+```
+
+Commit and push the changes to main, then check the status of the workflow again. It should take
+a little longer this time, as it is building the images. If all goes well you should see a green tick again.
 
 ## ⌨️ Set Up GitHub CLI
 
@@ -88,43 +117,22 @@ gh secret set ACR_PASSWORD --body "$(az acr credential show --name $ACR_NAME --q
 
 ## 📦 Add CI Steps For Image Building
 
-The workflow, doesn't really do much, the applicaiton gets built and images created but they go nowhere.
-So let's update the workflow YAML to carry out a build and push of the application container images.
-We can do this using the code we've checked out in the previous workflow step.
-
-Add this as the YAML top level, e.g just under the `on:` section, change the `__YOUR_ACR_NAME__`
-string to the name of the ACR you deployed previously (do not include the azurecr.io part).
+The workflow, doesn't really do much, the application gets built and images created but they go nowhere.
+So let's update the workflow YAML to push the images to our Azure Container Registry.
 
 ```yaml
 env:
-  ACR_NAME: __YOUR_ACR_NAME__
-  IMAGE_TAG: ${{ github.run_id }}
+  ACR_PASSWORD: "${{ secrets.ACR_PASSWORD }}"
+  ACR_USERNAME: "{_CHANGE_ACR_NAME_}"
 ```
 
-Add this section under the "Checkout app code repo" step in the job, it will require indenting to the
-correct level:
-
 ```yaml
-      - name: "Authenticate to access ACR"
-        uses: docker/login-action@master
-        with:
-          registry: ${{ env.ACR_NAME }}.azurecr.io
-          username: ${{ env.ACR_NAME }}
-          password: ${{ secrets.ACR_PASSWORD }}
-
-      - name: "Build & Push: data API"
-        run: |
-          docker buildx build . -f node/data-api/Dockerfile \
-            -t $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG \
-            -t $ACR_NAME.azurecr.io/smilr/data-api:latest
-          docker push $ACR_NAME.azurecr.io/smilr/data-api:$IMAGE_TAG
-
-      - name: "Build & Push: frontend"
-        run: |
-          docker buildx build . -f node/frontend/Dockerfile \
-            -t $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG \
-            -t $ACR_NAME.azurecr.io/smilr/frontend:latest
-          docker push $ACR_NAME.azurecr.io/smilr/frontend:$IMAGE_TAG
+- name: "Login to ACR"
+  uses: docker/login-action@v3
+  with:
+    registry: ${{ env.IMAGE_REG }}
+    username: ${{ secrets.ACR_USERNAME }}
+    password: ${{ secrets.ACR_PASSWORD }}
 ```
 
 Save the file, commit and push to main just as before. Then check the status from the GitHub UI and
@@ -159,21 +167,21 @@ Next add a second job called `releaseJob` to the workflow YAML, beware the inden
 this should under the `jobs:` key
 
 ```yaml
-  releaseJob:
-    name: "Release to Kubernetes"
-    runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' }}
-    needs: buildJob
+releaseJob:
+  name: "Release to Kubernetes"
+  runs-on: ubuntu-latest
+  if: ${{ github.ref == 'refs/heads/main' }}
+  needs: buildJob
 
-    steps:
-      - name: "Configure kubeconfig"
-        uses: azure/k8s-set-context@v2
-        with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.CLUSTER_KUBECONFIG }}
+  steps:
+    - name: "Configure kubeconfig"
+      uses: azure/k8s-set-context@v2
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.CLUSTER_KUBECONFIG }}
 
-      - name: "Sanity check Kubernetes"
-        run: kubectl get nodes
+    - name: "Sanity check Kubernetes"
+      run: kubectl get nodes
 ```
 
 This is doing a bunch of things so lets step through it:
@@ -200,13 +208,13 @@ and then run `helm` to release the chart.
 Add the following two steps to the releaseJob (beware indentation again!)
 
 ```yaml
-      - name: "Checkout app code repo" # Needed for the Helm chart
-        uses: actions/checkout@v2
-        with:
-          repository: benc-uk/smilr
+- name: "Checkout app code repo" # Needed for the Helm chart
+  uses: actions/checkout@v2
+  with:
+    repository: benc-uk/smilr
 
-      - name: "Update chart dependencies"
-        run: helm dependency update ./kubernetes/helm/smilr
+- name: "Update chart dependencies"
+  run: helm dependency update ./kubernetes/helm/smilr
 ```
 
 You can save, commit and push at this point to run the workflow and check everything is OK, or push
@@ -215,13 +223,13 @@ onto the next step.
 Add one final step to the releaseJob, which runs the `helm upgrade` command to create or update a release. See the [full docs on this command](https://helm.sh/docs/helm/helm_upgrade/)
 
 ```yaml
-      - name: "Release app with Helm"
-        run: |
-          helm upgrade myapp ./kubernetes/helm/smilr --install --wait --timeout 120s \
-          --set registryPrefix=$ACR_NAME.azurecr.io/ \
-          --set frontend.imageTag=$IMAGE_TAG \
-          --set dataApi.imageTag=$IMAGE_TAG \
-          --set mongodb.enabled=true
+- name: "Release app with Helm"
+  run: |
+    helm upgrade myapp ./kubernetes/helm/smilr --install --wait --timeout 120s \
+    --set registryPrefix=$ACR_NAME.azurecr.io/ \
+    --set frontend.imageTag=$IMAGE_TAG \
+    --set dataApi.imageTag=$IMAGE_TAG \
+    --set mongodb.enabled=true
 ```
 
 This command is doing an awful lot, so let's break it down:
@@ -258,9 +266,9 @@ targeting that environment, and even give users a link to access it
 We can add an environment simply by adding the follow bit of YAML under the releaseJob job:
 
 ```yaml
-    environment:
-      name: workshop-environment
-      url: http://__PUBLIC_IP_OF_CLUSTER__/
+environment:
+  name: workshop-environment
+  url: http://__PUBLIC_IP_OF_CLUSTER__/
 ```
 
 Tip. The `environment` part needs to line up with the `needs` and `if` parts in the job YAML.

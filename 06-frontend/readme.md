@@ -6,7 +6,7 @@ pick up the pace a little and setup everything we need in one go.
 
 For the Deployment:
 
-- The image needs to be `{ACR_NAME}.azurecr.io/nanomon/frontend:latest`.
+- The image needs to be `{ACR_NAME}.azurecr.io/nanomon-frontend:latest`.
 - The port exposed from the container should be **8001**.
 - An environmental variable called `API_ENDPOINT` should be passed to the container, this needs to be a URL and should point to the external IP of the API from the previous part, as follows `http://{API_EXTERNAL_IP}/api`.
 - Label the pods with `app: nanomon-frontend`.
@@ -46,7 +46,7 @@ spec:
       containers:
         - name: frontend-container
 
-          image: {ACR_NAME}.azurecr.io/nanomon/frontend:latest
+          image: {ACR_NAME}.azurecr.io/nanomon-frontend:latest
           imagePullPolicy: Always
 
           ports:

@@ -15,14 +15,14 @@ These files will describe the objects we want to create, modify and delete in th
 If you want to take this workshop slowly and treat it as more of a hack, you can research and build the required YAML yourself, you can use [the Kubernetes docs](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and the following hints:
 
 - _Deployment_ should be used with a single replica.
-- The image to be run is `{ACR_NAME}.azurecr.io/nanomon/postgres:latest`. Where `{ACR_NAME}` should be replaced with the name of your ACR resource.
+- The image to be run is `{ACR_NAME}.azurecr.io/nanomon-postgres:latest`. Where `{ACR_NAME}` should be replaced with the name of your ACR resource.
 - The port **5432** should be exposed from the container.
 - Do not worry about persistence or using a _Service_ at this point.
 - Set `POSTGRES_DB` and `POSTGRES_USER` environmental vars to the container setting both to the value "nanomon"
 - Set `POSTGRES_PASSWORD` environmental var, with the value "notVerySecret123!". Yes a plain text password, we will fix this later!
 
 > 📝 NOTE: Why are we not using the official [PostgreSQL image](https://hub.docker.com/_/postgres)? Well really we should, but initializing database schema would require concepts like config maps & volume mounts which we're not ready for yet.  
-> The nanomon/postgres image has been specifically built with the database initialization baked in, so we can keep things simple for now.
+> The nanomon-postgres image has been specifically built with the database initialization baked in, so we can keep things simple for now.
 
 Alternatively you can use the YAML below to paste into `postgres-deployment.yaml`, don't worry this isn't cheating, in the real world everyone is too busy to write Kubernetes manifests from scratch 😉
 
@@ -50,7 +50,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: {ACR_NAME}.azurecr.io/nanomon/postgres:latest
+          image: {ACR_NAME}.azurecr.io/nanomon-postgres:latest
 
           ports:
             - containerPort: 5432
@@ -93,7 +93,7 @@ kubectl describe pod --selector app=postgres | grep ^IP:
 
 Next we'll deploy the first custom part of our app, the backend API, and like the DB we'll deploy it from an image hosted in our private registry.
 
-- The image needs to be `{ACR_NAME}.azurecr.io/nanomon/api:latest` where `{ACR_NAME}` should be
+- The image needs to be `{ACR_NAME}.azurecr.io/nanomon-api:latest` where `{ACR_NAME}` should be
   replaced in the YAML with your real value, i.e. the name of your ACR resource.
 - Set the number of replicas to **2**.
 - The port exposed from the container should be **8000**.
@@ -128,7 +128,7 @@ spec:
       containers:
         - name: api-container
 
-          image: {ACR_NAME}.azurecr.io/nanomon/api:latest
+          image: {ACR_NAME}.azurecr.io/nanomon-api:latest
           imagePullPolicy: Always
 
           ports:

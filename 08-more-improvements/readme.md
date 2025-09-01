@@ -93,7 +93,7 @@ cat /docker-entrypoint-initdb.d/nanomon_init.sql
 
 This part is optional, but if you want to run the runner part of NanoMon, you can create a _Deployment_ for it. The runner is what executes and runs the monitoring tasks, and is a separate component to the API and frontend.
 
-- The runner image is {ACR_NAME}.azurecr.io/nanomon/runner:latest
+- The runner image is {ACR_NAME}.azurecr.io/nanomon-runner:latest
 - The runner needs to connect to the Postgres database just like the API, so it needs the exact same environment variables set.
 - Run a single replica of the runner _Pod_.
 - It doesn't need any ports exposed, as it doesn't serve any traffic, it also doesn't need any _Service_.

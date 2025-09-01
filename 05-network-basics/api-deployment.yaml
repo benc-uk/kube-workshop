@@ -19,7 +19,7 @@ spec:
       containers:
         - name: api-container
 
-          image: {ACR_NAME}.azurecr.io/nanomon/api:latest
+          image: {ACR_NAME}.azurecr.io/nanomon-api:latest
           imagePullPolicy: Always
 
           ports:
