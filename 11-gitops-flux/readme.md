@@ -265,8 +265,8 @@ require too much extra setup, so we will skip over them.
 
 First let's deploy MongoDB using Flux:
 
-- Copy the `monogodb/` directory from "disabled" to "apps".
-  - Note the `kustomization.yaml` in here is pointing at the base directory `../../base/mongodb` and
+- Copy the `postgres/` directory from "disabled" to "apps".
+  - Note the `kustomization.yaml` in here is pointing at the base directory `../../base/postgres` and
     overlaying it.
 - Git commit these changes to the main branch and push up to GitHub.
 - Wait for ~1 minute for Flux to rescan the git repo.

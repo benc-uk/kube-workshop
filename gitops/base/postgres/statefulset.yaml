@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres_placehlolder
+          image: placehlolder
 
           ports:
             - containerPort: 5432

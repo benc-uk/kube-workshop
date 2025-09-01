@@ -13,5 +13,6 @@ patches:
 
 configMapGenerator:
   - name: nanomon-sql-init
+    namespace: default
     files:
       - ./nanomon_init.sql
