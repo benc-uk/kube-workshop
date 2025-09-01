@@ -9,6 +9,8 @@ spec:
       containers:
         - name: api-container
           env:
+            - name: POSTGRES_DSN
+              value: "host=database user=nanomon dbname=nanomon sslmode=disable"
             - name: POSTGRES_DB
               value: "nanomon"
             - name: POSTGRES_USER
@@ -18,6 +20,7 @@ spec:
                 secretKeyRef:
                   name: database-creds
                   key: password
+
 ---
 kind: Deployment
 apiVersion: apps/v1
@@ -30,6 +33,8 @@ spec:
       containers:
         - name: runner-container
           env:
+            - name: POSTGRES_DSN
+              value: "host=database user=nanomon dbname=nanomon sslmode=disable"
             - name: POSTGRES_DB
               value: "nanomon"
             - name: POSTGRES_USER
