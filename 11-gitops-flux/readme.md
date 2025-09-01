@@ -15,6 +15,9 @@ Kustomize works by looking for `kustomization.yaml` files and operating on their
 
 To demonstrate Kustomize in practice, we can carry out a simple exercise, create a new directory called `base`.
 
+> 📝 NOTE: We do not use the NanoMon app here, and the examples are kept deliberately simple to demonstrate the concepts.
+
+
 Place the the following two files into it:
 
 <details markdown="1">

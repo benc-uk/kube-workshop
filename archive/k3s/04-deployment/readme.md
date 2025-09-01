@@ -1,6 +1,6 @@
 # The Application
 
-Refer to the version in the [readme.md](../../04-deployment/readme.md) non-`k3s`
+Refer to the version in the [readme.md](../../../04-deployment/readme.md) non-`k3s`
 directory.
 
 ## Navigation

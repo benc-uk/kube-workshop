@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: webserver
 
+# Note this is a patch file, so we only include the parts we want to change
 spec:
   template:
     spec:

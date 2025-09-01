@@ -52,14 +52,14 @@ kubectl autoscale deployment nanomon-api --cpu="50%" --min=2 --max=10
 kind: HorizontalPodAutoscaler
 apiVersion: autoscaling/v1
 metadata:
-  name: data-api
+  name: nanomon-api
 spec:
   maxReplicas: 10
   minReplicas: 2
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: data-api
+    name: nanomon-api
   targetCPUUtilizationPercentage: 50
 ```
 

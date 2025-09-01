@@ -15,4 +15,4 @@ images:
 
 # Apply patches to override and set other values
 patches:
-  - ./override.yaml
+  - path: override.yaml

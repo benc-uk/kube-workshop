@@ -21,7 +21,7 @@ contains example code, and working files for most of the sections.
 
 To start with the workshop, first you need to choose which path you'd like to follow, either using AKS or hosting Kubernetes yourself in a VM. If you are unsure you should pick AKS.
 
-## Path 1: Azure Kubernetes Service (AKS)
+## Azure Kubernetes Service (AKS)
 
 In this path you'll be using AKS to learn how to work with Kubernetes running as a managed service in Azure.
 
@@ -57,42 +57,11 @@ These can be considered bonus sections, and are entirely optional. It is not exp
 - [👷 CI/CD with Kubernetes](11-cicd-actions/readme.md) - How to manage CI/CD pipelines using Github
   Actions.
 
-## Path 2: Single node K3S cluster on a VM
+### 🗝️ K3S Path
 
-In this path you'll learn to use Kubernetes as if you were running it on a on-premises machine, including configuring the computer with the required set up manually.
-
-Sections / modules:
-
-- [⚒️ Workshop Pre Requisites](k3s/00-pre-reqs/readme.md) - Covering the pre set up and tools that
-  will be needed.
-- [🚦 Deploying Kubernetes](k3s/01-cluster/readme.md) - Deploying the VM, setting up kubectl and accessing
-  the cluster.
-- [📦 Container Registry & Images](k3s/02-container-registry/readme.md) - Deploying the registry and
-  importing images.
-- [❇️ Overview Of The Application](03-the-application/readme.md) - Details of the application to be
-  deployed.
-- [🚀 Deploying The Backend](04-deployment/readme.md) - Laying down the first two components and
-  introduction to Deployments and Pods.
-- [🌐 Basic Networking](k3s/05-network-basics/readme.md) - Introducing Services to provide network
-  access.
-- [💻 Adding The Frontend](k3s/06-frontend/readme.md) - Deploying the frontend to the app and wiring
-  it up.
-- [✨ Improving The Deployment](k3s/07-improvements/readme.md) - Recommended practices; resource
-  limits, probes and secrets.
-- [🌎 Ingress](k3s/08-ingress/readme.md) - Finalizing the application architecture using ingress.
-
-All of the Kubernetes concepts & APIs explored and used are not specific to AKS, K3S or Azure.
-
-## 🍵 K3s Optional Sections
-
-These can be considered bonus sections, and are entirely optional. It is not expected that all these sections would be attempted, and they do not run in order.
-
-- [🤯 Scaling, Stateful Workloads & Helm](k3s/09-extra-advanced/readme.md) - Scaling (manual & auto),
-  stateful workloads and persitent volumes, plus more Helm.
-- [🧩 Kustomize & GitOps](k3s/10-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps
-  through GitOps with Flux.
-- [👷 CI/CD with Kubernetes](/k3s/11-cicd-actions/readme.md) - How to manage CI/CD pipelines using Github
-  Actions.
+If you wish to learn how to set up and run Kubernetes on a single VM, simulating an on-premises
+environment, then you can follow the K3S version of this workshop. This is no longer actively maintained
+and may be out of date, but is kept for reference purposes. Refer to the [archived K3S section](archive/k3s/readme.md) for more details.
 
 ### 📖 Extra Reading & Teach Yourself Exercises
 
