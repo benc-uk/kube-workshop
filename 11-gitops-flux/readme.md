@@ -17,7 +17,6 @@ To demonstrate Kustomize in practice, we can carry out a simple exercise, create
 
 > 📝 NOTE: We do not use the NanoMon app here, and the examples are kept deliberately simple to demonstrate the concepts.
 
-
 Place the the following two files into it:
 
 <details markdown="1">
@@ -214,8 +213,8 @@ GitHub username you used for the fork:
 az k8s-configuration flux create \
  --resource-group ${RES_GROUP} --cluster-name ${AKS_NAME} \
  --name flux --namespace flux-system --cluster-type managedClusters --scope cluster \
- --url https://github.com/{YOUR_GITHUB_USER}/kube-workshop --branch main --interval 1m \
- --kustomization name=apps path=gitops/apps prune=true sync_interval=1m
+ --url https://github.com/{YOUR_GITHUB_USER}/kube-workshop --branch 2025-update --interval 1m \
+ --kustomization name=apps path=gitops/hello prune=true sync_interval=1m
 ```
 
 This one command is doing a LOT of things, it's adding an extension to AKS, deploying Flux to the

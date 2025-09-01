@@ -99,7 +99,7 @@ Kubernetes does provide a [feature](https://kubernetes.io/docs/concepts/workload
 called _StatefulSets_ which greatly helps with the complexities of running multiple stateful services
 across in a cluster.
 
-⚠️ But wait _StatefulSets_ are not a magic wand! Any stateful workload such as a database **still needs to be made aware** it is running in multiple 
+⚠️ But wait _StatefulSets_ are not a magic wand! Any stateful workload such as a database **still needs to be made aware** it is running in multiple
 places and handle the data synchronization/replication. This can be setup for PostgreSQL, but is deemed too complex for this workshop.
 
 However we can address the issue of data persistence.
