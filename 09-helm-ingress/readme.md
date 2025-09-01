@@ -7,7 +7,7 @@ The ingress will let us further refine & improve the networking aspects of the a
 
 So far we've worked in a single _Namespace_ called `default`, but Kubernetes allows you create additional _Namespaces_ in order to logically group and separate your resources.
 
-> 📝 NOTE: Namespaces do not provide a network boundary or isolation of workloads, and the underlying resources (Nodes) remain shared.
+> 📝 NOTE: Namespaces do not provide any form of network boundary or isolation of workloads, and the underlying resources (Nodes) remain shared.
 > There are ways to achieve these outcomes, but is well beyond the scope of this workshop.
 
 Create a new namespace called `ingress`:
@@ -24,19 +24,19 @@ The following alias can be helpful to set a namespace as the default for all `ku
 alias kubens='kubectl config set-context --current --namespace '
 ```
 
-## ⛑️ Introduction to Helm
+## 🪖 Introduction to Helm
 
 [Helm is an CNCF project](https://helm.sh/) which can be used to greatly simplify deploying applications to Kubernetes, either applications written and developed in house, or external 3rd party software & tools.
 
-- Helm simplifies deployment into Kubernetes using _charts_, when a chart is deployed it is refereed to as a _release_.
+- To use Helm, the Helm CLI tool `helm` is required.
+- Helm simplifies deployment using the concept called a _chart_, when a chart is deployed it is refereed to as a _release_.
 - A _chart_ consists of one or more Kubernetes YAML templates + supporting files.
 - Helm charts support dynamic parameters called _values_. Charts expose a set of default _values_ through their `values.yaml` file, and these _values_ can be set and over-ridden at _release_ time.
 - The use of _values_ is critical for automated deployments and CI/CD.
 - Charts can referenced through the local filesystem, or in a remote repository called a _chart repository_.
   The can also be kept in a container registry but that is an advanced and experimental topic.
-- To use Helm, the Helm CLI tool `helm` is required.
 
-Well add the Helm chart repository for the ingress we will be deploying, this is done with the `helm repo` command.
+We'll add the Helm chart repository for the ingress we will be deploying, this is done with the `helm repo` command.
 This is a public repo & chart of the extremely popular NGINX ingress controller (more on that below).
 
 > 📝 NOTE: The repo name `ingress-nginx` can be any name you wish to pick, but the URL has to be pointing to the correct place.
@@ -47,20 +47,22 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 ```
 
-## 🚀 Deploying The Ingress Controller
+## 🚀 Ingress & Ingress Controller
 
-An [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) provides a reliable and secure way to route HTTP and HTTPS traffic into your cluster and expose your applications from a single point of ingress; hence the name.
+An _Ingress_ is a Kubernetes resource that manages external HTTP(S) access to services within a cluster. It provides routing rules to manage how requests are directed to various services based on the request's host or path. An _Ingress Controller_ is a reverse proxy that implements the rules defined in _Ingress_ resources, handling the actual routing of traffic.
 
-![Ingress controller diagram showing routing of traffic to backend services](./kuberntes-ingress.png)
+[📚 Kubernetes Docs: Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)  
+[📚 Kubernetes Docs: Ingress Controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/)
+
+![Ingress controller diagram showing routing of traffic to backend services](./ingress-example.drawio.png)
 
 - The controller is simply an instance of a HTTP reverse proxy running in one or mode _Pods_ with a _Service_ in front of it.
-- It implements the [Kubernetes controller pattern](https://kubernetes.io/docs/concepts/architecture/controller/#controller-pattern)
-  scanning for _Ingress_ resources to be created in the cluster, when it finds one, it reconfigures itself based on the rules and configuration within that _Ingress_, in order to route traffic.
+- It implements the Kubernetes controller pattern, which means it's scanning for _Ingress_ resources to be created in the cluster, when it finds one, it reconfigures itself based on the rules and configuration it find that _Ingress_, in order to route traffic.
 - There are [MANY ingress controllers available](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/#additional-controllers) but we will use a very common and simple one, the [NGINX ingress controller](https://kubernetes.github.io/ingress-nginx/) maintained by the Kubernetes project.
 - Often TLS is terminated by the ingress controller, and sometimes other tasks such as JWT validation for authentication can be done at this level.
   For the sake of this workshop no TLS & HTTPS will be used due to the dependencies it requires (such as DNS, cert management etc).
 
-Helm greatly simplifies setting this up, down to a single command. Run the following:
+Helm greatly simplifies deploying the NGINX ingress controller, down to a single command:
 
 ```bash
 helm install my-ingress ingress-nginx/ingress-nginx \
@@ -68,8 +70,8 @@ helm install my-ingress ingress-nginx/ingress-nginx \
   --set controller.replicaCount=2
 ```
 
-- The release name is `my-ingress` which can be anything you wish, it's often used by chart templates to prefix the names of created resources.
-- The second parameter is a reference to the chart, in the form of `repo-name/chart-name`, if we wanted to use a local chart we'd simply reference the path to the chart directory.
+- The release name is `my-ingress` which can be **anything** you wish, it's used by the chart templates to prefix the names of created resources.
+- The second parameter is a reference to the chart, in the form of `repo-name/chart-name`, if we wanted to use a local chart on disk, we'd simply reference the path to the chart directory.
 - The `--set` part is where we can pass in values to the release, in this case we increase the replicas to two, purely as an example.
 
 Check the status of both the pods and services with `kubectl get svc,pods --namespace ingress`, ensure the pods are running and the service has an external public IP.
@@ -86,23 +88,22 @@ You can also use the `helm` CLI to query the status, here's some simple and comm
 
 ## 🔀 Reconfiguring The App With Ingress
 
-Now we can modify the app we've deployed to route through the new ingress, but a few simple changes
-are required first. As the ingress controller will be routing all requests, the services in front of
+Now we can modify the app we've deployed to route through our new ingress controller, but a few simple changes
+are required first. As the ingress controller will be fronting all requests, the services in front of
 the deployments should be switched back to internal i.e. `ClusterIP`.
 
-- Edit both the data API & frontend **service** YAML manifests, change the service type to `ClusterIP`
-  then reapply with `kubectl apply`
-- Edit the frontend **deployment** YAML manifest, change the `API_ENDPOINT` environmental variable
+- Edit both the data API & frontend _Service_ YAML manifests, change the service type to `ClusterIP`
+- Edit the frontend _Deployment_ YAML manifest, change the `API_ENDPOINT` environmental variable
   to use the same origin URI `/api` no need for a scheme or host.
 
 Apply these three changes with `kubectl` and now the app will be temporarily unavailable. Note, if
 you have changed namespace with `kubens` you should switch back to the **default** namespace before
-running the apply.
+running the apply!
 
-The next thing is to configure the ingress by [creating an _Ingress_ resource](https://kubernetes.io/docs/concepts/services-networking/ingress/).
-This can be a fairly complex resource to set-up, but it boils down to a set of HTTP path mappings
-(routes) and which backend service should serve them.
-Here is the completed manifest file `ingress.yaml`:
+If run `kubectl get svc` you should see both services are now of type `ClusterIP` and have no external IP associated.
+
+The next thing is to configure the ingress by creating an _Ingress_ resource. This can be a fairly complex resource to set-up, but it boils down to a set of HTTP path mappings
+(routes) and which backend _Service_ should serve them. Here is the completed manifest file `ingress.yaml`:
 
 <details markdown="1">
 <summary>Click here for the Ingress YAML</summary>
@@ -112,15 +113,14 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 
 metadata:
-  name: my-app
+  name: nanomon
   labels:
-    name: my-app
+    name: nanomon
 
 spec:
   # Important we leave this blank, as we don't have DNS configured
   # Blank means these rules will match ALL HTTP requests hitting the controller IP
   host:
-  # This is important and required since Kubernetes 1.22
   ingressClassName: nginx
   rules:
     - http:
@@ -139,7 +139,7 @@ spec:
             path: "/api"
             backend:
               service:
-                name: data-api
+                name: api
                 port:
                   number: 80
 ```
@@ -164,12 +164,14 @@ should take you to the API, which should now be served from the same IP as the f
 
 ## 🖼️ Cluster & Architecture Diagram
 
-We've reached the final state of the application deployment. The resources deployed into the cluster
+We've reached the final state of the application deployment, yes I promise this time! The resources deployed into the cluster
 & in Azure at this stage can be visualized as follows:
 
-![architecture diagram](./diagram.png)
+![architecture diagram](./diagram.drawio.png)
 
-This is a slightly simplified version from previously, and the _Deployment_ objects are not shown.
+Note the addition of the ingress controller _Deployment_ and _Service_ in the `ingress` namespace, and the _Ingress_ resource alongside the other resources in the `default` namespace.
+
+This is a slightly simplified version from previously in order to fit everything in, so things like the _Deployment_ resources have been omitted.
 
 ## Navigation
 

@@ -2,9 +2,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 
 metadata:
-  name: my-app
+  name: nanomon
   labels:
-    name: my-app
+    name: nanomon
 
 spec:
   host:
@@ -15,7 +15,7 @@ spec:
           - pathType: Prefix
             path: "/"
             backend:
-              service:
+              service: 
                 name: frontend
                 port:
                   number: 80
@@ -24,6 +24,6 @@ spec:
             path: "/api"
             backend:
               service:
-                name: data-api
+                name: api
                 port:
                   number: 80

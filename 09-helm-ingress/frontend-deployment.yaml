@@ -2,23 +2,26 @@ kind: Deployment
 apiVersion: apps/v1
 
 metadata:
-  name: frontend
+  name: nanomon-frontend
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app: nanomon-frontend
   template:
     metadata:
       labels:
-        app: frontend
+        app: nanomon-frontend
     spec:
       containers:
         - name: frontend-container
 
-          image: {ACR_NAME}.azurecr.io/smilr/frontend:stable
+          image: {ACR_NAME}.azurecr.io/nanomon/frontend:latest
           imagePullPolicy: Always
+
+          ports:
+            - containerPort: 8001
 
           resources:
             requests:
@@ -26,18 +29,15 @@ spec:
               memory: 50Mi
             limits:
               cpu: 100m
-              memory: 100Mi
+              memory: 128Mi
 
           readinessProbe:
             httpGet:
+              port: 8001
               path: /
-              port: 3000
-            initialDelaySeconds: 0
-            periodSeconds: 5
-
-          ports:
-            - containerPort: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
 
           env:
             - name: API_ENDPOINT
-              value: /api
+              value: "/api"
