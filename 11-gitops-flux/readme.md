@@ -243,8 +243,7 @@ cluster resource.
 USe git to clone the kube-workshop repo you forked earlier, and open the directory in VS Code or other editor.
 
 If you recall from the bootstrap command earlier we gave Flux a path within the repo to use and look
-for configurations, which was `gitops/apps` directory. The contents of the whole of the `gitops`
-directory is shown here.
+for configurations, which was `gitops/apps` directory. The contents of the whole of the `gitops/` directory is shown here.
 
 ```text
 ├── apps
@@ -273,8 +272,7 @@ directory is shown here.
         └── overrides.yaml
 ```
 
-The base directory provides us a library of Kustomization-based resources we can use, but as it's
-outside of the `gitops/apps` path they will not be picked up by Flux, until we create a Kustomization under `gitops/apps` that references them.
+The key thing about this structure is the `gitops/base` directory provides us a set of Kustomization-based resources we can use, but as it's outside of the `gitops/apps` path they will not auotmatically be picked up by Flux, until we create a Kustomization under `gitops/apps` that references them.
 
 ⚠️ **STOP!** Before we proceed, ensure the `database-creds` _Secret_ from the previous sections is still
 in the default namespace. If you have deleted it, [hop back to section 7](../07-improvements/readme.md#-secrets)
