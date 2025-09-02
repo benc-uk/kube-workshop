@@ -1,4 +1,13 @@
-# 🧬 GitOps & Flux
+---
+tags: extra
+index: 11
+title: GitOps & Flux
+summary: Introduction to Kustomize and deploying apps through GitOps with Flux.
+layout: default.njk
+icon: 🧬
+---
+
+# {{ icon }} GitOps & Flux
 
 This is an advanced optional section going into two topics; Kustomize and also GitOps, using FluxCD.
 
@@ -306,7 +315,3 @@ If you encounter problems or want to force the reconciliation you can use the `f
 If we wanted to deploy this app across multiple environments or multiple times, we could create sub-directories under
 `apps/`, each containing different Kustomizations and modifying the deployment to suit that environment. There's
 countless ways to structure this, and it very much depends on your requirements.
-
-## Navigation
-
-[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../10-extra-advanced/) ‖ [Next Section ⏩](../12-cicd-actions/)

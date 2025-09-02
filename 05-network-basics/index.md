@@ -1,4 +1,13 @@
-# 🌐 Basic Networking
+---
+tags: section
+index: 5
+title: Basic Networking
+summary: Introducing Services to provide network access
+layout: default.njk
+icon: 🌐
+---
+
+# {{ icon }} Basic Networking
 
 Pods are both ephemeral and "mortal", they should be considered effectively transient. Kubernetes can terminate and
 reschedule pods for a whole range of reasons, including rolling updates, hitting resource limits, scaling up & down and
@@ -27,7 +36,7 @@ the Kubernetes docs:
 
 Save your YAML into a file `postgres-service.yaml` or use the below YAML manifest for the service:
 
-<details markdown="1">
+<details>
 <summary>Click here for the PostgreSQL service YAML</summary>
 
 ```yaml
@@ -145,8 +154,7 @@ into your pods like this! Later we can improve this yet further, but for now it 
 
 The resources deployed into the cluster & in Azure at this stage can be visualized as follows:
 
-![architecture diagram](./diagram.drawio.png)
+![architecture diagram](./diagram.drawio.png){class=diagram}
 
-## Navigation
-
-[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../04-deployment/) ‖ [Next Section ⏩](../06-frontend/)
+As you can see the API _Service_ is exposed externally, and routes traffic to the two API _Pods_. The API _Pods_ in turn
+access the PostgreSQL _Service_ which exposes traffic to the single PostgreSQL _Pod_ using a stable DNS name.

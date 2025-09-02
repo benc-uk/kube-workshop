@@ -2,6 +2,7 @@
 tags: section
 index: 6
 title: Adding The Frontend
+summary: Deploying the frontend to the app and wiring it up
 layout: default.njk
 icon: 💻
 ---

@@ -1,4 +1,13 @@
-# 🌎 Helm & Ingress
+---
+tags: section
+index: 9
+title: Helm & Ingress
+summary: Finalizing the application architecture using ingress
+layout: default.njk
+icon: 🌎
+---
+
+# {{ icon }} Helm & Ingress
 
 For this section we'll touch on two slightly more advanced topics, the key ones being the use of Helm and introducing an
 ingress controller to our cluster. The ingress will let us further refine & improve the networking aspects of the app
@@ -186,17 +195,15 @@ the API, which should now be served from the same IP as the frontend.
 ## 🖼️ Cluster & Architecture Diagram
 
 We've reached the final state of the application deployment, yes I promise this time! The resources deployed into the
-cluster & in Azure at this stage can be visualized as follows:
+cluster & in Azure at this stage can be visualized as follows. This is a slightly simplified version from previously in
+order to fit everything in, so things like the _Deployment_ resources have been omitted
 
-![architecture diagram](./diagram.drawio.png)
+![architecture diagram](./diagram.drawio.png){class=diagram}
 
 Note the addition of the ingress controller _Deployment_ and _Service_ in the `ingress` namespace, and the _Ingress_
 resource alongside the other resources in the `default` namespace.
 
-This is a slightly simplified version from previously in order to fit everything in, so things like the _Deployment_
-resources have been omitted.
+## 🎉 Completion!
 
-## Navigation
-
-[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../08-more-improvements/) ‖
-[Next Section ⏩](../10-extra-advanced/)
+Congratulations, you've reached the end of the workshop! You should now have a pretty good understanding of the core
+concepts of Kubernetes, and have deployed a simple but complete application into a real cluster.

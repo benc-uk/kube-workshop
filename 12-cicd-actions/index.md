@@ -1,4 +1,13 @@
-# 👷 DevOps & CI/CD with Kubernetes
+---
+tags: extra
+index: 12
+title: DevOps & CI/CD with Kubernetes
+summary: How to manage CI/CD pipelines using Github Actions.
+layout: default.njk
+icon: 🏗️
+---
+
+# {{ icon }} DevOps & CI/CD with Kubernetes
 
 This is an optional section detailing how to set up a continuous integration (CI) and continuous deployment (CD)
 pipeline, which will deploy to Kubernetes using Helm.
@@ -280,7 +289,3 @@ the version to match the version we just deployed.
 OK that's it for this optional section, if you're not a fan of DevOps, then you probably hated that, but otherwise
 hopefully you found it useful! We're done with the workshop now, so feel free to go back to the main index and explore
 any of the other sections you may have missed.
-
-## Navigation
-
-[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../11-gitops-flux/)

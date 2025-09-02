@@ -2,13 +2,14 @@
 tags: section
 index: 0
 title: Workshop Pre Requisites
+summary: Covering the pre set up and tools that will be needed
 layout: default.njk
 icon: ⚒️
 ---
 
 # {{ icon }} Workshop Pre Requisites
 
-As this is an entirely hands on workshop, as such you will need several things before you can start:
+As this is an entirely hands on workshop, you will need several things before you can start:
 
 - Access to an Azure Subscription where you can create resources.
 - bash or a bash compatible shell (e.g. zsh), please do not attempt to use PowerShell or cmd.

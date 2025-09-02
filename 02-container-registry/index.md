@@ -2,6 +2,7 @@
 tags: section
 index: 2
 title: Container Registry & Images
+summary: Deploying the registry and importing images
 layout: default.njk
 icon: 📦
 ---

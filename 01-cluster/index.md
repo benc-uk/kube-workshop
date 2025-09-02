@@ -2,6 +2,7 @@
 tags: section
 index: 1
 title: Deploying Kubernetes
+summary: Deploying AKS, setting up kubectl and accessing the cluster
 layout: default.njk
 icon: 🚀
 ---
@@ -29,8 +30,8 @@ az aks create --resource-group $RES_GROUP \
   --no-ssh-key
 ```
 
-In case you get an error when creating cluster, `Version x.xx.x is not supported in this region.`, run the following to
-get the supported kubernetes versions
+In case you get an error when creating cluster, `Version x.xx.x is not supported in this region`, run the following to
+get the supported Kubernetes versions
 
 ```sh
 az aks get-versions --location $REGION -o table
@@ -40,7 +41,8 @@ And re-run the create cluster command with a supported version number.
 
 This should take around 5 minutes to complete, and creates a new AKS cluster with the following characteristics:
 
-- Two small B-Series _Nodes_ in a single node pool. _Nodes_ are what your workloads will be running on.
+- Two small B-Series _Nodes_ in a single node pool. _Nodes_ are what your workloads will be running on. This is about as
+  small and cheap as you can go and still have cluster that is useful for learning and experimentation.
 - Basic 'Kubenet' networking, which creates an Azure network and subnet etc for us.
   [See docs if you wish to learn more about this topic](https://docs.microsoft.com/azure/aks/operator-best-practices-network)
 - Local cluster admin account, with RBAC enabled, this means we don't need to worry about setting up users or assigning

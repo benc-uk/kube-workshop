@@ -1,4 +1,13 @@
-# 🚀 Deploying The Backend
+---
+tags: section
+index: 4
+title: Deploying The Backend
+summary: Laying down the first two components and introduction to Deployments and Pods
+layout: default.njk
+icon: 🚀
+---
+
+# {{ icon }} Deploying The Backend
 
 We'll deploy the app piece by piece, and at first we'll deploy & configure things in a sub-optimal way. This is in order
 to explore the Kubernetes concepts and show their purpose. Then we'll iterate and improve towards the final
@@ -215,11 +224,6 @@ When done, cancel & close the port-forwarding with `ctrl-c`
 
 The resources deployed into the cluster & in Azure at this stage can be visualized as follows
 
-![architecture diagram](./diagram.drawio.png)
+![architecture diagram](./diagram.drawio.png){class=diagram}
 
 Yes, it's looking a little empty at this stage, don't worry it'll become a lot more complex soon!
-
-## Navigation
-
-[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../03-the-application/) ‖
-[Next Section ⏩](../05-network-basics/)

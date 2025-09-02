@@ -1,12 +1,13 @@
 ---
 tags: section
 index: 7
-title: The Path to Production Readiness
+title: Path to Production Readiness
+summary: Recommended practices; resource limits, probes and secrets
 layout: default.njk
 icon: ✨
 ---
 
-# {{ icon }} The Path to Production Readiness
+# {{ icon }} Path to Production Readiness
 
 We've cut several corners so far in order to simplify things and introduce concepts one at a time, now it is time to
 make some improvements. What constitutes best practice is a moving target, and often subjective, but there are some
@@ -155,7 +156,3 @@ If you get stuck and are looking for working manifests you can refer to, they ar
 - [postgres-deployment.yaml](postgres-deployment.yaml)
   - Bonus: This manifest shows how to add a probe using an executed command, rather than a HTTP request, use it if you
     wish, but it's optional.
-
-## Navigation
-
-[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../06-frontend/) ‖ [Next Section ⏩](../08-more-improvements/)

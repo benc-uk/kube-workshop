@@ -1,4 +1,13 @@
-# 🏆 Continued Path to Production Readiness
+---
+tags: section
+index: 8
+title: Production Readiness Continued
+summary: More recommended practices; ConfigMaps & Volumes
+layout: default.njk
+icon: 🏆
+---
+
+# {{ icon }} Production Readiness Continued
 
 We're not done improving things yet! This section is a continuation of the previous one, where we will further enhance
 our deployment by adding a few more important features. Using _ConfigMaps_ and volumes, we'll continue stepping towards
@@ -138,7 +147,7 @@ frontend to create some monitors, and see their status update and change as they
 Here's an updated architecture diagram showing the components we've built so far, some of the details from previous
 sections have been omitted for clarity.
 
-![architecture diagram](./diagram.drawio.png)
+![architecture diagram](./diagram.drawio.png){class=diagram}
 
 ## 🔍 Reference Manifests
 
@@ -146,7 +155,3 @@ If you get stuck and are looking for working manifests you can refer to, they ar
 
 - [runner-deployment.yaml](runner-deployment.yaml)
 - [postgres-deployment.yaml](postgres-deployment.yaml)
-
-## Navigation
-
-[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../07-improvements/) ‖ [Next Section ⏩](../09-helm-ingress/)

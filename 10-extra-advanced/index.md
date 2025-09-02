@@ -1,3 +1,12 @@
+---
+tags: extra
+index: 10
+title: Scaling & Stateful Workloads
+summary: Scaling (manual & auto), stateful workloads, persitent volumes, plus more Helm.
+layout: default.njk
+icon: 🤯
+---
+
 # 🤯 Scaling, Stateful Workloads & Helm
 
 This final section touches on some slightly more advanced and optional concepts we've skipped over. They aren't required
@@ -262,7 +271,3 @@ helm install demo nanomon/nanomon --values values.yaml
 
 Validate the deployment as before with `helm` and `kubectl` and check you can access the app in the browser using the
 same ingress IP address as before.
-
-## Navigation
-
-[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../09-helm-ingress/) ‖ [Next Section ⏩](../11-gitops-flux/)

@@ -2,6 +2,7 @@
 tags: section
 index: 3
 title: Overview Of The Application
+summary: Details of the application to be deployed
 layout: default.njk
 icon: ❇️
 ---

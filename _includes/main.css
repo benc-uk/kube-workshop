@@ -24,8 +24,13 @@ main {
 code {
   background-color: #111;
   font-family: "Google Sans Code", monospace;
-  padding: 2px 4px;
   border-radius: 4px;
+  padding: 4px 8px;
+  color: rgb(188, 215, 230);
+}
+
+pre code {
+  padding: 0px;
 }
 
 li {
@@ -60,6 +65,13 @@ summary {
   cursor: pointer;
   color: #1ac971;
   font-weight: bold;
+}
+
+details > summary {
+  list-style-type: "▶️";
+}
+details[open] > summary {
+  list-style-type: "🔽";
 }
 
 header {

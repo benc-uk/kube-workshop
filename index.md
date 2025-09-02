@@ -30,29 +30,32 @@ You'll be using AKS to learn how to work with Kubernetes running as a managed se
 
 > This section assumes a relative degree of comfort in using Azure for sections 2 and 3.
 
-Summary of the sections:
+Workshop sections & topics:
 
-- [⚒️ Workshop Pre Requisites](00-pre-reqs/) - Covering the pre set up and tools that will be needed.
-- [🚦 Deploying Kubernetes](01-cluster/) - Deploying AKS, setting up kubectl and accessing the cluster.
-- [📦 Container Registry & Images](02-container-registry/) - Deploying the registry and importing images.
-- [❇️ Overview Of The Application](03-the-application/) - Details of the application to be deployed.
-- [🚀 Deploying The Backend](04-deployment/) - Laying down the first two components and introduction to Deployments and
-  Pods.
-- [🌐 Basic Networking](05-network-basics/) - Introducing Services to provide network access.
-- [💻 Adding The Frontend](06-frontend/) - Deploying the frontend to the app and wiring it up.
-- [✨ The Path to Production Readiness](07-improvements/) - Recommended practices; resource limits, probes and secrets.
-- [🏆 Continued Path to Production Readiness](08-more-improvements/) - More recommended practices; ConfigMaps & Volumes.
-- [🌎 Helm & Ingress](09-helm-ingress/) - Finalizing the application architecture using ingress.
+<ul>
+  {%- for section in collections.section -%}
+  <li>
+    <a href="{{ section.page.url }}"
+      >{{ section.data.index | zeroPad }}: {{ section.data.icon }} {{ section.data.title }}</a
+    > - {{ section.data.summary }}
+  </li>
+  {%- endfor -%}
+</ul>
 
 ### 🍵 Optional Sections
 
 These can be considered bonus sections, and are entirely optional. It is not expected that all these sections would be
 attempted, and they do not run in order.
 
-- [🤯 Scaling, Stateful Workloads & Helm](10-extra-advanced/) - Scaling (manual & auto), stateful workloads and
-  persitent volumes, plus more Helm.
-- [🧩 Kustomize & GitOps](11-gitops-flux/) - Introduction to Kustomize and deploying apps through GitOps with Flux.
-- [👷 CI/CD with Kubernetes](12-cicd-actions/) - How to manage CI/CD pipelines using Github Actions.
+<ul>
+  {%- for section in collections.section-extra -%}
+  <li>
+    <a href="{{ section.page.url }}"
+      >{{ section.data.index | zeroPad }}: {{ section.data.icon }} {{ section.data.title }}</a
+    > - {{ section.data.summary }}
+  </li>
+  {%- endfor -%}
+</ul>
 
 ### 🗝️ Archive: K3S Path
 
