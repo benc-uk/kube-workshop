@@ -1,11 +1,11 @@
 # Kubernetes Developer Workshop
 
-Welcome to a technical workshop & hack intended to get you comfortable working with Kubernetes, and
+Welcome to the 'Kubernetes Developer Workshop', a highly technical & hands on set of exercises intended to get you comfortable working with Kubernetes, and
 deploying applications within it. This workshop is very much aimed at software engineers & developers with little or zero Kubernetes
-experience, but wish to get hands on and learn how to deploy and manage their code in a Kubernetes.
+experience, but wanting to get hands on and learn how to deploy and manage their code in a Kubernetes.
 
 It should take roughly 6~8 hours to complete the main set of
-sections, but this is very approximate. This [Kubernetes Technical Primer](https://github.com/benc-uk/kube-primer) can act as a companion to the workshop and be read through, referenced or used to get an initial grounding on the concepts.
+sections, but this is very approximate. This [Kubernetes Technical Primer](https://github.com/benc-uk/kube-primer) can act as a companion to the workshop to be read through, referenced or used to get an initial grounding on the concepts.
 
 The installation, administration, network configuration & day-2 operations of Kubernetes itself, are not covered in this workshop. This is very much a developer focused workshop, so if you want to learn about the low level & operational side of Kubernetes you might want to look elsewhere.
 
@@ -37,7 +37,7 @@ Summary of the sections:
   up.
 - [✨ The Path to Production Readiness](07-improvements/readme.md) - Recommended practices; resource limits,
   probes and secrets.
-- [🏆 The Continued Path to Production Readiness](08-more-improvements/readme.md) - More recommended practices; ConfigMaps & Volumes.
+- [🏆 Continued Path to Production Readiness](08-more-improvements/readme.md) - More recommended practices; ConfigMaps & Volumes.
 - [🌎 Helm & Ingress](09-helm-ingress/readme.md) - Finalizing the application architecture using ingress.
 
 ### 🍵 Optional Sections

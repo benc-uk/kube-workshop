@@ -34,12 +34,13 @@ changing the resource requests (for example increasing the memory to 600Mi) have
 
 ## 🚦 Autoscaling
 
-Horizontal auto scaling is performed with the _Horizontal Pod Autoscaler_ which you can [read about here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/).
+Horizontal auto scaling is performed with the _Horizontal Pod Autoscaler_ which you can can read about in the docs, link below.
 In essence it watches metrics emitted from the pods and other resources, and based on thresholds you
 set, it will modify the number of replicas dynamically.
 
-To set up an _Horizontal Pod Autoscaler_ you can give it a deployment and some simple targets, as
-follows:
+[📚 Kubernetes Docs: Horizontal Pod Autoscaling](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)
+
+To set up an _Horizontal Pod Autoscaler_ you can give it a deployment and some simple targets, as follows:
 
 ```bash
 kubectl autoscale deployment nanomon-api --cpu="50%" --min=2 --max=10

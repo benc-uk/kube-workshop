@@ -12,7 +12,9 @@ From here we will be creating and editing files, so it's worth creating a projec
 We'll apply configurations to Kubernetes using `kubectl` and YAML manifest files, and we'll be doing this a lot throughout the workshop.
 These files will describe the objects we want to create, modify and delete in the cluster.
 
-If you want to take this workshop slowly and treat it as more of a hack, you can research and build the required YAML yourself, you can use [the Kubernetes docs](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and the following hints:
+If you want to take this workshop slowly and treat it as more of a hack, you can research and build the required YAML yourself, you can use Kubernetes docs (link below) and the following hints:
+
+[📚 Kubernetes Docs: Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 
 - _Deployment_ should be used with a single replica.
 - The image to be run is `{ACR_NAME}.azurecr.io/nanomon-postgres:latest`. Where `{ACR_NAME}` should be replaced with the name of your ACR resource.

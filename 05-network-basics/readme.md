@@ -9,7 +9,9 @@ We can use them to greatly improve what we've deployed.
 
 ## 🧩 Deploy PostgreSQL Service
 
-Now to put a _Service_ in front of the PostgreSQL pod, if you want to create the service YAML yourself, you can [refer to the Kubernetes docs](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service).
+Now to put a _Service_ in front of the PostgreSQL pod, if you want to create the service YAML yourself, you can refer to the Kubernetes docs:
+
+[📚 Kubernetes Docs: Services](https://kubernetes.io/docs/concepts/services-networking/service)
 
 - The type of _Service_ should be `ClusterIP` which means it's internal to the cluster only
 - The service port should be **5432**.
@@ -17,8 +19,7 @@ Now to put a _Service_ in front of the PostgreSQL pod, if you want to create the
 - Selector decides what pods are behind the service, in this case use the label `app` and the value `postgres`. It is crucial that this matches the label on the pods,otherwise the
   service will not be able to route traffic to them.
 
-> 📝 NOTE: Labels are optional metadata that can be added to any object in Kubernetes, they are simply key-value pairs. Labels can be used to organize and to select subsets of objects.
-> The label "app" is commonly used, but has **no special meaning**, and isn't used by Kubernetes in any way
+> 📝 NOTE: Labels are optional metadata that can be added to any object in Kubernetes, they are simply key-value pairs. Labels can be used to organize and to select subsets of objects. The label "app" is commonly used, but has **no special meaning**, and isn't used by Kubernetes in any way
 
 Save your YAML into a file `postgres-service.yaml` or use the below YAML manifest for the service:
 
@@ -71,8 +72,10 @@ Now we have a Service in our cluster for PostgreSQL we can access the database u
 DNS with Kubernetes is a complex topic we won't get into here, the main takeaway for now is:
 
 - Every _Service_ in the cluster can be resolved over DNS.
-- Within a _Namespace_, the _Service_ name will resolve as a simple hostname, without the need for a
-  DNS suffix [but other scenarios also are supported](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/).
+- Within a _Namespace_, the _Service_ name will resolve as a simple hostname, without the need for a DNS suffix. However, if you want to be more explicit you can use the full DNS name which is:
+  `{service-name}.{namespace}.svc.cluster.local`
+
+[📚 Kubernetes Docs: DNS for Services and Pods](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
 
 Edit the the `api-deployment.yaml` file you created previously and change the value of the
 `POSTGRES_DSN` environmental variable. Replace the IP address with name of the service, e.g. the
