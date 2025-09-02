@@ -22,7 +22,7 @@ Now to put a _Service_ in front of the MongoDB pods, if you want to create the s
 
 Save your YAML into a file `mongo-service.yaml` or use the below YAML manifest for the service:
 
-<details markdown="1">
+<details>
 <summary>Click here for the MongoDB service YAML</summary>
 
 ```yaml
@@ -104,7 +104,7 @@ Save your YAML into a file `data-api-service.yaml` from above or below.
 
 <https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0>
 
-<details markdown="1">
+<details>
 <summary>Click here for the data API service YAML</summary>
 
 ```yaml

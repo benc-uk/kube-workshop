@@ -28,8 +28,6 @@ code, and working files for all of the sections.
 
 You'll be using AKS to learn how to work with Kubernetes running as a managed service in Azure.
 
-> This section assumes a relative degree of comfort in using Azure for sections 2 and 3.
-
 Workshop sections & topics:
 
 <ul>
@@ -42,13 +40,15 @@ Workshop sections & topics:
   {%- endfor -%}
 </ul>
 
+> Some familarity with Azure is required for sections 1 and 2, but after that the focus is on Kubernetes itself.
+
 ### 🍵 Optional Sections
 
 These can be considered bonus sections, and are entirely optional. It is not expected that all these sections would be
 attempted, and they do not run in order.
 
 <ul>
-  {%- for section in collections.section-extra -%}
+  {%- for section in collections.extra -%}
   <li>
     <a href="{{ section.page.url }}"
       >{{ section.data.index | zeroPad }}: {{ section.data.icon }} {{ section.data.title }}</a
@@ -57,17 +57,11 @@ attempted, and they do not run in order.
   {%- endfor -%}
 </ul>
 
-### 🗝️ Archive: K3S Path
-
-If you wish to learn how to set up and run Kubernetes on a single VM, simulating an on-premises environment, then you
-can follow the K3S version of this workshop. This is no longer actively maintained and will be out of date, but is kept
-for reference purposes. Refer to the [archived K3S section](archive/k3s/) for more details.
-
 ### 📖 Extra Reading & Teach Yourself Exercises
 
 A very brief list of potential topics and Kubernetes features you may want to look at after finishing:
 
-### Kubernetes Features
+#### Kubernetes Features
 
 - [Init containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
 - [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/)
@@ -76,7 +70,7 @@ A very brief list of potential topics and Kubernetes features you may want to lo
   [taints](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
 - [Cluster Autoscaler in AKS](https://docs.microsoft.com/azure/aks/cluster-autoscaler)
 
-### Other Projects
+#### Other Projects
 
 - Enable the [Kubernetes dashboard](https://github.com/kubernetes/dashboard)
 - Enabling TLS with certificates from Let's Encrypt using [Cert Manager](https://cert-manager.io/docs/)
@@ -89,3 +83,9 @@ A very brief list of potential topics and Kubernetes features you may want to lo
   [Istio](https://learn.microsoft.com/en-us/azure/aks/istio-about)
 - Setting up the
   [Application Gateway for Containers](https://learn.microsoft.com/en-gb/azure/application-gateway/for-containers/overview)
+
+### 🗝️ Archived: K3S Path
+
+If you wish to learn how to set up and run Kubernetes on a single VM, simulating an on-premises environment, then you
+can follow the K3S version of this workshop. This is no longer actively maintained and will be out of date, but is kept
+for reference purposes. Refer to the [archived K3S section](archive/k3s/) for more details.

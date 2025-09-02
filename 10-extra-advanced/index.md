@@ -54,7 +54,7 @@ To set up an _Horizontal Pod Autoscaler_ you can give it a deployment and some s
 kubectl autoscale deployment nanomon-api --cpu="50%" --min=2 --max=10
 ```
 
-<details markdown="1">
+<details>
 <summary>This command is equivalent to deploying this HorizontalPodAutoscaler resource</summary>
 
 ```yaml
@@ -128,16 +128,16 @@ To resolve the data persistence issues, we need do three things:
   _StatefulSet_. Use the "default" _StorageClass_ and request a 500M volume which is dedicated with the "ReadWriteOnce"
   access mode.
 
-The relationships between these in AKS and Azure, can be explained with a diagram:
+The relationships between these entities in AKS/Kubernetes and Azure, can be explained with a diagram:
 
-![persistent volume claims](https://docs.microsoft.com/azure/aks/media/concepts-storage/persistent-volume-claims.png)
+![persistent volume claims](https://docs.microsoft.com/azure/aks/media/concepts-storage/persistent-volume-claims.png){class=diagram}
 
 _PersistentVolumes_, _PersistentVolumeClaims_, _StorageClasses_, etc. are a deep and complex topics in Kubernetes, if
 you want begin reading about them there are masses of information in
 [the docs](https://kubernetes.io/docs/concepts/storage/persistent-volumes/). However it is suggested for now simply take
 the YAML below:
 
-<details markdown="1">
+<details>
 <summary>Completed PostgreSQL <i>StatefulSet</i> YAML manifest</summary>
 
 ```yaml

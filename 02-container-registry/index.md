@@ -12,7 +12,9 @@ icon: 📦
 We will deploy & use a private registry to hold the application container images. This is not strictly necessary as we
 could pull the images directly from the public, however using a private registry is a more realistic approach.
 
-[Azure Container Registry](https://docs.microsoft.com/azure/container-registry/) is what we will be using.
+The fully managed
+[Azure Container Registry](https://learn.microsoft.com/en-gb/azure/container-registry/container-registry-intro){target=acr}
+is what we will be using for this workshop.
 
 ## 🚀 ACR Deployment
 

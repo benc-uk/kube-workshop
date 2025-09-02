@@ -18,7 +18,7 @@ hosted any container based system e.g. Kubernetes or various cloud services, or 
 > good example application to deploy, given it has multiple components, and is fairly indicative of many of the
 > applications & systems you might find yourself running in Kubernetes.
 
-Project link: [Nanomon - GitHub Repo & Project](https://github.com/benc-uk/nanomon)
+Project link: [Nanomon - GitHub Repo & Project](https://github.com/benc-uk/nanomon){target=blank}
 
 The application consists of several lightweight containerized microservices and single page application, it is written
 in Go and React/TypeScript.
@@ -37,9 +37,9 @@ For this workshop the system will be deployed with the following criteria:
 
 - Both the API and frontend need to be **exposed to the public internet**. Both use HTTP as a protocol.
 - The PostgreSQL database runs inside the cluster, **but not exposed externally**
-  - A great argument rages on whether it is a good practice to run stateful workloads like a database in Kubernetes. For
-    the purposes of this workshop we shall, in the interests of both speed and to demonstrate some key concepts. For
-    your production workloads I advise you do some
-    [reading and research](https://www.google.com/search?q=should+i+run+a+database+in+kubernetes) first
+  - Many arguments rage on whether it is good practice to run stateful workloads like a database in Kubernetes. For the
+    purposes of this workshop we shall, in the interests of both speed and to demonstrate some key concepts. For your
+    production workloads I advise you do some
+    [reading and research](https://www.google.com/search?q=should+i+run+a+database+in+kubernetes){target=blank} first
 - The runner similarly will be configured with no incoming connectivity.
 - Authentication and API security will disabled and the app will run in "no-auth mode"

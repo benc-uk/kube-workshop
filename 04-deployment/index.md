@@ -50,7 +50,7 @@ yourself, you can use Kubernetes docs (link below) and the following hints:
 Alternatively you can use the YAML below to paste into `postgres-deployment.yaml`, don't worry this isn't cheating, in
 the real world everyone is too busy to write Kubernetes manifests from scratch 😉
 
-<details markdown="1">
+<details>
 <summary>Click here for the PostgreSQL deployment YAML</summary>
 
 ```yaml
@@ -133,7 +133,7 @@ hosted in our private registry.
 
 Again you can try building the _Deployment_ yourself or use the provided YAML to create a `api-deployment.yaml` file
 
-<details markdown="1">
+<details>
 <summary>Click here for the API deployment YAML</summary>
 
 ```yaml

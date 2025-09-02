@@ -21,7 +21,7 @@ called `base`.
 
 Place the the following two files into it:
 
-<details markdown="1">
+<details>
 <summary>Contents of base/deployment.yaml</summary>
 
 ```yaml
@@ -51,7 +51,7 @@ spec:
 
 </details>
 
-<details markdown="1">
+<details>
 <summary>Contents of base/kustomization.yaml</summary>
 
 ```yaml
@@ -75,7 +75,7 @@ all we get is a 1:1 version of the `deployment.yaml` file. This isn't very usefu
 To better understand what Kustomize can do, create a second directory at the same level as `base`
 called `overlay`.
 
-<details markdown="1">
+<details>
 <summary>Contents of overlay/override.yaml</summary>
 
 ```yaml
@@ -99,7 +99,7 @@ spec:
 
 </details>
 
-<details markdown="1">
+<details>
 <summary>Contents of overlay/kustomization.yaml</summary>
 
 ```yaml

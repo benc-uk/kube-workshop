@@ -48,7 +48,7 @@ follows:
 kubectl autoscale deployment data-api --cpu-percent=50 --min=2 --max=10
 ```
 
-<details markdown="1">
+<details>
 <summary>This command is equivalent to deploying this HorizontalPodAutoscaler resource</summary>
 
 ```yaml
@@ -133,7 +133,7 @@ The relationships between these can be explained with this diagram:
 _PersistentVolumes_, _PersistentVolumeClaims_, _StorageClasses_, etc. are a deep and complex topics in Kubernetes. If you want begin reading about them there are masses of information in [the docs](https://kubernetes.io/docs/concepts/storage/persistent-volumes/).
 However it is suggested for now simply take the YAML below and save it as `mongo-statefulset.yaml`:
 
-<details markdown="1">
+<details>
 <summary>Completed MongoDB <i>StatefulSet</i> YAML manifest</summary>
 
 ```yaml

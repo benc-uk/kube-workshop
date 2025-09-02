@@ -67,7 +67,7 @@ spec:
 
 `frontend-service.yaml`:
 
-<details markdown="1">
+<details>
 <summary>Click here for the frontend service YAML</summary>
 
 ```yaml

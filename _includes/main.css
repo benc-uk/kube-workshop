@@ -75,12 +75,15 @@ details[open] > summary {
 }
 
 header {
-  padding: 10px 100px;
-  background: linear-gradient(90deg, #0ea2e6 0%, #1ac971 100%);
+  padding: 10px 0px;
+  background: linear-gradient(90deg, #0894d4 0%, #1ac971 100%);
   color: white;
   margin: 0px;
   text-align: center;
-  font-size: 45px;
+  font-size: 35px;
+  position: sticky;
+  top: 0;
+  box-shadow: 0px 12px 15px rgba(0, 0, 0, 0.6);
 }
 
 .collapsed {
@@ -96,9 +99,10 @@ header {
   background-color: transparent;
   border: none;
   color: rgba(255, 255, 255, 0.8);
-  font-size: 55px;
+  font-size: 50px;
   cursor: pointer;
 }
+
 .sidebar-toggle:hover {
   color: #fff;
 }

@@ -115,7 +115,7 @@ that the container is listening on. In this case we'll re-map the port to **80**
 
 Save your YAML into a file `api-service.yaml` from above or below.
 
-<details markdown="1">
+<details>
 <summary>Click here for the data API service YAML</summary>
 
 ```yaml

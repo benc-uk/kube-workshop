@@ -23,7 +23,7 @@ The YAML you can use for both, is provided below:
 
 `frontend-deployment.yaml`:
 
-<details markdown="1">
+<details>
 <summary>Click here for the frontend deployment YAML</summary>
 
 ```yaml
@@ -61,7 +61,7 @@ spec:
 
 `frontend-service.yaml`:
 
-<details markdown="1">
+<details>
 <summary>Click here for the frontend service YAML</summary>
 
 ```yaml

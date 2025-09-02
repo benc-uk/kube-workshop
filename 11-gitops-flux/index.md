@@ -29,7 +29,7 @@ To demonstrate Kustomize in practice, we can carry out a simple exercise, create
 
 Place the the following two files into it:
 
-<details markdown="1">
+<details>
 <summary>Contents of base/deployment.yaml</summary>
 
 ```yaml
@@ -59,7 +59,7 @@ spec:
 
 </details>
 
-<details markdown="1">
+<details>
 <summary>Contents of base/kustomization.yaml</summary>
 
 ```yaml
@@ -82,7 +82,7 @@ You will see the YAML printed to stdout, as we've not provided any changes in th
 
 To better understand what Kustomize can do, create a second directory at the same level as `base` called `overlay`.
 
-<details markdown="1">
+<details>
 <summary>Contents of overlay/override.yaml</summary>
 
 ```yaml
@@ -106,7 +106,7 @@ spec:
 
 </details>
 
-<details markdown="1">
+<details>
 <summary>Contents of overlay/kustomization.yaml</summary>
 
 ```yaml
@@ -176,7 +176,7 @@ GitOps is a methodology where you declaratively describe the entire desired stat
 includes the apps, config, dashboards, monitoring and everything else. This means you can use git branches and PR
 processes to enforce control of releases and provide traceability and transparency.
 
-![gitops](./gitops.png)
+![gitops](./gitops.png){class=diagram}
 
 Kubernetes doesn't support this concept out of the box, it requires special controllers to be deployed and manage this
 process. These controllers run inside the cluster, monitor git repositories for changes and then make the required

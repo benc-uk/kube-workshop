@@ -126,7 +126,7 @@ The next thing is to configure the ingress by creating an _Ingress_ resource. Th
 set-up, but it boils down to a set of HTTP path mappings (routes) and which backend _Service_ should serve them. Here is
 the completed manifest file `ingress.yaml`:
 
-<details markdown="1">
+<details>
 <summary>Click here for the Ingress YAML</summary>
 
 ```yaml

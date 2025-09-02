@@ -50,7 +50,7 @@ If the commands above don't work, please refer to: [https://aka.ms/azure-cli](ht
 
 #### ⛑️ Install Helm & Kubectl
 
-<details markdown="1">
+<details>
 <summary>Install Helm & Kubectl - Linux (Ubuntu/Debian)</summary>
 
 Two ways are provided for each tool, one without needing sudo, the other requires sudo, take your pick but don't run
@@ -77,7 +77,7 @@ curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
 </details>
 
-<details markdown="1">
+<details>
 <summary>Install Helm & Kubectl - MacOS</summary>
 
 ```bash
