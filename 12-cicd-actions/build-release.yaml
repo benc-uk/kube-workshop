@@ -9,12 +9,12 @@ on:
 
 env:
   IMAGE_NAME: "nanomon"
-  IMAGE_REG: "bencacr2025.azurecr.io"
+  IMAGE_REG: "__ACR_NAME__.azurecr.io"
   IMAGE_TAG: ${{ github.sha }}
   VERSION: ${{ github.sha }}
   BUILD_INFO: "CI Build from GitHub Actions"
   ACR_PASSWORD: "${{ secrets.ACR_PASSWORD }}"
-  ACR_USERNAME: "bencacr2025"
+  ACR_USERNAME: "__ACR_NAME__"
 
 # =================================================================
 # Build job to create and push Docker images
@@ -55,7 +55,7 @@ jobs:
     needs: buildJob
     environment:
       name: demo-environment
-      url: http://108.141.253.126
+      url: http://__INGRESS_EXTERNAL_IP__
 
     steps:
       - name: "Configure kubeconfig"

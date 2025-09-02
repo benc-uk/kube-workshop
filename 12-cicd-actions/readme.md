@@ -71,6 +71,8 @@ Now to build the Docker images for the app, we will use a Docker compose file th
 Replace the `env:` section at the top of the workflow YAML with this, changing the `__ACR_NAME__` to the name of your
 existing & deployed ACR.
 
+<!-- {% raw %} -->
+
 ```yaml
 env:
   IMAGE_NAME: "nanomon"
@@ -79,6 +81,8 @@ env:
   VERSION: "${{ github.sha }}"
   BUILD_INFO: "CI Build from GitHub Actions"
 ```
+
+<!-- {% endraw %} -->
 
 Also add this step to the workflow, under the `steps:` section, it will need indenting to the correct level:
 
@@ -119,11 +123,18 @@ gh secret set ACR_PASSWORD --body "$(az acr credential show --name $ACR_NAME --q
 The workflow, doesn't really do much, the application gets built and images created but they go nowhere. So let's update
 the workflow YAML to push the images to our Azure Container Registry.
 
+<!-- {% raw %} -->
+
+Add extra environment variables to the `env:` section at the top of the workflow YAML
+
 ```yaml
 env:
   ACR_PASSWORD: "${{ secrets.ACR_PASSWORD }}"
   ACR_USERNAME: "__ACR_NAME__"
 ```
+
+In the `steps:` section of the `buildJob`, add the following two steps after the "Build images" step, again indenting
+correctly:
 
 ```yaml
 - name: "Login to ACR"
@@ -132,10 +143,13 @@ env:
     registry: ${{ env.IMAGE_REG }}
     username: ${{ env.ACR_USERNAME }}
     password: ${{ secrets.ACR_PASSWORD }}
+
 - name: "Push images"
   run: |
     docker compose -f build/compose.yaml push api frontend runner
 ```
+
+<!-- {% endraw %} -->
 
 Save the file, commit and push to main just as before. Then check the status as before from the GitHub web site. If all
 goes well you should see a green tick again.
@@ -165,6 +179,8 @@ gh secret set CLUSTER_KUBECONFIG --body "$(az aks get-credentials --name $AKS_NA
 Next add a second job called `releaseJob` to the workflow YAML, beware the indentation, this should under the `jobs:`
 key
 
+<!-- {% raw %} -->
+
 ```yaml
 releaseJob:
   name: "Release to Kubernetes"
@@ -182,6 +198,8 @@ releaseJob:
     - name: "Sanity check Kubernetes"
       run: kubectl get nodes
 ```
+
+<!-- {% endraw %} -->
 
 This is doing a bunch of things so lets step through it:
 
@@ -202,6 +220,8 @@ deploys from the images we just built and pushed. As we saw in the previous sect
 
 Add the following two steps to the releaseJob (beware indentation again!)
 
+<!-- {% raw %} -->
+
 ```yaml
 - name: "Add Helm repo for Nanomon"
   run: |
@@ -215,6 +235,8 @@ Add the following two steps to the releaseJob (beware indentation again!)
     --set image.tag=${{ env.IMAGE_TAG }} \
     --set ingress.enabled=true
 ```
+
+<!-- {% endraw %} -->
 
 The `helm upgrade` command is doing a lot, so let's break it down:
 
@@ -267,6 +289,8 @@ the version to match the version we just deployed.
 > 📝 NOTE: This is only possible because NanoMon was written in such a way it allows for the version to be injected at
 > build time, and that it also exposes via the API at runtime. Something to think about when writing your own systems
 
+<!-- {% raw %} -->
+
 ```yaml
 - name: "Validate deployment"
   run: |
@@ -274,6 +298,8 @@ the version to match the version we just deployed.
     while ! curl -s http://__PUBLIC_IP_OF_INGRESS__/api/status | grep "version\":\"${{ env.VERSION }}"; do sleep 5; done
   timeout-minutes: 2
 ```
+
+<!-- {% endraw %} -->
 
 ## 🎉 Conclusion
 
