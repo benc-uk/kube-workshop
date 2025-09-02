@@ -199,7 +199,7 @@ Pick the name of either one of the two `api` _Pods_, and run:
 kubectl port-forward {pod_name} 8000:8000
 ```
 
-And then accessing the following URL [http://localhost:4000/api/info](http://localhost:4000/api/info) either in your
+And then accessing the following URL [http://localhost:8000/api/info](http://localhost:8000/api/info) either in your
 browser or with `curl` we should see a JSON response with some status and debug information from the API.
 
 ```sh
