@@ -1,42 +1,41 @@
 # 🤯 Scaling, Stateful Workloads & Helm
 
-This final section touches on some slightly more advanced and optional concepts we've skipped over.
-They aren't required to get a basic app up & running, but generally come up in practice and real
-world use of Kubernetes.
+This final section touches on some slightly more advanced and optional concepts we've skipped over. They aren't required
+to get a basic app up & running, but generally come up in practice and real world use of Kubernetes.
 
 Feel free to do as much or as little of this section as you wish.
 
 ## 📈 Scaling
 
-Scaling is a very common topic and is always required in some form to meet business demand, handle
-peak load and maintain application performance. There's fundamentally two approaches: manually scaling
-and using dynamic auto-scaling. Along side that there are two dimensions to consider:
+Scaling is a very common topic and is always required in some form to meet business demand, handle peak load and
+maintain application performance. There's fundamentally two approaches: manually scaling and using dynamic auto-scaling.
+Along side that there are two dimensions to consider:
 
-- **Horizontal scaling**: This is scaling the number of application _Pods_, within the limits of the
-  resources available in the cluster.
-- **Vertical or cluster scaling**: This is scaling the number of _Nodes_ in the cluster, and therefore
-  the total resources available. We won't be looking at this here, but you can [read the docs](https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler)
-  if you want to know more.
+- **Horizontal scaling**: This is scaling the number of application _Pods_, within the limits of the resources available
+  in the cluster.
+- **Vertical or cluster scaling**: This is scaling the number of _Nodes_ in the cluster, and therefore the total
+  resources available. We won't be looking at this here, but you can
+  [read the docs](https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler) if you want to know more.
 
-Scaling stateless applications manually can be as simple as running the command to update the number
-of replicas in a _Deployment_, for example:
+Scaling stateless applications manually can be as simple as running the command to update the number of replicas in a
+_Deployment_, for example:
 
 ```bash
 kubectl scale deployment nanomon-api --replicas 4
 ```
 
-Intuitively this same result can also be done by updating the `replicas` field in the _Deployment_ manifest and
-applying it.
+Intuitively this same result can also be done by updating the `replicas` field in the _Deployment_ manifest and applying
+it.
 
-🧪 **Experiment**: Try scaling the API to a large number of pods e.g. 50 or 60 to see what happens?
-If some of the _Pods_ remain in a "Pending" state can you find out the reason why? What effect does
-changing the resource requests (for example increasing the memory to 600Mi) have on this?
+🧪 **Experiment**: Try scaling the API to a large number of pods e.g. 50 or 60 to see what happens? If some of the
+_Pods_ remain in a "Pending" state can you find out the reason why? What effect does changing the resource requests (for
+example increasing the memory to 600Mi) have on this?
 
 ## 🚦 Autoscaling
 
-Horizontal auto scaling is performed with the _Horizontal Pod Autoscaler_ which you can can read about in the docs, link below.
-In essence it watches metrics emitted from the pods and other resources, and based on thresholds you
-set, it will modify the number of replicas dynamically.
+Horizontal auto scaling is performed with the _Horizontal Pod Autoscaler_ which you can can read about in the docs, link
+below. In essence it watches metrics emitted from the pods and other resources, and based on thresholds you set, it will
+modify the number of replicas dynamically.
 
 [📚 Kubernetes Docs: Horizontal Pod Autoscaling](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)
 
@@ -72,9 +71,9 @@ Run this in a separate terminal window to watch the resource usage and number of
 watch -n 5 kubectl top pods
 ```
 
-Now to generate some fake load by hitting the `/api/info` endpoint with lots of requests. We can use a tool
-called `hey` to do this easily and run 20 concurrent requests for 3 minutes. This doesn't sound like much but the
-tool runs them as fast as possible, so it will result in quite a lot of requests.
+Now to generate some fake load by hitting the `/api/info` endpoint with lots of requests. We can use a tool called `hey`
+to do this easily and run 20 concurrent requests for 3 minutes. This doesn't sound like much but the tool runs them as
+fast as possible, so it will result in quite a lot of requests.
 
 ```bash
 wget https://hey-release.s3.us-east-2.amazonaws.com/hey_linux_amd64
@@ -82,9 +81,9 @@ chmod +x hey_linux_amd64
 ./hey_linux_amd64 -z 180s -c 20 http://{EXTERNAL_INGRESS_IP}/api/status
 ```
 
-After about 1~2 mins you should see new API pods being created. Once the `hey` command completes
-and the load stops, it will probably be around ~5 mins before the pods scale back down to their
-original number. The command `kubectl describe hpa` is useful and will show you the current status of the autoscaler.
+After about 1~2 mins you should see new API pods being created. Once the `hey` command completes and the load stops, it
+will probably be around ~5 mins before the pods scale back down to their original number. The command
+`kubectl describe hpa` is useful and will show you the current status of the autoscaler.
 
 ## 🛢️ Improving The PostgreSQL Backend
 
@@ -94,37 +93,40 @@ There's two very major problems with our backend database:
 - The data held by the PostgreSQL _Pod_ is ephemeral and if the _Pod_ was terminated for any reason, we'd lose all
   application data. Not very good!
 
-We can't simply horizontally scale out the PostgreSQL _Deployment_ with multiple _Pod_ replicas as it is stateful, i.e. it holds data and state. We'd create a "split brain" situation as requests are routed to different Pods each with their own copy of the data, and they would quickly diverge.
+We can't simply horizontally scale out the PostgreSQL _Deployment_ with multiple _Pod_ replicas as it is stateful, i.e.
+it holds data and state. We'd create a "split brain" situation as requests are routed to different Pods each with their
+own copy of the data, and they would quickly diverge.
 
-Kubernetes does provide a [feature](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
-called _StatefulSets_ which greatly helps with the complexities of running multiple stateful services
-across in a cluster.
+Kubernetes does provide a [feature](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) called
+_StatefulSets_ which greatly helps with the complexities of running multiple stateful services across in a cluster.
 
-⚠️ But wait _StatefulSets_ are not a magic wand! Any stateful workload such as a database **still needs to be made aware** it is running in multiple
-places and handle the data synchronization/replication. This can be setup for PostgreSQL, but is deemed too complex for this workshop.
+⚠️ But wait _StatefulSets_ are not a magic wand! Any stateful workload such as a database **still needs to be made
+aware** it is running in multiple places and handle the data synchronization/replication. This can be setup for
+PostgreSQL, but is deemed too complex for this workshop.
 
 However we can address the issue of data persistence.
 
-🧪 **Optional Experiment**: Try using the app and adding a monitor, then
-run `kubectl delete pod {postgres-pod-name}` You will see that Kubernetes immediately restarts it.
-However when the app recovers and reconnects to the DB (which might take a few seconds), you will see the data you created is gone.
+🧪 **Optional Experiment**: Try using the app and adding a monitor, then run `kubectl delete pod {postgres-pod-name}`
+You will see that Kubernetes immediately restarts it. However when the app recovers and reconnects to the DB (which
+might take a few seconds), you will see the data you created is gone.
 
 To resolve the data persistence issues, we need do three things:
 
 - Change the PostgreSQL _Deployment_ to a _StatefulSet_ with a single replica.
-- Add a `volumeMount` to the container mapped to the `/var/lib/postgresql/data` path filesystem, which is where PostgreSQL stores its data. Note, you must not use the `subPath: data` attribute here.
-- Add a `volumeClaimTemplate` to dynamically create a _PersistentVolume_ and a _PersistentVolumeClaim_
-  for this _StatefulSet_. Use the "default" _StorageClass_ and request a 500M volume which is dedicated
-  with the "ReadWriteOnce" access mode.
+- Add a `volumeMount` to the container mapped to the `/var/lib/postgresql/data` path filesystem, which is where
+  PostgreSQL stores its data. Note, you must not use the `subPath: data` attribute here.
+- Add a `volumeClaimTemplate` to dynamically create a _PersistentVolume_ and a _PersistentVolumeClaim_ for this
+  _StatefulSet_. Use the "default" _StorageClass_ and request a 500M volume which is dedicated with the "ReadWriteOnce"
+  access mode.
 
 The relationships between these in AKS and Azure, can be explained with a diagram:
 
 ![persistent volume claims](https://docs.microsoft.com/azure/aks/media/concepts-storage/persistent-volume-claims.png)
 
-_PersistentVolumes_, _PersistentVolumeClaims_, _StorageClasses_, etc. are a deep and complex topics
-in Kubernetes, if you want begin reading about them there are masses of information in
-[the docs](https://kubernetes.io/docs/concepts/storage/persistent-volumes/). However it is suggested
-for now simply take the YAML below:
+_PersistentVolumes_, _PersistentVolumeClaims_, _StorageClasses_, etc. are a deep and complex topics in Kubernetes, if
+you want begin reading about them there are masses of information in
+[the docs](https://kubernetes.io/docs/concepts/storage/persistent-volumes/). However it is suggested for now simply take
+the YAML below:
 
 <details markdown="1">
 <summary>Completed PostgreSQL <i>StatefulSet</i> YAML manifest</summary>
@@ -207,29 +209,28 @@ spec:
 
 </details>
 
-Save as `postgres-statefulset.yaml` remove the old deployment with `kubectl delete deployment postgres`
-and apply the new `postgres-statefulset.yaml` file. Some comments:
+Save as `postgres-statefulset.yaml` remove the old deployment with `kubectl delete deployment postgres` and apply the
+new `postgres-statefulset.yaml` file. Some comments:
 
-- When you run `kubectl get pods` you will see the pod name ends `-0` rather than the random hash, this is
-  because _StatefulSet_ pods are given a stable network identity.
-- Running `kubectl get pv,pvc` you will see the new _PersistentVolume_ and _PersistentVolumeClaim_
-  that have been created. The _Pod_ might take a little while to start while the volume is created,
-  and is "bound" to the _Pod_
+- When you run `kubectl get pods` you will see the pod name ends `-0` rather than the random hash, this is because
+  _StatefulSet_ pods are given a stable network identity.
+- Running `kubectl get pv,pvc` you will see the new _PersistentVolume_ and _PersistentVolumeClaim_ that have been
+  created. The _Pod_ might take a little while to start while the volume is created, and is "bound" to the _Pod_
 
-If you repeat the pod deletion experiment above, you should see that the data is maintained after you delete the `postgres-0` pod and it restarts.
+If you repeat the pod deletion experiment above, you should see that the data is maintained after you delete the
+`postgres-0` pod and it restarts.
 
 ## 💥 Installing The App with Helm
 
 The NanoMon app we have been working with, comes provided with a Helm chart, which you can take a look at here,
 [NanoMon Helm Chart](https://github.com/benc-uk/nanomon/tree/master/deploy/helm/nanomon).
 
-With this we can deploy the entire app, all the deployments, pods, services, ingress, etc. with a single
-command. Naturally if we were to have done this from the beginning there wouldn't have been much scope
-for learning!
+With this we can deploy the entire app, all the deployments, pods, services, ingress, etc. with a single command.
+Naturally if we were to have done this from the beginning there wouldn't have been much scope for learning!
 
-However as this is the final section, now might be a good time to try it. Due to some limitations
-(mainly the lack of public DNS), only one deployment of the app can function at any given time. So you
-will need to remove what have currently deployed, by running:
+However as this is the final section, now might be a good time to try it. Due to some limitations (mainly the lack of
+public DNS), only one deployment of the app can function at any given time. So you will need to remove what have
+currently deployed, by running:
 
 ```bash
 kubectl delete deploy,sts,svc,ingress,hpa --all
@@ -242,13 +243,15 @@ helm repo add nanomon 'https://raw.githubusercontent.com/benc-uk/nanomon/main/de
 helm repo update nanomon
 ```
 
-Helm supports passing in values to the chart to override defaults. Charts can often expose hundreds of parameters, with complex types, so you can store your parameters in a YAML values file. To deploy NanoMon into your cluster, place the contents below into a `values.yaml` file, replacing `{ACR_NAME}` with your Azure Container Registry name:
+Helm supports passing in values to the chart to override defaults. Charts can often expose hundreds of parameters, with
+complex types, so you can store your parameters in a YAML values file. To deploy NanoMon into your cluster, place the
+contents below into a `values.yaml` file, replacing `__ACR_NAME__` with your Azure Container Registry name:
 
 ```yaml
 ingress:
   enabled: true
 image:
-  regRepo: "{ACR_NAME}.azurecr.io"
+  regRepo: "__ACR_NAME__.azurecr.io"
 ```
 
 Now to deploy the app with Helm, run the command below:
@@ -257,10 +260,10 @@ Now to deploy the app with Helm, run the command below:
 helm install demo nanomon/nanomon --values values.yaml
 ```
 
-Validate the deployment as before with `helm` and `kubectl` and check you can access the app in the
-browser using the same ingress IP address as before.
+Validate the deployment as before with `helm` and `kubectl` and check you can access the app in the browser using the
+same ingress IP address as before.
 
 ## Navigation
 
-[Return to Main Index 🏠](../readme.md) ‖
-[Previous Section ⏪](../09-helm-ingress/readme.md) ‖ [Next Section ⏩](../11-gitops-flux/readme.md)
+[Return to Main Index 🏠](../readme.md) ‖ [Previous Section ⏪](../09-helm-ingress/readme.md) ‖
+[Next Section ⏩](../11-gitops-flux/readme.md)

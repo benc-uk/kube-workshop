@@ -17,7 +17,7 @@ spec:
       containers:
         - name: api-container
 
-          image: {ACR_NAME}.azurecr.io/nanomon-api:latest
+          image: __ACR_NAME__.azurecr.io/nanomon-api:latest
           imagePullPolicy: Always
 
           ports:
@@ -37,7 +37,7 @@ spec:
               path: /api/health
             initialDelaySeconds: 5
             periodSeconds: 10
-            
+
           env:
             - name: POSTGRES_DSN
               value: "host=database user=nanomon dbname=nanomon sslmode=disable"

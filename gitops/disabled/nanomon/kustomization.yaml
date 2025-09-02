@@ -7,11 +7,11 @@ resources:
 
 images:
   - name: frontend_placeholder
-    newName: {ACR_NAME}.azurecr.io/nanomon-frontend
+    newName: __ACR_NAME__.azurecr.io/nanomon-frontend
     newTag: latest
   - name: api_placeholder
-    newName: {ACR_NAME}.azurecr.io/nanomon-api
+    newName: __ACR_NAME__.azurecr.io/nanomon-api
     newTag: latest
   - name: runner_placeholder
-    newName: {ACR_NAME}.azurecr.io/nanomon-runner
+    newName: __ACR_NAME__.azurecr.io/nanomon-runner
     newTag: latest

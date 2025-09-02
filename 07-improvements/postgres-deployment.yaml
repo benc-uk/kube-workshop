@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app: postgres
-      
+
   template:
     metadata:
       labels:
@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: {ACR_NAME}.azurecr.io/nanomon-postgres:latest
+          image: __ACR_NAME__.azurecr.io/nanomon-postgres:latest
 
           ports:
             - containerPort: 5432
@@ -41,7 +41,7 @@ spec:
             limits:
               cpu: 100m
               memory: 512Mi
-              
+
           readinessProbe:
             exec:
               command: ["pg_isready", "-U", "nanomon"]
