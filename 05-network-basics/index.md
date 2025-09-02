@@ -21,9 +21,9 @@ the Kubernetes docs:
 - Selector decides what pods are behind the service, in this case use the label `app` and the value `postgres`. It is
   crucial that this matches the label on the pods,otherwise the service will not be able to route traffic to them.
 
-> 📝 NOTE: Labels are optional metadata that can be added to any object in Kubernetes, they are simply key-value pairs.
-> Labels can be used to organize and to select subsets of objects. The label "app" is commonly used, but has **no
-> special meaning**, and isn't used by Kubernetes in any way
+> Labels are optional metadata that can be added to any object in Kubernetes, they are simply key-value pairs. Labels
+> can be used to organize and to select subsets of objects. The label "app" is commonly used, but has **no special
+> meaning**, and isn't used by Kubernetes in any way
 
 Save your YAML into a file `postgres-service.yaml` or use the below YAML manifest for the service:
 
@@ -66,8 +66,8 @@ kubectl get svc
 kubectl describe svc {service-name}
 ```
 
-> 📝 NOTE: You might spot a service called 'kubernetes', which exists in the default namespace and is placed there
-> automatically, despite sounding very important you can completely ignore it.
+> You might spot a service called 'kubernetes', which exists in the default namespace and is placed there automatically,
+> despite sounding very important you can completely ignore it.
 
 🛑 **EXTRA NOTE**: As mentioned in part 3, there are varied opinions on running databases inside Kubernetes. As a
 general rule it would be advised to use a hosted cloud database service which resides outside your cluster and can be

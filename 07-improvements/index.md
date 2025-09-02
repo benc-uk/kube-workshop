@@ -1,4 +1,12 @@
-# ✨ The Path to Production Readiness
+---
+tags: section
+index: 7
+title: The Path to Production Readiness
+layout: default.njk
+icon: ✨
+---
+
+# {{ icon }} The Path to Production Readiness
 
 We've cut several corners so far in order to simplify things and introduce concepts one at a time, now it is time to
 make some improvements. What constitutes best practice is a moving target, and often subjective, but there are some
@@ -48,8 +56,8 @@ resources:
     memory: 512Mi
 ```
 
-> 📝 NOTE: If you were using VS Code to edit your manifests and had the Kubernetes extension installed, you might have
-> noticed scary yellow warnings in the editor until this point, the lack of resource limits was the cause of this.
+> If you were using VS Code to edit your manifests and had the Kubernetes extension installed, you might have noticed
+> scary yellow warnings in the editor until this point, the lack of resource limits was the cause of this.
 
 Add these sections to your deployment YAML files, and reapply to the cluster with `kubectl` as before and check the
 status and that the pods start up. These values are extremely conservative, but should be sufficient for such a
@@ -128,10 +136,10 @@ your containers. Update the deployment YAML for **BOTH your API, and PostgreSQL 
       key: password
 ```
 
-> 📝 NOTE: _Secrets_ aren't quite as secret as they sound, they are not encypted and are simply stored as base-64
-> encoded values. Gasp! They mainly keep any plain text values out of our manifests. Anyone with the relevant cluster
-> priviledges will be able to read the values of _Secrets_ easily. If you want further encryption and isolation a number
-> of options are available including Mozilla SOPS, Hashicorp Vault and Azure Key Vault.
+> _Secrets_ aren't quite as secret as they sound, they are not encypted and are simply stored as base-64 encoded values.
+> Gasp! They mainly keep any plain text values out of our manifests. Anyone with the relevant cluster priviledges will
+> be able to read the values of _Secrets_ easily. If you want further encryption and isolation a number of options are
+> available including Mozilla SOPS, Hashicorp Vault and Azure Key Vault.
 
 ## 🖼️ Cluster & Architecture Diagram
 

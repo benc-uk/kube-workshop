@@ -1,0 +1,21 @@
+{
+  "name": "kube-workshop",
+  "version": "2.0.0",
+  "description": "A workshop covering the basics of Kubernetes, using Azure Kubernetes Service (AKS) as the platform.",
+  "author": "Ben Coleman",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "lint": "npx prettier --write ./**/*.md && npx prettier --write ./**/*.yaml",
+    "lint:check": "npx prettier --check ./**/*.md && npx prettier --check ./**/*.yaml"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
+    "markdown-it": "^14.1.0",
+    "markdown-it-attrs": "^4.3.1",
+    "prettier": "^3.6.2"
+  }
+}

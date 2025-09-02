@@ -6,7 +6,7 @@ pipeline, which will deploy to Kubernetes using Helm.
 There are many CI/CD solutions available, we will use GitHub Actions, as it's easy to set up and most developers will
 already have GitHub accounts. It assumes familiarity with git and basic GitHub usage such as forking & cloning.
 
-> 📝 NOTE: This is not intended to be full guide or tutorial on GitHub Actions, you would be better off starting
+> This is not intended to be full guide or tutorial on GitHub Actions, you would be better off starting
 > [here](https://docs.github.com/en/actions/learn-github-actions) or
 > [here](https://docs.microsoft.com/en-us/learn/paths/automate-workflow-github-actions/?source=learn).
 
@@ -21,7 +21,7 @@ GitHub.
 
 Inside the `.github/workflows` directory, create a new file called `build-release.yaml` and paste in the contents:
 
-> 📝 NOTE: This is special directory path used by GitHub Actions!
+> This is special directory path used by GitHub Actions!
 
 ```yaml
 # Name of the workflow
@@ -60,8 +60,8 @@ The best place to check the status is from the GitHub web site and in the 'Actio
 `https://github.com/{your-github-user}/kube-workshop/actions` you should be able to look at the workflow run, the
 status, plus output & other details.
 
-> 📝 NOTE: It's unusual for the code you are building to be a in separate repo from the workflow(s), in most cases they
-> will be in the same code base, however it doesn't really make any difference in this case.
+> It's unusual for the code you are building to be a in separate repo from the workflow(s), in most cases they will be
+> in the same code base, however it doesn't really make any difference in this case.
 
 If that all worked, you should see a green tick and the job should have completed in under a minute.
 
@@ -264,8 +264,8 @@ You can add a final step to the `releaseJob` to validate the deployment, by usin
 public IP address of the ingress controller, and call the status endpoint of the app, in JSON that is returned check for
 the version to match the version we just deployed.
 
-> 📝 NOTE: This is only possible because NanoMon was written in such a way it allows for the version to be injected at
-> build time, and that it also exposes via the API at runtime. Something to think about when writing your own systems
+> This is only possible because NanoMon was written in such a way it allows for the version to be injected at build
+> time, and that it also exposes via the API at runtime. Something to think about when writing your own systems
 
 ```yaml
 - name: "Validate deployment"

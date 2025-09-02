@@ -9,9 +9,8 @@ we've deployed.
 So far we've worked in a single _Namespace_ called `default`, but Kubernetes allows you create additional _Namespaces_
 in order to logically group and separate your resources.
 
-> 📝 NOTE: Namespaces do not provide any form of network boundary or isolation of workloads, and the underlying
-> resources (Nodes) remain shared. There are ways to achieve these outcomes, but is well beyond the scope of this
-> workshop.
+> Namespaces do not provide any form of network boundary or isolation of workloads, and the underlying resources (Nodes)
+> remain shared. There are ways to achieve these outcomes, but is well beyond the scope of this workshop.
 
 Create a new namespace called `ingress`:
 
@@ -47,8 +46,7 @@ either applications written and developed in house, or external 3rd party softwa
 We'll add the Helm chart repository for the ingress we will be deploying, this is done with the `helm repo` command.
 This is a public repo & chart of the extremely popular NGINX ingress controller (more on that below).
 
-> 📝 NOTE: The repo name `ingress-nginx` can be any name you wish to pick, but the URL has to be pointing to the correct
-> place.
+> The repo name `ingress-nginx` can be any name you wish to pick, but the URL has to be pointing to the correct place.
 
 ```bash
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx

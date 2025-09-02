@@ -61,7 +61,7 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 ```
 
-> 📝 NOTE: Login into the Azure CLI if you've installed it.
+>  Login into the Azure CLI if you've installed it.
 
 Let's connect your kubectl with k3s and allow your user permissions to access the cluster.
 
@@ -102,7 +102,7 @@ az vm stop --resource-group $RES_GROUP --name $AKS_NAME
 az vm start --resource-group $RES_GROUP --name $AKS_NAME
 ```
 
-> 📝 NOTE: Start and stop operations do take several minutes to complete, so typically you would perform
+>  Start and stop operations do take several minutes to complete, so typically you would perform
 > them only at the start or end of the day.
 
 ## Navigation

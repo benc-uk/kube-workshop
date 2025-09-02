@@ -1,4 +1,12 @@
-# ⚒️ Workshop Pre Requisites
+---
+tags: section
+index: 0
+title: Workshop Pre Requisites
+layout: default.njk
+icon: ⚒️
+---
+
+# {{ icon }} Workshop Pre Requisites
 
 As this is an entirely hands on workshop, as such you will need several things before you can start:
 
@@ -142,7 +150,7 @@ reset in the event of a session timing out or terminal closing.
 Sample `vars.sh` file is shown below, feel free to use any values you wish for the resource group, region cluster name
 etc.
 
-> 📝 NOTE: The ACR name must be globally unique and cannot contain hyphens, dots, or underscores.
+> The ACR name must be globally unique and cannot contain hyphens, dots, or underscores.
 
 ```bash
 RES_GROUP="kube-workshop"
@@ -152,8 +160,8 @@ ACR_NAME="__change_me__"
 KUBE_VERSION="1.27.1"
 ```
 
-> 📝 NOTE: New versions of Kubernetes are released all the time, and eventually older versions are removed from Azure.
-> Rather than constantly update this guide the following command can be used to get the latest version:
+> New versions of Kubernetes are released all the time, and eventually older versions are removed from Azure. Rather
+> than constantly update this guide the following command can be used to get the latest version:
 > `az aks get-versions --location "westeurope" -o json --query "values[*].version | max(@)"`
 
 To use the vars file simply source it through bash with the below command, do this before moving to the next stage.
@@ -164,7 +172,3 @@ source vars.sh
 
 It's worth creating a project folder locally (or even a git repo) at this point, in order to keep your work in, you
 haven't done so already. It'll be empty for now, and we'll be creating & editing files later.
-
-## Navigation
-
-[Return to Main Index 🏠](../) ‖ [Next Section ⏩](../01-cluster/)

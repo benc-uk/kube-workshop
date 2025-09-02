@@ -39,7 +39,7 @@ resources:
     memory: 300Mi
 ```
 
-> 📝 NOTE: If you were using VS Code to edit your YAML and had the Kubernetes extension installed you might have noticed yellow warnings in the editor.
+>  If you were using VS Code to edit your YAML and had the Kubernetes extension installed you might have noticed yellow warnings in the editor.
 > The lack of resource limits was the cause of this.
 
 Add these sections to your deployment YAML files, and reapply to the cluster with `kubectl` as before and check the status and that the pods start up.
@@ -117,7 +117,7 @@ Update the deployment YAML for your data API, and MongoDB, replace the reference
       key: connection-string
 ```
 
-> 📝 NOTE: _Secrets_ are encrypted at rest by AKS however anyone with the relevant access to the cluster will be able to read the _Secrets_ (they are simply base-64 encoded) using kubectl or the Kubernetes API.
+>  _Secrets_ are encrypted at rest by AKS however anyone with the relevant access to the cluster will be able to read the _Secrets_ (they are simply base-64 encoded) using kubectl or the Kubernetes API.
 > If you want further encryption and isolation a number of options are available including Mozilla SOPS, Hashicorp Vault and Azure Key Vault.
 
 ## 🔍 Reference Manifests

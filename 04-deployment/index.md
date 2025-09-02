@@ -29,14 +29,14 @@ yourself, you can use Kubernetes docs (link below) and the following hints:
 - Set `POSTGRES_PASSWORD` environmental var, with the value "notVerySecret123!". Yes a plain text password, we will fix
   this later!
 
-> 📝 NOTE: Why are we not using the official [PostgreSQL image](https://hub.docker.com/_/postgres)? Well really we
-> should, but initializing database schema would require concepts like config maps & volume mounts which we're not ready
-> for yet. The nanomon-postgres image has been specifically built with the database initialization baked in, so we can
-> keep things simple for now.
+> Why are we not using the official [PostgreSQL image](https://hub.docker.com/_/postgres)? Well really we should, but
+> initializing database schema would require concepts like config maps & volume mounts which we're not ready for yet.
+> The nanomon-postgres image has been specifically built with the database initialization baked in, so we can keep
+> things simple for now.
 
-> 📝 NOTE: On placeholders in the YAML, throughout this workshop you will see placeholders in the YAML files, these in
-> double underscores e.g. `__SOMETHING__` these always need to be replaced with real values. This double underscore
-> convention was chosen to avoid confusion with other syntax and does not upset any YAML parsers or linters.
+> On placeholders in the YAML, throughout this workshop you will see placeholders in the YAML files, these in double
+> underscores e.g. `__SOMETHING__` these always need to be replaced with real values. This double underscore convention
+> was chosen to avoid confusion with other syntax and does not upset any YAML parsers or linters.
 
 Alternatively you can use the YAML below to paste into `postgres-deployment.yaml`, don't worry this isn't cheating, in
 the real world everyone is too busy to write Kubernetes manifests from scratch 😉

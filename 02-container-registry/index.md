@@ -1,4 +1,12 @@
-# 📦 Container Registry & Images
+---
+tags: section
+index: 2
+title: Container Registry & Images
+layout: default.njk
+icon: 📦
+---
+
+# {{ icon }} Container Registry & Images
 
 We will deploy & use a private registry to hold the application container images. This is not strictly necessary as we
 could pull the images directly from the public, however using a private registry is a more realistic approach.
@@ -15,7 +23,7 @@ az acr create --name $ACR_NAME --resource-group $RES_GROUP \
 --admin-enabled true
 ```
 
-> 📝 NOTE: When you pick a name for the resource with $ACR_NAME, this has to be **globally unique**, and not contain any
+> When you pick a name for the resource with `$ACR_NAME`, this has to be **globally unique**, and not contain any
 > underscores, dots or hyphens. Name must also be in lowercase.
 
 ## 📥 Importing Images
@@ -95,7 +103,3 @@ kubectl patch serviceaccount default --patch '"imagePullSecrets": [{"name": "acr
 
 These two commands introduce a lot of new Kubernetes concepts in one go! Don't worry about them for now, some of this
 such as _Secrets_ we'll go into later. If the command is successful, move on.
-
-## Navigation
-
-[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../01-cluster/) ‖ [Next Section ⏩](../03-the-application/)

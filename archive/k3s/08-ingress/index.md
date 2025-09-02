@@ -7,7 +7,7 @@ The ingress will let us further refine & improve the networking aspects of the a
 
 So far we've worked in a single _Namespace_ called `default`, but Kubernetes allows you create additional _Namespaces_ in order to logically group and separate your resources.
 
-> 📝 NOTE: Namespaces do not provide a network boundary or isolation of workloads, and the underlying resources (Nodes) remain shared.
+>  Namespaces do not provide a network boundary or isolation of workloads, and the underlying resources (Nodes) remain shared.
 > There are ways to achieve these outcomes, but is well beyond the scope of this workshop.
 
 Namespaces are simple idea but they can trip you up, you will have to add `--namespace` or `-n` to any `kubectl` commands you want to use against a particular namespace.

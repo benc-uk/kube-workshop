@@ -17,7 +17,7 @@ Now to put a _Service_ in front of the MongoDB pods, if you want to create the s
 - Selector decides what pods are behind the service, in this case use the label `app` and the value
   `mongodb`.
 
-> 📝 NOTE: Labels are optional metadata that can be added to any object in Kubernetes, they are simply key-value pairs. Labels can be used to organize and to select subsets of objects.
+>  Labels are optional metadata that can be added to any object in Kubernetes, they are simply key-value pairs. Labels can be used to organize and to select subsets of objects.
 > The label "app" is commonly used, but has **no special meaning**, and isn't used by Kubernetes in any way
 
 Save your YAML into a file `mongo-service.yaml` or use the below YAML manifest for the service:
@@ -61,7 +61,7 @@ kubectl get svc
 kubectl describe svc {service-name}
 ```
 
-> 📝 NOTE: The service called 'kubernetes' exists in every namespace and is placed there automatically, you can ignore it.
+>  The service called 'kubernetes' exists in every namespace and is placed there automatically, you can ignore it.
 
 🛑 **IMPORTANT NOTE**: As a rule it's a bad idea and generally considered an "anti-pattern" to run stateful services in Kubernetes. Managing them is complex and time consuming.
 It's **strongly recommended** use PaaS data offerings which reside outside your cluster and can be managed independently and easily.
@@ -138,7 +138,7 @@ Using `kubectl get svc` check the status. Then go to the address in your browser
 Clearly this is better than what we had before, but in production you would never expose traffic directly into your pods like this.
 Later we can improve this yet further, but for now it will suffice.
 
-> 📝 NOTE: If your connection is timing out, make sure that the port is exposed on your VM.
+>  If your connection is timing out, make sure that the port is exposed on your VM.
 
 ## 🖼️ Cluster & Architecture Diagram
 

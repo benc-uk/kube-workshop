@@ -1,9 +1,12 @@
 ---
+tags: section
+index: 6
 title: Adding The Frontend
 layout: default.njk
+icon: 💻
 ---
 
-# 💻 Adding The Frontend
+# {{ icon }} Adding The Frontend
 
 We've ignored the frontend until this point, with the API and DB in place we are finally ready to deploy it. We need to
 use a _Deployment_ and _Service_ just as before (you might be starting to see a pattern!). We can pick up the pace a
@@ -106,12 +109,9 @@ with the database.
 
 The resources deployed into the cluster & in Azure at this stage can be visualized as follows:
 
-![architecture diagram](./diagram.png)
+![architecture diagram](./diagram.drawio.png){class=diagram}
 
-Notice we have **two public IPs**, the `LoadBalancer` service type is not an instruction to Azure to deploy an entire
-Azure Load Balancer. Instead it's used to create a new public IP and assign it to the single Azure Load Balancer
-(created by AKS) that sits in front of the cluster. We'll refine this later when we look at setting up an ingress.
-
-## Navigation
-
-[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../05-network-basics/) ‖ [Next Section ⏩](../07-improvements/)
+Notice we have **two public IPs**, but not two Azure Load Balancers. The `LoadBalancer` service type is not an
+instruction to Azure to deploy an entire Azure Load Balancer. Instead it's used to create a new public IP and assign it
+to the single Azure Load Balancer (created by AKS) that sits in front of the cluster. We'll refine this later when we
+look at setting up an ingress.

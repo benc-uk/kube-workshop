@@ -17,7 +17,7 @@ az acr create --name $ACR_NAME --resource-group $RES_GROUP \
 --admin-enabled true
 ```
 
-> 📝 NOTE: When you pick a name for the resource with $ACR_NAME, this has to be **globally unique**,
+>  When you pick a name for the resource with $ACR_NAME, this has to be **globally unique**,
 > and not contain no underscores, dots, or hyphens.
 
 ## 📥 Importing Images
@@ -45,7 +45,7 @@ az acr import --name $ACR_NAME --resource-group $RES_GROUP \
 If you wish to check and see imported images, you can go over to the ACR resource in the Azure portal,
 and into the 'Repositories' section.
 
-> 📝 NOTE: we are not using the tag `latest` which is a common mistake when working with Kubernetes
+>  we are not using the tag `latest` which is a common mistake when working with Kubernetes
 > and containers in general.
 
 ## 🔌 Connect K3s to ACR
@@ -57,7 +57,7 @@ manually add the file to your device/VM.
 
 On your VM create the `registries.yaml` with the following content:
 
-> 📝 NOTE: The password is retrieved with Azure CLI, if you don't have Azure CLI on the VM, you can
+>  The password is retrieved with Azure CLI, if you don't have Azure CLI on the VM, you can
 > just retrieve your ACR password from the portal and replace that section your ACR password
 
 ```sh

@@ -6,11 +6,74 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="/assets/main.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Lunasima:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="shortcut icon" href="/00-pre-reqs/logo.svg" type="image/svg" />
+
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet" />
+
+    <title>{{ title }} {{ icon }}</title>
+
+    <style>
+      {% include "main.css" %}
+    </style>
   </head>
 
   <body>
-    {{ content | safe }}
+    <header>
+      <button class="sidebar-toggle" aria-label="Toggle sidebar">
+        <span class="toggle-icon">≡</span>
+      </button>
+      <img src="/00-pre-reqs/logo.svg" class="logo" />
+      Kubernetes Developer Workshop
+    </header>
+
+    <aside class="sidebar collapsed">
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          {%- for section in collections.section -%}
+          <li>
+            <a href="{{ section.page.url }}"
+              >{{ section.data.index | zeroPad }}: {{ section.data.icon }} {{ section.data.title }}</a
+            >
+          </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    </aside>
+
+    <main>
+      {{ content | safe }}
+      <hr>
+      <footer>
+        {% set prev = collections.section | getPreviousCollectionItem(page) %}
+        {% set next = collections.section | getNextCollectionItem(page) %}
+        <a href="/">🏠 Home </a>
+        {%- if prev %}
+        ‖ <a href="{{ prev.url }}">⏪ Previous Section</a> 
+        {%- endif -%}
+        {%- if next %}
+        ‖ <a href="{{ next.url }}">⏩ Next Section</a>
+        {%- endif -%}
+      </footer>
+    </main>
+
+    <script>
+      document.querySelector(".sidebar-toggle").addEventListener("click", function () {
+        document.querySelector(".sidebar").classList.toggle("collapsed");
+      });
+      document.querySelector("main").addEventListener("click", function () {
+        document.querySelector(".sidebar").classList.add("collapsed");
+      });
+    </script>
   </body>
 </html>

@@ -16,8 +16,7 @@ Kustomize works by looking for `kustomization.yaml` files and operating on their
 
 To demonstrate Kustomize in practice, we can carry out a simple exercise, create a new directory called `base`.
 
-> 📝 NOTE: We do not use the NanoMon app here, and the examples are kept deliberately simple to demonstrate the
-> concepts.
+> We do not use the NanoMon app here, and the examples are kept deliberately simple to demonstrate the concepts.
 
 Place the the following two files into it:
 
@@ -147,7 +146,7 @@ The file & directory structure should look as follows:
     └── override.yaml
 ```
 
-> 📝 NOTE: The names "base" and "overlay" are not special, often "environments" is used instead of "overlay", with
+> The names "base" and "overlay" are not special, often "environments" is used instead of "overlay", with
 > sub-directories for each environment.
 
 Now running:
@@ -229,8 +228,8 @@ kubectl get gitrepo -A
 kubectl get pod -n flux-system
 ```
 
-> 📝 NOTE: The resource types `kustomizations` and `gitrepo` are not part of the standard Kubernetes API, these are CRDs
-> (Custom Resource Definitions) added by Flux when it was installed.
+> The resource types `kustomizations` and `gitrepo` are not part of the standard Kubernetes API, these are CRDs (Custom
+> Resource Definitions) added by Flux when it was installed.
 
 You should also see a new namespace called "hello-world", check with `kubectl get ns` this has been created by the
 `gitops/apps/hello-world.yaml` file in the repo and automatically applied by Flux.

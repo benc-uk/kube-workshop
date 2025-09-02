@@ -149,7 +149,7 @@ The file & directory structure should look as follows:
     └── override.yaml
 ```
 
-> 📝 NOTE: The names "base" and "overlay" are not special, often "environments" is used instead of
+>  The names "base" and "overlay" are not special, often "environments" is used instead of
 > "overlay", with sub-directories for each environment
 
 Now running:
@@ -185,7 +185,7 @@ other projects are available such as ArgoCD and support from GitLab.
 As GitOps is a "pull" vs "push" approach, it also allows you to lock down your Kubernetes cluster,
 and prevent developers and admins making direct changes with kubectl.
 
-> 📝 NOTE: GitOps is a methodology and an approach, it is not the name of a product.
+>  GitOps is a methodology and an approach, it is not the name of a product.
 
 ### 💽 Install Flux into K3s VM
 

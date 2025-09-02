@@ -28,7 +28,7 @@ code, and working files for all of the sections.
 
 You'll be using AKS to learn how to work with Kubernetes running as a managed service in Azure.
 
-> 📝 NOTE: This section assumes a relative degree of comfort in using Azure for sections 2 and 3.
+> This section assumes a relative degree of comfort in using Azure for sections 2 and 3.
 
 Summary of the sections:
 

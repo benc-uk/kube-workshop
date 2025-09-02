@@ -1,9 +1,17 @@
-# 🚦 Deploying Kubernetes
+---
+tags: section
+index: 1
+title: Deploying Kubernetes
+layout: default.njk
+icon: 🚀
+---
+
+# {{ icon }} Deploying Kubernetes
 
 Deploying AKS and Kubernetes can be extremely complex, with many networking, compute and other aspects to consider.
 However for the purposes of this workshop, a default and basic cluster can be deployed very quickly.
 
-## 🚀 AKS Cluster Deployment
+## 🔨 AKS Cluster Deployment
 
 The following commands can be used to quickly deploy an AKS cluster:
 
@@ -85,9 +93,5 @@ az aks stop --resource-group $RES_GROUP --name $AKS_NAME
 az aks start --resource-group $RES_GROUP --name $AKS_NAME
 ```
 
-> 📝 NOTE: Start and stop operations do take several minutes to complete, so typically you would perform them only at
-> the start or end of the day.
-
-## Navigation
-
-[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../00-pre-reqs/) ‖ [Next Section ⏩](../02-container-registry/)
+> Start and stop operations do take several minutes to complete, so typically you would perform them only at the start
+> or end of the day.

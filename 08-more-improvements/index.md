@@ -37,8 +37,8 @@ We can then create a _ConfigMap_ from this file using `kubectl`
 kubectl create configmap nanomon-sql-init --from-file=nanomon_init.sql
 ```
 
-> 📝 NOTE: Like every object in Kubernetes, ConfigMaps can also be created with a YAML manifest, but when working with
-> external files/scripts etc, kubectl is your only real option.
+> Like every object in Kubernetes, ConfigMaps can also be created with a YAML manifest, but when working with external
+> files/scripts etc, kubectl is your only real option.
 
 There are three mains ways to use a _ConfigMap_ in with a _Pod_: as container command and args, as environment
 variables, or as files in a volume. In this section we'll use the volume method.
@@ -129,9 +129,9 @@ runner is what executes and runs the monitoring tasks, and is a separate compone
 Once the runner is running, you can check the logs of the runner pod to see it in action, you can visit the NanoMon
 frontend to create some monitors, and see their status update and change as they are executed by the runner. Have fun!
 
-> 📝 NOTE: The runner can make network connections out to the internet, this is the default in AKS. Controlling network
-> egress is outside the scope of this workshop. If you are interested in learning more about this, you can look into
-> Network Policies.
+> The runner can make network connections out to the internet, this is the default in AKS. Controlling network egress is
+> outside the scope of this workshop. If you are interested in learning more about this, you can look into Network
+> Policies.
 
 ## 🖼️ Cluster & Architecture Diagram
 

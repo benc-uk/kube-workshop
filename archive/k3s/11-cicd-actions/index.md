@@ -7,7 +7,7 @@ There are many CI/CD solutions available, we will use GitHub Actions, as it's ea
 developers will already have GitHub accounts. It assumes familiarity y with git and basic GitHub usage
 such as forking & cloning.
 
-> 📝 NOTE: This is not intended to be full guide or tutorial on GitHub Actions, you would be better
+>  This is not intended to be full guide or tutorial on GitHub Actions, you would be better
 > off starting [here](https://docs.github.com/en/actions/learn-github-actions)
 > or [here](https://docs.microsoft.com/en-us/learn/paths/automate-workflow-github-actions/?source=learn)
 
@@ -23,7 +23,7 @@ an new/empty repo on GitHub.
 Inside the `.github/workflows` directory, create a new file called `build-release.yaml` and paste in
 the contents:
 
-> 📝 NOTE: This is special directory path used by GitHub Actions!
+>  This is special directory path used by GitHub Actions!
 
 ```yaml
 # Name of the workflow
