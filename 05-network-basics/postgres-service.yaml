@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+
+metadata:
+  # We purposefully pick a different name for the service from the deployment
+  name: database
+
+spec:
+  type: ClusterIP
+
+  selector:
+    app: postgres
+
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

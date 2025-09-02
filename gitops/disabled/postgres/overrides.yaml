@@ -1,0 +1,19 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: postgres
+  namespace: default
+
+spec:
+  template:
+    spec:
+      volumes:
+        - name: initdb-vol
+          configMap:
+            name: nanomon-sql-init
+      containers:
+        - name: postgres
+          volumeMounts:
+            - name: initdb-vol
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true

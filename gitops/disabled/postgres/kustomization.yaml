@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/postgres
+
+images:
+  - name: postgres_placeholder
+    newName: postgres:17
+
+patches:
+  - path: overrides.yaml
+
+configMapGenerator:
+  - name: nanomon-sql-init
+    namespace: default
+    files:
+      - ./nanomon_init.sql

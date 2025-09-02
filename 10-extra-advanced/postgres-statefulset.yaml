@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: StatefulSet
+
+metadata:
+  name: postgres
+
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-pvc
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: default
+        resources:
+          requests:
+            storage: 500M
+
+  template:
+    metadata:
+      labels:
+        app: postgres
+
+    spec:
+      volumes:
+        - name: initdb-vol
+          configMap:
+            name: nanomon-sql-init
+
+      containers:
+        - name: postgres
+          image: postgres:17
+
+          ports:
+            - containerPort: 5432
+
+          env:
+            - name: POSTGRES_DB
+              value: "nanomon"
+            - name: POSTGRES_USER
+              value: "nanomon"
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-creds
+                  key: password
+
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 512Mi
+
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "nanomon"]
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          volumeMounts:
+            - name: initdb-vol
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true
+            - name: postgres-pvc
+              mountPath: /var/lib/postgresql/data
+              subPath: data

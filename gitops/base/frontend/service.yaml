@@ -5,10 +5,10 @@ metadata:
   name: frontend
 
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
-    app: frontend
+    app: nanomon-frontend
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 3000
+      targetPort: 8001

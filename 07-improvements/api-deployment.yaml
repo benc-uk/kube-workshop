@@ -1,0 +1,48 @@
+kind: Deployment
+apiVersion: apps/v1
+
+metadata:
+  name: nanomon-api
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nanomon-api
+  template:
+    metadata:
+      labels:
+        app: nanomon-api
+    spec:
+      containers:
+        - name: api-container
+
+          image: __ACR_NAME__.azurecr.io/nanomon-api:latest
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 8000
+
+          resources:
+            requests:
+              cpu: 50m
+              memory: 50Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
+
+          readinessProbe:
+            httpGet:
+              port: 8000
+              path: /api/health
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          env:
+            - name: POSTGRES_DSN
+              value: "host=database user=nanomon dbname=nanomon sslmode=disable"
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-creds
+                  key: password

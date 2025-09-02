@@ -1,23 +1,25 @@
 # ⚒️ Workshop Pre Requisites
 
-As this is a completely hands on workshop, you will need several things before you can start:
+As this is an entirely hands on workshop, as such you will need several things before you can start:
 
 - Access to an Azure Subscription where you can create resources.
 - bash or a bash compatible shell (e.g. zsh), please do not attempt to use PowerShell or cmd.
 - A good editor, and [VS Code](https://code.visualstudio.com/) is strongly recommended
-  - [Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools) also highly recommended.
+  - [Visual Studio Code Kubernetes Tools](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
+    is also highly recommended.
 - [Azure CLI](https://aka.ms/azure-cli)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
 - [helm](https://helm.sh/docs/intro/install/)
 
 ## Install dependencies
 
-The above listed tools are already set up in `.devcontainer` folder located in the git repository of this workshop: <https://github.com/benc-uk/kube-workshop>.
-If you've never used Dev Containers, check out [developing inside a Container using Visual Studio Code Remote Development](https://code.visualstudio.com/docs/devcontainers/containers).
+The above listed tools are already set up in `.devcontainer` folder located in the git repository of this workshop:
+<https://github.com/benc-uk/kube-workshop>. If you've never used Dev Containers, check out
+[developing inside a Container using Visual Studio Code Remote Development](https://code.visualstudio.com/docs/devcontainers/containers).
 
 ### Install dependencies manually
 
-Alteratively you can can install the dependencies yourself by following the steps below.
+Alternatively you can can install the dependencies yourself by following the steps below.
 
 #### 🌩️ Install Azure CLI
 
@@ -42,9 +44,11 @@ If the commands above don't work, please refer to: [https://aka.ms/azure-cli](ht
 <details markdown="1">
 <summary>Install Helm & Kubectl - Linux (Ubuntu/Debian)</summary>
 
-Two ways are provided for each tool, one without needing sudo, the other requires sudo, take your pick but don't run both!
+Two ways are provided for each tool, one without needing sudo, the other requires sudo, take your pick but don't run
+both!
 
-By default the 'no sudo' commands for helm & kubectl install binaries into `~/.local/bin` so if this isn't in your PATH you can copy or move the binary elsewhere, or simply run `export PATH="$PATH:$HOME/.local/bin"`
+By default the 'no sudo' commands for helm & kubectl install binaries into `~/.local/bin` so if this isn't in your PATH
+you can copy or move the binary elsewhere, or simply run `export PATH="$PATH:$HOME/.local/bin"`
 
 ```bash
 # Install kubectl - no sudo
@@ -109,36 +113,36 @@ az
 
 ## 🔐 Login to Azure
 
-The rest of this workshop assumes you have access to an Azure subscription, and have the Azure CLI
-working & signed into the tenant & subscription you will be using. Some Azure CLI commands to help you:
+The rest of this workshop assumes you have access to an Azure subscription, and have the Azure CLI working & signed into
+the tenant & subscription you will be using. Some Azure CLI commands to help you:
 
-- `az login` or `az login --tenant {TENANT_ID}` - Login to the Azure CLI, use the `--tenant` switch
-  if you have multiple accounts.
+- `az login` or `az login --tenant {TENANT_ID}` - Login to the Azure CLI, use the `--tenant` switch if you have multiple
+  accounts.
 - `az account set --subscription {SUBSCRIPTION_ID}` - Set the subscription the Azure CLI will use.
 - `az account show -o table` - Show the subscription the CLI is configured to use.
 
 ## 😢 Stuck?
 
-Getting all the tools set up locally is the highly recommended path to take, if you are stuck there
-are some other options to explore, but these haven't been tested:
+Getting all the tools set up locally is the highly recommended path to take, if you are stuck there are some other
+options to explore, but these haven't been tested:
 
-- Use the [Azure Cloud Shell](https://shell.azure.com/bash) which has all of these tools except VS Code,
-  a simple web code editor is available. However if you download the
-  [VS Code server](https://aka.ms/install-vscode-server/setup.sh), then run that from inside Cloud Shell
-  you can get access to the full web based version of VS Code.
-- Go to the [repo for this workshop on GitHub](https://github.com/benc-uk/kube-workshop/codespaces)
-  and start a new Codespace from it, you should get a terminal you can use and have all the tools available.
-  Only available if you have access to GitHub Codespaces.
+- Use the [Azure Cloud Shell](https://shell.azure.com/bash) which has all of these tools except VS Code, a simple web
+  code editor is available. However if you download the [VS Code server](https://aka.ms/install-vscode-server/setup.sh),
+  then run that from inside Cloud Shell you can get access to the full web based version of VS Code.
+- Go to the [repo for this workshop on GitHub](https://github.com/benc-uk/kube-workshop/codespaces) and start a new
+  Codespace from it, you should get a terminal you can use and have all the tools available. Only available if you have
+  access to GitHub Codespaces.
 
 ## 💲 Variables File
 
-Although not essential, it's advised to create a `vars.sh` file holding all the parameters that will
-be common across many of the commands that will be run. This way you have a single point of reference
-for them and they can be easily reset in the event of a session timing out or terminal closing.
+Although not essential, it's advised to create a `vars.sh` file holding all the parameters that will be common across
+many of the commands that will be run. This way you have a single point of reference for them and they can be easily
+reset in the event of a session timing out or terminal closing.
 
-Sample `vars.sh` file is shown below, feel free to use any values you wish for the resource group, region cluster name etc.
+Sample `vars.sh` file is shown below, feel free to use any values you wish for the resource group, region cluster name
+etc.
 
-> Note: The ACR name must be globally unique and cannot contain hyphens, dots, or underscores.
+> 📝 NOTE: The ACR name must be globally unique and cannot contain hyphens, dots, or underscores.
 
 ```bash
 RES_GROUP="kube-workshop"
@@ -148,15 +152,18 @@ ACR_NAME="__change_me__"
 KUBE_VERSION="1.27.1"
 ```
 
-> Note: New versions of Kubernetes are released all the time, and eventually older versions are removed from Azure. Rather than constantly update this guide the following command can be used to get the latest version: `az aks get-versions --location "westeurope" -o tsv --query "orchestrators[-1].orchestratorVersion"`
+> 📝 NOTE: New versions of Kubernetes are released all the time, and eventually older versions are removed from Azure.
+> Rather than constantly update this guide the following command can be used to get the latest version:
+> `az aks get-versions --location "westeurope" -o json --query "values[*].version | max(@)"`
 
-To use the file simply source it through bash with the below command, do this before moving to the next stage.
+To use the vars file simply source it through bash with the below command, do this before moving to the next stage.
 
 ```sh
 source vars.sh
 ```
 
-It's worth creating a project folder locally (or even a git repo) at this point, in order to keep your work in, you haven't done so already. We'll be creating & editing files later
+It's worth creating a project folder locally (or even a git repo) at this point, in order to keep your work in, you
+haven't done so already. It'll be empty for now, and we'll be creating & editing files later.
 
 ## Navigation
 

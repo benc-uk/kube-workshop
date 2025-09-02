@@ -1,0 +1,79 @@
+# Name of the workflow
+name: CI Build & Release
+
+# Triggers for running
+on:
+  workflow_dispatch: # This allows manually running from GitHub web UI
+  push:
+    branches: ["main"] # Standard CI trigger when main branch is pushed
+
+env:
+  IMAGE_NAME: "nanomon"
+  IMAGE_REG: "bencacr2025.azurecr.io"
+  IMAGE_TAG: ${{ github.sha }}
+  VERSION: ${{ github.sha }}
+  BUILD_INFO: "CI Build from GitHub Actions"
+  ACR_PASSWORD: "${{ secrets.ACR_PASSWORD }}"
+  ACR_USERNAME: "bencacr2025"
+
+# =================================================================
+# Build job to create and push Docker images
+# =================================================================
+jobs:
+  buildJob:
+    name: "Build & push images"
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout code from another repo on GitHub
+      - name: "Checkout app code repo"
+        uses: actions/checkout@v5
+        with:
+          repository: benc-uk/nanomon
+
+      - name: "Build images"
+        run: |
+          docker compose -f build/compose.yaml build api frontend runner
+
+      - name: "Login to ACR"
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.IMAGE_REG }}
+          username: ${{ env.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: "Push images"
+        run: |
+          docker compose -f build/compose.yaml push api frontend runner
+
+  # =================================================================
+  # Release job to deploy to Kubernetes cluster
+  # =================================================================
+  releaseJob:
+    name: "Release to Kubernetes"
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: buildJob
+    environment:
+      name: demo-environment
+      url: http://108.141.253.126
+
+    steps:
+      - name: "Configure kubeconfig"
+        uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.CLUSTER_KUBECONFIG }}
+
+      - name: "Sanity check Kubernetes"
+        run: kubectl get nodes
+
+      - name: "Add Helm repo for Nanomon"
+        run: |
+          helm repo add nanomon 'https://raw.githubusercontent.com/benc-uk/nanomon/main/deploy/helm'
+          helm repo update nanomon
+
+      - name: "Release app with Helm"
+        run: |
+          helm upgrade ci nanomon/nanomon --install --wait --timeout 120s \
+          --set image.regRepo=${{ env.IMAGE_REG }} \
+          --set image.tag=${{ env.IMAGE_TAG }}
