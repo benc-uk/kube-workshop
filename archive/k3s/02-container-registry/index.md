@@ -81,5 +81,5 @@ sudo systemctl restart k3s;
 
 ## Navigation
 
-[Return to Main Index 🏠](../../readme.md)
-[Previous Section ⏪](../01-cluster/readme.md) ‖ [Next Section ⏩](../03-the-application/readme.md)
+[Return to Main Index 🏠](../../)
+[Previous Section ⏪](../01-cluster/) ‖ [Next Section ⏩](../03-the-application/)

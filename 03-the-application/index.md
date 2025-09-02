@@ -37,5 +37,4 @@ For this workshop the system will be deployed with the following criteria:
 
 ## Navigation
 
-[Return to Main Index 🏠](../readme.md) ‖ [Previous Section ⏪](../02-container-registry/readme.md) ‖
-[Next Section ⏩](../04-deployment/readme.md)
+[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../02-container-registry/) ‖ [Next Section ⏩](../04-deployment/)

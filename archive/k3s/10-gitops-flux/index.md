@@ -288,7 +288,7 @@ The base directory provides us a library of Kustomization based resources we can
 outside of the `gitops/apps` path they will not be picked up by Flux.
 
 ⚠️ **STOP!** Before we proceed, ensure the `mongo-creds` _Secret_ from the previous sections is still
-in the default namespace. If you have deleted it, hop back to [section 7](../07-improvements/readme.md)
+in the default namespace. If you have deleted it, hop back to [section 7](../07-improvements/)
 and quickly create it again. It's just a single command. Creating _Secrets_ using the GitOps approach
 is problematic, as they need to be committed into a code repo. Flux supports solutions to this, such
 as using [SOPS](https://fluxcd.io/docs/guides/mozilla-sops/) and
@@ -332,5 +332,5 @@ to suit that environment.
 
 ## Navigation
 
-[Return to Main Index 🏠](../../readme.md)
-[Previous Section ⏪](../09-extra-advanced/readme.md) ‖ [Next Section ⏩](../11-cicd-actions/readme.md)
+[Return to Main Index 🏠](../../)
+[Previous Section ⏪](../09-extra-advanced/) ‖ [Next Section ⏩](../11-cicd-actions/)

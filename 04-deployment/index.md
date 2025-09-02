@@ -221,5 +221,5 @@ Yes, it's looking a little empty at this stage, don't worry it'll become a lot m
 
 ## Navigation
 
-[Return to Main Index 🏠](../readme.md) ‖ [Previous Section ⏪](../03-the-application/readme.md) ‖
-[Next Section ⏩](../05-network-basics/readme.md)
+[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../03-the-application/) ‖
+[Next Section ⏩](../05-network-basics/)

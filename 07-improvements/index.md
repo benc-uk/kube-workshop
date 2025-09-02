@@ -150,5 +150,4 @@ If you get stuck and are looking for working manifests you can refer to, they ar
 
 ## Navigation
 
-[Return to Main Index 🏠](../readme.md) ‖ [Previous Section ⏪](../06-frontend/readme.md) ‖
-[Next Section ⏩](../08-more-improvements/readme.md)
+[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../06-frontend/) ‖ [Next Section ⏩](../08-more-improvements/)

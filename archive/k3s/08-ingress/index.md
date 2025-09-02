@@ -164,5 +164,5 @@ This is a slightly simplified version from previously, and the _Deployment_ obje
 
 ## Navigation
 
-[Return to Main Index 🏠](../../readme.md)
-[Previous Section ⏪](../07-improvements/readme.md) ‖ [Next Section ⏩](../09-extra-advanced/readme.md)
+[Return to Main Index 🏠](../../)
+[Previous Section ⏪](../07-improvements/) ‖ [Next Section ⏩](../09-extra-advanced/)

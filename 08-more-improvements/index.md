@@ -149,5 +149,4 @@ If you get stuck and are looking for working manifests you can refer to, they ar
 
 ## Navigation
 
-[Return to Main Index 🏠](../readme.md) ‖ [Previous Section ⏪](../07-improvements/readme.md) ‖
-[Next Section ⏩](../09-helm-ingress/readme.md)
+[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../07-improvements/) ‖ [Next Section ⏩](../09-helm-ingress/)

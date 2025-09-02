@@ -1,3 +1,8 @@
+---
+title: Adding The Frontend
+layout: default.njk
+---
+
 # 💻 Adding The Frontend
 
 We've ignored the frontend until this point, with the API and DB in place we are finally ready to deploy it. We need to
@@ -24,9 +29,6 @@ You might like to try creating the service before deploying the pods to see what
 is provided below:
 
 `frontend-deployment.yaml`:
-
-<details markdown="1">
-<summary>Click here for the frontend deployment YAML</summary>
 
 ```yaml
 kind: Deployment
@@ -58,8 +60,6 @@ spec:
             - name: API_ENDPOINT
               value: http://__API_EXTERNAL_IP__/api
 ```
-
-</details>
 
 `frontend-service.yaml`:
 
@@ -114,5 +114,4 @@ Azure Load Balancer. Instead it's used to create a new public IP and assign it t
 
 ## Navigation
 
-[Return to Main Index 🏠](../readme.md) ‖ [Previous Section ⏪](../05-network-basics/readme.md) ‖
-[Next Section ⏩](../07-improvements/readme.md)
+[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../05-network-basics/) ‖ [Next Section ⏩](../07-improvements/)

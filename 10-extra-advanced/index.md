@@ -265,5 +265,4 @@ same ingress IP address as before.
 
 ## Navigation
 
-[Return to Main Index 🏠](../readme.md) ‖ [Previous Section ⏪](../09-helm-ingress/readme.md) ‖
-[Next Section ⏩](../11-gitops-flux/readme.md)
+[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../09-helm-ingress/) ‖ [Next Section ⏩](../11-gitops-flux/)

@@ -200,5 +200,5 @@ resources have been omitted.
 
 ## Navigation
 
-[Return to Main Index 🏠](../readme.md) ‖ [Previous Section ⏪](../08-more-improvements/readme.md) ‖
-[Next Section ⏩](../10-extra-advanced/readme.md)
+[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../08-more-improvements/) ‖
+[Next Section ⏩](../10-extra-advanced/)

@@ -167,4 +167,4 @@ haven't done so already. It'll be empty for now, and we'll be creating & editing
 
 ## Navigation
 
-[Return to Main Index 🏠](../readme.md) ‖ [Next Section ⏩](../01-cluster/readme.md)
+[Return to Main Index 🏠](../) ‖ [Next Section ⏩](../01-cluster/)

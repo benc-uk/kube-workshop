@@ -276,9 +276,9 @@ can use, but as it's outside of the `gitops/apps` path they will not auotmatical
 a Kustomization under `gitops/apps` that references them.
 
 ⚠️ **STOP!** Before we proceed, ensure the `database-creds` _Secret_ from the previous sections is still in the default
-namespace. If you have deleted it, [hop back to section 7](../07-improvements/readme.md#-secrets) and quickly create it
-again, it's just a single command. Creating _Secrets_ using the GitOps approach is problematic, as it expects everything
-to be committed into a code repo. Flux supports solutions to this, such as using
+namespace. If you have deleted it, [hop back to section 7](../07-improvements/#-secrets) and quickly create it again,
+it's just a single command. Creating _Secrets_ using the GitOps approach is problematic, as it expects everything to be
+committed into a code repo. Flux supports solutions to this, such as using
 [SOPS](https://fluxcd.io/docs/guides/mozilla-sops/) and [Sealed Secrets](https://fluxcd.io/docs/guides/sealed-secrets/)
 but for an intro such as this, they require too much extra setup, so we will skip over them.
 
@@ -310,5 +310,4 @@ countless ways to structure this, and it very much depends on your requirements.
 
 ## Navigation
 
-[Return to Main Index 🏠](../readme.md) ‖ [Previous Section ⏪](../10-extra-advanced/readme.md) ‖
-[Next Section ⏩](../12-cicd-actions/readme.md)
+[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../10-extra-advanced/) ‖ [Next Section ⏩](../12-cicd-actions/)
