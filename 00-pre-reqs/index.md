@@ -96,7 +96,7 @@ curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
 Set up the user bash profile for K8s to make it easier to run all the commands
 
-```sh
+```bash
 echo "source <(kubectl completion bash)" >> ~/.bashrc
 echo "alias k=kubectl" >> ~/.bashrc
 echo "complete -o default -F __start_kubectl k" >> ~/.bashrc
@@ -105,7 +105,7 @@ echo "export PATH=$PATH:/home/azureuser/.local/bin" >> ~/.bashrc
 
 To have `.bashrc` changes take affect in your current terminal, you must reload `.bashrc` with:
 
-```sh
+```bash
 . ~/.bashrc
 ```
 
@@ -113,7 +113,7 @@ To have `.bashrc` changes take affect in your current terminal, you must reload 
 
 Double check that everything in installed and working correctly with:
 
-```sh
+```bash
 # Try commands with tab completion
 k get pods -A
 helm
@@ -167,7 +167,7 @@ KUBE_VERSION="1.27.1"
 
 To use the vars file simply source it through bash with the below command, do this before moving to the next stage.
 
-```sh
+```bash
 source vars.sh
 ```
 

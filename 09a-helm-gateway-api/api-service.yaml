@@ -10,5 +10,4 @@ spec:
     app: nanomon-api
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 8000
+      port: 8000

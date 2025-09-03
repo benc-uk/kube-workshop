@@ -77,6 +77,8 @@ volumes:
       name: nanomon-sql-init
 ```
 
+&nbsp;
+
 ```yaml
 # Add this volumeMounts section to the postgres container spec
 volumeMounts:

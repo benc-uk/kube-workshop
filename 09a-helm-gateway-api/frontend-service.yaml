@@ -10,5 +10,4 @@ spec:
     app: nanomon-frontend
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 8001
+      port: 8001

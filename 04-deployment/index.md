@@ -47,7 +47,7 @@ yourself, you can use Kubernetes docs (link below) and the following hints:
 > underscores e.g. `__SOMETHING__` these always need to be replaced with real values. This double underscore convention
 > was chosen to avoid confusion with other syntax and does not upset any YAML parsers or linters.
 
-Alternatively you can use the YAML below to paste into `postgres-deployment.yaml`, don't worry this isn't cheating, in
+Alternatively you can use the YAML below to paste into `postgres-deployment.yaml` don't worry this isn't cheating, in
 the real world everyone is too busy to write Kubernetes manifests from scratch 😉
 
 <details>
@@ -211,7 +211,7 @@ kubectl port-forward {pod_name} 8000:8000
 And then accessing the following URL [http://localhost:8000/api/info](http://localhost:8000/api/info) either in your
 browser or with `curl` we should see a JSON response with some status and debug information from the API.
 
-```sh
+```bash
 curl -s http://localhost:8000/api/status | json_pp
 ```
 

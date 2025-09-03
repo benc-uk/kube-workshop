@@ -9,7 +9,18 @@ icon: 🌎
 
 # {{ icon }} Helm & Ingress
 
-For this section we'll touch on two slightly more advanced topics, the key ones being the use of Helm and introducing an
+🔥 At this point in the workshop you have a choice:
+
+- If you want to learn about the legacy Ingress API, continue with this section. This is widely supported and in wide
+  use, but it has been superseded in functionallity by the newer Gateway API.
+- If you want to learn about the new Gateway API, which is still evolving but represents the future of L4/L7 routing in
+  Kubernetes, go to the [Helm & Gateway API section](../09a-helm-gateway-api/).
+
+Only go through one of these two sections, not both!
+
+---
+
+For this section we'll touch on two slightly more advanced topics, these being the use of Helm and introducing an
 ingress controller to our cluster. The ingress will let us further refine & improve the networking aspects of the app
 we've deployed.
 
@@ -19,7 +30,8 @@ So far we've worked in a single _Namespace_ called `default`, but Kubernetes all
 in order to logically group and separate your resources.
 
 > Namespaces do not provide any form of network boundary or isolation of workloads, and the underlying resources (Nodes)
-> remain shared. There are ways to achieve these outcomes, but is well beyond the scope of this workshop.
+> remain shared. There are ways to achieve higher degress of isolation, but it is a matter well beyond the scope of this
+> workshop.
 
 Create a new namespace called `ingress`:
 
@@ -185,7 +197,7 @@ kubectl get ingress
 It may take it a minute for it to be assigned an address, note the address will be the same as the external IP of the
 ingress-controller. You can check this with:
 
-```sh
+```bash
 kubectl get svc -n ingress | grep LoadBalancer
 ```
 

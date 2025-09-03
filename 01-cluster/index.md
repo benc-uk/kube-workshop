@@ -30,10 +30,10 @@ az aks create --resource-group $RES_GROUP \
   --no-ssh-key
 ```
 
-In case you get an error when creating cluster, `Version x.xx.x is not supported in this region`, run the following to
+In case you get an error when creating cluster, `Version x.xx.x is not supported in this region` run the following to
 get the supported Kubernetes versions
 
-```sh
+```bash
 az aks get-versions --location $REGION -o table
 ```
 

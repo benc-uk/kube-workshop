@@ -1,8 +1,52 @@
-# 🌎 Helm & Ingress
+---
+tags: alternative
+index: 9
+title: Helm & Gateway API
+summary: Finalizing the application architecture using Gateway API
+layout: default.njk
+icon: 🌎
+---
 
-For this section we'll touch on two slightly more advanced topics, the key ones being the use of Helm and introducing an
-ingress controller to our cluster. The ingress will let us further refine & improve the networking aspects of the app
-we've deployed.
+# 🌎 Helm & Gateway API
+
+🔥 This section is an alternative to the [Helm & Ingress section](../09-helm-ingress/), but instead of covering the
+legacy Ingress API, it uses the newer Gateway API which is still evolving, but represents the future of L4/L7 routing in
+Kubernetes. Do not run through both sections, choose one or the other. 🔥
+
+---
+
+For this section we'll touch on two slightly more advanced topics, these are use of Helm and introducing an gateway data
+plane to our cluster. The gateway will let us further refine & improve the networking aspects of the app we've deployed.
+
+## 📌 The Gateway API
+
+The Kubernetes Gateway API is an official Kubernetes project focused on L4 and L7 routing in Kubernetes. This project
+represents the next generation of Kubernetes Ingress, Load Balancing, and Service Mesh APIs. It is designed to improve
+upon the existing Ingress API by providing more expressive and extensible resource definitions. It is still evolving but
+slowly replacing the older Ingress API.
+
+[📚 Learn more about the Gateway API](https://gateway-api.sigs.k8s.io/)
+
+> Do not confuse the "Gateway API" with "API Gateway" products like AWS API Gateway or Azure API Management & Azure App
+> Gateway, or even the generic term "API Gateway". The Gateway API is a Kubernetes-native API for managing L4/L7
+> routing. It would be valid to say "Let's use the Gateway API to route traffic through our API Gateway". Look I know,
+> it's confusing, I wasn't involved in the naming!
+
+![Gateway diagram showing routing of traffic to backend services](./gateway-example.drawio.png)
+
+## 🧙 Intro to Custom Resources
+
+Kuberentes is designed to be extensible,in fact, extremely so. The core Kubernetes API is made up of a number of
+_pre-defined_ resources like _Pods_, _Deployments_, _Services_, etc. But Kubernetes also allows anyone to define their
+own resources, these are called _Custom Resources_. The Gateway API is implemented as a set of _Custom Resources_ (until
+such time as it is merged into the core Kubernetes API set).
+
+Before we can use the Gateway API in our cluster and create instances of the resources, we need to install these _Custom
+Resource Definitions_ (CRDs) which define the new resources. This is done with a single command:
+
+```bash
+kubectl kustomize "https://github.com/nginx/nginx-gateway-fabric/config/crd/gateway-api/standard?ref=v2.1.0" | kubectl apply -f -
+```
 
 ## 🗃️ Namespaces
 
@@ -10,12 +54,13 @@ So far we've worked in a single _Namespace_ called `default`, but Kubernetes all
 in order to logically group and separate your resources.
 
 > Namespaces do not provide any form of network boundary or isolation of workloads, and the underlying resources (Nodes)
-> remain shared. There are ways to achieve these outcomes, but is well beyond the scope of this workshop.
+> remain shared. There are ways to achieve higher degress of isolation, but it is a matter well beyond the scope of this
+> workshop.
 
-Create a new namespace called `ingress`:
+Create a new namespace called `nginx-gateway`:
 
 ```bash
-kubectl create namespace ingress
+kubectl create namespace nginx-gateway
 ```
 
 Namespaces are simple idea but they can trip you up, you will have to add `--namespace` or `-n` to any `kubectl`
@@ -43,77 +88,88 @@ either applications written and developed in house, or external 3rd party softwa
 - Charts can referenced through the local filesystem, or in a remote repository called a _chart repository_. The can
   also be kept in a container registry but that is an advanced and experimental topic.
 
-We'll add the Helm chart repository for the ingress we will be deploying, this is done with the `helm repo` command.
-This is a public repo & chart of the extremely popular NGINX ingress controller (more on that below).
+## 🚪 Deploying the NGINX Gateway
 
-> The repo name `ingress-nginx` can be any name you wish to pick, but the URL has to be pointing to the correct place.
-
-```bash
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-
-helm repo update
-```
-
-## 🚀 Ingress & Ingress Controller
-
-An _Ingress_ is a Kubernetes resource that manages external HTTP(S) access to services within a cluster. It provides
-routing rules to manage how requests are directed to various services based on the request's host or path. An _Ingress
-Controller_ is a reverse proxy that implements the rules defined in _Ingress_ resources, handling the actual routing of
-traffic.
-
-[📚 Kubernetes Docs: Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)  
-[📚 Kubernetes Docs: Ingress Controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/)
-
-![Ingress controller diagram showing routing of traffic to backend services](./ingress-example.drawio.png)
-
-- The controller is simply an instance of a HTTP reverse proxy running in one or mode _Pods_ with a _Service_ in front
-  of it.
-- It implements the Kubernetes controller pattern, which means it's scanning for _Ingress_ resources to be created in
-  the cluster, when it finds one, it reconfigures itself based on the rules and configuration it find that _Ingress_, in
-  order to route traffic.
-- There are
-  [MANY ingress controllers available](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/#additional-controllers)
-  but we will use a very common and simple one, the
-  [NGINX ingress controller](https://kubernetes.github.io/ingress-nginx/) maintained by the Kubernetes project.
-- Often TLS is terminated by the ingress controller, and sometimes other tasks such as JWT validation for authentication
-  can be done at this level. For the sake of this workshop no TLS & HTTPS will be used due to the dependencies it
-  requires (such as DNS, cert management etc).
-
-Helm greatly simplifies deploying the NGINX ingress controller, down to a single command:
+For this section we'll be using the [NGINX Gateway](https://docs.nginx.com/nginx-gateway-fabric/) as our gateway
+implementation, this is a open source project which supports the Gateway API. There are other options available,
+including commercial products, but NGINX is a good choice for this workshop as it is free, open source, and widely used.
 
 ```bash
-helm install my-ingress ingress-nginx/ingress-nginx \
-  --namespace ingress \
-  --set controller.replicaCount=2
+helm install ngf oci://ghcr.io/nginx/charts/nginx-gateway-fabric --namespace nginx-gateway
 ```
 
-- The release name is `my-ingress` which can be **anything** you wish, it's used by the chart templates to prefix the
-  names of created resources.
-- The second parameter is a reference to the chart, in the form of `repo-name/chart-name`, if we wanted to use a local
-  chart on disk, we'd simply reference the path to the chart directory.
-- The `--set` part is where we can pass in values to the release, in this case we increase the replicas to two, purely
-  as an example.
+This command does the following:
 
-Check the status of both the pods and services with `kubectl get svc,pods --namespace ingress`, ensure the pods are
-running and the service has an external public IP.
+- `helm install` - installs a new Helm chart as a release
+- `ngf` - the name of the release, you can choose any name you like
+- `oci://ghcr.io/nginx/charts/nginx-gateway-fabric` - the location of the chart, in case it's a special type of remote
+  URL
+- `--namespace nginx-gateway` - the namespace to install the NIGNX controler & proxy into
 
-You can also use the `helm` CLI to query the status, here's some simple and common commands:
+## 🛠️ Configuring the Gateway
 
-- `helm ls` or `helm ls -A` - List releases or list releases in all namespaces.
-- `helm upgrade {release-name} {chart}` - Upgrade/update a release to apply changes. Add `--install` to perform an
-  install if the release doesn't exist.
-- `--dry-run` - Add this switch to install or upgrade commands to get a view of the resources and YAML that would be
-  created, without applying them to the cluster.
-- `helm get values {release-name}` - Get the values that were used to deploy a release.
-- `helm delete {release-name}` - Remove the release and all the resources.
+Now we have the NGINX Gateway installed, we need to configure it to route traffic to our application. This is done using
+a `Gateway` resource, this would typically be set up once by a cluster administrator, not the application developer, but
+today we are wearing multiple hats!
 
-## 🔀 Reconfiguring The App With Ingress
+[📚 Gateway Resource](https://gateway-api.sigs.k8s.io/api-types/gateway/)
 
-Now we can modify the app we've deployed to route through our new ingress controller, but a few simple changes are
-required first. As the ingress controller will be fronting all requests, the services in front of the deployments should
-be switched back to internal i.e. `ClusterIP`.
+Cretate a file called `gateway.yaml` with the following content:
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+
+metadata:
+  name: nanomon-gateway
+
+spec:
+  gatewayClassName: nginx
+  listeners:
+    - name: http
+      port: 80
+      protocol: HTTP
+      # This is required to allow routes from other namespaces
+      allowedRoutes:
+        namespaces:
+          from: All
+```
+
+> Normally the `hostname` field would be set to a specific hostname, or some wildcard, but for this workshop we are
+> using the external IP address of the Load Balancer without any DNS, so we leave it unset.
+
+Apply the configuration but place it in the `nginx-gateway` namespace with the following command. This allows us to
+separate the gateway resources from the application resources:
+
+```
+kubectl apply -f gateway.yaml -n nginx-gateway
+```
+
+This will actually create the gateway instance (the Helm install you ran previously didn't do that), i.e. the NGINX
+proxy which will route traffic, and along with it a Service of type `LoadBalancer` which will give it an external IP
+address.
+
+To get this external IP address, run: `kubectl get svc -n nginx-gateway` and look for the service called
+`nanomon-gateway-nginx`. It may take a few minutes for the external IP to be assigned, but once it is, make a note of
+it.
+
+If you go to this external IP address in your browser, you should see a 404 error, this is because we haven't yet
+configured any _routes_ to our application.
+
+## 🔒 Reconfiguring The App
+
+Now we need to modify the app we've deployed to route through our new new gateway, but a few simple changes are required
+first. As the gateway will be fronting all requests, the services in front of the deployments should be switched back to
+internal i.e. `ClusterIP`.
 
 - Edit both the data API & frontend _Service_ YAML manifests, change the service type to `ClusterIP`
+- Change the ports to `8000` for the API and `8001` for the frontend, this is the ports the containers are listening,
+  remove the `targetPort` field, so they look like this:
+  ```
+    ports:
+    - protocol: TCP
+      port: 8000
+  ```
 - Edit the frontend _Deployment_ YAML manifest, change the `API_ENDPOINT` environmental variable to use the same origin
   URI `/api` no need for a scheme or host.
 
@@ -122,66 +178,59 @@ namespace with `kubens` you should switch back to the **default** namespace befo
 
 If run `kubectl get svc` you should see both services are now of type `ClusterIP` and have no external IP associated.
 
-The next thing is to configure the ingress by creating an _Ingress_ resource. This can be a fairly complex resource to
-set-up, but it boils down to a set of HTTP path mappings (routes) and which backend _Service_ should serve them. Here is
-the completed manifest file `ingress.yaml`:
+## 🔀 Configuring Routes
 
-<details>
-<summary>Click here for the Ingress YAML</summary>
+Routes are configured using two new resources, `HTTPRoute` and `TLSRoute`. For this workshop we'll just be using
+`HTTPRoute`.
+
+[📚 HTTPRoute Resource](https://gateway-api.sigs.k8s.io/api-types/httproute/
+
+Create a file called `http-route.yaml` with the following content:
 
 ```yaml
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 
 metadata:
-  name: nanomon
-  labels:
-    name: nanomon
+  name: nanomon-routes
 
 spec:
-  # Important we leave this blank, as we don't have DNS configured
-  # Blank means these rules will match ALL HTTP requests hitting the controller IP
-  host:
-  ingressClassName: nginx
+  parentRefs:
+    - namespace: nginx-gateway
+      name: nanomon-gateway
+      sectionName: http
   rules:
-    - http:
-        paths:
-          # Routing for the frontend
-          - pathType: Prefix
-            path: "/"
-            backend:
-              service:
-                name: frontend
-                port:
-                  number: 80
-
-          # Routing for the API
-          - pathType: Prefix
-            path: "/api"
-            backend:
-              service:
-                name: api
-                port:
-                  number: 80
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: frontend
+          port: 8001
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /api
+      backendRefs:
+        - name: api
+          port: 8000
 ```
 
-</details>
+This configuration does the following:
 
-Apply the same as before with `kubectl`, validate the status with:
+- Creates a `HTTPRoute` resource
+- Links the route to the `nanomon-gateway` gateway we created earlier, which is in the `nginx-gateway` namespace
+- Defines two routing rules:
+  - Requests with a path prefix of `/` are routed to the `frontend` service on port `8001`
+  - Requests with a path prefix of `/api` are routed to the `api` service on port `8000`
 
-```bash
-kubectl get ingress
-```
+Apply the configuration with: `kubectl apply -f http-route.yaml`
 
-It may take it a minute for it to be assigned an address, note the address will be the same as the external IP of the
-ingress-controller. You can check this with:
+> You could have defined two separate `HTTPRoute` resources, each with a single rule, but this is more concise and it's
+> unlikely you'd want to manage them separately.
 
-```sh
-kubectl get svc -n ingress | grep LoadBalancer
-```
-
-Visit this IP in your browser, if you check the "About" screen and click the "More Details" link it should take you to
-the API, which should now be served from the same IP as the frontend.
+If you go to the external IP address of the gateway in your browser, you should now see the frontend of the app. Also if
+you go to `http://<external-ip>/api/status` you should see the API status endpoint.
 
 ## 🖼️ Cluster & Architecture Diagram
 
@@ -190,13 +239,5 @@ cluster & in Azure at this stage can be visualized as follows:
 
 ![architecture diagram](./diagram.drawio.png)
 
-Note the addition of the ingress controller _Deployment_ and _Service_ in the `ingress` namespace, and the _Ingress_
-resource alongside the other resources in the `default` namespace.
-
 This is a slightly simplified version from previously in order to fit everything in, so things like the _Deployment_
 resources have been omitted.
-
-## Navigation
-
-[Return to Main Index 🏠](../) ‖ [Previous Section ⏪](../08-more-improvements/) ‖
-[Next Section ⏩](../10-extra-advanced/)
