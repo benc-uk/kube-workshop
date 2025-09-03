@@ -18,8 +18,9 @@
 
     <title>{{ title }} {{ icon }}</title>
 
+    {%- set css %} {% include "main.css" %} {%- endset %}
     <style>
-      {% include "main.css" %}
+      {{ css | cssmin | safe }}
     </style>
   </head>
 
@@ -41,9 +42,7 @@
            <hr>
           {%- for section in collections.section -%}
           <li> 
-            <a href="{{ section.page.url }}"
-              >{{ section.data.index | zeroPad }}: {{ section.data.icon }} {{ section.data.title }}</a
-            >
+            <a href="{{ section.page.url }}">{{ section.data.index | zeroPad }}: {{ section.data.icon }} {{ section.data.title }}</a>
           </li>
           {%- endfor -%}
         </ul>
@@ -51,9 +50,7 @@
         <ul>
           {%- for section in collections.extra -%}
           <li> 
-            <a href="{{ section.page.url }}"
-              >{{ section.data.index | zeroPad }}: {{ section.data.icon }} {{ section.data.title }}</a
-            > 
+            <a href="{{ section.page.url }}">{{ section.data.index | zeroPad }}: {{ section.data.icon }} {{ section.data.title }}</a> 
           </li>
           {%- endfor -%}
           <hr>
@@ -65,10 +62,10 @@
       {{ content | safe }}
       <hr>
 
+      {%- set prev = collections.section | getPreviousCollectionItem %}
+      {%- set next = collections.section | getNextCollectionItem %}
       <footer>
         <a href="/">🏠 Home </a>
-        {% set prev = collections.section | getPreviousCollectionItem %}
-        {% set next = collections.section | getNextCollectionItem %}
         {%- if prev %}
         ‖ <a href="{{ prev.url }}">⏪ Previous Section</a> 
         {%- endif -%}

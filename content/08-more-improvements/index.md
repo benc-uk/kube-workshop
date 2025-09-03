@@ -32,12 +32,11 @@ can be created from files.
 In our case, we'll use a _ConfigMap_ to store the database initialization SQL script, which will then be mounted into
 the Postgres container.
 
-The SQL script can be
-[found here](https://raw.githubusercontent.com/benc-uk/kube-workshop/refs/heads/main/08-more-improvements/nanomon_init.sql).
-You can grab into a file using `curl` like so:
+The SQL script can be [found & downloaded here](./nanomon_init.sql). You can grab it straight into a file using `curl`
+like so:
 
 ```bash
-curl -O https://raw.githubusercontent.com/benc-uk/kube-workshop/refs/heads/main/08-more-improvements/nanomon_init.sql
+curl -O https://kube-workshop.benco.io/08-more-improvements/nanomon_init.sql
 ```
 
 We can then create a _ConfigMap_ from this file using `kubectl`
