@@ -22,7 +22,7 @@ if (currentTheme === "dark") {
 }
 
 // Theme toggle event listener
-themeToggle.addEventListener("click", function () {
+themeToggle.addEventListener("click", () => {
   const currentTheme = html.getAttribute("data-theme");
 
   // Add class to prevent transition flicker

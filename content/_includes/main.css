@@ -333,3 +333,39 @@ footer {
 .theme-switching * {
   transition: none !important;
 }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  main {
+    padding: 0px 10px;
+  }
+
+  header {
+    font-size: 25px;
+    padding: 10px 20px;
+  }
+
+  .theme-toggle {
+    display: none;
+  }
+
+  .sidebar-toggle {
+    font-size: 40px;
+  }
+
+  .sidebar {
+    width: 70vw;
+  }
+
+  footer {
+    font-size: 14px;
+  }
+
+  .sidebar-nav ul {
+    font-size: 14px;
+  }
+}
