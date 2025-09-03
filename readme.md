@@ -2,11 +2,13 @@
 
 A comprehensive hands-on workshop for learning Kubernetes using Azure Kubernetes Service (AKS) as the platform. This workshop uses [Eleventy](https://www.11ty.dev/) as a static site generator to build and serve the workshop content.
 
+[![Workshop Site](https://img.shields.io/website?url=https://kube-workshop.benco.io/&label=Workshop%20Site)](https://kube-workshop.benco.io/) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/benc-uk/kube-workshop/ci-build-deploy.yaml) [![Last Commit](https://img.shields.io/github/last-commit/benc-uk/kube-workshop)](https://github.com/benc-uk/kube-workshop/commits/main) [![GitHub Stars](https://img.shields.io/github/stars/benc-uk/kube-workshop)](https://github.com/benc-uk/kube-workshop/stargazers)
+
+## 🌐 View/run the workshop
+
+Go to the hosted version: [https://kube-workshop.benco.io/](https://kube-workshop.benco.io/)
+
 ## 🚀 Quick Start
-
-### If you're just looking to view/run the workshop
-
-Go here: [https://kube-workshop.benc.uk/](https://kube-workshop.benc.uk/)
 
 ### Prerequisites
 
