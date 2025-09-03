@@ -6,10 +6,10 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "eleventy --serve",
-    "build": "eleventy",
-    "lint": "npx prettier --write ./**/*.md && npx prettier --write ./**/*.yaml",
-    "lint:check": "npx prettier --check ./**/*.md && npx prettier --check ./**/*.yaml"
+    "start": "eleventy --serve --input=content",
+    "build": "eleventy --input=content",
+    "lint": "npx prettier --write ./content/",
+    "lint:check": "npx prettier --check ./content/"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.1.2",
