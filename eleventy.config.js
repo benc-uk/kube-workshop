@@ -19,6 +19,35 @@ export default function (eleventyConfig) {
     html: true,
   };
 
-  const markdownLib = markdownIt(options).use(markdownItAttrs);
+  // Plugin to make external links open in new tab/window
+  function externalLinksPlugin(md) {
+    const defaultRender =
+      md.renderer.rules.link_open ||
+      function (tokens, idx, options, env, self) {
+        return self.renderToken(tokens, idx, options);
+      };
+
+    md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
+      const token = tokens[idx];
+      const hrefIndex = token.attrIndex("href");
+
+      if (hrefIndex >= 0) {
+        const href = token.attrs[hrefIndex][1];
+
+        // Check if it's an external link (starts with http:// or https://)
+        if (href.match(/^https?:\/\//)) {
+          // Add target="_blank" and rel="noopener noreferrer" for security
+          token.attrSet("target", "_blank");
+          token.attrSet("rel", "noopener noreferrer");
+        }
+      }
+
+      return defaultRender(tokens, idx, options, env, self);
+    };
+  }
+
+  const markdownLib = markdownIt(options)
+    .use(markdownItAttrs)
+    .use(externalLinksPlugin);
   eleventyConfig.setLibrary("md", markdownLib);
 }
