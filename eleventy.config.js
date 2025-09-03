@@ -5,12 +5,11 @@ import markdownItAttrs from "markdown-it-attrs";
 export default function (eleventyConfig) {
   eleventyConfig.addPlugin(syntaxHighlight);
 
-  eleventyConfig.addPassthroughCopy("assets");
-  eleventyConfig.addPassthroughCopy("**/*.yaml");
-  eleventyConfig.addPassthroughCopy("**/*.sql");
-  eleventyConfig.addPassthroughCopy("**/*.png");
-  eleventyConfig.addPassthroughCopy("**/*.sh");
-  eleventyConfig.addPassthroughCopy("**/*.svg");
+  eleventyConfig.addPassthroughCopy("./content/**/*.yaml");
+  eleventyConfig.addPassthroughCopy("./content/**/*.sql");
+  eleventyConfig.addPassthroughCopy("./content/**/*.png");
+  eleventyConfig.addPassthroughCopy("./content/**/*.sh");
+  eleventyConfig.addPassthroughCopy("./content/**/*.svg");
 
   eleventyConfig.addFilter("zeroPad", function (num, places = 2) {
     return String(num).padStart(places, "0");
