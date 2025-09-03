@@ -13,5 +13,10 @@ jobs:
       - name: "Checkout code"
         uses: actions/checkout@v4
 
+      - name: "Set up node"
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+
       - name: "Run lint check"
-        run: make lint-check
+        run: npm run lint:check
