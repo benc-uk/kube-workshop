@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Install"
+      - name: Install dependencies
         run: npm ci
 
       - name: Run lint check
@@ -53,7 +53,7 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Install
+      - name: Install dependencies
         run: npm ci
 
       - name: Build site
