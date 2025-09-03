@@ -4,6 +4,10 @@ A comprehensive hands-on workshop for learning Kubernetes using Azure Kubernetes
 
 ## 🚀 Quick Start
 
+### If you're just looking to view/run the workshop
+
+Go here: [https://kube-workshop.benc.uk/](https://kube-workshop.benc.uk/)
+
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) (version 20 or higher)
@@ -78,18 +82,8 @@ A comprehensive hands-on workshop for learning Kubernetes using Azure Kubernetes
 
 1. Create a new directory under [`content/`](content/) following the naming pattern: `##-section-name/`
 2. Add an `index.md` file with the section content
-3. Include any supporting files (YAML manifests, diagrams, etc.) in the same directory
+3. Include any supporting files (YAML manifests, diagrams, etc.) in the same directory, they will be copied to the output
 4. Update the main [`content/index.md`](content/index.md) to link to your new section
-
-### Supported File Types
-
-The following file types are automatically copied during the build process:
-
-- `.yaml` - Kubernetes manifests
-- `.sql` - Database scripts
-- `.png` - Images and diagrams
-- `.sh` - Shell scripts
-- `.svg` - Vector graphics
 
 ### Code Formatting
 
@@ -129,15 +123,7 @@ The site is automatically built and deployed when changes are pushed to the main
 
 ## 📚 Workshop Content
 
-The workshop covers Kubernetes fundamentals through hands-on exercises:
-
-- **Prerequisites**: Tool installation and setup
-- **Cluster Setup**: Deploying AKS and configuring kubectl
-- **Container Registry**: Working with Azure Container Registry
-- **Application Deployment**: Deploying microservices step by step
-- **Networking**: Services, Ingress, and traffic routing
-- **Production Readiness**: Resource limits, probes, secrets, and more
-- **Advanced Topics**: Helm, GitOps, CI/CD, and scaling
+The workshop covers Kubernetes fundamentals check the `content/` directory for details.
 
 For detailed content information, see the workshop itself at the deployed site or run locally with `npm start`.
 
