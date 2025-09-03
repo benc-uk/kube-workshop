@@ -7,3 +7,5 @@ ignore*/**
 .ssh
 manifests
 .runthrough/
+node_modules/
+_site/

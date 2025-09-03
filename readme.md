@@ -1,81 +1,132 @@
 # Kubernetes Developer Workshop
 
-Welcome to the 'Kubernetes Developer Workshop', a highly technical & hands on set of exercises intended to get you comfortable working with Kubernetes, and
-deploying applications within it. This workshop is very much aimed at software engineers & developers with little or zero Kubernetes
-experience, but wanting to get hands on and learn how to deploy and manage their code in a Kubernetes.
+A comprehensive hands-on workshop for learning Kubernetes using Azure Kubernetes Service (AKS) as the platform. This workshop uses [Eleventy](https://www.11ty.dev/) as a static site generator to build and serve the workshop content.
 
-It should take roughly 6~8 hours to complete the main set of
-sections, but this is very approximate. This [Kubernetes Technical Primer](https://github.com/benc-uk/kube-primer) can act as a companion to the workshop to be read through, referenced or used to get an initial grounding on the concepts.
+## 🚀 Quick Start
 
-The installation, administration, network configuration & day-2 operations of Kubernetes itself, are not covered in this workshop. This is very much a developer focused workshop, so if you want to learn about the low level & operational side of Kubernetes you might want to look elsewhere.
+### If you're just looking to view/run the workshop
 
-The workshop focuses on an application that has already been written and built, so no application code will need to be written.
+Go here: [https://kube-workshop.benc.uk/](https://kube-workshop.benc.uk/)
 
-If you get stuck, the [GitHub source repo for this workshop](https://github.com/benc-uk/kube-workshop)
-contains example code, and working files for all of the sections.
+### Prerequisites
 
-## Azure Kubernetes Service (AKS)
+- [Node.js](https://nodejs.org/) (version 20 or higher)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
 
-You'll be using AKS to learn how to work with Kubernetes running as a managed service in Azure.
+### Installation & Development
 
-> 📝 NOTE: This section assumes a relative degree of comfort in using Azure for sections 2 and 3.
+1. **Clone the repository**
 
-Summary of the sections:
+   ```bash
+   git clone https://github.com/benc-uk/kube-workshop.git
+   cd kube-workshop
+   ```
 
-- [⚒️ Workshop Pre Requisites](00-pre-reqs/readme.md) - Covering the pre set up and tools that will be
-  needed.
-- [🚦 Deploying Kubernetes](01-cluster/readme.md) - Deploying AKS, setting up kubectl and accessing
-  the cluster.
-- [📦 Container Registry & Images](02-container-registry/readme.md) - Deploying the registry and importing
-  images.
-- [❇️ Overview Of The Application](03-the-application/readme.md) - Details of the application to be
-  deployed.
-- [🚀 Deploying The Backend](04-deployment/readme.md) - Laying down the first two components and
-  introduction to Deployments and Pods.
-- [🌐 Basic Networking](05-network-basics/readme.md) - Introducing Services to provide network access.
-- [💻 Adding The Frontend](06-frontend/readme.md) - Deploying the frontend to the app and wiring it
-  up.
-- [✨ The Path to Production Readiness](07-improvements/readme.md) - Recommended practices; resource limits,
-  probes and secrets.
-- [🏆 Continued Path to Production Readiness](08-more-improvements/readme.md) - More recommended practices; ConfigMaps & Volumes.
-- [🌎 Helm & Ingress](09-helm-ingress/readme.md) - Finalizing the application architecture using ingress.
+2. **Install dependencies**
 
-### 🍵 Optional Sections
+   ```bash
+   npm install
+   ```
 
-These can be considered bonus sections, and are entirely optional. It is not expected that all these sections would be attempted, and they do not run in order.
+3. **Start the development server**
 
-- [🤯 Scaling, Stateful Workloads & Helm](10-extra-advanced/readme.md) - Scaling (manual & auto),
-  stateful workloads and persitent volumes, plus more Helm.
-- [🧩 Kustomize & GitOps](11-gitops-flux/readme.md) - Introduction to Kustomize and deploying apps
-  through GitOps with Flux.
-- [👷 CI/CD with Kubernetes](12-cicd-actions/readme.md) - How to manage CI/CD pipelines using Github
-  Actions.
+   ```bash
+   npm start
+   ```
 
-### 🗝️ Archive: K3S Path
+   This will start a local development server with hot reloading at `http://localhost:8080`
 
-If you wish to learn how to set up and run Kubernetes on a single VM, simulating an on-premises
-environment, then you can follow the K3S version of this workshop. This is no longer actively maintained
-and will be out of date, but is kept for reference purposes. Refer to the [archived K3S section](archive/k3s/readme.md) for more details.
+4. **Build for production**
 
-### 📖 Extra Reading & Teach Yourself Exercises
+   ```bash
+   npm run build
+   ```
 
-A very brief list of potential topics and Kubernetes features you may want to look at after finishing:
+   The built site will be generated in the `_site/` directory
 
-### Kubernetes Features
+## 📁 Project Structure
 
-- [Init containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
-- [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/)
-- [Debugging Pods with shell access and exec](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)
-- Assigning Pods to Nodes with [selectors](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/) and [taints](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
-- [Cluster Autoscaler in AKS](https://docs.microsoft.com/azure/aks/cluster-autoscaler)
+```
+├── content/                # Workshop content (Markdown files)
+│   ├── _includes/          # Eleventy templates and layouts
+│   ├── 00-pre-reqs/        # Section 1: Prerequisites
+│   ├── 01-cluster/         # Section 2: Cluster setup
+│   └── ...                 # Additional workshop sections
+├── _site/                  # Generated static site (ignored in git)
+├── eleventy.config.js      # Eleventy configuration
+├── package.json            # Node.js dependencies and scripts
+└── README.md               # This file!
+```
 
-### Other Projects
+## 🛠️ Available Scripts
 
-- Enable the [Kubernetes dashboard](https://github.com/kubernetes/dashboard)
-- Enabling TLS with certificates from Let's Encrypt using [Cert Manager](https://cert-manager.io/docs/)
-- Observability
-  - With [Prometheus](https://artifacthub.io/packages/helm/prometheus-community/prometheus) & [Grafana](https://artifacthub.io/packages/helm/grafana/grafana)
-  - Using [AKS monitoring add-on](https://docs.microsoft.com/azure/azure-monitor/containers/container-insights-overview)
-- Using [Dapr](https://dapr.io/) for building portable and reliable microservices
-- Adding a service mesh such as [Linkerd](https://linkerd.io/) or [Istio](https://learn.microsoft.com/en-us/azure/aks/istio-about)
-- Setting up the [Application Gateway for Containers](https://learn.microsoft.com/en-gb/azure/application-gateway/for-containers/overview)
+| Command              | Description                                 |
+| -------------------- | ------------------------------------------- |
+| `npm start`          | Start development server with hot reloading |
+| `npm run build`      | Build static site for production            |
+| `npm run clean`      | Remove the `_site/` directory               |
+| `npm run lint`       | Format Markdown files with Prettier         |
+| `npm run lint:check` | Check Markdown formatting                   |
+
+## ✨ Contributing
+
+### Content Guidelines
+
+1. **All workshop content** is located in the [`content/`](content/) directory
+2. **Use Markdown** with `.md` extension for all content files
+3. **Follow the existing structure** - each section should be in its own directory with an `index.md` file
+4. **Include navigation links** at the bottom of each section following the existing pattern
+5. **Use relative links** for internal navigation and assets
+
+### Adding New Sections
+
+1. Create a new directory under [`content/`](content/) following the naming pattern: `##-section-name/`
+2. Add an `index.md` file with the section content
+3. Include any supporting files (YAML manifests, diagrams, etc.) in the same directory, they will be copied to the output
+4. Update the main [`content/index.md`](content/index.md) to link to your new section
+
+### Code Formatting
+
+- Run `npm run lint` to format all Markdown files
+- Use `npm run lint:check` to verify formatting without making changes
+- The project uses [Prettier](https://prettier.io/) with a 120 character line width
+
+### Local Testing
+
+1. Make your changes in the [`content/`](content/) directory
+2. Run `npm start` to serve the site locally
+3. Verify your changes at `http://localhost:8080`
+4. Test all navigation links and ensure assets load correctly
+5. Run `npm run lint` to ensure consistent formatting
+
+## 🌐 Deployment
+
+The site is automatically built and deployed when changes are pushed to the main branch. The build process:
+
+1. Runs `npm run build` to generate the static site
+2. Deploys the contents of `_site/` directory
+3. Makes the workshop available at the production URL
+
+## 🐛 Troubleshooting
+
+### Development Server Issues
+
+- **Port already in use**: The default port is 8080. If it's occupied, Eleventy will try the next available port
+- **Changes not reflecting**: Ensure you're editing files in the [`content/`](content/) directory, not the `_site/` directory
+- **Build errors**: Check that all Markdown files are properly formatted and internal links are valid
+
+### Content Issues
+
+- **Broken links**: Use relative paths for internal links (e.g., `../01-cluster/index.md`)
+- **Missing assets**: Ensure supporting files are in the same directory as the content that references them
+- **Formatting problems**: Run `npm run lint` to fix common Markdown formatting issues
+
+## 📚 Workshop Content
+
+The workshop covers Kubernetes fundamentals check the `content/` directory for details.
+
+For detailed content information, see the workshop itself at the deployed site or run locally with `npm start`.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

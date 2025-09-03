@@ -1,0 +1,171 @@
+body {
+  font-family: "Lunasima", sans-serif;
+  background-color: #1a1f20;
+  color: #ddd;
+  padding: 0px;
+  margin: 0px;
+  font-size: 18px;
+}
+
+pre {
+  padding: 10px;
+  background-color: #111 !important;
+  border-radius: 10px;
+  box-shadow: 0px 0px 12px #000;
+}
+
+main {
+  max-width: 1200px;
+  padding: 0px 60px;
+  line-height: 130%;
+  margin: auto;
+}
+
+code {
+  background-color: #111;
+  font-family: "Google Sans Code", monospace;
+  border-radius: 4px;
+  padding: 4px 8px;
+  color: rgb(188, 215, 230);
+}
+
+pre code {
+  padding: 0px;
+}
+
+li {
+  line-height: 170%;
+}
+
+.diagram {
+  max-width: 100%;
+  border: 5px solid #0ea2e6;
+  border-radius: 10px;
+}
+
+.logo {
+  height: 1.2em;
+  vertical-align: middle;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #0ea2e6;
+}
+
+h2 {
+  margin-top: 50px;
+}
+
+summary {
+  cursor: pointer;
+  color: #1ac971;
+  font-weight: bold;
+}
+
+details > summary {
+  list-style-type: "▶️";
+}
+details[open] > summary {
+  list-style-type: "🔽";
+}
+
+header {
+  padding: 10px 0px;
+  background: linear-gradient(270deg, #0252ca 0%, #0ec469 100%);
+  color: white;
+  margin: 0px;
+  text-align: center;
+  font-size: 35px;
+  position: sticky;
+  top: 0;
+  box-shadow: 0px 12px 15px rgba(0, 0, 0, 0.6);
+}
+
+.collapsed {
+  display: none;
+}
+
+.sidebar-toggle {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 50px;
+  cursor: pointer;
+}
+
+.sidebar-toggle:hover {
+  color: #fff;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30vw;
+  height: 100%;
+  background-color: #111;
+  padding: 0px;
+  box-shadow: 8px 0 9px rgba(0, 0, 0, 0.4);
+}
+
+.sidebar-nav ul {
+  list-style-type: none;
+  padding: 15px;
+  margin: 0;
+  font-size: 19px;
+}
+
+a {
+  color: #41c281;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #1fe481;
+}
+
+blockquote {
+  margin: 0;
+  padding: 0;
+}
+
+blockquote p {
+  margin: 30px 20px;
+  padding: 15px;
+  color: #bbb;
+  font-style: italic;
+  background-color: #283031;
+  line-height: 150%;
+}
+
+blockquote p::before {
+  content: "📝 ";
+  font-style: normal;
+}
+
+blockquote code {
+  font-style: normal;
+}
+
+abbr {
+  text-decoration: none;
+  border-bottom: 1px dotted #bbb;
+  cursor: help;
+}
+
+footer {
+  text-align: center;
+  color: #838383;
+  font-size: 20px;
+  margin: 50px 0px 40px 0px;
+}
