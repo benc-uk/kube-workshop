@@ -1,17 +1,93 @@
+/* CSS Custom Properties for theming */
+:root {
+  /* Light theme colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #2d3748;
+  --bg-code: #f7fafc;
+  --text-primary: #2d3748;
+  --text-secondary: #4a5568;
+  --text-code: #2d3748;
+  --accent-primary: #0ea2e6;
+  --accent-secondary: #1ac971;
+  --link-color: #0252ca;
+  --link-hover: #0ea2e6;
+  --border-color: #0ea2e6;
+  --shadow-color: rgba(0, 0, 0, 0.15);
+  --blockquote-bg: #edf2f7;
+}
+
+/* Dark theme colors */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #1a1f20;
+    --bg-secondary: #111;
+    --bg-code: #111;
+    --text-primary: #ddd;
+    --text-secondary: #bbb;
+    --text-code: rgb(188, 215, 230);
+    --accent-primary: #0ea2e6;
+    --accent-secondary: #1ac971;
+    --link-color: #41c281;
+    --link-hover: #1fe481;
+    --border-color: #0ea2e6;
+    --shadow-color: rgba(0, 0, 0, 0.6);
+    --blockquote-bg: #283031;
+  }
+}
+
+/* Manual theme override classes */
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #2d3748;
+  --bg-code: #d8d8d8;
+  --text-primary: #2d3748;
+  --text-secondary: #4a5568;
+  --text-code: #2d3748;
+  --accent-primary: #0ea2e6;
+  --accent-secondary: #1ac971;
+  --link-color: #0252ca;
+  --link-hover: #0ea2e6;
+  --border-color: #0ea2e6;
+  --shadow-color: rgba(0, 0, 0, 0.15);
+  --blockquote-bg: #edf2f7;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #1a1f20;
+  --bg-secondary: #111;
+  --bg-code: #111;
+  --text-primary: #ddd;
+  --text-secondary: #bbb;
+  --text-code: rgb(188, 215, 230);
+  --accent-primary: #0ea2e6;
+  --accent-secondary: #1ac971;
+  --link-color: #41c281;
+  --link-hover: #1fe481;
+  --border-color: #0ea2e6;
+  --shadow-color: rgba(0, 0, 0, 0.6);
+  --blockquote-bg: #283031;
+}
+
 body {
   font-family: "Lunasima", sans-serif;
-  background-color: #1a1f20;
-  color: #ddd;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   padding: 0px;
   margin: 0px;
   font-size: 18px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 pre {
   padding: 10px;
-  background-color: #111 !important;
+  background-color: var(--bg-secondary) !important;
   border-radius: 10px;
-  box-shadow: 0px 0px 12px #000;
+  box-shadow: 0px 0px 12px var(--shadow-color);
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 main {
@@ -22,11 +98,14 @@ main {
 }
 
 code {
-  background-color: #111;
+  background-color: var(--bg-code);
   font-family: "Google Sans Code", monospace;
   border-radius: 4px;
-  padding: 4px 8px;
-  color: rgb(188, 215, 230);
+  padding: 2px 6px;
+  color: var(--text-code);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 pre code {
@@ -39,8 +118,9 @@ li {
 
 .diagram {
   max-width: 100%;
-  border: 5px solid #0ea2e6;
+  border: 5px solid var(--border-color);
   border-radius: 10px;
+  transition: border-color 0.3s ease;
 }
 
 .logo {
@@ -54,7 +134,8 @@ h3,
 h4,
 h5,
 h6 {
-  color: #0ea2e6;
+  color: var(--accent-primary);
+  transition: color 0.3s ease;
 }
 
 h2 {
@@ -63,8 +144,9 @@ h2 {
 
 summary {
   cursor: pointer;
-  color: #1ac971;
+  color: var(--accent-secondary);
   font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 details > summary {
@@ -83,7 +165,8 @@ header {
   font-size: 35px;
   position: sticky;
   top: 0;
-  box-shadow: 0px 12px 15px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 12px 15px var(--shadow-color);
+  transition: box-shadow 0.3s ease;
 }
 
 .collapsed {
@@ -113,9 +196,12 @@ header {
   left: 0;
   width: 30vw;
   height: 100%;
-  background-color: #111;
+  background-color: var(--bg-secondary);
   padding: 0px;
-  box-shadow: 8px 0 9px rgba(0, 0, 0, 0.4);
+  box-shadow: 8px 0 9px var(--shadow-color);
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .sidebar-nav ul {
@@ -126,12 +212,13 @@ header {
 }
 
 a {
-  color: #41c281;
+  color: var(--link-color);
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #1fe481;
+  color: var(--link-hover);
 }
 
 blockquote {
@@ -142,10 +229,13 @@ blockquote {
 blockquote p {
   margin: 30px 20px;
   padding: 15px;
-  color: #bbb;
+  color: var(--text-secondary);
   font-style: italic;
-  background-color: #283031;
+  background-color: var(--blockquote-bg);
   line-height: 150%;
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease;
 }
 
 blockquote p::before {
@@ -159,13 +249,87 @@ blockquote code {
 
 abbr {
   text-decoration: none;
-  border-bottom: 1px dotted #bbb;
+  border-bottom: 1px dotted var(--text-secondary);
   cursor: help;
+  transition: border-color 0.3s ease;
 }
 
 footer {
   text-align: center;
-  color: #838383;
+  color: var(--text-secondary);
   font-size: 20px;
   margin: 50px 0px 40px 0px;
+  transition: color 0.3s ease;
+}
+
+/* Theme toggle button styles */
+.theme-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  padding: 8px 16px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle:active {
+  transform: translateY(0);
+}
+
+.theme-toggle::before {
+  content: "☀️";
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .theme-toggle::before {
+  content: "🌙";
+}
+
+/* Auto mode - show system preference icon */
+:root:not([data-theme]) .theme-toggle::before {
+  content: "🌓";
+}
+
+/* Improved responsive design for theme toggle */
+@media (max-width: 768px) {
+  .theme-toggle {
+    top: 5px;
+    right: 5px;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .theme-toggle::before {
+    font-size: 14px;
+  }
+}
+
+/* Ensure smooth transitions for all themed elements */
+* {
+  transition-property: background-color, color, border-color, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+/* Prevent transitions during theme switching to avoid jarring effects */
+.theme-switching * {
+  transition: none !important;
 }

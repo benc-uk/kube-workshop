@@ -29,6 +29,9 @@
       <button class="sidebar-toggle" aria-label="Toggle sidebar">
         <span class="toggle-icon">&#8801;</span>
       </button>
+      <button class="theme-toggle" aria-label="Toggle theme">
+        Theme
+      </button>
       <img src="/00-pre-reqs/logo.svg" class="logo" />
       Kubernetes Developer Workshop
     </header>
@@ -75,13 +78,9 @@
       </footer>
     </main>
 
+    {%- set js %} {% include "main.js" %} {%- endset %}
     <script>
-      document.querySelector(".sidebar-toggle").addEventListener("click", function () {
-        document.querySelector(".sidebar").classList.toggle("collapsed");
-      });
-      document.querySelector("main").addEventListener("click", function () {
-        document.querySelector(".sidebar").classList.add("collapsed");
-      });
+      {{ js | safe }}
     </script>
   </body>
 </html>
