@@ -8,8 +8,8 @@
   "scripts": {
     "start": "eleventy --serve --input=./content/",
     "build": "eleventy --input=./content/",
-    "lint": "npx prettier --write ./content/",
-    "lint:check": "npx prettier --check ./content/",
+    "lint": "prettier --write ./content/",
+    "lint:check": "prettier --check ./content/",
     "clean": "rm -rf _site"
   },
   "dependencies": {
