@@ -1,6 +1,7 @@
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import markdownIt from "markdown-it";
 import markdownItAttrs from "markdown-it-attrs";
+import CleanCSS from "clean-css";
 
 export default function (eleventyConfig) {
   eleventyConfig.addPlugin(syntaxHighlight);
@@ -49,5 +50,10 @@ export default function (eleventyConfig) {
   const markdownLib = markdownIt(options)
     .use(markdownItAttrs)
     .use(externalLinksPlugin);
+
+  eleventyConfig.addFilter("cssmin", function (code) {
+    return new CleanCSS({}).minify(code).styles;
+  });
+
   eleventyConfig.setLibrary("md", markdownLib);
 }

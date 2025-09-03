@@ -269,5 +269,7 @@ Now to deploy the app with Helm, run the command below:
 helm install demo nanomon/nanomon --values values.yaml
 ```
 
+The release name is `demo` here, however you can choose any name you wish.
+
 Validate the deployment as before with `helm` and `kubectl` and check you can access the app in the browser using the
 same ingress IP address as before.
