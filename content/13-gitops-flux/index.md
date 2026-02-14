@@ -1,6 +1,6 @@
 ---
 tags: extra
-index: 11
+index: 13
 title: GitOps & Flux
 summary: Introduction to Kustomize and deploying apps through GitOps with Flux.
 layout: default.njk
