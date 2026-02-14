@@ -2,8 +2,7 @@
 tags: extra
 index: 11
 title: Observability & Monitoring
-summary:
-  Learn how to monitor and observe your Kubernetes cluster and applications using tools like Prometheus and Grafana.
+summary: Monitor & observe Kubernetes and applications using tools like Prometheus and Grafana.
 layout: default.njk
 icon: 📊
 ---

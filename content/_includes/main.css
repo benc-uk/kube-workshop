@@ -334,6 +334,17 @@ footer {
   transition: none !important;
 }
 
+td {
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  transition: border-color 0.3s ease;
+}
+
+/* remove cell spacing */
+table {
+  border-collapse: collapse;
+}
+
 /* Mobile responsive styles */
 @media (max-width: 768px) {
   body {
