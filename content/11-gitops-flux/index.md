@@ -52,7 +52,6 @@ spec:
           resources:
             limits:
               memory: "128Mi"
-              cpu: "500m"
           ports:
             - containerPort: 80
 ```
@@ -97,8 +96,9 @@ spec:
       containers:
         - name: webserver
           resources:
-            limits:
-              cpu: 330m
+            requests:
+              cpu: 50m
+              memory: 50Mi
           env:
             - name: SOME_ENV_VAR
               value: Hello!
@@ -192,8 +192,8 @@ key part of the GitOps methodology to have a single source of truth.
 ### 💽 Install Flux into AKS
 
 [Flux is available as an AKS Extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2)
-which is intended to simplify installing Flux into your cluster & configuring it. As of Jan 2022, it requires some
-extensions to the Azure CLI to be installed first.
+which is intended to simplify installing Flux into your cluster & configuring it, however it requires some extensions to
+the Azure CLI to be installed first.
 
 Add the CLI extensions with:
 
