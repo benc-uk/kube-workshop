@@ -7,7 +7,7 @@ layout: default.njk
 icon: 🚀
 ---
 
-# {{ icon }} Deploying Kubernetes
+# {{ icon }} {{ title }}
 
 Deploying AKS and Kubernetes can be extremely complex, with many networking, compute and other aspects to consider.
 However for the purposes of this workshop, a default and basic cluster can be deployed very quickly.
@@ -43,8 +43,11 @@ This should take around 5 minutes to complete, and creates a new AKS cluster wit
 
 - Two small B-Series _Nodes_ in a single node pool. _Nodes_ are what your workloads will be running on. This is about as
   small and cheap as you can go and still have cluster that is useful for learning and experimentation.
-  - It's quite possible the subscription you are using has limits or controls on what VM sizes can be used, if you get an error about the VM size not being available try changing to a different size, e.g. `Standard_D4ds_v5`.
-- It will use 'Azure CNI Overlay' networking, which creates an Azure network and subnet etc for us, we don't have to worry about any of the underlying network configuration, and it will just work with Azure services. [See docs if you wish to learn more about this topic](https://docs.microsoft.com/azure/aks/operator-best-practices-network)
+  - It's quite possible the subscription you are using has limits or controls on what VM sizes can be used, if you get
+    an error about the VM size not being available try changing to a different size, e.g. `Standard_D4ds_v5`.
+- It will use 'Azure CNI Overlay' networking, which creates an Azure network and subnet etc for us, we don't have to
+  worry about any of the underlying network configuration, and it will just work with Azure services.
+  [See docs if you wish to learn more about this topic](https://docs.microsoft.com/azure/aks/operator-best-practices-network)
   [See docs if you wish to learn more about this topic](https://docs.microsoft.com/azure/aks/operator-best-practices-network)
 - Local cluster admin account, with RBAC enabled, this means we don't need to worry about setting up users or assigning
   roles etc.

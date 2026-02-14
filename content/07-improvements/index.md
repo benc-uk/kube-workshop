@@ -7,7 +7,7 @@ layout: default.njk
 icon: ✨
 ---
 
-# {{ icon }} Path to Production Readiness
+# {{ icon }} {{ title }}
 
 We've cut several corners so far in order to simplify things and introduce concepts one at a time, now it is time to
 make some improvements. What constitutes best practice is a moving target, and often subjective, but there are some

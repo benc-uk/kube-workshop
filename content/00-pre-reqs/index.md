@@ -7,7 +7,7 @@ layout: default.njk
 icon: ⚒️
 ---
 
-# {{ icon }} Workshop Pre Requisites
+# {{ icon }} {{ title }}
 
 As this is an entirely hands on workshop, you will need several things before you can start:
 

@@ -7,7 +7,7 @@ layout: default.njk
 icon: 🌐
 ---
 
-# {{ icon }} Basic Networking
+# {{ icon }} {{ title }}
 
 Pods are both ephemeral and "mortal", they should be considered effectively transient. Kubernetes can terminate and
 reschedule pods for a whole range of reasons, including rolling updates, hitting resource limits, scaling up & down and
@@ -16,6 +16,12 @@ directly (e.g. by name or IP address).
 
 Kubernetes solves this with _Services_, which act as a network abstraction over a group of pods, and have their own
 independent and more stable life cycle. We can use them to greatly improve what we've deployed.
+
+Networking in Kubernetes is a complex topic, and could be the subject of an entire workshop on its own. For now we will
+cover just enough to get our app working, and in the next part we will look at how to expose the frontend to the
+internet.
+
+[📚 Kubernetes Docs: Cluster Networking](https://kubernetes.io/docs/concepts/cluster-administration/networking/)
 
 ## 🧩 Deploy PostgreSQL Service
 

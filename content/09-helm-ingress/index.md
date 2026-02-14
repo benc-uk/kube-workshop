@@ -7,7 +7,7 @@ layout: default.njk
 icon: 🌎
 ---
 
-# {{ icon }} Helm & Ingress
+# {{ icon }} {{ title }}
 
 🔥 At this point in the workshop you have a choice:
 

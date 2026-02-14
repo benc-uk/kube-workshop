@@ -1,6 +1,6 @@
 ---
 tags: extra
-index: 13
+index: 15
 title: Operations Cheat Sheet
 summary:
   Running and maintaining a Kubernetes cluster is a complex task. This cheat sheet provides a quick reference to

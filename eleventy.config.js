@@ -55,5 +55,18 @@ export default function (eleventyConfig) {
     return new CleanCSS({}).minify(code).styles;
   });
 
+  // Sort section and extra collections by frontmatter index
+  eleventyConfig.addCollection("section", function (collectionApi) {
+    return collectionApi.getFilteredByTag("section").sort((a, b) => {
+      return (a.data.index || 0) - (b.data.index || 0);
+    });
+  });
+
+  eleventyConfig.addCollection("extra", function (collectionApi) {
+    return collectionApi.getFilteredByTag("extra").sort((a, b) => {
+      return (a.data.index || 0) - (b.data.index || 0);
+    });
+  });
+
   eleventyConfig.setLibrary("md", markdownLib);
 }

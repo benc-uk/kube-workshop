@@ -9,7 +9,10 @@ icon: 🧬
 
 # {{ icon }} GitOps & Flux
 
-This is an advanced optional section going into two topics; Kustomize and also GitOps, using FluxCD.
+This is an advanced optional section going into two topics; Kustomize and also GitOps, using FluxCD. These are highly
+specialized topics, adopted by some teams and organizations, but not universally used. They are also quite complex
+topics, so we won't go into too much depth, but this will give you a good introduction to the concepts and how they work
+in practice.
 
 ## 🪓 Kustomize
 

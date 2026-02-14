@@ -1,13 +1,13 @@
 ---
-tags: extra
 index: 10
 title: Scaling & Stateful Workloads
 summary: Scaling (manual & auto), stateful workloads, persitent volumes, plus more Helm.
 layout: default.njk
-icon: 🤯
+icon: ⚖️
+tags: section
 ---
 
-# 🤯 Scaling, Stateful Workloads & Helm
+# {{ icon }} {{ title }}
 
 This final section touches on some slightly more advanced and optional concepts we've skipped over. They aren't required
 to get a basic app up & running, but generally come up in practice and real world use of Kubernetes.

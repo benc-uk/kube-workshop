@@ -4,6 +4,8 @@
 
 An Eleventy v3 static site generating a hands-on Kubernetes (AKS) workshop. Content is authored in Markdown under `content/`, built to `_site/`, and deployed to GitHub Pages. The workshop walks developers through deploying a multi-tier app (Postgres → API → Frontend) on AKS.
 
+The intent of this project is to provide a comprehensive, step-by-step learning experience for developers new to Kubernetes, with a focus on practical application and real-world scenarios. The content is structured into sections that cover everything from cluster setup to advanced operations, with a mix of explanations, code snippets, and exercises.
+
 ## Build & Dev Commands
 
 - `npm start` — dev server with hot reload at `http://localhost:8080`

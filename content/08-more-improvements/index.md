@@ -7,7 +7,7 @@ layout: default.njk
 icon: 🏆
 ---
 
-# {{ icon }} Production Readiness Continued
+# {{ icon }} {{ title }}
 
 We're not done improving things yet! This section is a continuation of the previous one, where we will further enhance
 our deployment by adding a few more important features. Using _ConfigMaps_ and volumes, we'll continue stepping towards

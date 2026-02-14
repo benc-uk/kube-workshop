@@ -7,7 +7,7 @@ layout: default.njk
 icon: 💻
 ---
 
-# {{ icon }} Adding The Frontend
+# {{ icon }} {{ title }}
 
 We've ignored the frontend until this point, with the API and DB in place we are finally ready to deploy it. We need to
 use a _Deployment_ and _Service_ just as before (you might be starting to see a pattern!). We can pick up the pace a

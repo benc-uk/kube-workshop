@@ -7,7 +7,7 @@ layout: default.njk
 icon: 🌎
 ---
 
-# 🌎 Helm & Gateway API
+# {{ icon }} {{ title }}
 
 🔥 This section is an alternative to the [Helm & Ingress section](../09-helm-ingress/), but instead of covering the
 legacy Ingress API, it uses the newer Gateway API which is still evolving, but represents the future of L4/L7 routing in

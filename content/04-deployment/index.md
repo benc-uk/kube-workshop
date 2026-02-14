@@ -7,7 +7,7 @@ layout: default.njk
 icon: 🚀
 ---
 
-# {{ icon }} Deploying The Backend
+# {{ icon }} {{ title }}
 
 We'll deploy the app piece by piece, and at first we'll deploy & configure things in a sub-optimal way. This is in order
 to explore the Kubernetes concepts and show their purpose. Then we'll iterate and improve towards the final
