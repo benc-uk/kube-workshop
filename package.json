@@ -1,7 +1,7 @@
 {
   "name": "kube-workshop",
-  "version": "2.0.0",
-  "description": "A workshop covering the basics of Kubernetes, using Azure Kubernetes Service (AKS) as the platform.",
+  "version": "2.0.1",
+  "description": "A workshop to learn Kubernetes, with hands-on labs and exercises to enable developers to get up and running",
   "author": "Ben Coleman",
   "license": "MIT",
   "type": "module",
