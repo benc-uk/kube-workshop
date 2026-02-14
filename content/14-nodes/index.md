@@ -9,13 +9,16 @@ icon: ⚙️
 
 # {{ icon }} {{ title }}
 
-In this section we'll take a look at the underlying cluster architecture, and the nodes that run our workloads. This is
-not strictly necessary to know in order to deploy and run applications, but it is useful to understand the fundamentals
-of how Kubernetes works under the hood, and it will give you a better understanding of the cluster and how to
-troubleshoot it when things go wrong.
+In this section we'll take a look at the the nodes that run our workloads. This is not strictly necessary to know in
+order to deploy and run applications, but it is useful to understand the fundamentals of how Kubernetes works under the
+hood, and it will give you a better understanding of the cluster and how to troubleshoot it when things go wrong.
+
+This section is a little more Azure & AKS specific, as we'll be taking about nodepools and some specifics of how AKS
+manages nodes. However the concepts of nodes, labels, selectors, taints, and tolerations are all fundamental Kubernetes
+concepts that apply to any cluster, regardless of where it's running.
 
 In Kubernetes, the term "node" refers to a machine in the cluster, you might also see them referred to as "worker nodes"
-or "agent nodes"
+or "agent nodes".
 
 > Note. We won't be going into cluster level networking, i.e. how nodes and pods communicate with each other, VNets or
 > how services route traffic to pods, otherwise this would be a 2 week deep dive! If you are really interested in that,
@@ -37,6 +40,13 @@ Every Kubernetes cluster consists of two main parts:
 
 When you created your AKS cluster back in section 1, you specified `--node-count 2`, which created a single node pool
 with two worker nodes. The control plane was provisioned for you transparently by Azure.
+
+The following diagram shows a high-level view of a Kubernetes cluster architecture, with the control plane, system node
+pool, and user node pools. Don't worry about understanding every component in the diagram, just get a sense of how the
+control plane manages the nodes and how the system node pool runs critical cluster infrastructure while user node pools
+run your application workloads.
+
+<img src="cluster-architecture.drawio.svg" alt="Kubernetes cluster architecture diagram showing the control plane, system node pool, and user node pool" style="max-width: 100%; margin: 1rem 0;">
 
 [📚 Kubernetes Docs: Cluster Architecture](https://kubernetes.io/docs/concepts/architecture/)
 
