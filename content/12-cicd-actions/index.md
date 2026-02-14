@@ -1,13 +1,13 @@
 ---
 tags: extra
 index: 12
-title: DevOps & CI/CD with Kubernetes
+title: DevOps & CI/CD
 summary: How to manage CI/CD pipelines using Github Actions.
 layout: default.njk
 icon: 🏗️
 ---
 
-# {{ icon }} DevOps & CI/CD with Kubernetes
+# {{ icon }} {{ title }}
 
 This is an optional section detailing how to set up a continuous integration (CI) and continuous deployment (CD)
 pipeline, which will deploy to Kubernetes using Helm.

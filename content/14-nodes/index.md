@@ -131,7 +131,7 @@ name of the node in the `extra` pool, you'll need it later. You can easily ident
 kubectl get nodes -l agentpool=extra
 ```
 
-> ⚠️ Adding a node pool will increase your Azure costs. Remember to remove it when you're done with this section using:
+> Adding a node pool will increase your Azure costs. Remember to remove it when you're done with this section using:
 > `az aks nodepool delete --resource-group $RES_GROUP --cluster-name $AKS_NAME --name extra`
 
 ## 🏷️ Labels & Selectors

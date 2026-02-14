@@ -1,7 +1,7 @@
 ---
 tags: section
 index: 8
-title: Production Readiness Continued
+title: Production Readiness (Cont.)
 summary: More recommended practices; ConfigMaps & Volumes
 layout: default.njk
 icon: 🏆
