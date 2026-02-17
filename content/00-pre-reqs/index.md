@@ -123,7 +123,7 @@ helm
 Now test kubectl - this will verify kubectl is properly installed:
 
 ```bash
-# Test kubectl installation 
+# Test kubectl installation
 k get pods -A
 ```
 

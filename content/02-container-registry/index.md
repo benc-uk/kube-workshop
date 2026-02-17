@@ -31,7 +31,8 @@ az acr create --name $ACR_NAME --resource-group $RES_GROUP \
 
 <div class="troubleshoot">Missing Subscription Registration
 
-If you see the error `MissingSubscriptionRegistration`, your Azure subscription isn't yet registered to create Container Registry resources. Register the required provider:
+If you see the error `MissingSubscriptionRegistration`, your Azure subscription isn't yet registered to create Container
+Registry resources. Register the required provider:
 
 ```bash
 az provider register --namespace Microsoft.ContainerRegistry
@@ -44,6 +45,7 @@ az provider show --namespace Microsoft.ContainerRegistry --query registrationSta
 ```
 
 Once the status is Registered, retry creating the registry.
+
 </div>
 
 ## 📥 Importing Images
@@ -78,7 +80,8 @@ az acr import --name $ACR_NAME --resource-group $RES_GROUP \
 --image nanomon-postgres:latest
 ```
 
-If you wish to check and see imported images, you can go over to the ACR resource in the Azure portal, and into the 'Services' > 'Repositories' section.
+If you wish to check and see imported images, you can go over to the ACR resource in the Azure portal, and into the
+'Services' > 'Repositories' section.
 
 ## 🔌 Connect AKS to ACR - as Azure Subscription Owner
 

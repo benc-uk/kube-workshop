@@ -32,13 +32,15 @@ az aks create --resource-group $RES_GROUP \
 
 <div class="troubleshoot">Unsupported Kubernetes Version
 
-If you get error "Version x.xx.x is not supported in this region", run the following to get the supported Kubernetes versions
+If you get error "Version x.xx.x is not supported in this region", run the following to get the supported Kubernetes
+versions
 
 ```bash
 az aks get-versions --location $REGION -o table
 ```
 
 And re-run the create cluster command with a supported version number.
+
 </div>
 
 <div class="troubleshoot">Missing Subscription Registration
@@ -56,6 +58,7 @@ az provider show --namespace Microsoft.ContainerService --query registrationStat
 ```
 
 Once the status is Registered, re-run the cluster creation command.
+
 </div>
 
 This should take around 5 minutes to complete, and creates a new AKS cluster with the following characteristics:
