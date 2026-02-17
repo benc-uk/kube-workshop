@@ -16,6 +16,19 @@ export default function (eleventyConfig) {
     return String(num).padStart(places, "0");
   });
 
+  // Custom sorted collections to ensure correct ordering by index
+  eleventyConfig.addCollection("section", function (collectionApi) {
+    return collectionApi
+      .getFilteredByTag("section")
+      .sort((a, b) => a.data.index - b.data.index);
+  });
+
+  eleventyConfig.addCollection("extra", function (collectionApi) {
+    return collectionApi
+      .getFilteredByTag("extra")
+      .sort((a, b) => a.data.index - b.data.index);
+  });
+
   let options = {
     html: true,
   };

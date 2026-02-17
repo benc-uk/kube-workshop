@@ -7,7 +7,7 @@ layout: default.njk
 icon: ❇️
 ---
 
-# {{ icon }} Overview Of The Application
+# {{ icon }} {{ title }}
 
 This section simply serves as an introduction to the application, there are no tasks to be carried out.
 

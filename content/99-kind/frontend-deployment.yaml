@@ -17,7 +17,7 @@ spec:
       containers:
         - name: frontend-container
 
-          image: __ACR_NAME__.azurecr.io/nanomon-frontend:latest
+          image: ghcr.io/benc-uk/nanomon-frontend:latest
           imagePullPolicy: Always
 
           ports:
@@ -39,4 +39,4 @@ spec:
 
           env:
             - name: API_ENDPOINT
-              value: "/api"
+              value: /api

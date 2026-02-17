@@ -7,7 +7,7 @@ layout: default.njk
 icon: ✨
 ---
 
-# {{ icon }} Path to Production Readiness
+# {{ icon }} {{ title }}
 
 We've cut several corners so far in order to simplify things and introduce concepts one at a time, now it is time to
 make some improvements. What constitutes best practice is a moving target, and often subjective, but there are some
@@ -24,10 +24,14 @@ can do this two ways:
 - **Resource requests**: Used by the Kubernetes scheduler to help assign _Pods_ to a node with sufficient resources.
   This is only used when starting & scheduling pods, and not enforced after they start.
 - **Resource limits**: _Pods_ will be prevented from using more resources than their assigned limits. These limits are
-  enforced and can result in a _Pod_ being terminated. It's highly recommended to set limits to prevent one workload
-  from monopolizing cluster resources and starving other workloads.
+  enforced and can result in a _Pod_ being terminated.
 
-It's worth reading the offical docs especially on the units & specifiers used for memory and CPU, which can feel a
+It's highly recommended to set **memory limits** to prevent one workload from monopolizing cluster resources and
+starving other workloads. However, **CPU limits are widely considered harmful** and can cause more problems than they
+solve, so we'll only set CPU requests, and not limits. You can do some further reading on this topic if you like, but
+we'll skip the reasoning for this in the interest of time.
+
+It's worth reading the official docs especially on the units & specifiers used for memory and CPU, which can feel a
 little unintuitive at first.
 
 [📚 Kubernetes Docs: Resource Management](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
@@ -42,7 +46,6 @@ resources:
     cpu: 50m
     memory: 50Mi
   limits:
-    cpu: 100m
     memory: 128Mi
 ```
 
@@ -53,7 +56,6 @@ resources:
     cpu: 50m
     memory: 100Mi
   limits:
-    cpu: 100m
     memory: 512Mi
 ```
 

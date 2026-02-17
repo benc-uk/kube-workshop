@@ -7,7 +7,7 @@ layout: default.njk
 icon: 📦
 ---
 
-# {{ icon }} Container Registry & Images
+# {{ icon }} {{ title }}
 
 We will deploy & use a private registry to hold the application container images. This is not strictly necessary as we
 could pull the images directly from the public, however using a private registry is a more realistic approach.
@@ -22,8 +22,7 @@ Deploying a new ACR is very simple:
 
 ```bash
 az acr create --name $ACR_NAME --resource-group $RES_GROUP \
---sku Standard \
---admin-enabled true
+--sku Standard
 ```
 
 > When you pick a name for the resource with `$ACR_NAME`, this has to be **globally unique**, and not contain any
@@ -102,9 +101,10 @@ will need to proceed to the alternative approach below.
 
 ## 🔌 Connect AKS to ACR - Alternative Workaround
 
-If you do not have 'Owner' permissions in Azure, you will need to fall back to an alternative approach. This involves
-two things:
+If you do not have 'Owner' permissions in Azure (to the resource group you are using), you will need to fall back to an
+alternative approach. This involves two things:
 
+- Enable password authentication by running `az acr update --name $ACR_NAME --admin-enabled true`
 - Adding an _Secret_ to the cluster containing the credentials to pull images from the ACR.
 - Including a reference to this _Secret_ in every _Deployment_ you create or update the _ServiceAccount_ used by the
   _Pods_ to reference this _Secret_.

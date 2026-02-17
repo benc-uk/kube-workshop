@@ -10,8 +10,9 @@ spec:
       containers:
         - name: webserver
           resources:
-            limits:
-              cpu: 330m
+            requests:
+              cpu: 50m
+              memory: 50Mi
           env:
             - name: SOME_ENV_VAR
               value: Hello!

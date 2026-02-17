@@ -7,7 +7,7 @@ layout: default.njk
 icon: ⚒️
 ---
 
-# {{ icon }} Workshop Pre Requisites
+# {{ icon }} {{ title }}
 
 As this is an entirely hands on workshop, you will need several things before you can start:
 
@@ -115,7 +115,6 @@ Double check that everything is installed and working correctly with:
 
 ```bash
 # Verify Azure CLI and Helm are working
-# Try commands with tab completion
 az
 helm
 ```
@@ -167,7 +166,7 @@ RES_GROUP="kube-workshop"
 REGION="westeurope"
 AKS_NAME="__change_me__"
 ACR_NAME="__change_me__"
-KUBE_VERSION="1.27.1"
+KUBE_VERSION="1.33.6"
 ```
 
 > New versions of Kubernetes are released all the time, and eventually older versions are removed from Azure. Rather

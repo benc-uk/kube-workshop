@@ -1,6 +1,6 @@
 ---
 tags: extra
-index: 11
+index: 13
 title: GitOps & Flux
 summary: Introduction to Kustomize and deploying apps through GitOps with Flux.
 layout: default.njk
@@ -9,7 +9,10 @@ icon: 🧬
 
 # {{ icon }} GitOps & Flux
 
-This is an advanced optional section going into two topics; Kustomize and also GitOps, using FluxCD.
+This is an advanced and highly optional section going into two topics; Kustomize and also GitOps, using FluxCD. These
+are highly specialized topics, adopted by some teams and organizations, but not universally used. They are also quite
+complex topics, so we won't go into too much depth, but this will give you a good introduction to the concepts and how
+they work in practice.
 
 ## 🪓 Kustomize
 
@@ -52,7 +55,6 @@ spec:
           resources:
             limits:
               memory: "128Mi"
-              cpu: "500m"
           ports:
             - containerPort: 80
 ```
@@ -97,8 +99,9 @@ spec:
       containers:
         - name: webserver
           resources:
-            limits:
-              cpu: 330m
+            requests:
+              cpu: 50m
+              memory: 50Mi
           env:
             - name: SOME_ENV_VAR
               value: Hello!
@@ -192,8 +195,8 @@ key part of the GitOps methodology to have a single source of truth.
 ### 💽 Install Flux into AKS
 
 [Flux is available as an AKS Extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2)
-which is intended to simplify installing Flux into your cluster & configuring it. As of Jan 2022, it requires some
-extensions to the Azure CLI to be installed first.
+which is intended to simplify installing Flux into your cluster & configuring it, however it requires some extensions to
+the Azure CLI to be installed first.
 
 Add the CLI extensions with:
 

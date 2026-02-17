@@ -55,7 +55,6 @@ spec:
               cpu: 50m
               memory: 100Mi
             limits:
-              cpu: 100m
               memory: 512Mi
 
           readinessProbe:

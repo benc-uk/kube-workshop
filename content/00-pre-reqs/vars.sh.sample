@@ -2,4 +2,8 @@ RES_GROUP="kube-workshop"
 REGION="westeurope"
 AKS_NAME="__change_me__"
 ACR_NAME="__change_me__" # NOTE: Can not contain underscores or hyphens
-KUBE_VERSION="1.33"
+KUBE_VERSION="1.33.6"
+
+# Do not edit below this line
+
+echo -e "Using variables: Region=$REGION\nResource Group=$RES_GROUP\nAKS Name=$AKS_NAME\nACR Name=$ACR_NAME\nKubernetes Version=$KUBE_VERSION"

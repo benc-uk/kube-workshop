@@ -7,7 +7,7 @@ layout: default.njk
 icon: 🌎
 ---
 
-# 🌎 Helm & Gateway API
+# {{ icon }} {{ title }}
 
 🔥 This section is an alternative to the [Helm & Ingress section](../09-helm-ingress/), but instead of covering the
 legacy Ingress API, it uses the newer Gateway API which is still evolving, but represents the future of L4/L7 routing in
@@ -45,7 +45,7 @@ Before we can use the Gateway API in our cluster and create instances of the res
 Resource Definitions_ (CRDs) which define the new resources. This is done with a single command:
 
 ```bash
-kubectl kustomize "https://github.com/nginx/nginx-gateway-fabric/config/crd/gateway-api/standard?ref=v2.1.0" | kubectl apply -f -
+kubectl apply --server-side -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.1/standard-install.yaml
 ```
 
 ## 🗃️ Namespaces
@@ -85,8 +85,7 @@ either applications written and developed in house, or external 3rd party softwa
 - Helm charts support dynamic parameters called _values_. Charts expose a set of default _values_ through their
   `values.yaml` file, and these _values_ can be set and over-ridden at _release_ time.
 - The use of _values_ is critical for automated deployments and CI/CD.
-- Charts can referenced through the local filesystem, or in a remote repository called a _chart repository_. The can
-  also be kept in a container registry but that is an advanced and experimental topic.
+- Charts can referenced through the local filesystem, or in a remote repository called a _chart repository_
 
 ## 🚪 Deploying the NGINX Gateway
 

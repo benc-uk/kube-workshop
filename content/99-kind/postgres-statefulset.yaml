@@ -1,14 +1,25 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 
 metadata:
   name: postgres
 
 spec:
+  serviceName: postgres
   replicas: 1
   selector:
     matchLabels:
       app: postgres
+
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-pvc
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: standard
+        resources:
+          requests:
+            storage: 500M
 
   template:
     metadata:
@@ -56,3 +67,6 @@ spec:
             - name: initdb-vol
               mountPath: /docker-entrypoint-initdb.d
               readOnly: true
+            - name: postgres-pvc
+              mountPath: /var/lib/postgresql/data
+              subPath: data

@@ -17,7 +17,7 @@ spec:
       containers:
         - name: runner-container
 
-          image: __ACR_NAME__.azurecr.io/nanomon-runner:latest
+          image: ghcr.io/benc-uk/nanomon-runner:latest
           imagePullPolicy: Always
 
           resources:

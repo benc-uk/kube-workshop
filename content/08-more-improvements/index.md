@@ -1,13 +1,13 @@
 ---
 tags: section
 index: 8
-title: Production Readiness Continued
+title: Production Readiness (Cont.)
 summary: More recommended practices; ConfigMaps & Volumes
 layout: default.njk
 icon: 🏆
 ---
 
-# {{ icon }} Production Readiness Continued
+# {{ icon }} {{ title }}
 
 We're not done improving things yet! This section is a continuation of the previous one, where we will further enhance
 our deployment by adding a few more important features. Using _ConfigMaps_ and volumes, we'll continue stepping towards
@@ -48,23 +48,24 @@ kubectl create configmap nanomon-sql-init --from-file=nanomon_init.sql
 > Like every object in Kubernetes, ConfigMaps can also be created with a YAML manifest, but when working with external
 > files/scripts etc, kubectl is your only real option.
 
-There are three mains ways to use a _ConfigMap_ in with a _Pod_: as container command and args, as environment
-variables, or as files in a volume. In this section we'll use the volume method.
+There are two main ways to use a _ConfigMap_ in with a _Pod_: as environment variables, or as (virtual) files in a
+volume. In this section we'll use the volume method. Which means we need to explain volumes and volume mounts first,
+before we can use the _ConfigMap_.
 
 ## 💾 Volumes & Volume Mounts
 
 A Volume in Kubernetes is a directory that is accessible to containers in a pod. Volumes are used to persist data, share
 data between containers, and manage configuration. When it comes to persisting data and storage in Kubernetes, it's a
-stageringly complex & deep topic. However volumes can also be used to easily provide a container with access to
+staggeringly complex & deep topic. However volumes can also be used to easily provide a container with access to
 configuration files, via a _ConfigMap_.
 
 [📚 Kubernetes Docs: Volumes](https://kubernetes.io/docs/concepts/storage/volumes/)
 
 There's always two parts to using a volume:
 
-1. Define the volume in the _Pod_ spec, and specify the source of the volume.
-2. Define a volume mount in the container spec, which references the volume, and specifies the filesystem path inside
-   the container where the volume should be mounted.
+1. Define the **volume** in the _Pod_ spec, and specify the source of the volume, there are many types of sources.
+2. Define a **volume mount** in the container spec, which references the volume, and specifies the filesystem path
+   inside the container where the volume should be mounted.
 
 Update the Postgres deployment manifest to include the volume and volume mount, as follows:
 
@@ -86,12 +87,12 @@ volumeMounts:
     readOnly: true
 ```
 
-Hey, what's this `/docker-entrypoint-initdb.d` path? Is this some Kubernetes thing? No, this is a special directory in
-the official Postgres image. Any `*.sql` or `*.sh` files found in this directory when the container starts will be
-automatically executed by the Postgres entrypoint script. This is a really useful feature of the official Postgres
-image, and is why we don't need to create our own custom Postgres image.
+Hey, what's this `/docker-entrypoint-initdb.d` path? Is this some Kubernetes thing? No, this is a special directory (yes
+it looks like a file but is actually a directory) used by the official Postgres image. Any `*.sql` or `*.sh` files found
+in this directory when the container starts will be automatically executed when the container is initialized. This is a
+really useful feature of the official Postgres image, and is why we don't need to create our own custom Postgres image.
 
-The last thing to do is to update the Postgres container spec to use the official Postgres image, hosted publically on
+The last thing to do is to update the Postgres container spec to use the official Postgres image, hosted publicly on
 Dockerhub, rather than our custom one. Change the image line to:
 
 ```yaml

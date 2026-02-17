@@ -1,13 +1,13 @@
 ---
-tags: extra
 index: 10
 title: Scaling & Stateful Workloads
 summary: Scaling (manual & auto), stateful workloads, persitent volumes, plus more Helm.
 layout: default.njk
-icon: 🤯
+icon: ⚖️
+tags: section
 ---
 
-# 🤯 Scaling, Stateful Workloads & Helm
+# {{ icon }} {{ title }}
 
 This final section touches on some slightly more advanced and optional concepts we've skipped over. They aren't required
 to get a basic app up & running, but generally come up in practice and real world use of Kubernetes.
@@ -51,7 +51,7 @@ modify the number of replicas dynamically.
 To set up an _Horizontal Pod Autoscaler_ you can give it a deployment and some simple targets, as follows:
 
 ```bash
-kubectl autoscale deployment nanomon-api --cpu="50%" --min=2 --max=10
+kubectl autoscale deployment nanomon-api --cpu-percent=50 --min=2 --max=10
 ```
 
 <details>
@@ -59,7 +59,7 @@ kubectl autoscale deployment nanomon-api --cpu="50%" --min=2 --max=10
 
 ```yaml
 kind: HorizontalPodAutoscaler
-apiVersion: autoscaling/v1
+apiVersion: autoscaling/v2
 metadata:
   name: nanomon-api
 spec:
@@ -69,7 +69,13 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: nanomon-api
-  targetCPUUtilizationPercentage: 50
+    metrics:
+      - resource:
+          name: cpu
+          target:
+            averageUtilization: 50
+            type: Utilization
+        type: Resource
 ```
 
 </details>
@@ -92,7 +98,7 @@ chmod +x hey_linux_amd64
 
 After about 1~2 mins you should see new API pods being created. Once the `hey` command completes and the load stops, it
 will probably be around ~5 mins before the pods scale back down to their original number. The command
-`kubectl describe hpa` is useful and will show you the current status of the autoscaler.
+`kubectl describe hpa` is very useful and will show you the current status of the autoscaler.
 
 ## 🛢️ Improving The PostgreSQL Backend
 
@@ -111,13 +117,13 @@ _StatefulSets_ which greatly helps with the complexities of running multiple sta
 
 ⚠️ But wait _StatefulSets_ are not a magic wand! Any stateful workload such as a database **still needs to be made
 aware** it is running in multiple places and handle the data synchronization/replication. This can be setup for
-PostgreSQL, but is deemed too complex for this workshop.
+PostgreSQL, but is deemed too complex for this workshop, so we'll have to settle for a single instance in this case.
 
-However we can address the issue of data persistence.
+However we can at least address the issue of data persistence.
 
 🧪 **Optional Experiment**: Try using the app and adding a monitor, then run `kubectl delete pod {postgres-pod-name}`
 You will see that Kubernetes immediately restarts it. However when the app recovers and reconnects to the DB (which
-might take a few seconds), you will see the data you created is gone.
+might take a few seconds), you will see the data you created is gone!
 
 To resolve the data persistence issues, we need do three things:
 
@@ -198,7 +204,6 @@ spec:
               cpu: 50m
               memory: 100Mi
             limits:
-              cpu: 100m
               memory: 512Mi
 
           readinessProbe:
@@ -226,8 +231,8 @@ new `postgres-statefulset.yaml` file. Some comments:
 - Running `kubectl get pv,pvc` you will see the new _PersistentVolume_ and _PersistentVolumeClaim_ that have been
   created. The _Pod_ might take a little while to start while the volume is created, and is "bound" to the _Pod_
 
-If you repeat the pod deletion experiment above, you should see that the data is maintained after you delete the
-`postgres-0` pod and it restarts.
+If you repeat the pod deletion experiment above (note, the name now will be `postgres-0` as StatefulSet pods have stable
+names), you should see that the data is maintained after you delete the `postgres-0` pod and it restarts.
 
 ## 💥 Installing The App with Helm
 

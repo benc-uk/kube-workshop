@@ -2,23 +2,26 @@ kind: Deployment
 apiVersion: apps/v1
 
 metadata:
-  name: nanomon-runner
+  name: nanomon-api
 
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: nanomon-runner
+      app: nanomon-api
   template:
     metadata:
       labels:
-        app: nanomon-runner
+        app: nanomon-api
     spec:
       containers:
-        - name: runner-container
+        - name: api-container
 
-          image: __ACR_NAME__.azurecr.io/nanomon-runner:latest
+          image: ghcr.io/benc-uk/nanomon-api:latest
           imagePullPolicy: Always
+
+          ports:
+            - containerPort: 8000
 
           resources:
             requests:
@@ -26,6 +29,13 @@ spec:
               memory: 50Mi
             limits:
               memory: 128Mi
+
+          readinessProbe:
+            httpGet:
+              port: 8000
+              path: /api/health
+            initialDelaySeconds: 5
+            periodSeconds: 10
 
           env:
             - name: POSTGRES_DSN
