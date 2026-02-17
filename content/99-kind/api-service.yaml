@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: api
+
+spec:
+  type: ClusterIP
+  selector:
+    app: nanomon-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000

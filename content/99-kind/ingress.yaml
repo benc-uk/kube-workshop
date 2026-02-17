@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+
+metadata:
+  name: nanomon
+  labels:
+    name: nanomon
+
+spec:
+  host:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
+
+          - pathType: Prefix
+            path: "/api"
+            backend:
+              service:
+                name: api
+                port:
+                  number: 80

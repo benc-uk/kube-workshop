@@ -26,7 +26,10 @@ code, and working files for all of the sections.
 
 ## Azure Kubernetes Service (AKS)
 
-You'll be using AKS to learn how to work with Kubernetes running as a managed service in Azure.
+The main workshop has been built around using Azure Kubernetes Service (AKS) as the Kubernetes environment, almost none
+of the content is specific to AKS, and you can follow along with any Kubernetes cluster. However, if you want to follow
+along with the main content, you will need access to an Azure subscription to create the AKS cluster and other
+resources.
 
 Workshop sections & topics:
 
@@ -40,7 +43,7 @@ Workshop sections & topics:
   {%- endfor -%}
 </ul>
 
-> Some familarity with Azure is required for sections 1 and 2, but after that the focus is on Kubernetes itself.
+> Some familiarity with Azure is required for sections 1 and 2, but after that the focus is on Kubernetes itself.
 
 ### 🍵 Optional Sections
 
@@ -56,6 +59,19 @@ attempted, and they do not run in order.
   </li>
   {%- endfor -%}
 </ul>
+
+### 📌 Using 'Kind' Instead of AKS
+
+The workshop was designed with AKS in mind, but if you don't have access to Azure or prefer to do your development and
+testing locally, you can use [Kind (Kubernetes IN Docker)](https://kind.sigs.k8s.io/) to create a local Kubernetes
+cluster. Kind runs Kubernetes clusters locally in Docker containers, making it an excellent tool for local development
+and testing.
+
+Below is a link to notes and modifications for if you want to try this path. It's not a section in the main flow of the
+workshop, but rather a separate page with notes and alternative instructions for each of the main sections of the
+workshop (above)
+
+- [Using Kind instead of Azure Kubernetes Service](99-kind)
 
 ### 📖 Extra Reading & Teach Yourself Exercises
 

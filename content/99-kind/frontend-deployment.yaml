@@ -1,0 +1,42 @@
+kind: Deployment
+apiVersion: apps/v1
+
+metadata:
+  name: nanomon-frontend
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nanomon-frontend
+  template:
+    metadata:
+      labels:
+        app: nanomon-frontend
+    spec:
+      containers:
+        - name: frontend-container
+
+          image: ghcr.io/benc-uk/nanomon-frontend:latest
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 8001
+
+          resources:
+            requests:
+              cpu: 50m
+              memory: 50Mi
+            limits:
+              memory: 128Mi
+
+          readinessProbe:
+            httpGet:
+              port: 8001
+              path: /
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          env:
+            - name: API_ENDPOINT
+              value: /api
