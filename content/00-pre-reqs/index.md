@@ -115,7 +115,6 @@ Double check that everything is installed and working correctly with:
 
 ```bash
 # Verify Azure CLI and Helm are working
-# Try commands with tab completion
 az
 helm
 ```
