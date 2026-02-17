@@ -45,7 +45,7 @@ Before we can use the Gateway API in our cluster and create instances of the res
 Resource Definitions_ (CRDs) which define the new resources. This is done with a single command:
 
 ```bash
-kubectl kustomize "https://github.com/nginx/nginx-gateway-fabric/config/crd/gateway-api/standard?ref=v2.1.0" | kubectl apply -f -
+kubectl apply --server-side -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.1/standard-install.yaml
 ```
 
 ## 🗃️ Namespaces
