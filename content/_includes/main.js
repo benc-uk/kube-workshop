@@ -53,11 +53,11 @@ function updateThemeButtonText() {
   const currentTheme = html.getAttribute("data-theme");
 
   if (currentTheme === "dark") {
-    themeToggle.textContent = "Light";
-  } else if (currentTheme === "light") {
-    themeToggle.textContent = "Auto";
-  } else {
     themeToggle.textContent = "Dark";
+  } else if (currentTheme === "light") {
+    themeToggle.textContent = "Light";
+  } else {
+    themeToggle.textContent = "Auto";
   }
 }
 
