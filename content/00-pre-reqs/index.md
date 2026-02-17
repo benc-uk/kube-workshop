@@ -111,14 +111,23 @@ To have `.bashrc` changes take affect in your current terminal, you must reload 
 
 ## ✅ Verify installation
 
-Double check that everything in installed and working correctly with:
+Double check that everything is installed and working correctly with:
 
 ```bash
+# Verify Azure CLI and Helm are working
 # Try commands with tab completion
-k get pods -A
-helm
 az
+helm
 ```
+
+Now test kubectl - this will verify kubectl is properly installed:
+
+```bash
+# Test kubectl installation 
+k get pods -A
+```
+
+<div class="troubleshoot"> This command may fail with a <strong>connection refused error</strong> if no Kubernetes cluster is configured yet (for example, when starting fresh) or if your kubeconfig still points to an old or expired cluster from a different project. This is expected behaviour, we'll create and connect to a new cluster in the next section.</div>
 
 ## 🔐 Login to Azure
 

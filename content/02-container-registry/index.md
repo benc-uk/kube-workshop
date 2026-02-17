@@ -29,6 +29,23 @@ az acr create --name $ACR_NAME --resource-group $RES_GROUP \
 > When you pick a name for the resource with `$ACR_NAME`, this has to be **globally unique**, and not contain any
 > underscores, dots or hyphens. Name must also be in lowercase.
 
+<div class="troubleshoot">Missing Subscription Registration
+
+If you see the error `MissingSubscriptionRegistration`, your Azure subscription isn't yet registered to create Container Registry resources. Register the required provider:
+
+```bash
+az provider register --namespace Microsoft.ContainerRegistry
+```
+
+You can check the status with:
+
+```bash
+az provider show --namespace Microsoft.ContainerRegistry --query registrationState
+```
+
+Once the status is Registered, retry creating the registry.
+</div>
+
 ## 📥 Importing Images
 
 For the sake of speed and maintaining the focus on Kubernetes we will import pre-built images from another public
@@ -61,8 +78,7 @@ az acr import --name $ACR_NAME --resource-group $RES_GROUP \
 --image nanomon-postgres:latest
 ```
 
-If you wish to check and see imported images, you can go over to the ACR resource in the Azure portal, and into the
-'Repositories' section.
+If you wish to check and see imported images, you can go over to the ACR resource in the Azure portal, and into the 'Services' > 'Repositories' section.
 
 ## 🔌 Connect AKS to ACR - as Azure Subscription Owner
 
