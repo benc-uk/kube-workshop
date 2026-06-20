@@ -18,8 +18,8 @@ guided workshop or training session, alternatively work through it at your own p
 into individual sections as a reference guide when you need them.
 
 Plan for roughly 6 to 8 hours to get through the main sections, though that's a rough guide so go at your own pace. If
-you want some background reading alongside it, the [Kubernetes Technical Primer](https://github.com/benc-uk/kube-primer)
-makes a handy companion for grounding yourself in the concepts.
+you want some background reading alongside it, or before you start, the
+[Kubernetes Technical Primer](https://kube-primer.benco.io/) makes a companion for grounding yourself in the concepts.
 
 You will stand up a cluster as part of the workshop, but we won't be getting into the administration, network
 configuration or day-2 operations of Kubernetes itself. This is squarely a developer's workshop, so if you're after the
