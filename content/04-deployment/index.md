@@ -190,7 +190,7 @@ _Pods_ have been scheduled (assigned) to. You might see each _Pod_ has been sche
 not guaranteed. _Pod_ scheduling and placement is a fairly complex topic, for now we can move on.
 
 It's also worth mention the _Pod_ names, they are prefixed with the name of the _Deployment_, followed by a hash,
-folowed by a random string. _Pod_ names are nearly always auto-generated like this, and are not something you should
+followed by a random string. _Pod_ names are nearly always auto-generated like this, and are not something you should
 rely on or try to set yourself.
 
 ## ⏩ Accessing the API (The quick & dirty way)

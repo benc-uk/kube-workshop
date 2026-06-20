@@ -129,7 +129,7 @@ This command does the following:
   resources created by the chart, so it should be short and descriptive
 - `oci://ghcr.io/nginx/charts/nginx-gateway-fabric` - the location of the chart, in case it's a special type of remote
   URL
-- `--namespace nginx-gateway` - the namespace to install the NIGNX controler & proxy into
+- `--namespace nginx-gateway` - the namespace to install the NGINX controller & proxy into
 
 ## 🛠️ Configuring the Gateway
 
@@ -139,7 +139,7 @@ today we are wearing multiple hats!
 
 [📚 Gateway Resource](https://gateway-api.sigs.k8s.io/api-types/gateway/)
 
-Cretate a file called `gateway.yaml` with the following content:
+Create a file called `gateway.yaml` with the following content:
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
