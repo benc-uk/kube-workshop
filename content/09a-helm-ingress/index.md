@@ -1,5 +1,5 @@
 ---
-tags: section
+tags: alternative
 index: 9
 title: Helm & Ingress
 summary: Finalizing the application architecture using ingress
@@ -9,14 +9,9 @@ icon: 🌎
 
 # {{ icon }} {{ title }}
 
-🔥 At this point in the workshop you have a choice:
-
-- _Recommended_: If you want to learn about the new Gateway API, which represents the future of L4/L7 routing in
-  Kubernetes, go to the [Helm & Gateway API section](../09a-helm-gateway-api/).
-- _Not recommended_: If you want to learn about the legacy Ingress API, continue with this section. This is widely
-  supported and in wide use, but it has been superseded in functionality by the newer Gateway API.
-
-Only go through one of these two sections, not both!
+🔥 This section is an alternative to the [Helm & Gateway API section](../09-helm-gateway-api/), but instead of covering
+the newer Gateway API, it uses the legacy Ingress API which is still widely supported and in use, but has been
+superseded in functionality by the newer Gateway API. Do not run through both sections, choose one or the other. 🔥
 
 ---
 
@@ -29,9 +24,10 @@ we've deployed.
 So far we've worked in a single _Namespace_ called `default`, but Kubernetes allows you create additional _Namespaces_
 in order to logically group and separate your resources.
 
-> Namespaces do not provide any form of network boundary or isolation of workloads, and the underlying resources (Nodes)
-> remain shared. There are ways to achieve higher degress of isolation, but it is a matter well beyond the scope of this
-> workshop.
+Namespaces do not provide any form of network boundary or isolation of workloads, and the underlying resources (Nodes)
+remain shared. There are ways to achieve higher degress of isolation, but it is a matter well beyond the scope of this
+workshop. But they still provide a useful way to separate resources, and in this section we'll create a new namespace
+for the ingress resources, so that they are separate from the application resources.
 
 Create a new namespace called `ingress`:
 
@@ -48,6 +44,9 @@ default for all `kubectl` commands, meaning you don't need to add `-n`, think of
 # Note the space at the end
 alias kubens='kubectl config set-context --current --namespace '
 ```
+
+Then you can switch namespaces with `kubens {namespace-name}`, e.g. `kubens ingress` or `kubens default`. You can check
+the current namespace with `kubectl config view --minify | grep namespace:`.
 
 ## 🪖 Introduction to Helm
 

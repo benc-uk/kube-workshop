@@ -11,9 +11,9 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 ./06-frontend.sh
 ./07-improvements.sh
 ./08-more-improvements.sh
-./09a-gateway.sh
+./09-gateway.sh
 
 echo
 echo "==================================================="
-echo " All sections (0-8 + 9a Gateway API) completed."
+echo " All sections (0-9 Gateway API) completed."
 echo "==================================================="

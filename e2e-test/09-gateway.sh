@@ -4,7 +4,7 @@ set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")"
 source ./vars.sh
 mkdir -p rendered
-SRC="${REPO_ROOT}/content/09a-helm-gateway-api"
+SRC="${REPO_ROOT}/content/09-helm-gateway-api"
 GW_API_VERSION="v1.4.1"
 
 echo "==> Installing Gateway API CRDs (${GW_API_VERSION}, standard channel)"
