@@ -1,0 +1,35 @@
+# Copy this file to vars.sh and adjust, then `source vars.sh`:
+#     cp vars.sh.sample vars.sh
+# Every value can also be overridden from the environment, e.g.  REGION=uksouth ./run-all.sh
+#
+# NOTE: vars.sh is git-ignored (matches the repo's `vars*.sh` rule) so your real
+# subscription id and names never get committed.
+
+# Azure subscription to deploy into. Defaults to your current `az` context.
+export SUBSCRIPTION_ID="${SUBSCRIPTION_ID:-$(az account show --query id -o tsv 2>/dev/null)}"
+
+export RES_GROUP="${RES_GROUP:-kube-workshop-e2e}"
+export REGION="${REGION:-northeurope}"
+export AKS_NAME="${AKS_NAME:-aks-kube-workshop}"
+export NODE_COUNT="${NODE_COUNT:-2}"
+export NODE_VM_SIZE="${NODE_VM_SIZE:-Standard_B2ms}"
+# Fallback node size used automatically if the primary size has no quota
+export NODE_VM_SIZE_FALLBACK="${NODE_VM_SIZE_FALLBACK:-Standard_D4ds_v5}"
+
+# ACR name must be globally unique, lowercase, alphanumeric only (no hyphens/dots).
+# Generated once and persisted to .acr_name so it stays stable across reruns.
+# Set ACR_NAME in the environment to pin a specific name.
+_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+_ACR_NAME_FILE="${_SCRIPT_DIR}/.acr_name"
+if [[ -n "${ACR_NAME:-}" ]]; then
+  echo "${ACR_NAME}" >"${_ACR_NAME_FILE}"
+elif [[ ! -f "${_ACR_NAME_FILE}" ]]; then
+  echo "acrkw$(openssl rand -hex 4)" >"${_ACR_NAME_FILE}"
+fi
+export ACR_NAME="$(cat "${_ACR_NAME_FILE}")"
+
+# Location of the repo's source manifests (templates with __PLACEHOLDERS__)
+export REPO_ROOT="$(cd "${_SCRIPT_DIR}/.." && pwd)"
+export MANIFEST_SRC="${REPO_ROOT}/content/04-deployment"
+
+echo "Loaded vars: RG=${RES_GROUP} REGION=${REGION} AKS=${AKS_NAME} ACR=${ACR_NAME}"

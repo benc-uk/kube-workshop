@@ -13,11 +13,11 @@
     "clean": "rm -rf _site"
   },
   "dependencies": {
-    "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy": "^3.1.6",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
     "clean-css": "^5.3.3",
-    "markdown-it": "^14.1.1",
-    "markdown-it-attrs": "^4.3.1",
-    "prettier": "^3.8.1"
+    "markdown-it": "^14.2.0",
+    "markdown-it-attrs": "^5.0.0",
+    "prettier": "^3.8.4"
   }
 }

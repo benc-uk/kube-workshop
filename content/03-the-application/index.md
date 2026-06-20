@@ -16,7 +16,8 @@ hosted any container based system e.g. Kubernetes or various cloud services, or 
 
 > We have no particular interest in the features of Nanomon or actually using it! It has been selected as representing a
 > good example application to deploy, given it has multiple components, and is fairly indicative of many of the
-> applications & systems you might find yourself running in Kubernetes.
+> applications & systems you might find yourself running in Kubernetes. It was developed as a side project by the author
+> of this workshop, and was created in part to provide a suitable example application for this workshop.
 
 Project link: [Nanomon - GitHub Repo & Project](https://github.com/benc-uk/nanomon)
 

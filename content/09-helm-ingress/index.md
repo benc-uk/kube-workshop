@@ -11,10 +11,10 @@ icon: 🌎
 
 🔥 At this point in the workshop you have a choice:
 
-- If you want to learn about the legacy Ingress API, continue with this section. This is widely supported and in wide
-  use, but it has been superseded in functionallity by the newer Gateway API.
-- If you want to learn about the new Gateway API, which is still evolving but represents the future of L4/L7 routing in
+- _Recommended_: If you want to learn about the new Gateway API, which represents the future of L4/L7 routing in
   Kubernetes, go to the [Helm & Gateway API section](../09a-helm-gateway-api/).
+- _Not recommended_: If you want to learn about the legacy Ingress API, continue with this section. This is widely
+  supported and in wide use, but it has been superseded in functionality by the newer Gateway API.
 
 Only go through one of these two sections, not both!
 

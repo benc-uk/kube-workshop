@@ -5,31 +5,36 @@ layout: default.njk
 
 # Kubernetes Developer Workshop
 
-Welcome to the 'Kubernetes Developer Workshop', a highly technical & hands on set of exercises intended to get you
-comfortable working with Kubernetes, and deploying applications within it. This workshop is very much aimed at software
-engineers & developers with little or zero Kubernetes experience, but wanting to get hands on and learn how to deploy
-and manage their code in a Kubernetes.
+Welcome to the 'Kubernetes Developer Workshop'. This isn't a lecture or a pile of theory to read through, it's a set of
+hands on exercises where you'll actually deploy and run a real application on Kubernetes. You'll spend your time in the
+terminal and working with live clusters, building up genuine, practical experience as you go.
 
-It should take roughly 6~8 hours to complete the main set of sections, but this is very approximate. This
-[Kubernetes Technical Primer](https://github.com/benc-uk/kube-primer) can act as a companion to the workshop to be read
-through, referenced or used to get an initial grounding on the concepts.
+It's aimed at software engineers and developers with little or zero Kubernetes experience who want to roll up their
+sleeves and learn by doing, rather than just reading about it. By the end you'll have real, hands on experience of
+deploying and managing your code in Kubernetes.
 
-The installation, administration, network configuration & day-2 operations of Kubernetes itself, are not covered in this
-workshop. This is very much a developer focused workshop, so if you want to learn about the low level & operational side
-of Kubernetes you might want to look elsewhere.
+Although it's called a workshop, the name is a little misleading. It's flexible in how you use it, it can be run as a
+guided workshop or training session, alternatively work through it at your own pace as self-paced learning, or just dip
+into individual sections as a reference guide when you need them.
 
-The workshop focuses on an application that has already been written and built, so no application code will need to be
-written.
+Plan for roughly 6 to 8 hours to get through the main sections, though that's a rough guide so go at your own pace. If
+you want some background reading alongside it, the [Kubernetes Technical Primer](https://github.com/benc-uk/kube-primer)
+makes a handy companion for grounding yourself in the concepts.
 
-If you get stuck, the [GitHub source repo for this workshop](https://github.com/benc-uk/kube-workshop) contains example
-code, and working files for all of the sections.
+You will stand up a cluster as part of the workshop, but we won't be getting into the administration, network
+configuration or day-2 operations of Kubernetes itself. This is squarely a developer's workshop, so if you're after the
+low level or operational side of running Kubernetes clusters, this probably isn't the place for you.
+
+The app you'll be deploying is already written and built, so you won't need to write any application code yourself.
+
+Stuck on something? The [GitHub source repo for this workshop](https://github.com/benc-uk/kube-workshop) has example
+code and working files for every section.
 
 ## Azure Kubernetes Service (AKS)
 
-The main workshop has been built around using Azure Kubernetes Service (AKS) as the Kubernetes environment, almost none
-of the content is specific to AKS, and you can follow along with any Kubernetes cluster. However, if you want to follow
-along with the main content, you will need access to an Azure subscription to create the AKS cluster and other
-resources.
+The main workshop is built around Azure Kubernetes Service (AKS), but almost none of the content is actually specific to
+AKS, so you can happily follow along on any Kubernetes cluster. That said, to follow the main content as written you'll
+need access to an Azure subscription to spin up the AKS cluster and the other resources.
 
 Workshop sections & topics:
 
