@@ -10,7 +10,8 @@ icon: 🚀
 # {{ icon }} {{ title }}
 
 Deploying AKS and Kubernetes can be extremely complex, with many networking, compute and other aspects to consider.
-However for the purposes of this workshop, a default and basic cluster can be deployed very quickly.
+However for the purposes of this workshop, a default and basic cluster can be deployed very quickly using Azure and the
+[Azure Kubernetes Service (AKS)](https://learn.microsoft.com/en-us/azure/aks/what-is-aks).
 
 ## 🔨 AKS Cluster Deployment
 
@@ -90,8 +91,8 @@ To enable `kubectl` (and other tools) to access the cluster, run the following:
 az aks get-credentials --name $AKS_NAME --resource-group $RES_GROUP
 ```
 
-This will create Kubernetes config file in your home directory `~/.kube/config` which is the default location, used by
-`kubectl`.
+This will connect to Azure to get the credentials needed to connect and work with your cluster. It will create a
+Kubernetes config file in your home directory `~/.kube/config` which is the default location, used by `kubectl`.
 
 Now you can run some simple `kubectl` commands to validate the health and status of your cluster:
 
