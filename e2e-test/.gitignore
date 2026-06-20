@@ -1,0 +1,9 @@
+# Local working config (copy of vars.sh.sample) - keep your subscription id out of git
+vars.sh
+
+# Generated ACR name and rendered manifests
+.acr_name
+rendered/
+
+# Downloaded load-test binary (not used by default)
+hey_linux_amd64
