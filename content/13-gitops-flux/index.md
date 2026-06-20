@@ -140,7 +140,7 @@ Some points to highlight:
 - The _Kustomization_ adds a suffix to the names of resources.
 - Also the _Kustomization_ changes the image tag to reference a specific tag.
 - The patch `override.yaml` file looks a little like a regular Kubernetes _Deployment_ but it only contains the part
-  that will be patched/overlayed onto the base resource. On its own it's not a valid manifest.
+  that will be patched/overlaid onto the base resource. On its own it's not a valid manifest.
   - The patch file sets fields in the base _Deployment_ such as changing the resource limits and adding an extra
     environmental variable.
 
@@ -283,7 +283,7 @@ which was `gitops/apps` directory. The contents of the whole of the `gitops/` di
 ```
 
 The key thing about this structure is the `gitops/base` directory provides us a set of Kustomization-based resources we
-can use, but as it's outside of the `gitops/apps` path they will not auotmatically be picked up by Flux, until we create
+can use, but as it's outside of the `gitops/apps` path they will not automatically be picked up by Flux, until we create
 a Kustomization under `gitops/apps` that references them.
 
 ⚠️ **STOP!** Before we proceed, ensure the `database-creds` _Secret_ from the previous sections is still in the default

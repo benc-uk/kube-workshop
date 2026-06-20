@@ -1,7 +1,7 @@
 ---
 index: 10
 title: Scaling & Stateful Workloads
-summary: Scaling (manual & auto), stateful workloads, persitent volumes, plus more Helm.
+summary: Scaling (manual & auto), stateful workloads, persistent volumes, plus more Helm.
 layout: default.njk
 icon: ⚖️
 tags: section

@@ -25,7 +25,7 @@ So far we've worked in a single _Namespace_ called `default`, but Kubernetes all
 in order to logically group and separate your resources.
 
 Namespaces do not provide any form of network boundary or isolation of workloads, and the underlying resources (Nodes)
-remain shared. There are ways to achieve higher degress of isolation, but it is a matter well beyond the scope of this
+remain shared. There are ways to achieve higher degrees of isolation, but it is a matter well beyond the scope of this
 workshop. But they still provide a useful way to separate resources, and in this section we'll create a new namespace
 for the ingress resources, so that they are separate from the application resources.
 

@@ -124,7 +124,7 @@ kubectl create secret generic database-creds \
 --from-literal password='kindaSecret123!'
 ```
 
-A _Secrets_ resource can contain multiple keys, but here we add a single key one for the datbase user password called
+A _Secrets_ resource can contain multiple keys, but here we add a single key one for the database user password called
 `password`
 
 _Secrets_ can be used a number of ways, but the easiest way to consume them, is as environmental variables passed into
@@ -139,15 +139,15 @@ your containers. Update the deployment YAML for **BOTH your API, and PostgreSQL 
       key: password
 ```
 
-> _Secrets_ aren't quite as secret as they sound, they are not encypted and are simply stored as base-64 encoded values.
-> Gasp! They mainly keep any plain text values out of our manifests. Anyone with the relevant cluster priviledges will
-> be able to read the values of _Secrets_ easily. If you want further encryption and isolation a number of options are
-> available including Mozilla SOPS, Hashicorp Vault and Azure Key Vault.
+> _Secrets_ aren't quite as secret as they sound, they are not encrypted and are simply stored as base-64 encoded
+> values. Gasp! They mainly keep any plain text values out of our manifests. Anyone with the relevant cluster privileges
+> will be able to read the values of _Secrets_ easily. If you want further encryption and isolation a number of options
+> are available including Mozilla SOPS, Hashicorp Vault and Azure Key Vault.
 
 ## 🖼️ Cluster & Architecture Diagram
 
-Desptite the improvements we've made, the fundamental architecture of our deployment has not significantly changed
-beyond the addition of a _Secret_ resource, so we'll skip the diagram this time.
+Despite the improvements we've made, the fundamental architecture of our deployment has not significantly changed beyond
+the addition of a _Secret_ resource, so we'll skip the diagram this time.
 
 ## 🔍 Reference Manifests
 
