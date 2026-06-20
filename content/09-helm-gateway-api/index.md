@@ -1,5 +1,5 @@
 ---
-tags: alternative
+tags: section
 index: 9
 title: Helm & Gateway API
 summary: Finalizing the application architecture using Gateway API
@@ -9,37 +9,53 @@ icon: 🌎
 
 # {{ icon }} {{ title }}
 
-🔥 This section is an alternative to the [Helm & Ingress section](../09-helm-ingress/), but instead of covering the
-legacy Ingress API, it uses the newer Gateway API which is still evolving, but represents the future of L4/L7 routing in
-Kubernetes. Do not run through both sections, choose one or the other. 🔥
+🔥 At this point in the workshop you have a choice:
+
+- _Recommended_: If you want to learn about the Gateway API, which is the current and future of L4/L7 routing in
+  Kubernetes, stay in this section and continue with the Gateway API. This is the recommended path for new applications
+  and most people.
+- _Not recommended_: If you want to learn about the legacy Ingress API, go to the
+  [Helm & Ingress section](../09a-helm-ingress/). This is widely supported and in wide use, but it has been superseded
+  in functionality and is falling out of favor in the Kubernetes ecosystem.
+
+🔥 Only go through one of these two sections, not both!
 
 ---
 
-For this section we'll touch on two slightly more advanced topics, these are use of Helm and introducing an gateway data
-plane to our cluster. The gateway will let us further refine & improve the networking aspects of the app we've deployed.
+For this section we'll touch on several slightly more advanced topics all at once, these are
+
+- Use of namespaces to separate resources
+- Installing Custom Resource Definitions (CRDs)
+- Use of Helm
+- Introducing a gateway data plane to our cluster.
+
+This seems like a lot, but we won't be covering everything in detail, some of it like Helm is just a tool. The gateway
+will let us further refine & improve the networking aspects of the app we've deployed.
 
 ## 📌 The Gateway API
 
 The Kubernetes Gateway API is an official Kubernetes project focused on L4 and L7 routing in Kubernetes. This project
 represents the next generation of Kubernetes Ingress, Load Balancing, and Service Mesh APIs. It is designed to improve
-upon the existing Ingress API by providing more expressive and extensible resource definitions. It is still evolving but
-slowly replacing the older Ingress API.
+upon the older Ingress API by providing more expressive and extensible resource definitions. It has reached a stable
+v1.0 release and is now considered production ready.
 
 [📚 Learn more about the Gateway API](https://gateway-api.sigs.k8s.io/)
 
-> Do not confuse the "Gateway API" with "API Gateway" products like AWS API Gateway or Azure API Management & Azure App
-> Gateway, or even the generic term "API Gateway". The Gateway API is a Kubernetes-native API for managing L4/L7
-> routing. It would be valid to say "Let's use the Gateway API to route traffic through our API Gateway". Look I know,
-> it's confusing, I wasn't involved in the naming!
+> Naming minefield ahead! ☠️  
+> There's many overlapping terms & naming we need to differentiate. Firstly services like AWS API Gateway or Azure API
+> Management & Azure App Gateway, and secondly generically using the term "API Gateway" when describing a system or
+> architecture. These are not what we are talking about here, the **Gateway API** is a Kubernetes-native API for
+> defining and managing L4/L7 routing. Look I know, it's confusing, naming things is hard!
 
 ![Gateway diagram showing routing of traffic to backend services](./gateway-example.drawio.png)
 
 ## 🧙 Intro to Custom Resources
 
-Kuberentes is designed to be extensible,in fact, extremely so. The core Kubernetes API is made up of a number of
-_pre-defined_ resources like _Pods_, _Deployments_, _Services_, etc. But Kubernetes also allows anyone to define their
-own resources, these are called _Custom Resources_. The Gateway API is implemented as a set of _Custom Resources_ (until
-such time as it is merged into the core Kubernetes API set).
+Kubernetes is designed to be extensible, in fact, extremely so. The core Kubernetes API is made up of a number of
+_pre-defined_ resources like _Pods_, _Deployments_, _Services_, etc. Which you're no doubt familiar with.But Kubernetes
+also allows anyone to define their own resources, these are called _Custom Resources_. The Gateway API is implemented as
+a set of _Custom Resources_ this allows it to be implemented in a way that is fully compatible with Kubernetes, and
+allows it to evolve independently of the core Kubernetes API.
 
 Before we can use the Gateway API in our cluster and create instances of the resources, we need to install these _Custom
 Resource Definitions_ (CRDs) which define the new resources. This is done with a single command:
@@ -48,14 +64,17 @@ Resource Definitions_ (CRDs) which define the new resources. This is done with a
 kubectl apply --server-side -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.1/standard-install.yaml
 ```
 
+That's it, the CRDs are now installed and we can start creating Gateway API resources in our cluster.
+
 ## 🗃️ Namespaces
 
 So far we've worked in a single _Namespace_ called `default`, but Kubernetes allows you create additional _Namespaces_
 in order to logically group and separate your resources.
 
-> Namespaces do not provide any form of network boundary or isolation of workloads, and the underlying resources (Nodes)
-> remain shared. There are ways to achieve higher degress of isolation, but it is a matter well beyond the scope of this
-> workshop.
+Namespaces do not provide any form of network boundary or isolation of workloads, and the underlying resources (Nodes)
+remain shared. There are ways to achieve higher degrees of isolation, but it is a matter well beyond the scope of this
+workshop. But they still provide a useful way to separate resources, and in this section we'll create a new namespace
+for the gateway resources, so that they are separate from the application resources.
 
 Create a new namespace called `nginx-gateway`:
 
@@ -73,6 +92,9 @@ default for all `kubectl` commands, meaning you don't need to add `-n`, think of
 alias kubens='kubectl config set-context --current --namespace '
 ```
 
+Then you can switch namespaces with `kubens {namespace-name}`, e.g. `kubens ingress` or `kubens default`. You can check
+the current namespace with `kubectl config view --minify | grep namespace:`.
+
 ## 🪖 Introduction to Helm
 
 [Helm is an CNCF project](https://helm.sh/) which can be used to greatly simplify deploying applications to Kubernetes,
@@ -87,6 +109,9 @@ either applications written and developed in house, or external 3rd party softwa
 - The use of _values_ is critical for automated deployments and CI/CD.
 - Charts can referenced through the local filesystem, or in a remote repository called a _chart repository_
 
+It's the ability to dynamically inject values into templates which makes Helm so powerful, and allows it to be used for
+both simple and complex deployments.
+
 ## 🚪 Deploying the NGINX Gateway
 
 For this section we'll be using the [NGINX Gateway](https://docs.nginx.com/nginx-gateway-fabric/) as our gateway
@@ -100,7 +125,8 @@ helm install ngf oci://ghcr.io/nginx/charts/nginx-gateway-fabric --namespace ngi
 This command does the following:
 
 - `helm install` - installs a new Helm chart as a release
-- `ngf` - the name of the release, you can choose any name you like
+- `ngf` - the name of the release, you can choose any name you like, it's normally appended to the names of the
+  resources created by the chart, so it should be short and descriptive
 - `oci://ghcr.io/nginx/charts/nginx-gateway-fabric` - the location of the chart, in case it's a special type of remote
   URL
 - `--namespace nginx-gateway` - the namespace to install the NIGNX controler & proxy into
