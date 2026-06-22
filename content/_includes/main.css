@@ -295,8 +295,15 @@ footer {
   text-align: center;
   color: var(--text-secondary);
   font-size: 20px;
-  margin: 50px 0px 40px 0px;
+  margin-top: 20px;
   transition: color 0.3s ease;
+}
+
+footer.copyright {
+  font-size: 12px;
+  color: var(--text-tertiary, #999);
+  margin-top: 20px;
+  opacity: 0.7;
 }
 
 /* Theme toggle button styles */
