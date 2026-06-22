@@ -137,7 +137,7 @@ Now we have the NGINX Gateway installed, we need to configure it to route traffi
 a `Gateway` resource, this would typically be set up once by a cluster administrator, not the application developer, but
 today we are wearing multiple hats!
 
-[📚 Gateway Resource](https://gateway-api.sigs.k8s.io/api-types/gateway/)
+[📚 Gateway Resource](https://gateway-api.sigs.k8s.io/docs/concepts/api-overview/#gateway)
 
 Create a file called `gateway.yaml` with the following content:
 
