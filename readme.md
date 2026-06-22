@@ -6,7 +6,9 @@ A comprehensive hands-on workshop for learning Kubernetes using Azure Kubernetes
 
 ## 🌐 View/run the workshop
 
-Go to the hosted version: [https://kube-workshop.benco.io/](https://kube-workshop.benco.io/)
+This repo contains the source content and configuration for the workshop. It's quite likely that you landed here but want to view the actual workshop content. To do so, you should go to the hosted version here:
+
+[https://kube-workshop.benco.io/](https://kube-workshop.benco.io/)
 
 ## 🚀 Quick Start
 
@@ -55,6 +57,8 @@ Go to the hosted version: [https://kube-workshop.benco.io/](https://kube-worksho
 │   ├── 01-cluster/         # Section 2: Cluster setup
 │   └── ...                 # Additional workshop sections
 ├── _site/                  # Generated static site (ignored in git)
+├── gitops/                 # Specific GitOps configuration for one of the workshop sections
+├── e2e-test/               # Test scripts to validate the workshop
 ├── eleventy.config.js      # Eleventy configuration
 ├── package.json            # Node.js dependencies and scripts
 └── README.md               # This file!
