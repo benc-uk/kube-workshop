@@ -132,22 +132,7 @@ spec:
 - Instead of using an external IP address to access the frontend, you can access it at `http://localhost:30001` from
   your host machine.
 
-### Section 09 - Ingress
-
-- When deploying Nginx Ingress Controller, you can still use Helm but we need to use a `NodePort` _Service_ instead of
-  `LoadBalancer`, and we won't have an external IP address. Instead, we'll access the ingress controller using
-  `localhost` and the assigned `NodePort`.
-
-```bash
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-helm repo update
-helm install ingress-nginx ingress-nginx/ingress-nginx \
-  --set controller.service.type=NodePort \
-  --set controller.service.nodePorts.http=30000 \
-  --namespace ingress
-```
-
-### Section 09a - Gateway API
+### Section 09 - Gateway API
 
 - Be sure delete the API and frontend services created in previous sections, before creating the Gateway API resources,
   as they will conflict with the Gateway API controller's own services. `kubectl delete svc api frontend -n default`
@@ -160,6 +145,21 @@ helm install ingress-nginx ingress-nginx/ingress-nginx \
 helm install ngf oci://ghcr.io/nginx/charts/nginx-gateway-fabric --namespace nginx-gateway \
   --set nginx.service.type=NodePort \
   --set-json 'nginx.service.nodePorts=[{"port":30000,"listenerPort":80}, {"port":30001,"listenerPort":8443}]'
+```
+
+### Section 09a - Ingress
+
+- When deploying Nginx Ingress Controller, you can still use Helm but we need to use a `NodePort` _Service_ instead of
+  `LoadBalancer`, and we won't have an external IP address. Instead, we'll access the ingress controller using
+  `localhost` and the assigned `NodePort`.
+
+```bash
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm install ingress-nginx ingress-nginx/ingress-nginx \
+  --set controller.service.type=NodePort \
+  --set controller.service.nodePorts.http=30000 \
+  --namespace ingress
 ```
 
 - You can now recreate the _Service_'s for the API and frontend as `ClusterIP` type, as described in 'Reconfiguring The
@@ -180,8 +180,8 @@ problem
 
 ### Section 12 - CI/CD with GitHub Actions
 
-Getting GitHub Actions to deploy to a local Kind cluster is clearly a non-starter, you will not be able to fdo much with
-this section. However, you can still build and push your images to GitHub Container Registry, and deploy them to
+Getting GitHub Actions to deploy to a local Kind cluster is clearly a non-starter, you will not be able to do much with
+this section. However, you can still build and push your images to GitHub Container Registry, and deploy them locally
 
 ### Section 13 - GitOps & Flux
 
