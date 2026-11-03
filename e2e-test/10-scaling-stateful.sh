@@ -49,7 +49,7 @@ if [[ -z "${GW_IP}" ]]; then
 else
   if [[ ! -x ./hey_linux_amd64 ]]; then
     echo "==> Downloading 'hey' load generator"
-    wget -q https://hey-release.s3.us-east-2.amazonaws.com/hey_linux_amd64 -O hey_linux_amd64 && chmod +x hey_linux_amd64 || echo "  (download failed)"
+    wget -q https://storage.googleapis.com/hey-releases/hey_linux_amd64 -O hey_linux_amd64 && chmod +x hey_linux_amd64 || echo "  (download failed)"
   fi
   if [[ -x ./hey_linux_amd64 ]]; then
     echo "==> Generating load for 120s against http://${GW_IP}/api/status (20 concurrent)"

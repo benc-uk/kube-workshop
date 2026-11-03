@@ -91,7 +91,7 @@ to do this easily and run 20 concurrent requests for 3 minutes. This doesn't sou
 fast as possible, so it will result in quite a lot of requests.
 
 ```bash
-wget https://hey-release.s3.us-east-2.amazonaws.com/hey_linux_amd64
+wget https://storage.googleapis.com/hey-releases/hey_linux_amd64
 chmod +x hey_linux_amd64
 ./hey_linux_amd64 -z 180s -c 20 http://{EXTERNAL_INGRESS_IP}/api/status
 ```

@@ -71,7 +71,6 @@ This should take around 5 minutes to complete, and creates a new AKS cluster wit
 - It will use 'Azure CNI Overlay' networking, which creates an Azure network and subnet etc for us, we don't have to
   worry about any of the underlying network configuration, and it will just work with Azure services.
   [See docs if you wish to learn more about this topic](https://docs.microsoft.com/azure/aks/operator-best-practices-network)
-  [See docs if you wish to learn more about this topic](https://docs.microsoft.com/azure/aks/operator-best-practices-network)
 - Local cluster admin account, with RBAC enabled, this means we don't need to worry about setting up users or assigning
   roles etc.
 - AKS provides a wide range of 'turn key' addons, e.g. monitoring, AAD integration, auto-scaling, GitOps etc, however
