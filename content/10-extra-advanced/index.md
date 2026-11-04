@@ -250,6 +250,9 @@ currently deployed, by running:
 kubectl delete deploy,sts,svc,ingress,hpa --all
 ```
 
+> **Warning:** The Helm chart creates a new, empty database; it does not migrate your existing data. The chart also
+> disables PostgreSQL persistence by default, so data in the new database is lost when its Pod is replaced.
+
 Add the Helm remote repo where the NanoMon chart is located and update your Helm repo cache:
 
 ```bash
@@ -263,10 +266,13 @@ contents below into a `values.yaml` file, replacing `__ACR_NAME__` with your Azu
 
 ```yaml
 ingress:
-  enabled: true
+  enabled: false
 image:
   regRepo: "__ACR_NAME__.azurecr.io"
 ```
+
+**Ingress alternative:** If you followed the [Ingress route](../09a-helm-ingress/), set `ingress.enabled` to `true` and
+skip the HTTPRoute changes below.
 
 Now to deploy the app with Helm, run the command below:
 
@@ -276,5 +282,16 @@ helm install demo nanomon/nanomon --values values.yaml
 
 The release name is `demo` here, however you can choose any name you wish.
 
+For the Gateway API path, edit the `backendRefs` in your existing `http-route.yaml` to use these _Service_ names and
+ports. Leave the other fields unchanged:
+
+| Path prefix | Service name            | Service port |
+| ----------- | ----------------------- | ------------ |
+| `/`         | `demo-nanomon-frontend` | `80`         |
+| `/api`      | `demo-nanomon-api`      | `80`         |
+
+If you chose another release name, use the _Service_ names that `kubectl get svc` shows instead. Apply the updated route
+with `kubectl apply -f http-route.yaml`.
+
 Validate the deployment as before with `helm` and `kubectl` and check you can access the app in the browser using the
-same ingress IP address as before.
+same IP address as before.
