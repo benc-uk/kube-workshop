@@ -62,6 +62,22 @@ Once the status is Registered, re-run the cluster creation command.
 
 </div>
 
+<div class="troubleshoot">Region Not Accepting New Customers
+
+If you get error `RequestDisallowedByAzure` with the message "The selected region is currently not accepting new
+customers", choose another region. For example, change `REGION="westeurope"` to `REGION="uksouth"` in your `vars.sh`
+file, then reload the variables:
+
+```bash
+source vars.sh
+```
+
+And re-run the create cluster command. You don't need to delete the resource group, as it can hold resources in a
+different region. The regions you can use depend on your subscription, see
+[📚 Azure region access restrictions](https://learn.microsoft.com/azure/azure-resource-manager/troubleshooting/error-region-access-policy).
+
+</div>
+
 This should take around 5 minutes to complete, and creates a new AKS cluster with the following characteristics:
 
 - Two small B-Series _Nodes_ in a single node pool. _Nodes_ are what your workloads will be running on. This is about as

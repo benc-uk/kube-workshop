@@ -12,7 +12,8 @@ icon: ⚒️
 As this is an entirely hands on workshop, you will need several things before you can start:
 
 - Access to an Azure Subscription where you can create resources.
-- bash or a bash compatible shell (e.g. zsh), please do not attempt to use PowerShell or cmd.
+- Bash or a Bash compatible shell (e.g. zsh; you don't need to install zsh specifically). Please do not attempt to use
+  PowerShell or cmd. The dev container described below provides a suitable shell.
 - A good editor, and [VS Code](https://code.visualstudio.com/) is strongly recommended
   - [Visual Studio Code Kubernetes Tools](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
     is also highly recommended.
@@ -22,13 +23,32 @@ As this is an entirely hands on workshop, you will need several things before yo
 
 ## Install dependencies
 
+Choose one setup method: use the supplied dev container, or install the tools manually. You do not need to do both.
+
 The above listed tools are already set up in `.devcontainer` folder located in the git repository of this workshop:
 <https://github.com/benc-uk/kube-workshop>. If you've never used Dev Containers, check out
 [developing inside a Container using Visual Studio Code Remote Development](https://code.visualstudio.com/docs/devcontainers/containers).
+The dev container removes the need to install the tools on your own machine, but you still need a container runtime such
+as Docker, which on Windows usually runs in WSL.
+
+Once the dev container opens, use its integrated terminal and skip ahead to **✅ Verify installation** below. You don't
+need to install anything manually.
+
+<div class="troubleshoot">Dev Container Fails to Start
+
+If VS Code reports an error when it builds or opens the dev container, read the error and try opening the container once
+more, as a retry can fix temporary download or connection problems. If it fails again, check the Dev Containers log for
+the cause rather than retrying repeatedly.
+
+</div>
 
 ### Install dependencies manually
 
-Alternatively you can can install the dependencies yourself by following the steps below.
+Alternatively you can install the dependencies yourself by following the steps below.
+
+On Windows, run the Linux (Ubuntu/Debian) commands in an Ubuntu terminal under
+[WSL](https://learn.microsoft.com/windows/wsl/install), not in Git Bash or PowerShell. Git Bash is a Bash compatible
+shell, but it isn't Linux, so it can't run these Ubuntu install steps.
 
 #### 🌩️ Install Azure CLI
 
@@ -123,10 +143,25 @@ Now test kubectl - this will verify kubectl is properly installed:
 
 ```bash
 # Test kubectl installation
-k get pods -A
+kubectl get pods -A
 ```
 
-<div class="troubleshoot"> This command may fail with a <strong>connection refused error</strong> if no Kubernetes cluster is configured yet (for example, when starting fresh) or if your kubeconfig still points to an old or expired cluster from a different project. This is expected behaviour, we'll create and connect to a new cluster in the next section.</div>
+<div class="troubleshoot">Connection Refused
+
+If no Kubernetes cluster is configured yet (for example, when starting fresh), this command fails with:
+
+```text
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+```
+
+This is expected: kubectl is installed and working, but has no cluster to connect to yet. We'll create and connect to a
+new cluster in the next section. You may also see a connection error if your kubeconfig still points to an old or
+expired cluster from a different project; run `kubectl config current-context` to check which cluster it is using.
+
+If you see `command not found` instead, this is a different problem: your shell can't find kubectl, so check the
+installation steps above.
+
+</div>
 
 ## 🔐 Login to Azure
 
@@ -152,14 +187,17 @@ options to explore, but these haven't been tested:
 
 ## 💲 Variables File
 
+It's worth creating a project folder locally (or even a git repo) at this point to keep your work in, if you haven't
+done so already. It'll be empty for now, and we'll be creating & editing files later. If you are using the dev
+container, you can use the workshop folder that you opened in VS Code.
+
 Although not essential, it's advised to create a `vars.sh` file holding all the parameters that will be common across
 many of the commands that will be run. This way you have a single point of reference for them and they can be easily
-reset in the event of a session timing out or terminal closing.
+reset in the event of a session timing out or terminal closing. Create `vars.sh` in the root of your project folder. In
+the dev container, this is next to the `.devcontainer` folder, not inside it.
 
 Sample `vars.sh` file is shown below, feel free to use any values you wish for the resource group, region cluster name
 etc.
-
-> The ACR name must be globally unique and cannot contain hyphens, dots, or underscores.
 
 ```bash
 RES_GROUP="kube-workshop"
@@ -169,15 +207,19 @@ ACR_NAME="__change_me__"
 KUBE_VERSION="1.36"
 ```
 
+Before continuing, replace `__change_me__` in both `AKS_NAME` and `ACR_NAME` with your own names. Do not leave the
+placeholders unchanged, as Azure will reject them. The AKS name must start and end with a letter or number. The ACR name
+must be globally unique and cannot contain hyphens, dots, or underscores.
+
 > New versions of Kubernetes are released all the time, and eventually older versions are removed from Azure. Rather
 > than constantly update this guide the following command can be used to get the latest version:
 > `az aks get-versions --location "westeurope" -o json --query "values[*].version | max(@)"`
 
-To use the vars file simply source it through bash with the below command, do this before moving to the next stage.
+To use the vars file, save it and then source it through bash with the below command. Do this before moving to the next
+stage.
 
 ```bash
 source vars.sh
 ```
 
-It's worth creating a project folder locally (or even a git repo) at this point, in order to keep your work in, you
-haven't done so already. It'll be empty for now, and we'll be creating & editing files later.
+This loads the values into your current terminal only, so run it again after you edit `vars.sh` or open a new terminal.
