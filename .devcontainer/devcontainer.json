@@ -18,6 +18,7 @@
     }
   },
   "remoteUser": "vscode",
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
   "customizations": {
     "vscode": {
       "extensions": [
